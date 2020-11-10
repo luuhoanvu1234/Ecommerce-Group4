@@ -1,0 +1,20 @@
+<div class="modal animated vh-center fadeIn confirm-action-modal" id="change-market-curr-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{TR Please confirm your actions!}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{TR Please note that a change in market currency will affect all product prices globally in the market, and this will force all sellers to change prices for their goods in accordance with the new currency}}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn bg-main-red waves-effect">{{TR Yes, Set default!}}</button>
+                    <button type="button" class="btn bg-grey waves-effect" data-dismiss="modal">{{TR No, Cancel}}</button>
+                </div>
+                <input type="hidden" class="hidden" name="curr_id" value="0">
+            </form>
+        </div>
+    </div>
+</div>

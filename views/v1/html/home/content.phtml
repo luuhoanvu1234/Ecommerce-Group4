@@ -1,0 +1,36 @@
+<div class="content-container home-page-content-wrapper" id="home-page-content">
+	<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{CONFIG url}}">{{TR Home}}</a>
+			</li>
+			<li class="breadcrumb-item">
+				{{TR Popular products}}
+			</li>
+		</ol>
+	</nav>
+	
+	<div class="prods-items-container home-page-items" id="prods-items-container">
+		<?php if (not_empty($hs['prods'])): ?>
+			<?php foreach ($hs['prods'] as $hs['prod_item']): ?>
+				<?php echo hs_loadpage('home/includes/prod_item'); ?>
+			<?php endforeach; ?>
+		<?php endif; ?>
+
+		<?php if (not_empty($hs['ghosts'])): ?>
+			<?php foreach ($hs['ghosts'] as $ghost): ?>
+				<?php echo hs_loadpage('home/includes/ghost_item'); ?>
+			<?php endforeach; ?>	
+		<?php endif; ?>
+	</div>
+	<div class="prods-grid-items-preloader hidden" id="prods-grid-items-preloader">
+		<?php echo hs_loadpage('components/data_preloader'); ?>
+	</div>
+	<div class="clear"></div>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>
+<?php echo hs_loadpage('home/static/js/home_page_script'); ?>	
+
+

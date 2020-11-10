@@ -1,0 +1,74 @@
+<div class="clearfix" id="site-categories-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    {{TR Global settings}}
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Product categories}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header">
+                    <h2>{{TR Manage product categories}}</h2>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table common-table no-mb" id="categories-list">
+                        <thead>
+                            <tr>
+                                <th>{{TR Sort order}}</th>
+                                <th>
+                                    {{TR Category name}}
+                                </th>
+                                <th>
+                                    {{TR Status}}
+                                </th>
+                                <th>
+                                    {{TR Usage}}
+                                </th>
+                                <th>
+                                    {{TR Action}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['all_catgs'])): ?>
+                                <?php foreach ($hs['all_catgs'] as $hs['catg_data']): ?>
+                                    <?php echo hs_loadpage('prod_categories/includes/catg_li'); ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['all_catgs'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button title="{{TR Add new category}}" type="button" class="fixed-right-bottom btn bg-main-red btn-circle waves-effect waves-circle waves-float" data-toggle="modal" data-target="#addnew-category-modal">
+    <i class="material-icons">add</i>
+</button>
+<?php echo hs_loadpage('prod_categories/static/js/prod_categories_script'); ?>
+<?php echo hs_loadpage('prod_categories/modals/change_catg_sortorder'); ?>
+<?php echo hs_loadpage('prod_categories/modals/add_new_category'); ?>
+<?php echo hs_loadpage('prod_categories/modals/confirmations/confirm_catg_disabling'); ?>
+<?php echo hs_loadpage('prod_categories/modals/confirmations/confirm_catg_deleting'); ?>

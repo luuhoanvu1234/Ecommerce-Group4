@@ -1,0 +1,368 @@
+<div class="modal animated fadeIn edit-userdata-modal" id="edit-udata-modal" data-keyboard="false" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content"> 
+            <div class="modal-header">
+                <h4 class="modal-title">
+                	{{TR Edit user data}}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="data-management-page">
+                    <form class="hidden" id="user-avatar-form">
+                        <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                        <input type="file" accept="image/*" name="avatar" onchange="$(this).parent('form').trigger('submit');">
+                        <input type="hidden" class="hidden" name="user_id" value="<?php echo($hs['acc_data']['id']); ?>">
+                    </form>
+
+                    <form class="clearfix form" id="general">
+                        <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                        <input type="hidden" class="hidden" name="user_id" value="<?php echo($hs['acc_data']['id']); ?>">       
+                        <div class="form-fieldset-title group-set">
+                            <div class="group-set-title" data-gset-collapse="general_settings">
+                                <p>
+                                    {{TR Account general settings}}
+                                </p>
+                            </div>
+                            <div class="collapse-form no-mb" data-gset="general_settings">
+                                <div class="form-group form-field-box">
+                                    <div data-form-field="avatar">
+                                        <div class="filed-box">
+                                            <div class="avatar-settings">
+                                                <div class="avatar">
+                                                    <img id="user-avatar-holder" src="<?php echo($hs['acc_data']['avatar']); ?>" alt="Avatar">
+                                                    <button type="button" id="select-avatar-image">
+                                                        <i class="material-icons">camera_alt</i>
+                                                    </button>
+                                                </div>
+                                                <div class="user-name-holder">
+                                                    <h4><?php echo($hs['acc_data']['name']); ?></h4>
+                                                    <p>
+                                                        <a href="mailto:<?php echo($hs['acc_data']['email']); ?>">
+                                                            <?php echo($hs['acc_data']['email']); ?>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="fname">
+                                                <label class="form-label">
+                                                    {{TR Name}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="fname" type="text" class="form-control" placeholder="{{TR Enter user first name}}" value="<?php echo($hs['acc_data']['fname']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="lname">
+                                                <label class="form-label">
+                                                    {{TR Surname}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="lname" type="text" class="form-control" placeholder="{{TR Enter user surname}}" value="<?php echo($hs['acc_data']['lname']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div data-form-field="bio">
+                                                <label class="form-label">
+                                                    Bio:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <textarea class="form-control" name="bio" rows="5" placeholder="{{TR Enter user bio}}"><?php echo($hs['acc_data']['bio']); ?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="email">
+                                                <label class="form-label">
+                                                    {{TR E-mail}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="email" type="email" class="form-control" placeholder="{{TR Enter user E-mail}}" value="<?php echo($hs['acc_data']['email']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="phone">
+                                                <label class="form-label">
+                                                    {{TR Phone}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="phone" type="tel" class="form-control" placeholder="{{TR Enter user phone number}}" value="<?php echo($hs['acc_data']['phone']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="whatsapp">
+                                                <label class="form-label">
+                                                    Whatsapp:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="whatsapp" type="tel" class="form-control" placeholder="{{TR Enter user whatsapp number}}" value="<?php echo($hs['acc_data']['whatsapp']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="facebook">
+                                                <label class="form-label">
+                                                    Facebook:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="facebook" type="url" class="form-control" placeholder="{{TR Enter user facebook url}}" value="<?php echo($hs['acc_data']['facebook']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="instagram">
+                                                <label class="form-label">
+                                                    Instagram:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="instagram" type="url" class="form-control" placeholder="{{TR Enter user instagram url}}" value="<?php echo($hs['acc_data']['instagram']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="google_plus">
+                                                <label class="form-label">
+                                                    Google plus:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="google_plus" type="url" class="form-control" placeholder="{{TR Enter user google-plus url}}" value="<?php echo($hs['acc_data']['google_plus']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="twitter">
+                                                <label class="form-label">
+                                                    Twitter:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="twitter" type="url" class="form-control" placeholder="{{TR Enter user twitter url}}" value="<?php echo($hs['acc_data']['twitter']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="youtube">
+                                                <label class="form-label">
+                                                    Youtube:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="youtube" type="url" class="form-control" placeholder="{{TR Enter user youtube url}}" value="<?php echo($hs['acc_data']['youtube']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box no-mb">
+                                    <button type="submit" class="btn btn-lg btn-custom bg-main-red">
+                                        <i class="material-icons">save</i> <span>{{TR Save changes}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form class="clearfix form" id="address">
+                        <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                        <input type="hidden" class="hidden" name="user_id" value="<?php echo($hs['acc_data']['id']); ?>">       
+                        <div class="form-fieldset-title group-set">
+                            <div class="group-set-title" data-gset-collapse="address_settings">
+                                <p>
+                                    {{TR Account address settings}}
+                                </p>
+                            </div>
+                            <div class="collapse-form" data-gset="address_settings">
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="country_id">
+                                                <label class="form-label">
+                                                    {{TR Country}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <select data-size="5" data-live-search="true" name="country_id" class="form-control">
+                                                        <?php foreach ($hs['countries'] as $id => $country_name): ?>
+                                                            <option value="<?php echo($id); ?>" <?php if($hs['acc_data']['country_id'] == $id){echo "selected";} ?>>
+                                                                <?php echo hs_translate($country_name); ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="state">
+                                                <label class="form-label">
+                                                    {{TR State}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="state" type="text" class="form-control" placeholder="{{TR Enter state name}}" value="<?php echo($hs['acc_data']['state']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="city">
+                                                <label class="form-label">
+                                                    {{TR City}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="city" type="text" class="form-control" placeholder="{{TR Enter city name}}" value="<?php echo($hs['acc_data']['city']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="street">
+                                                <label class="form-label">
+                                                    {{TR Street name}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="street" type="text" class="form-control" placeholder="{{TR Enter street name}}" value="<?php echo($hs['acc_data']['street']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="off_apt">
+                                                <label class="form-label">
+                                                    Off/Apt:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="off_apt" type="text" class="form-control" placeholder="{{TR Enter office or apartment or suite number}}" value="<?php echo($hs['acc_data']['off_apt']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="zip_postal">
+                                                <label class="form-label">
+                                                    {{TR Postal}}:
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="zip_postal" type="number" class="form-control" placeholder="{{TR Enter Zip/Postal code number}}" value="<?php echo($hs['acc_data']['zip_postal']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box no-mb">
+                                    <button type="submit" class="btn btn-lg btn-custom bg-main-red">
+                                        <i class="material-icons">save</i> <span>{{TR Save changes}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form class="clearfix form" id="advanced">
+                        <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                        <input type="hidden" class="hidden" name="user_id" value="<?php echo($hs['acc_data']['id']); ?>">
+                        <div class="form-fieldset-title group-set">
+                            <div class="group-set-title" data-gset-collapse="advanced_settings">
+                                <p>
+                                    {{TR Account advanced settings}}
+                                </p>
+                            </div>
+                            <div class="collapse-form no-mb" data-gset="advanced_settings">
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div data-form-field="wallet">
+                                                <label class="form-label">
+                                                    {{TR Account balance}} ({{CONFIG currency}})
+                                                </label>
+                                                <div class="filed-box">
+                                                    <input name="wallet" type="number" step="any" class="form-control" placeholder="{{TR Top up balance}}" value="<?php echo($hs['acc_data']['wallet']); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10">
+                                            <div data-form-field="verified">
+                                                <label class="form-label">
+                                                    {{TR Verified User}}
+                                                </label>
+                                                <div class="filed-box">
+                                                    <select name="verified" class="form-control">
+                                                        <option value="1" <?php if($hs['acc_data']['verified'] == '1') { echo('selected'); } ?>>
+                                                            {{TR Yes}}
+                                                        </option>
+                                                        <option value="0" <?php if($hs['acc_data']['verified'] == '0') { echo('selected'); } ?>>
+                                                            {{TR No}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <div data-form-field="user_type">
+                                                <label class="form-label">
+                                                    {{TR User type}}
+                                                </label>
+                                                <div class="filed-box">
+                                                    <select name="user_type" class="form-control">
+                                                        <option value="moder" <?php if(not_empty($hs['acc_data']['is_root'])) { echo('selected'); } ?>>
+                                                            {{TR Moderator}}
+                                                        </option>
+                                                        <option value="user" <?php if(empty($hs['acc_data']['is_root'])) { echo('selected'); } ?>>
+                                                            {{TR User}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box no-mb">
+                                    <button type="submit" class="btn btn-lg btn-custom bg-main-red">
+                                        <i class="material-icons">save</i> <span>{{TR Save changes}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn bg-main-red close-modal-window" data-dismiss="modal">
+                        {{TR Close window}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php echo hs_loadpage('market_users/static/js/edit_userdata_script'); ?>
+</div>
+

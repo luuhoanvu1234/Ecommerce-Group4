@@ -1,0 +1,81 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		
+		var PV_EDIT_M = $("div#edit-prodvar-modal");
+		var PV_EDIT_F = PV_EDIT_M.find('form#form');
+
+		PV_EDIT_F.ajaxForm({
+        	url: '{{CONFIG url}}/req/products/edit_prod_variation_data',
+        	type: 'POST',
+        	dataType: 'json',
+        	beforeSend: function() {  
+                PV_EDIT_M.find('small.error-message').remove();
+                PV_EDIT_M.find('button[data-section-node="main_submit_btn"]').find('span').text("{{TR Please wait}}!");
+                PV_EDIT_M.find('button[data-section-node="main_submit_btn"]').attr('disabled', 'true');
+                PV_EDIT_M.find('button[data-section-node="main_cancel_btn"]').attr('disabled', 'true');
+        	},
+        	success: function(data) {
+        		if (data.status == 200) {	
+        			PV_EDIT_M.modal('hide');
+
+        			delay(function(){
+						$.notify({
+                            message: data.message,
+                        },{
+	                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+	                        placement: {from: "bottom",align: "left"},
+	                        offset: {x: 40,y: 30},
+	                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+	                    });
+        			},1000);
+        		} 
+
+        		else {
+        			if (data.message) {
+	    				var invalid_field = PV_EDIT_M.find('[data-form-field="{0}"]'.format(data.err_field));
+
+	    				if (invalid_field.length) {
+	    					invalid_field.append($("<small>",{
+		                        text: data.message,
+		                        class: 'col-red animated flash error-message'
+		                    }));
+		                    PV_EDIT_M.scroll2inner(invalid_field,500);
+	    				}
+
+	    				else {
+	    					PV_EDIT_M.modal('hide');
+	    					$.notify({
+	                            message: data.message,
+	                        },{
+		                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+		                        placement: {from: "bottom",align: "left"},
+		                        offset: {x: 40,y: 30},
+		                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+		                    });
+	    				}
+
+	    				PV_EDIT_M.find('button[data-section-node="main_submit_btn"]').find('span').text(
+	                        PV_EDIT_M.find('button[data-section-node="main_submit_btn"]').attr('title')
+	                    );
+
+	                    PV_EDIT_M.find('button[data-section-node="main_submit_btn"]').removeAttr('disabled');
+	                    PV_EDIT_M.find('button[data-section-node="main_cancel_btn"]').removeAttr('disabled');
+    				}
+
+    				else {
+    					PV_EDIT_M.modal('hide');
+    					$.notify({
+                            message: 'An error found while processing your request. Please try again later!',
+                        },{
+	                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+	                        placement: {from: "bottom",align: "left"},
+	                        offset: {x: 40,y: 30},
+	                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+	                    });
+    				}
+        		}
+        	}
+        });
+	});
+</script>

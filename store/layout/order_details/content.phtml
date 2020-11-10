@@ -1,0 +1,412 @@
+<div class="order-details-page" id="order-details-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK customer_orders}}">
+                        {{TR Orders}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Customer order details}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix" id="customer-order-details-page">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card customer-order-details-page">
+                <div class="header">
+                    <h2>
+                        {{TR Order details}} (#<?php echo($hs['order_data']['id']); ?>)
+                    </h2>
+                </div>
+                <div class="body table-responsive">
+                    <?php if (not_empty($hs['order_data']['is_canceled'])): ?>
+                        <div class="inline-alertbox-wrapper">
+                            <div class="inline-alertbox info">
+                                <div class="icon">
+                                    <i class="material-icons">info</i>
+                                </div>
+                                <div class="alert-message">
+                                    <h6>
+                                        {{TR This order has been canceled}}!
+                                    </h6>
+                                    <p>
+                                        <?php echo hs_translate('Unfortunately this order has been canceled by the buyer. If you have any questions, please contact the buyer {%buyer_url%} or contact our support team.',array(
+                                            'buyer_url' => hs_html_el("a",$hs['order_data']['buyer_username'],array(
+                                                'href'  => $hs['order_data']['buyer_url']
+                                            )),
+                                        )); ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php elseif(not_empty($hs['order_data']['is_suspended'])): ?>
+                        <div class="inline-alertbox-wrapper">
+                            <div class="inline-alertbox warning">
+                                <div class="icon">
+                                    <i class="material-icons">warning</i>
+                                </div>
+                                <div class="alert-message">
+                                    <h6>
+                                        {{TR This order is suspended!}}
+                                    </h6>
+                                    <p>
+                                        {{TR This order has been suspended and cannot be further processed by you. You can contact us through our support team if you have any questions.}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <table class="table table-bordered customer-address common-table">
+                        <thead>
+                            <tr>
+                                <th>{{TR Customer contacts}}</th>
+                                <th>{{TR Delivery address}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="1">
+                                    <ul>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('user'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo $hs['order_data']['buyer_name']; ?>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('email'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo fetch_or_get($hs['order_data']['cust_email'],hs_translate('Undefined')); ?>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('call'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo fetch_or_get($hs['order_data']['buyer_phone'],'(xxxx) xxx xx-xx'); ?>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('info'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo $hs['order_data']['buyer_profile']; ?>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td colspan="1">
+                                    <ul>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('user'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo $hs['order_data']['cust_name']; ?>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('globe'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo $hs['order_data']['cust_origin']; ?>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('business'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo $hs['order_data']['cust_city']; ?>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="icon">
+                                                <?php echo hs_svg('map-pin'); ?>
+                                            </span>
+                                            <span class="addr">
+                                                <?php echo $hs['order_data']['cust_addr']; ?>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>    
+                        </tbody>
+                    </table>
+                    <table class="table table-bordered customer-address common-table no-mb">
+                        <thead>
+                            <tr>
+                                <th>{{TR Poster}}</th>
+                                <th>{{TR Product name}}</th>
+                                <th>{{TR Model number}}</th>
+                                <th>{{TR Quantity}}</th>
+                                <th>SKU</th>
+                                <th>{{TR Price}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="image">
+                                    <img src="<?php echo $hs['order_data']['prod_poster']; ?>" alt="Picture">
+                                </td>
+                                <td>
+                                    <a target="_blank" href="<?php echo $hs['order_data']['prod_url']; ?>">
+                                        <?php echo hs_croptxt($hs['order_data']['prod_name'],42,'...'); ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <?php if (not_empty($hs['order_data']['prod_model'])): ?>
+                                        <span class="badge">
+                                            <?php echo $hs['order_data']['prod_model']; ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="badge">{{TR No}}</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <span class="badge bg-blue">
+                                        <?php echo $hs['order_data']['quantity']; ?> {{TR Items}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <?php if (not_empty($hs['order_data']['sku'])): ?>
+                                        <span class="badge">
+                                            <?php echo($hs['order_data']['sku']); ?>
+                                        </span>
+                                    <?php else: ?>
+                                        <span class="badge">{{TR No}}</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <span class="col-green"><?php echo hs_money($hs['order_data']['sale_price']); ?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {{TR Amount}}
+                                </td>
+                                <td colspan="1">
+                                    <span class="col-green"><?php echo hs_money($hs['order_data']['totalamount']); ?></span> 
+                                </td>
+                            </tr>    
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {{TR Shipping}} 
+                                </td>
+                                <td colspan="1">
+                                    <?php if ($hs['order_data']['shipping_cost'] == 'paid'): ?>
+                                        <span class="col-green"><?php echo hs_money($hs['order_data']['shipping_fee']); ?></span>
+                                    <?php else: ?>
+                                        <span>{{TR Free}}</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {{TR Payment method}} 
+                                </td>
+                                <td colspan="1">
+                                    <?php if ($hs['order_data']['payment_method'] == 'cod'): ?>
+                                        <span>{{TR Cash on delivery}}</span>
+                                    <?php else: ?>
+                                        <span>{{TR Prepayment}}</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {{TR Delivery time}}
+                                </td>
+                                <td colspan="1">
+                                    <span>
+                                        <?php if ($hs['order_data']['shipping_time'] == '1_bd'): ?>
+                                            {{TR in one business day}}
+                                        <?php elseif($hs['order_data']['shipping_time'] == '2_3_bd'): ?>
+                                            {{TR in 2 - 3 business days}}
+                                        <?php elseif($hs['order_data']['shipping_time'] == '4_7_bd'): ?>
+                                            {{TR in 4 - 7 business days}}
+                                        <?php elseif($hs['order_data']['shipping_time'] == '8_15_bd'): ?>
+                                            {{TR in 5 - 15 business days}}
+                                        <?php elseif($hs['order_data']['shipping_time'] == 'within_1_month'): ?>
+                                            {{TR in within 1 month}}
+                                        <?php elseif($hs['order_data']['shipping_time'] == 'within_2_months'): ?>
+                                            {{TR in within 2 months}}
+                                        <?php elseif($hs['order_data']['shipping_time'] == 'within_3_months'): ?>
+                                            {{TR in within 3 months}}
+                                        <?php endif; ?>
+                                    </span>
+                                </td>  
+                            </tr> 
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {{TR Date Added}}
+                                </td>
+                                <td class="time">
+                                    <time>
+                                        <?php echo($hs['order_data']['placed_date']); ?>
+                                    </time>
+                                </td>
+                            </tr>
+                            <?php if (not_empty($hs['order_data']['is_canceled'])): ?>
+                                <tr>
+                                    <td colspan="5" class="text-right">
+                                        {{TR Date Canceled}}
+                                    </td>
+                                    <td class="time" colspan="1">
+                                        <time>
+                                            <?php echo date('d F, Y h:m',$hs['order_data']['cancellation_time']); ?>
+                                        </time>
+                                    </td>
+                                </tr>
+                            <?php elseif(not_empty($hs['order_data']['is_suspended'])): ?>
+                                <tr>
+                                    <td colspan="5" class="text-right">
+                                        {{TR Date suspended}}
+                                    </td>
+                                    <td class="time" colspan="1">
+                                        <time>
+                                            <?php echo date('d F, Y h:m',$hs['order_data']['cancellation_time']); ?>
+                                        </time>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {{TR Total}} 
+                                </td>
+                                <td colspan="1">
+                                    <span class="col-green"><?php echo hs_money($hs['order_data']['totalpaid']); ?></span>
+                                </td>
+                            </tr>  
+
+                            <?php if ($hs['order_data']['var_type'] == 'color'): ?>
+                                <tr>
+                                    <td colspan="5" class="text-right">
+                                        {{TR Color}} 
+                                    </td>
+                                    <td colspan="1">
+                                        <span>
+                                            <?php echo hs_translate(fetch_or_get($hs['color_types'][$hs['order_data']['var_color']],'Undefined')); ?>             
+                                        </span>
+                                    </td>
+                                </tr>     
+                            <?php elseif($hs['order_data']['var_type'] == 'size'): ?>
+                                <tr>
+                                    <td colspan="5" class="text-right">
+                                        {{TR Size}} 
+                                    </td>
+                                    <td colspan="1">
+                                        <span>
+                                            <?php echo fetch_or_get($hs['order_data']['var_size'],hs_translate('Undefined')); ?>      
+                                        </span>
+                                    </td>
+                                </tr>        
+                            <?php elseif($hs['order_data']['var_type'] == 'size'): ?>
+                                <tr>
+                                    <td colspan="5" class="text-right">
+                                        {{TR Color}} 
+                                    </td>
+                                    <td colspan="1">
+                                        <span>
+                                            <?php echo hs_translate(fetch_or_get($hs['color_types'][$hs['order_data']['var_color']],'Undefined')); ?>             
+                                        </span>
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td colspan="5" class="text-right">
+                                        {{TR Size}} 
+                                    </td>
+                                    <td colspan="1">
+                                        <span>
+                                            <?php echo fetch_or_get($hs['order_data']['var_size'],hs_translate('Undefined')); ?>      
+                                        </span>
+                                    </td>
+                                </tr>    
+                            <?php endif; ?>
+                            <tr>
+                                <td colspan="5" class="text-right">
+                                    {{TR Current order status}}
+                                </td>
+                                <td colspan="1">
+                                    <?php if ($hs['order_data']['status'] == 'pending'): ?>
+                                        <span class="badge bg-orange">{{TR Pending}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'processing'): ?>
+                                        <span class="badge bg-blue">{{TR Processing}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'processed'): ?>
+                                        <span class="badge bg-purple">{{TR Processed}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'sent'): ?>
+                                        <span class="badge bg-pink">{{TR Sent}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'shipped'): ?>
+                                        <span class="badge bg-green">{{TR Shipped}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'canceled'): ?>
+                                        <span class="badge bg-red">{{TR Canceled}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'expired'): ?>
+                                        <span class="badge bg-red">{{TR Expired}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'returned'): ?>
+                                        <span class="badge bg-red">{{TR Returned}}</span>
+                                    <?php elseif($hs['order_data']['status'] == 'failed'): ?>
+                                        <span class="badge bg-red">{{TR Failed}}</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>   
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <?php if (empty($hs['order_data']['is_canceled'])): ?>
+                <div class="card customer-order-details-page">
+                    <div class="header">
+                        <h2>
+                            {{TR Order history timeline}}
+                        </h2>
+                    </div>
+                    <div class="body table-responsive">           
+                        <table class="table common-table history-timeline-table table-bordered no-mb">
+                            <thead>
+                                <tr>
+                                    <th>{{TR Date Added}}</th>
+                                    <th>{{TR comment}}</th>
+                                    <th>{{TR Status}}</th>
+                                    <th>{{TR Customer notified}}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timeline-table">
+                                <?php if (not_empty($hs['order_data']['tl_posts'])): ?>
+                                    <?php foreach ($hs['order_data']['tl_posts'] as $hs['tl_post']): ?>
+                                        <?php echo hs_loadpage('order_details/includes/posts_list_item'); ?>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <?php echo hs_loadpage('order_details/includes/empty_table'); ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<?php if (empty($hs['order_data']['is_canceled']) && empty($hs['order_data']['is_suspended'])): ?>
+    <button title="{{TR Update order timeline history}}" type="button" class="fixed-right-bottom btn bg-main-red btn-circle waves-effect waves-circle waves-float" data-toggle="modal" data-target="#update-order-status-modal">
+        <i class="material-icons">update</i>
+    </button>
+
+    <?php echo hs_loadpage('order_details/modals/update_order_status'); ?>
+    <?php echo hs_loadpage('order_details/static/js/order_master_script'); ?>
+<?php endif; ?>

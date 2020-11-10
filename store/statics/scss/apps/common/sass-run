@@ -1,0 +1,1 @@
+scss --watch store.common.style.scss:../../../css/apps/common/store.common.style.css

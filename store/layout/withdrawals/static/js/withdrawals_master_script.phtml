@@ -1,0 +1,224 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		
+		var WITHDR_PAGE_CONT   = $("div#withdrawals-page-container");
+		var YEARLY_WITHDRAWALS = document.getElementById('yearly-stats-display').getContext('2d');
+		var yearly_stats       = new Chart(YEARLY_WITHDRAWALS, {
+			type: 'bar',
+			data: {
+				labels: [
+                    "{{TR January}}", 
+                    "{{TR February}}", 
+                    "{{TR March}}", 
+                    "{{TR April}}", 
+                    "{{TR May}}", 
+                    "{{TR June}}", 
+                    "{{TR July}}",
+                    "{{TR August}}",
+                    "{{TR September}}",
+                    "{{TR October}}",
+                    "{{TR November}}",
+                    "{{TR December}}",
+                ],
+				datasets: [{
+					label: "{{TR Revenue}}",
+					borderColor: '#00add8',
+					backgroundColor: '#00c0ef',
+					fill: false,
+					data: <?php echo json($hs['yearly_stats']['revenue'],1); ?>,
+					pointRadius: 5,
+					pointHoverRadius: 5,
+				},{
+					label: "{{TR Market rate}}",
+					borderColor: '#008546',
+					backgroundColor: '#00a659',
+					fill: false,
+					data: <?php echo json($hs['yearly_stats']['commission'],1); ?>,
+					pointRadius: 5,
+					pointHoverRadius: 5,
+				},{
+					label: "{{TR Payout}}",
+					borderColor: '#b13b2d',
+					backgroundColor: '#dd4b39',
+					fill: false,
+					data: <?php echo json($hs['yearly_stats']['payouts'],1); ?>,
+					pointRadius: 5,
+					pointHoverRadius: 5,
+				}]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				tooltips: { 
+					mode: 'label',
+					intersect: false,
+					callbacks: {
+						label: function(tooltipItem, data) { 
+							let fnum = tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							let fval = "{0}: {1} {2}";
+							let curr = "{{CONFIG currency}}";
+
+							if (tooltipItem.datasetIndex == 2) {
+								curr = '<?php echo($hs['lpc']); ?>'
+							}
+
+							if (hs_empty(fnum)) {
+								curr = ''; 
+							}
+
+				        	return fval.format(data.datasets[tooltipItem.datasetIndex].label,fnum,curr);
+				        },
+					}
+				},
+				hover: {mode: 'nearest',intersect: true
+				},
+				legend: {position: 'bottom'
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						gridLines: {display: true,},
+					}],
+					yAxes: [{
+						display: true,
+						gridLines: {display: true,}
+					}]
+				}
+			}
+		});
+
+		<?php if (hs_check_can_seller_withdraw($me['id'])): ?>
+
+			var WITHDR_REQUEST_M = $("div#request-withdrawal-modal");
+
+			WITHDR_REQUEST_M.find('form#request-form').ajaxForm({
+				url: '{{CONFIG url}}/req/profile/request_payout',
+				type: 'POST',
+				dataType: 'json',
+				beforeSend: function() {
+					var this_form = WITHDR_REQUEST_M.find('form#request-form');
+					this_form.find('button').attr('disabled', 'true');
+					this_form.find('small.error-message').remove();
+				},
+				success: function(data) {
+					if (data.status == 200) {
+						$.notify({
+							message: data.message,
+						},{
+	                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+	                        placement: {from: "bottom",align: "left"},
+	                        offset: {x: 40,y: 30},
+	                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+	                    }); WITHDR_REQUEST_M.modal('hide');
+		
+						try{
+							setTimeout(function(){
+								window.location.reload();
+							},2000);
+						} catch(e) {/*pass*/};
+					}
+					else if(data.status == 200) {
+						WITHDR_REQUEST_M.modal('hide');
+						$.notify({
+							message: data.message,
+						},{
+	                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+	                        placement: {from: "bottom",align: "left"},
+	                        offset: {x: 40,y: 30},
+	                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+	                    });
+					}
+					else {
+						if (data.err_code == 'lastreq_error') {
+							WITHDR_REQUEST_M.modal('hide');
+							$.notify({
+								message: data.message,
+							},{
+		                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+		                        placement: {from: "bottom",align: "left"},
+		                        offset: {x: 40,y: 30},
+		                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+		                    });
+						}
+						else {
+							WITHDR_REQUEST_M.find('form#request-form').find('[data-form-field="{0}"]'.format(data.err_code)).append($('<small>',{
+								class: 'animated flash error-message',
+								text: data.message
+							}));
+						}
+					}
+				},
+				complete: function() {
+					var this_form = WITHDR_REQUEST_M.find('form#request-form');
+					this_form.find('button').removeAttr('disabled', 'true');
+				},
+				error: function() {
+					WITHDR_REQUEST_M.modal('hide');
+					$.notify({
+						message: 'Error: Failed to connect to the server. Please check your internet connection',
+					},{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+				}		
+			});
+
+		<?php endif; ?>
+
+		<?php if (not_empty($hs['payout_requests'])): ?>
+
+			WITHDR_PAGE_CONT.find('a.pagination-ctrls').on('click',function(event) {
+				event.preventDefault();
+				event.stopPropagation();
+				if ($(this).hasClass('disabled') != true) {	
+					var pager_ctrls = WITHDR_PAGE_CONT.find('a.pagination-ctrls');
+					var this_ctrl   = $(this);
+					var reqs_list   = WITHDR_PAGE_CONT.find('table#requests-list');
+					var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+					var last_req    = reqs_list.find('tr[data-payout-request-li]').last().data('payout-request-li');
+					var first_req   = reqs_list.find('tr[data-payout-request-li]').first().data('payout-request-li');
+					var preloader   = WITHDR_PAGE_CONT.find('div#table-preloader').removeClass('hidden');
+
+					$.ajax({
+						url: '{{CONFIG url}}/req/profile/get_payout_requests',
+						type: 'GET',
+						dataType: 'json',
+						data: {
+							dir: pager_dir, 
+							last: last_req, 
+							first: first_req
+						},
+					}).done(function(data) {
+						if (data.status == 200) {
+							reqs_list.find('tbody').html(data.html);
+							pager_ctrls.removeClass('disabled');
+						}
+						else{
+							this_ctrl.addClass('disabled');
+						}
+					}).fail(function() {
+						$.notify({
+							message: 'Error: Failed to connect to the server. Please check your internet connection',
+						},{
+	                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+	                        placement: {from: "bottom",align: "left"},
+	                        offset: {x: 40,y: 30},
+	                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+	                    });
+					}).always(function() {
+						delay(function(){
+							preloader.addClass('hidden');
+						},500);
+					});
+				}
+				else {
+					return false;
+				}
+			});
+
+		<?php endif; ?>
+	});
+</script>

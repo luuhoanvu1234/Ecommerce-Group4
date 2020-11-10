@@ -1,0 +1,262 @@
+<div class="page-part-container">
+	<div class="left-part">
+		<div class="xzoom-active">
+			<img class="xzoom" src="{{prod_poster}}" xoriginal="{{prod_poster}}"/>
+		</div>
+		<div class="xzoom-thumbs">
+			<?php if (not_empty($hs['prod_data']['media'])): ?>
+				<?php foreach ($hs['prod_data']['media'] as $media_item): ?>
+					<a href="<?php echo $media_item['src']; ?>" class="thumb-item">
+						<img class="xzoom-gallery" src="<?php echo $media_item['thumb']; ?>" xpreview="<?php echo $media_item['src']; ?>">
+					</a>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</div>
+		<?php if (not_empty($hs['prod_data']['media']) && count($hs['prod_data']['media']) > 7): ?>
+			<span id="scroll-up">
+				<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M128 320l128-128 128 128z"/></svg>
+			</span>
+			<span id="scroll-down">
+				<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M128 192l128 128 128-128z"/></svg>
+			</span>
+		<?php endif; ?>	
+	</div>
+
+	<?php if (not_empty($hs['has_purchased']) && $hs['prod_data']['status'] == 'active'): ?>		
+		<?php echo hs_loadpage('product/includes/inline_modals/write_review',array('prod_id' => $hs['prod_data']['id'])); ?>
+		<?php echo hs_loadpage('product/includes/inline_modals/write_report',array('prod_id' => $hs['prod_data']['id'])); ?>
+	<?php endif; ?>
+
+	<div class="left-part-reviews clearfix">
+		<div class="title clearfix">
+			<h5 class="clearfix">
+				<div>
+					<span>
+						{{TR Product Reviews}}
+					</span>
+				</div>
+				<?php if (not_empty($hs['has_purchased']) && $hs['prod_data']['status'] == 'active'): ?>
+					<div class="ml-auto dd-wrapper">
+						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+							<span class="icon">
+								<?php echo hs_svg('arrow-down'); ?>
+							</span>
+						</a>
+				        <div class="dropdown-menu">
+				        	<a id="write-review" class="dropdown-item" href="javascript:void(0);">
+								{{TR Write a review}}
+							</a>
+				        	<a id="write-report" class="dropdown-item" href="javascript:void(0);">
+								{{TR Report this product}}
+							</a>
+				        </div>
+			     	</div>
+		     	<?php endif; ?>
+			</h5>
+		</div>
+		<div class="rating-holder clearfix">
+			<?php if (not_empty($hs['rating_stars'])): ?>
+				<?php foreach ($hs['rating_stars'] as $star): ?>
+					<span>
+						<?php echo($star); ?>
+					</span>
+				<?php endforeach; ?>
+			<?php endif; ?>
+			
+			<span class="rating-num">
+				<?php echo($hs['prod_rating']); ?>
+			</span>
+		</div>	
+		<div class="sort-reviews clearfix" id="sort-reviews">
+			<?php if (not_empty($hs['total_reviews0'])): ?>
+				<div class="sort-reviews-btn active" data-sort="all">
+					<span class="total">
+						{{TR All}} (<?php echo($hs['total_reviews0']); ?>)
+					</span>
+				</div>
+			<?php else: ?>
+				<div class="sort-reviews-btn disabled" data-sort="all">
+					<span class="total">
+						{{TR All}} (0)
+					</span>
+				</div>
+			<?php endif; ?>
+
+			<?php if (not_empty($hs['total_reviews1'])): ?>
+				<div class="sort-reviews-btn" data-sort="1">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<div class="total">
+						(<?php echo($hs['total_reviews1']); ?>)
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="sort-reviews-btn disabled" data-sort="1">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+				</div>
+			<?php endif; ?>
+
+			<?php if (not_empty($hs['total_reviews2'])): ?>
+				<div class="sort-reviews-btn" data-sort="2">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<div class="total">
+						(<?php echo($hs['total_reviews2']); ?>)
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="sort-reviews-btn disabled" data-sort="2">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+				</div>
+			<?php endif; ?>
+
+			<?php if (not_empty($hs['total_reviews3'])): ?>
+				<div class="sort-reviews-btn" data-sort="3">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<div class="total">
+						(<?php echo($hs['total_reviews3']); ?>)
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="sort-reviews-btn disabled" data-sort="3">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+				</div>
+			<?php endif; ?>
+			
+			<?php if (not_empty($hs['total_reviews4'])): ?>
+				<div class="sort-reviews-btn" data-sort="4">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<div class="total">
+						(<?php echo($hs['total_reviews4']); ?>)
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="sort-reviews-btn disabled" data-sort="4">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+				</div>
+			<?php endif; ?>
+			
+			<?php if (not_empty($hs['total_reviews5'])): ?>
+				<div class="sort-reviews-btn" data-sort="5">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+
+					<div class="total">
+						(<?php echo($hs['total_reviews5']); ?>)
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="sort-reviews-btn disabled" data-sort="5">
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+					<span>
+						<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+					</span>
+				</div>
+			<?php endif; ?>
+		</div>
+		<div class="reviews-list-container clearfix">
+			<?php if (empty($hs['reviews_list'])): ?>
+				<div class="no-reviews">
+					<div class="body">
+						<h4>{{TR No reviews yet}}</h4>
+						<p><?php echo hs_translate("Leave reviews and points.{%br_line%}And help us provide complete and truthful product information",array('br_line' => '<br/>')); ?></p>
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="reviews-list-cont-inner">
+					<div class="reviews-list" id="reviews-list">
+						<?php foreach ($hs['reviews_list'] as $hs['review_data']): ?>
+							<?php echo hs_loadpage("product/includes/list_items/review_li"); ?>
+						<?php endforeach; ?>
+					</div>
+					<div class="load-reviews" id="load-more-reviews" data-text="{{TR Show the following reviews}}">
+						<span>
+							{{TR Show the following reviews}}
+						</span>
+					</div>
+					<div class="load-reviews-preloader hidden" id="load-more-reviews-preloader">
+						<?php echo hs_loadpage('components/data_preloader'); ?>
+					</div>
+				</div>
+			<?php endif; ?>
+		</div>	
+	</div>
+</div>
+
+<?php if (not_empty($hs['has_purchased']) && $hs['prod_data']['status'] == 'active'): ?>
+	<?php echo hs_loadpage('product/static/js/user_fb_script',array('prod_id' => $hs['prod_data']['id'])); ?>
+<?php endif; ?>

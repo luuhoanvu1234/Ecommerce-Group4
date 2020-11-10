@@ -1,0 +1,54 @@
+div.contactus-page-container {
+  width: 100%;
+  margin-bottom: 20px; }
+  div.contactus-page-container div.contactus-page-wrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-shadow: none;
+    background: #fff;
+    border: none;
+    border-radius: 5px; }
+    div.contactus-page-container div.contactus-page-wrapper .top-part {
+      flex-basis: 100%;
+      padding: 30px; }
+      div.contactus-page-container div.contactus-page-wrapper .top-part div.header {
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 20px; }
+        div.contactus-page-container div.contactus-page-wrapper .top-part div.header h1 {
+          padding: 0;
+          margin: 0;
+          font-size: 26px;
+          color: #192a32;
+          line-height: 26px;
+          font-weight: 500; }
+      div.contactus-page-container div.contactus-page-wrapper .top-part div.code-cont {
+        width: 100%;
+        overflow: hidden;
+        display: block;
+        line-height: 0px; }
+        div.contactus-page-container div.contactus-page-wrapper .top-part div.code-cont p {
+          font-size: 14px;
+          line-height: 22px;
+          color: #2d2f43;
+          padding: 0;
+          margin: 0; }
+    div.contactus-page-container div.contactus-page-wrapper .bottom-part {
+      flex-basis: 100%;
+      max-height: 450px;
+      height: 450px;
+      overflow: hidden; }
+      div.contactus-page-container div.contactus-page-wrapper .bottom-part div.map {
+        width: 100%;
+        overflow: hidden;
+        height: 100%; }
+        div.contactus-page-container div.contactus-page-wrapper .bottom-part div.map iframe {
+          width: 100%; }
+
+/*# sourceMappingURL=contactus.master.style.css.map */

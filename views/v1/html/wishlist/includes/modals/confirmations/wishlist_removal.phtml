@@ -1,0 +1,20 @@
+<div class="modal animated vh-center fadeIn confirm-action-modal" id="conf-deletion-wl">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{TR Please confirm your actions!}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{TR Are you sure you want to delete this wish list? Note. Wish lists are permanently deleted}}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-submit bg-blue">{{TR Yes, delete it!}}</button>
+                    <button type="button" class="btn btn-cancel bg-grey" data-dismiss="modal">{{TR No, cancel}}</button>
+                </div>
+                <input id="list-id" type="hidden" class="hidden" name="list_id" value="{{list_id}}">
+            </form>
+        </div>
+    </div>
+</div>

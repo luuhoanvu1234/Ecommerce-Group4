@@ -1,0 +1,115 @@
+# @*************************************************************************@
+# @ @author Mansur Altamirov (Mansur_TL)                                    @
+# @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+# @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+# @ @author_email: highexpresstore@gmail.com                                @
+# @*************************************************************************@
+# @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+# @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+# @*************************************************************************@
+
+RewriteEngine On
+
+# RewriteCond %{HTTPS} off
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+#main app rules
+RewriteRule ^$ index.php?page=home [QSA]
+RewriteRule ^home$ index.php?page=home [QSA]
+RewriteRule ^404(\/|)$ index.php?page=404 [QSA]
+RewriteRule ^language/([\w]{4,32})(\/|)$ index.php?page=home&language=$1 [QSA]
+RewriteRule ^logout$ index.php?page=logout [QSA]
+RewriteRule ^help(\/|)?$ index.php?page=help [QSA]
+RewriteRule ^wishlist(\/|)?$ index.php?page=wishlist [QSA]
+RewriteRule ^wishlist/(\w{25})(\/|)?$ index.php?page=wishlist&ls_id=$1 [QSA]
+RewriteRule ^messages(\/|)?$ index.php?page=messages [QSA]
+RewriteRule ^messages/([a-z0-9@_]{3,32})(\/|)?$ index.php?page=messages&uname=$1 [QSA]
+RewriteRule ^product/([0-9]{1,11})(\/|)?$ index.php?page=product&id=$1 [QSA]
+RewriteRule ^checkout(\/|)?$ index.php?page=checkout [QSA]
+RewriteRule ^catalog(\/|)?$ index.php?page=catalog [QSA]
+RewriteRule ^catalog/(\w{3,55})(\/|)?$ index.php?page=catalog&cat_name=$1 [QSA]
+RewriteRule ^notifications(\/|)?$ index.php?page=notifications [QSA]
+RewriteRule ^privacy_policy(\/|)?$ index.php?page=privacy_policy [QSA]
+RewriteRule ^terms(\/|)?$ index.php?page=terms [QSA]
+RewriteRule ^merchant_terms(\/|)?$ index.php?page=merchant_terms [QSA]
+RewriteRule ^about(\/|)?$ index.php?page=about [QSA]
+RewriteRule ^contact_us(\/|)?$ index.php?page=contact_us [QSA]
+RewriteRule ^auth(\/|)?$ index.php?page=auth&auth_page=login [QSA]
+RewriteRule ^auth/(login|signup|reset_password|new_password)(\/|)?$ index.php?page=auth&auth_page=$1 [QSA]
+RewriteRule ^paid/(card|paypal|yandmoney|qiwi|wallet|cod)/(success|cancel)(\/|)?$ index.php?page=paid&method=$1&code=$2 [QSA]
+RewriteRule ^share/(profile|product)(\/|)?$ index.php?page=share&pd=$1 [QSA]
+RewriteRule ^confirm_account_activation(\/|)?$ index.php?page=confirm_account_activation [QSA]
+#end main app rules
+
+# #store app rules
+RewriteRule ^merchant_panel(\/|)?$ index.php?page=store&store_page=dashboard [QSA]
+RewriteRule ^merchant_panel/([\w]{3,32})(\/|)?$ index.php?page=store&store_page=$1 [QSA]
+RewriteRule ^merchant_panel/([\w]{3,32})/([0-9]{1,11})(\/|)?$ index.php?page=store&store_page=$1&id=$2 [QSA]
+# #end store app rules
+
+
+RewriteRule ^login_as/(admin|user)(\/|)?$ index.php?page=login_as&mode=$1 [QSA]
+RewriteRule ^temporary_session_start/([\w]{4,32}\@{1}[0-9]{1,11})(\/|)?$ index.php?page=ts_start&uname=$1 [QSA]
+RewriteRule ^temporary_session_finish(\/|)?$ index.php?page=ts_finish [QSA]
+
+
+# #main app rules
+RewriteRule ^([\w]{4,32}\@{1}[0-9]{1,11})(\/|)?$ index.php?page=profile&uname=$1 [QSA]
+RewriteRule ^([\w]{4,32}\@{1}[0-9]{1,11})/([\w]{4,32})(\/|)?$ index.php?page=profile&uname=$1&tab=$2 [QSA]
+# #end main app rules
+
+
+RewriteRule ^req/(\w{3,25})/(\w{2,100})$ ajax.php?app=$1&a=$2 [QSA]
+RewriteRule ^social_login(\/|)?$ social_login.php [QSA]
+RewriteRule ^update(\/|)?$ update.php [QSA]
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/opentype
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+<IfModule mod_security.c>
+  SecFilterScanPOST Off
+</IfModule>
+## EXPIRES CACHING ##
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType text/x-javascript "access plus 1 month"
+  ExpiresByType application/x-shockwave-flash "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresDefault "access plus 190 days"
+</IfModule>
+## EXPIRES CACHING ##
+
+php_value short_open_tag 0

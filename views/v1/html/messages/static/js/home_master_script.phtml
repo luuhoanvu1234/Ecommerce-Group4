@@ -1,0 +1,60 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var MSG_PAGE_CONT   = $('div#messages-page-container');
+		var CHATS_HIST_HDLR = Object({
+			update_chats_history: function() {
+				setInterval(function(){
+					$.ajax({
+						url: '{{CONFIG url}}/req/messages/update_chats_history',
+						type: 'GET',
+						dataType: 'json',
+					}).done(function(data) {
+						if (data.status == 200) {
+							MSG_PAGE_CONT.find('div#chats-history').html(data.html);
+						}
+					});
+				}, (1000 * 30));
+			}
+		}); 
+
+		CHATS_HIST_HDLR.update_chats_history();
+
+		MSG_PAGE_CONT.find("input#search-chats").keyup(function(event) {
+			var chatls = MSG_PAGE_CONT.find('div#chats-history').find('ul');
+			var uname  = $.trim($(this).val());
+
+			
+			chatls.find('span.username').each(function(index, el) {
+				var username = $.trim($(el).text());
+				var regex    = new RegExp(uname,'ig');
+				if (username.search(regex) == -1) {
+					$(el).parents('li.contacts-list-item').addClass('hidden');
+					$(el).parents('li.contacts-list-item').removeClass('found');
+				}
+				else {
+					$(el).parents('li.contacts-list-item').removeClass('hidden');
+					$(el).parents('li.contacts-list-item').addClass('found');
+				}
+			});
+
+			if (chatls.find('li.contacts-list-item.found').length) {
+				chatls.find('li#no-contacts-found').addClass('hidden');
+			}
+
+			else {
+				chatls.find('li#no-contacts-found').removeClass('hidden');
+			}
+		});
+
+		$(document).on('click', '[data-onclick]', function(event) {
+			event.preventDefault();
+			var this_el    = $(this);
+			var event_trig = this_el.data('onclick');
+
+			if (event_trig == 'view_chat_history') {
+				MSG_PAGE_CONT.find('div#contacts-list').addClass('open-fluid');
+			}
+		});
+	});
+</script>

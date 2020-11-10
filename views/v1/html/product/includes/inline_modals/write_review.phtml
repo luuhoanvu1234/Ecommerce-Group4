@@ -1,0 +1,99 @@
+<div class="review-box-wrapper-preloader hidden" id="review-box-wrapper-preloader">
+	<?php echo hs_loadpage('components/data_preloader'); ?>
+</div>
+<div class="review-box-wrapper clearfix" id="review-box-wrapper">
+	<form class="clearfix" id="write-review-form">
+		<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+		<div class="title clearfix">
+			<div class="icon">
+				<?php echo hs_svg('quote'); ?>
+			</div>
+			<div class="title-holder">
+				<h5 data-trigger-event="click" data-target="delete-product-review" data-data="5">{{TR Rate & Review}}</h5>
+				<p>{{TR Rate and leave your review about this product}}</p>
+			</div>
+		</div>
+		<div class="body clearfix">
+			<div class="user-info-holder clearfix">
+				<div class="avatar">
+					<img src="{{ME avatar}}" alt="User avatar">
+				</div>
+				<div class="uname">
+					<h5>{{ME name}}</h5>
+					<p id="alert-text" data-message="{{TR Note! Your rating & review will be published under this product}}">
+						{{TR Note! Your rating & review will be published under this product}}
+					</p>
+				</div>
+			</div>
+			<div class="rating-holder clearfix">
+				<div class="rate-post-btn" data-star="1">
+					<span class="out-line">
+						<?php echo hs_svg('star-outline'); ?>
+					</span>
+					<span class="in-line">
+						<?php echo hs_svg('star'); ?>
+					</span>
+				</div>
+				<div class="rate-post-btn" data-star="2">
+					<span class="out-line">
+						<?php echo hs_svg('star-outline'); ?>
+					</span>
+					<span class="in-line">
+						<?php echo hs_svg('star'); ?>
+					</span>
+				</div>
+				<div class="rate-post-btn" data-star="3">
+					<span class="out-line">
+						<?php echo hs_svg('star-outline'); ?>
+					</span>
+
+					<span class="in-line">
+						<?php echo hs_svg('star'); ?>
+					</span>
+				</div>
+				<div class="rate-post-btn" data-star="4">
+					<span class="out-line">
+						<?php echo hs_svg('star-outline'); ?>
+					</span>
+
+					<span class="in-line">
+						<?php echo hs_svg('star'); ?>
+					</span>
+				</div>
+				<div class="rate-post-btn" data-star="5">
+					<span class="out-line">
+						<?php echo hs_svg('star-outline'); ?>
+					</span>
+
+					<span class="in-line">
+						<?php echo hs_svg('star'); ?>
+					</span>
+				</div>
+			</div>
+			<div class="review-text-holder">
+				<textarea name="review" rows="1" class="txt-autoresize" placeholder="{{TR Share your thoughts with other customers}} ..."></textarea>
+			</div>
+			<div class="review-images-holder">
+				<div class="review-images-list" id="review-images-list">
+					<div id="img-selector" class="upload-images eq-width" data-trigger-event="click" data-target="input#attach-review-image">
+						<?php echo hs_svg('camera'); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<button class="btn submit" type="submit">
+				{{TR Leave feedback}}
+			</button>
+			<button class="btn cancel" type="reset" id="cancel-review">
+				{{TR Cancel}}
+			</button>
+		</div>
+		<input type="hidden" name="valuation" id="valuation">
+		<input type="hidden" name="prod_id" id="prod_id" value="{{prod_id}}">
+	</form>	
+	
+	<?php echo hs_loadpage('product/includes/trig_forms/upload_review_image'); ?>
+	<?php echo hs_loadpage('product/includes/trig_forms/delete_review_image'); ?>
+	<?php echo hs_loadpage('product/includes/trig_forms/delete_review'); ?>
+</div>

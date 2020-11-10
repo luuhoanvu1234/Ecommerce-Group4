@@ -1,0 +1,378 @@
+<?php if (not_empty($hs['list_items'])): ?>
+	<div class="wishlist-page-container" id="wishlist-page-cont">
+		<div class="content-container">
+			<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{CONFIG url}}">{{TR Home}}</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="<?php echo hs_link('wishlist'); ?>">
+							{{TR Wishlists}}
+						</a>
+					</li>
+					<?php if (not_empty($hs['list_data'])): ?>
+						<li class="breadcrumb-item">
+							<?php echo $hs['list_data']['list_name']; ?>
+						</li>
+					<?php else: ?>
+						<li class="breadcrumb-item">
+							{{TR All items}}
+						</li>
+					<?php endif; ?>
+				</ol>
+			</nav>
+			<div class="row">
+				<div class="cont-section-1 col-md-3 no-padding-right">
+					<div class="left-part clearfix" id="left-sidebar">
+						<div class="clearfix">
+							<div class="wlist-navbar-wrapper">
+								<div class="wlist-navbar">
+									<h5>
+										<b>{{TR Your wishlists}}</b>
+									</h5>
+									<ul id="user-wishlists">
+										<?php if (not_empty($hs['lists'])): ?>
+											<?php foreach ($hs['lists'] as $w_ls): ?>
+												<li class="<?php echo (($hs['list_id'] == $w_ls['hash_id']) ? 'active' : ''); ?>">
+													<a href="<?php echo($w_ls['url']); ?>">
+														<?php if ($w_ls['type'] == 'static'): ?>
+															<?php echo hs_translate($w_ls['list_name']); ?>
+														<?php else: ?>
+															<?php echo($w_ls['list_name']); ?>
+														<?php endif; ?>
+														<span class="pull-right">(<?php echo($w_ls['total_items']); ?>)</span>
+													</a>
+												</li>
+											<?php endforeach; ?>
+										<?php endif; ?>
+									</ul>
+									<div class="add-new-list" onclick="$('div#ceare-new-wl').modal('show');">
+										<button class="btn">
+											{{TR Create Wish List}}
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="footer-sm d-md-none d-xs-none d-sm-none d-lg-block">
+								<?php echo hs_loadpage('footer/small'); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="cont-section-2 col-md-9">
+					<div class="right-part">
+						<div class="pords-sorting-panel-wrapper" id="pords-sorting-panel">
+							<div class="pords-sorting-panel">
+								<div class="curr-list">
+									<?php if (not_empty($hs['list_data'])): ?>
+										<div class="curr-list-name">
+											<h5>
+												<b>
+													<?php if ($hs['list_data']['type'] == 'static'): ?>
+														<?php echo hs_translate($hs['list_data']['list_name']); ?>
+													<?php else: ?>
+														<?php echo $hs['list_data']['list_name']; ?>
+													<?php endif; ?>
+												</b>
+											</h5>	
+										</div>
+										<?php if ($hs['list_data']['type'] == 'removable'): ?>
+											<div class="dropdown manage-list ml-auto dropleft">
+												<a class="dropdown-toggle" data-toggle="dropdown">
+													<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M296 136c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40zm0 240c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40zm0-120c0-22.002-17.998-40-40-40s-40 17.998-40 40 17.998 40 40 40 40-17.998 40-40z"/></svg>
+												</a>
+												<div class="dropdown-menu anim scale-up-tr">
+													<a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="div#conf-deletion-wl">{{TR Delete this list}}</a>
+													<a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="div#edit-rename-wl">{{TR Edit}}</a>
+												</div>
+											</div>
+										<?php endif; ?>
+									<?php else:?>
+										<div class="curr-list-name">
+											<h5>
+												<b>{{TR All items}}</b> 
+											</h5>
+										</div>
+									<?php endif;?>	
+								</div>
+								<div class="filter-form-wrapper">
+									<form class="form" id="filter-form">
+										<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+										<div class="filt-option bootstrap-select-picker scale-up-tl-wrp" id="category">
+											<select name="catg_id" data-prefix="{{TR Category}}" class="bs-select"  title="{{TR Category}}: {{TR All}}">
+												<option value="none">
+													{{TR All categories}}
+												</option>
+												<?php foreach ($hs['categories'] as $id => $catg): ?>
+													<option value="<?php echo($id); ?>">
+														<?php echo hs_translate($catg); ?>
+													</option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+										<div class="filt-option bootstrap-select-picker scale-up-tl-wrp" id="sort-by">
+											<select name="sortby" data-prefix="{{TR Sorting}}" class="bs-select" title="{{TR Sorting}}: {{TR Default}}">
+												<option value="none">
+													{{TR Default}}
+												</option>
+												<option value="price_up">
+													{{TR At an increasing price}}
+												</option>
+												<option value="price_down">
+													{{TR At a decreasing price}}
+												</option>
+												<option value="newest">
+													{{TR By novelty}}
+												</option>
+												<option value="rating">
+													{{TR By rating}}
+												</option>
+												<option value="sales">
+													{{TR By sales}}
+												</option>
+											</select>
+										</div>
+										<div class="filt-option price-range" id="price-range">
+											<div class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown">
+													{{TR Price}}: <span title="{{TR Any}}" id="selected">{{TR Any}}</span>
+												</a>
+												<div class="dropdown-menu anim scale-up-tl">
+													<table>
+														<tr>
+															<td class="label">
+																<span>{{TR From}}</span>
+															</td>
+															<td class="input">
+																<input class="min" name="min_price" type="number" step="any" placeholder="<?php echo hs_price($hs['config']['min_sale_price']); ?>">
+															</td>
+														</tr>
+														<tr>
+															<td class="label">
+																<span>{{TR To}}</span>
+															</td>
+															<td class="input">
+																<input class="max" name="max_price" type="number" step="any" placeholder="<?php echo hs_price($hs['config']['max_sale_price']); ?>">
+															</td>
+														</tr>
+														<tr>
+															<td class="apply-filter" colspan="2">
+																<button data-btn="price" type="submit" disabled="true">
+																	{{TR Apply}}
+																</button>
+															</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+										<div class="filt-option brand-name" id="brand-name">
+											<div class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown">
+													{{TR Brand}}: <span title="{{TR All}}" id="selected">{{TR All}}</span>
+												</a>
+												<div class="dropdown-menu anim scale-up-tl">
+													<table>
+														<tr>
+															<td class="label">
+																<span>{{TR Name}}:</span>
+															</td>
+															<td class="input">
+																<input name="brand" type="text" placeholder="{{TR Enter brand name}}">
+															</td>
+														</tr>
+														<tr>
+															<td class="apply-filter" colspan="2">
+																<button  data-btn="brand" type="submit" disabled="true">
+																	{{TR Apply}}
+																</button>
+															</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+										<div class="filt-option key-word" id="keyword">
+											<div class="dropdown">
+												<a class="dropdown-toggle" data-toggle="dropdown">
+													{{TR Title}}: <span title="{{TR Any}}" id="selected">{{TR Any}}</span>
+												</a>
+												<div class="dropdown-menu anim scale-up-tl">
+													<table>
+														<tr>
+															<td class="label">
+																<span>{{TR Search}}:</span>
+															</td>
+															<td class="input">
+																<input name="keyword" type="text" placeholder="{{TR Enter a name to search}}">
+															</td>
+														</tr>
+														<tr>
+															<td class="apply-filter" colspan="2">
+																<button data-btn="keyword" type="submit" disabled="true">
+																	{{TR Apply}}
+																</button>
+															</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+										<div class="filt-option bootstrap-select-picker scale-up-tl-wrp" id="condition">
+											<select name="condition" data-prefix="{{TR Condition}}" class="bs-select" title="{{TR Condition}}: {{TR Any}}">
+												<option value="none">
+													{{TR Any}}
+												</option>
+												<option value="1">
+													{{TR New}}
+												</option>
+												<option value="2">
+													{{TR Used}}
+												</option>
+												<option value="3">
+													{{TR Modified}}
+												</option>
+											</select>
+										</div>
+										<div class="filt-option bootstrap-select-picker scale-up-tl-wrp" id="ship_cost">
+											<select name="ship_cost" data-prefix="{{TR Delivery}}" class="bs-select" title="{{TR Delivery}}: {{TR Any}}">
+												<option value="none">
+													{{TR Any}}
+												</option>
+												<option value="free">
+													{{TR Free}}
+												</option>
+												<option value="paid">
+													{{TR Paid}}
+												</option>
+											</select>
+										</div>
+										<div class="filt-option bootstrap-select-picker scale-up-tl-wrp" id="ship_time">
+											<select name="ship_time" data-prefix="{{TR Time of delivery}}" class="bs-select" title="{{TR Time of delivery}}: {{TR Any}}">
+												<option value="none">
+													{{TR Any}}
+												</option>
+												<option value="1_bd">
+													{{TR Delivery in 1 business day}}
+												</option>
+												<option value="2_3_bd">
+													{{TR Delivery within 2-3 business days}}
+												</option>
+												<option value="4_7_bd">
+													{{TR Delivery within 4-7 business days}}
+												</option>
+												<option value="8_15_bd">
+													{{TR Delivery within 8-15 business days}}
+												</option>
+												<option value="within_1_month">
+													{{TR Delivery within one month}}
+												</option>
+												<option value="within_2_months">
+													{{TR Delivery within two months}}
+												</option>
+												<option value="within_3_months">
+													{{TR Delivery within three months}}
+												</option>
+											</select>
+										</div>
+										<div class="filt-option bootstrap-select-picker scale-up-tl-wrp" id="seller_country">
+											<select multiple="true" data-live-search="true" name="seller_country[]" data-prefix="{{TR Seller Country}}" class="bs-select" title="{{TR Seller Country}}: {{TR Any}}">
+												<option value="none">
+													{{TR Any}}
+												</option>
+												<?php foreach ($hs['countries'] as $id => $cnt_name): ?>
+													<option value="<?php echo($id); ?>">
+														<?php echo hs_translate($cnt_name); ?>
+													</option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+										<div class="filt-option">
+											<button type="reset" class="reset-filter" id="reset-all">
+												{{TR Reset filter}}
+											</button>
+										</div>
+										<input type="hidden" class="hidden d-none" name="offset" value="0">
+										<input type="hidden" class="hidden d-none" name="list_id" value="{{list_pk_id}}">
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="active-filter-options" id="active-filters"></div>
+						<div class="prealoader-wrapper hidden" id="prods-preloader">
+							<div class="loader-icon">
+								<?php echo hs_svg('loading'); ?>
+							</div>
+							<h5>{{TR Loading. Please wait...}}</h5>
+						</div>
+						<div class="prods-items-container" id="prods-items-container">
+							<?php foreach ($hs['list_items'] as $hs['ls_item']): ?>
+								<?php echo hs_loadpage('wishlist/includes/prod_item'); ?>
+							<?php endforeach; ?>
+						</div>
+						<div class="prods-items-container-404"></div>
+						<?php if (count($hs['list_items']) > 0): ?>
+							<div class="load-more-pruducts">
+								<button id="load-more-pruducts">
+									{{TR Load more products}}
+								</button>
+							</div>
+						<?php else:?>
+							<div class="load-more-pruducts hidden">
+								<button id="load-more-pruducts">
+									{{TR Load more products}}
+								</button>
+							</div>
+						<?php endif; ?>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<footer class="footer-fluid d-xs-block d-md-block d-sm-block d-lg-none">
+		<?php echo hs_loadpage('footer/fluid'); ?>
+	</footer>
+
+	<?php echo hs_loadpage('wishlist/includes/modals/create_new'); ?>
+
+	<?php if (not_empty($hs['list_data'])): ?>
+		<?php echo hs_loadpage('wishlist/includes/modals/edit_list',array(
+			'list_id' => $hs['list_data']['id'],
+			'list_name' => $hs['list_data']['list_name'],
+		)); ?>
+		<?php echo hs_loadpage('wishlist/includes/modals/confirmations/wishlist_removal',array(
+			'list_id' => $hs['list_data']['id'],
+		)); ?>
+	<?php endif; ?>
+
+	<?php echo hs_loadpage('wishlist/static/js/wishlists_master_script'); ?>
+	<?php echo hs_loadpage('wishlist/static/html_temps/mt.1'); ?>
+<?php else: ?>
+	<div class="wishlist-page-container" id="wishlist-page-cont">
+		<div class="content-container">
+			<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{CONFIG url}}">{{TR Home}}</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="<?php echo hs_link('wishlist'); ?>">
+							{{TR Wishlists}}
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						{{TR Empty wishlist}}
+					</li>
+				</ol>
+			</nav>
+			<?php echo hs_loadpage('wishlist/includes/wishlist_empty'); ?>
+		</div>
+	</div>
+	<footer class="footer-fluid">
+		<?php echo hs_loadpage('footer/fluid'); ?>
+	</footer>
+<?php endif; ?>
+
+

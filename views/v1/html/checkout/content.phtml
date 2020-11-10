@@ -1,0 +1,41 @@
+<?php if (not_empty($hs['basket'])): ?>
+<div class="checkout-page-content-wrapper clearfix">
+	<div class="content-container" id="checkout-page-content-wrapper">
+		<div class="row page-parts-holder">
+			<div class="col-md-12">
+				<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{CONFIG url}}">{{TR Home}}</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="{{LINK checkout}}">
+								{{TR Checkout products}}
+							</a>
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="col-md-12 col-lg-8 col-sm-12 col-xs-12">
+				<div class="left-part clearfix" id="left-sidepart">
+					<div class="clearfix" id="checkout-page-content">
+						<?php echo hs_loadpage("checkout/includes/deliv_address"); ?>
+						<?php echo hs_loadpage("checkout/includes/basket"); ?>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-4 col-sm-12 col-xs-12 page-right-part">
+				<div class="right-part clearfix" id="right-sidepart">
+					<?php echo hs_loadpage("checkout/includes/order_summary"); ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php else: ?>
+	<?php echo hs_loadpage("checkout/includes/basket/empty_basket"); ?>
+<?php endif; ?>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>

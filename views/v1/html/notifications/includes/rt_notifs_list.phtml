@@ -1,0 +1,31 @@
+<li class="notifs-list-item">
+	<div class="flex-cont">
+		<div class="left-part">
+			<div class="avatar">
+				<img src="<?php echo($hs['notif_data']['notifier_avatar']); ?>" alt="Picture">
+			</div>
+		</div>
+		<div class="right-part">
+			<?php if (not_empty($hs['notif_data']['url'])): ?>
+				<a href="<?php echo($hs['notif_data']['url']); ?>" class="fluid-block{">
+			<?php endif; ?>
+				<p>
+					<b>
+						<?php echo($hs['notif_data']['notifier_name']); ?>
+						<?php if ($hs['notif_data']['notifier_verified'] == '1'): ?>
+							<?php echo hs_svg('verified-icon'); ?>
+						<?php endif; ?>
+					</b>
+					<span>
+						<?php echo($hs['notif_data']['message']); ?>
+					</span>
+				</p>
+				<time>
+					<?php echo($hs['notif_data']['time']); ?>
+				</time>
+			<?php if (not_empty($hs['notif_data']['url'])): ?>
+				</a>
+			<?php endif; ?>
+		</div>
+	</div>
+</li>

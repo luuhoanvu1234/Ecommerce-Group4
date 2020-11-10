@@ -1,0 +1,68 @@
+<tr data-user-li="<?php echo($hs['user_data']['id']) ?>">
+	<td>
+		<b><?php echo($hs['user_data']['id']) ?></b>
+	</td>
+	<td class="link">
+		<div class="avatar-holder">
+            <img src="<?php echo($hs['user_data']['avatar']); ?>" alt="Avatar">
+        </div>
+		<a href="<?php echo($hs['user_data']['url']); ?>">
+			<?php echo($hs['user_data']['full_name']); ?>
+
+			<?php if ($hs['user_data']['verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+		</a>
+	</td>
+	<td class="email">
+		<?php echo($hs['user_data']['email']) ?>
+	</td>
+	<td class="banner">
+		<div class="country-flag">
+			<?php echo($hs['user_data']['banner']); ?>
+    	</div>
+	</td>
+	<td>
+		<span class="badge bg-main-red">
+			<?php echo($hs['user_data']['ipv4_address']) ?>
+		</span>
+	</td>
+	<td class="switch">
+		<?php if ($hs['user_data']['active'] == '1'): ?>
+			<label>
+	            <input data-onchange="toggle_user_status" data-accid="<?php echo($hs['user_data']['id']); ?>" type="checkbox" checked="true"><span class="lever switch-col-blue"></span>
+	        </label>
+		<?php else: ?>
+			<label>
+	            <input data-onchange="toggle_user_status" data-accid="<?php echo($hs['user_data']['id']); ?>" type="checkbox"><span class="lever switch-col-blue"></span>
+	        </label>
+		<?php endif; ?>
+    </td>
+	<td class="time">
+		<?php echo($hs['user_data']['last_active']) ?>
+	</td>
+	<td>
+		<div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+            	<li>
+                    <a href="<?php echo($hs['user_data']['url']) ?>" class="waves-effect waves-block">
+                        {{TR Profile}}
+                    </a>
+                </li>
+                <li data-onclick="edit_user" data-id="<?php echo($hs['user_data']['id']) ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Edit}}
+                    </a>
+                </li>
+                <li data-onclick="delete_user" data-id="<?php echo($hs['user_data']['id']) ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+	</td>
+</tr>

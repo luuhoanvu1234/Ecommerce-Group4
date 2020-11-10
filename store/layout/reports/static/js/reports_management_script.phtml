@@ -1,0 +1,222 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        
+        var REPORTS_MNG_PAGE = $("div#reports-management-page");
+		var REPORTS_LIST     = REPORTS_MNG_PAGE.find('table#reports-list');
+        var REPORT_REMOVAL_M = $("div#confirm-report-removal-modal");
+
+        REPORTS_MNG_PAGE.find('i#clear-searching-terms').on('click',function(event) {
+            $(this).addClass('hidden');
+            REPORTS_MNG_PAGE.find('input#search-reports').trigger('keyup').val('');
+        });
+
+        REPORTS_MNG_PAGE.find('input#search-reports').keyup(function(event) {
+            delay(function(){
+                var reports_list = REPORTS_MNG_PAGE.find('table#reports-list');
+                var preloader    = REPORTS_MNG_PAGE.find('div#table-preloader');
+                var keyword_val  = REPORTS_MNG_PAGE.find('input#search-reports').val();
+                var keyword      = ((keyword_val.length >= 1) ? keyword_val : '');
+                var keyword      = $.trim(keyword);
+
+                if (keyword && reports_list.find('tr.empty-table.no-data').length == 0) {
+                    REPORTS_MNG_PAGE.find('i#clear-searching-terms').removeClass('hidden');
+                    preloader.removeClass('hidden')
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/search_user_reports',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {keyword: keyword}
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            REPORTS_MNG_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                            reports_list.find('tbody').html(data.html);
+                        }
+                        else if(data.status == 404) {
+                            REPORTS_MNG_PAGE.find('a.pagination-ctrls').addClass('hidden');
+                            reports_list.find('tbody').html(data.html);
+                        }
+                    }).fail(function() {
+                        $.notify({
+                            message: 'Error: Failed to connect to the server. Please check your internet connection',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }).always(function() {
+                        setTimeout(function(){
+                            preloader.addClass('hidden');
+                        },500);
+                    });
+                }
+
+                else {
+                    if (hs_empty(keyword_val)) {
+                        REPORTS_MNG_PAGE.find('i#clear-searching-terms').addClass('hidden');
+                        REPORTS_MNG_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                    }
+
+                    if (window.reports_table_rows) {
+                        reports_list.html(window.reports_table_rows);
+                    }
+                } 
+            },1000);
+        });
+
+        if (REPORTS_MNG_PAGE.find('table#reports-list').find('tr[data-report-li]').length) {
+            if (REPORTS_MNG_PAGE.find('table#reports-list').find('tr.empty-table.no-data').length == 0) {
+                window.reports_table_rows = REPORTS_MNG_PAGE.find('table#reports-list').html();
+            }
+        }
+
+        REPORTS_MNG_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls  = REPORTS_MNG_PAGE.find('a.pagination-ctrls');
+                var this_ctrl    = $(this);
+                var reports_list = REPORTS_MNG_PAGE.find('table#reports-list');
+                var pager_dir    = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_req     = reports_list.find('tr[data-report-li]').last().data('report-li');
+                var first_req    = reports_list.find('tr[data-report-li]').first().data('report-li');
+                var preloader    = REPORTS_MNG_PAGE.find('div#table-preloader').removeClass('hidden');
+                var keyword      = REPORTS_MNG_PAGE.find('input#search-reports').val();
+                var keyword      = ((keyword.length >= 1) ? keyword : '');
+                var pager_ctrls  = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/admin/get_user_reports',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_req, 
+                        first: first_req,
+                        keyword: keyword,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        reports_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var event_trigger = $(this).data('onclick');
+            var zis_el        = $(this);
+
+            if(event_trigger == 'delete_report') {
+                var report_id = zis_el.data('id');
+                REPORT_REMOVAL_M.find('input[name="report_id"]').val(report_id);
+                REPORT_REMOVAL_M.modal('show');
+            }
+
+            else if(event_trigger == 'view_report') {
+                var report_id  = zis_el.data('id');
+                var preloader  = REPORTS_MNG_PAGE.find('div#table-preloader').removeClass('hidden');
+                var report_row = REPORTS_LIST.find('tr[data-report-li="{0}"]'.format(report_id));
+                if ($.isNumeric(report_id)) {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/report_data',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {id: report_id},
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            $("body").find('div.modal.report-message-modal').each(function(index, el) {
+                                $(this).remove();
+                            }).promise().done(function(){
+                                $("body").append($(data.html).modal('show'));
+
+                                if (data.is_seen) {
+                                    report_row.find('span#report-status').removeClass('bg-main-red');
+                                    report_row.find('span#report-status').addClass('bg-orange');
+                                    report_row.find('span#report-status').text("{{TR Viewed}}");
+                                }
+                            });
+                        }
+                        else {
+                            if (data.message) {
+                                $.notify({
+                                    message: data.message,
+                                },{
+                                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                    placement: {from: "bottom",align: "left"},
+                                    offset: {x: 40,y: 30},
+                                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                                });
+                            }
+                        }
+                    }).always(function() {
+                        delay(function(){
+                            preloader.addClass('hidden');
+                        },500);
+                    });
+                }
+            }
+        });
+
+        REPORT_REMOVAL_M.find('form#remove-report-form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/delete_report',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                REPORT_REMOVAL_M.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {
+                if (data.status == 200) {
+                    var report_id = REPORT_REMOVAL_M.find('input[name="report_id"]').val();
+                    REPORTS_LIST.find('tr[data-report-li="{0}"]'.format(report_id)).slideUp(150,function(){
+                        $(this).remove();
+                    });
+                }
+
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (hs_empty(REPORTS_LIST.find('tr[data-report-li]').length)) {
+                    $(window).reloadPage(300);
+                }
+
+                REPORT_REMOVAL_M.find('button').removeAttr('disabled');
+                REPORT_REMOVAL_M.find('input[name="report_id"]').val('');
+                REPORT_REMOVAL_M.modal('hide');
+            }
+        });
+
+        $(document).on('hidden.bs.modal',"div#report-message-modal", function () {  
+            $(this).remove();
+        });
+	});
+</script>

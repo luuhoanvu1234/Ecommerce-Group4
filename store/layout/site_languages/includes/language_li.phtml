@@ -1,0 +1,64 @@
+<tr class="languages">
+	<td>
+		<b><?php echo $hs['lang_data']['sort_order']; ?></b>
+	</td>
+    <td>
+    	<span>
+    		<?php echo hs_translate(ucfirst($hs['lang_data']['lang_name'])); ?>
+
+    		<?php if ($hs['lang_data']['lang_name'] == $hs['config']['language']): ?>
+    			(Default)
+    		<?php endif; ?>
+    	</span>
+    </td>
+    <td class="switch">
+        <?php if ($hs['lang_data']['status'] == 'active'): ?>
+            <label>
+                <input data-onchange="toggle_lang_status" data-lang="<?php echo $hs['lang_data']['lang_name']; ?>" type="checkbox" checked="true"><span class="lever switch-col-blue"></span>
+            </label>
+        <?php else: ?>
+            <label>
+                <input data-onchange="toggle_lang_status" data-lang="<?php echo $hs['lang_data']['lang_name']; ?>" type="checkbox"><span class="lever switch-col-blue"></span>
+            </label>
+        <?php endif ?>
+    </td>
+    <td class="banner">
+        <div class="country-flag">
+            <?php echo hs_banner($hs['lang_data']['a2_code']); ?>
+        </div>
+    </td>
+    <td>
+    	<span class="badge">
+    		<?php echo strtoupper($hs['lang_data']['a2_code']); ?>
+    	</span>
+    </td>
+    <td>
+        <span class="badge bg-blue">
+            (<?php echo $hs['lang_data']['usage']; ?>) {{TR People}}
+        </span>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo hs_link(sprintf('merchant_panel/edit_language?lang=%s',$hs['lang_data']['lang_name'])); ?>" class="waves-effect waves-block">
+                        {{TR Edit}}
+                    </a>
+                </li>
+                <li data-onclick="delete_language" data-lang="<?php echo($hs['lang_data']['lang_name']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+                <li data-onclick="change_language_sortorder" data-id="<?php echo($hs['lang_data']['id']); ?>" data-sin="<?php echo($hs['lang_data']['sort_order']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Change sort order}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

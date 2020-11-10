@@ -1,0 +1,71 @@
+<!-- 
+    The use of inline styles here is 
+    necessary for the dynamic display 
+    of colors of interface elements 
+-->
+<div class="var-list-item clearfix" data-cs-var-item="{{var_id}}">
+    <div class="header-part">
+        <span class="image">
+            <?php if (!empty($hs['col_img'])): ?>
+                <img class="cs-var-avatar" src="<?php echo($hs['col_img']); ?>" alt="Photo">
+            <?php else: ?>
+                <img class="cs-var-avatar" src="{{CONFIG url}}/views/v1/statics/img/placeholder.png" alt="Photo">
+            <?php endif; ?> 
+        </span>
+        <span><i class="material-icons size">crop_free</i> <b>{{size_unit}}</b></span>
+        <?php if (!empty($hs['col_hex'])): ?>
+            <span class="var-color-name">
+                <i class="material-icons col" style="color:#<?php echo($hs['col_hex']); ?>;">color_lens</i>
+                <b>
+                    <?php echo(hs_translate($hs['color_types'][$hs['col_hex']])); ?>    
+                </b>
+            </span>   
+        <?php else: ?>
+            <span class="var-color-name">
+                <i class="material-icons col">color_lens</i>
+                <b>
+                    {{TR Not selected}}    
+                </b>
+            </span>  
+        <?php endif; ?>
+        <span class="slide-toggle slide-toggle-var-item" data-var-id="{{var_id}}">
+            <i class="material-icons">arrow_drop_down</i>
+        </span>
+    </div>
+    <div class="body-content" data-var-cont="{{var_id}}">
+        <div class="data-management-page">
+            <div class="form-group form-field-box no-mb">
+                <div class="row">
+                    <div class="col-sm-6 p-r-10 mb-20" data-form-field="reg_price">
+                        <label class="form-label">{{TR Regular price}}:</label>
+                        <div class="filed-box">
+                            <input value="{{reg_price}}" name="var_items_data[{{var_id}}][reg_price]" type="number" step="any" class="form-control" placeholder="{{TR Enter the product regular price}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-l-10 mb-20" data-form-field="sale_price">
+                        <label class="form-label">{{TR Sale price}}:</label>
+                        <div class="filed-box">
+                            <input value="{{sale_price}}" name="var_items_data[{{var_id}}][sale_price]" type="number" step="any" class="form-control" placeholder="{{TR Enter the product sale price}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-field-box no-mb">
+                <div class="row">
+                    <div class="col-sm-6 p-r-10 mb-20" data-form-field="quantity">
+                        <label class="form-label">{{TR Quantity}}:</label>
+                        <div class="filed-box">
+                            <input value="{{quantity}}" name="var_items_data[{{var_id}}][quantity]" type="number" class="form-control" placeholder="{{TR Product variation item quantity}}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-l-10 mb-20" data-form-field="sku">
+                        <label class="form-label">SKU:</label>
+                        <div class="filed-box">
+                            <input name="var_items_data[{{var_id}}][sku]" type="text" class="form-control" placeholder="{{TR Enter the stock keeping unit of your item}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

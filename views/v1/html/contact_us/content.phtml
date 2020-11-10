@@ -1,0 +1,36 @@
+<div class="contactus-page-container">
+	<div class="content-container">
+		<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{CONFIG url}}">{{TR Home}}</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{LINK contact_us}}">
+						{{TR Contact us}}
+					</a>
+				</li>
+			</ol>
+		</nav>
+		<div class="contactus-page-wrapper">
+			<div class="top-part">
+				<div class="header">
+					<h1>{{TR Contacts}}</h1>
+				</div>
+				<div class="code-cont">
+					<p class="text-left">
+						<?php echo $hs['config']['contacts_info']; ?>
+					</p>
+				</div>
+			</div>
+			<div class="bottom-part">
+				<div class="map">
+					<iframe id="mapreview-area" width="100%" height="100%" frameborder="0" src="https://www.google.com/maps/embed/v1/place?key={{CONFIG google_maps_api}}&q={{CONFIG company_address}}" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>

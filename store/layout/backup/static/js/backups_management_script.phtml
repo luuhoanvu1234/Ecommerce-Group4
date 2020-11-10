@@ -1,0 +1,71 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        var BACKUPS_MNG_PAGE    = $("div#backups-management-page");
+        var BACKUP_CREATION_M   = $("div#confirm-backup-creation-modal");
+        var BACKUP_REMOVAL_M    = $("div#confirm-backup-removal-modal");
+        var LONG_PROC_PRELOADER = $("div#long-proc-preloader");
+
+        BACKUP_CREATION_M.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/create_backup',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                BACKUP_CREATION_M.modal('hide');
+                LONG_PROC_PRELOADER.removeClass('hidden');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (data.status == 200) {
+                    $(window).reloadPage(1500);
+                }
+            },
+            complete: function() { 
+                LONG_PROC_PRELOADER.addClass('hidden');
+            }
+        });
+
+        BACKUPS_MNG_PAGE.find('[data-onclick="delete_backup"]').on('click',function(event) {
+            var backup_id = $(this).data('id');
+            if ($.isNumeric(backup_id) && backup_id) {
+                BACKUP_REMOVAL_M.find('input#backup_id').val(backup_id);
+                BACKUP_REMOVAL_M.modal('show');
+            }
+        });
+
+        BACKUP_REMOVAL_M.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/delete_backup',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                BACKUP_REMOVAL_M.modal('hide');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (data.status == 200) {
+                    $(window).reloadPage(1500);
+                }
+            }
+        });
+	});
+</script>

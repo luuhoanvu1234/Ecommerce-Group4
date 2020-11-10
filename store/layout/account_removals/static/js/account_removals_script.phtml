@@ -1,0 +1,141 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        var ACC_REMOVALS_PAGE = $("div#account-removals-management-page");
+        var AR_REQUESTS_LIST  = ACC_REMOVALS_PAGE.find('table#requests-list');
+		var ACC_REMOVAL_M     = $("div#confirm-account-removal-modal");
+
+        ACC_REMOVALS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = ACC_REMOVALS_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var reqs_list   = ACC_REMOVALS_PAGE.find('table#requests-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_req    = reqs_list.find('tr[data-request-li]').last().data('request-li');
+                var first_req   = reqs_list.find('tr[data-request-li]').first().data('request-li');
+                var preloader   = ACC_REMOVALS_PAGE.find('div#table-preloader').removeClass('hidden');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/admin/get_account_removals',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_req, 
+                        first: first_req,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        reqs_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var event_trigger = $(this).data('onclick');
+            var zis_el        = $(this);
+            if (event_trigger == 'account_removal_request_data') {
+                if ($.isNumeric(zis_el.data('id')) && zis_el.data('id')) {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/account_removal_request_message',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {id: zis_el.data('id')},
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            $('body').find('div.modal.popup-ticket-modal.account-removal-message').each(function(index, el) {
+                                $(this).remove();
+                            }).promise().done(function(){
+                                $('body').append($(data.html).modal('show'));
+                            });
+                        }
+                        else {
+                            if (data.message) {
+                                $.notify({
+                                    message: data.message,
+                                },{
+                                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                    placement: {from: "bottom",align: "left"},
+                                    offset: {x: 40,y: 30},
+                                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                                });
+                            }
+                        }
+                    });  
+                }
+            }
+
+            else if(event_trigger == 'delete_account') {
+                var account_id = zis_el.data('id');
+                ACC_REMOVAL_M.find('input[name="user_id"]').val(account_id);
+                ACC_REMOVAL_M.modal('show');
+            }
+        });
+
+        ACC_REMOVAL_M.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/delete_account',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                ACC_REMOVAL_M.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (AR_REQUESTS_LIST.find('tr[data-request-li]').length > 1) {
+                    if (data.status == 200) {
+                        var account_id = ACC_REMOVAL_M.find('input[name="user_id"]').val();
+                        AR_REQUESTS_LIST.find('tr[data-accid="{0}"]'.format(account_id)).slideUp(150,function(){
+                            $(this).remove();
+                        });
+
+                        ACC_REMOVAL_M.find('button').removeAttr('disabled');
+                        ACC_REMOVAL_M.find('input[name="user_id"]').val('');
+                    }
+                }
+
+                else {
+                    AR_REQUESTS_LIST.css('opacity', '0.3');
+                    $(window).reloadPage(1500);
+                } 
+            },
+            complete: function() {
+                ACC_REMOVAL_M.modal('hide');
+                ACC_REMOVAL_M.find('button').removeAttr('disabled');
+            }
+        });
+	});
+</script>

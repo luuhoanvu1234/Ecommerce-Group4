@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo hs_translate('This account has been suspended!'); ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/bootstrap.min.css',$hs['config']['url'])); ?>">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/server.message.styles.css',$hs['config']['url'])); ?>">
+</head>
+<body>
+	<div class="message-container-block">
+		<div class="message-container-inner">
+			<div class="icon main-red">
+				<?php echo hs_svg('info'); ?>
+			</div>
+			<h2>
+				<?php echo hs_translate('This account has been suspended!'); ?>
+			</h2>
+			<p class="tex">
+				<?php echo hs_translate('Sorry, but this account has been blocked by the administration, and therefore you can’t get access to its public content!'); ?>
+			</p>
+			<div class="btns">
+				<a class="btn inline" href="<?php echo hs_link('/'); ?>">
+					<?php echo hs_translate('Go to home page'); ?>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

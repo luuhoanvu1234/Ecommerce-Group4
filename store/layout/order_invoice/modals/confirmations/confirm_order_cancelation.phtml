@@ -1,0 +1,23 @@
+<div class="modal animated vh-center fadeIn confirm-order-cancelation confirm-action-modal" id="confirm-order-cancelation-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="remove-prod-form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{TR Please confirm your actions!}}</h4>
+                </div>
+                <div class="modal-body">
+                    <?php echo hs_translate('Your order has been placed, but is still awaiting processing. If you cancel it now, the administration may charge you a fee of {%refund_fee%}, and you will receive money back within 14 business days. Are you sure you want to continue?',array(
+                        'refund_fee' => sprintf('<b class="col-green">(%s)</b>',hs_money(floatval($hs['config']['order_cancellation_fee'])))
+                    )); ?>   
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn bg-main-red waves-effect">{{TR Yes, cancel it!}}</button>
+                    <button type="button" class="btn bg-grey waves-effect" data-dismiss="modal">{{TR No, cancel}}</button>
+                </div>
+                <input type="hidden" name="order_id" value="{{order_id}}">
+            </form>
+        </div>
+    </div>
+</div>
+ 

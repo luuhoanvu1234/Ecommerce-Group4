@@ -1,0 +1,72 @@
+<div class="clearfix" id="market-checkouts-management-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/market_transactions}}">
+                        {{TR Checkouts}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Customer checkouts management}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header un-filterable">
+                    <h2>{{TR List of all transactions}} (<?php echo($hs['total_checkouts']); ?>)</h2>
+                    <div class="ml-auto">
+                        <span class="show-table-filter" data-toggle="modal" data-target="div#table-filter-modal">
+                            <i class="material-icons">tune</i>
+                        </span>
+                    </div>
+                </div>
+                <div class="body table-responsive">  
+                    <table class="table table-hover no-mb" id="trans-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Customer}}</th>  
+                                <th>{{TR Amount}}</th>
+                                <th>{{TR Seller}}</th>
+                                <th>{{TR Status}}</th>
+                                <th>{{TR Market rate}}</th>
+                                <th>{{TR Date}}</th>
+                                <th>{{TR Method}}</th>
+                                <th>{{TR Action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['market_checkouts'])): ?>
+                                <?php foreach ($hs['market_checkouts'] as $hs['trans_data']): ?>
+                                    <?php echo hs_loadpage('market_transactions/includes/transaction_li'); ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php echo hs_loadpage('market_transactions/includes/empty_table'); ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['market_checkouts'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('market_transactions/static/js/market_transactions_script'); ?>
+<?php echo hs_loadpage('market_transactions/modals/table_filter_modal'); ?>

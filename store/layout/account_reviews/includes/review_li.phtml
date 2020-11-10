@@ -1,0 +1,74 @@
+<tr data-review-li="<?php echo($hs['rev_data']['id']); ?>">
+    <td>
+        <?php echo($hs['rev_data']['id']); ?>
+    </td>
+    <td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo($hs['rev_data']['avatar']); ?>" alt="Image">
+        </div>
+        <a href="<?php echo($hs['rev_data']['ulink']); ?>">
+            <?php echo($hs['rev_data']['uname']); ?>
+
+            <?php if ($hs['rev_data']['verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+        </a>
+    </td>
+    <td class="link">
+        <a href="<?php echo($hs['rev_data']['plink']); ?>">
+            <?php echo($hs['rev_data']['pname']); ?>
+        </a>
+    </td>
+    <td >
+        <?php if ($hs['rev_data']['valuation'] == 5): ?>
+            <span class="badge bg-green">
+                {{TR Excellent!}}
+            </span>
+        <?php elseif ($hs['rev_data']['valuation'] == 4): ?>
+            <span class="badge bg-blue">
+                {{TR Very Good!}}
+            </span>
+        <?php elseif ($hs['rev_data']['valuation'] == 3): ?>
+            <span class="badge bg-purple">
+                {{TR Good!}}
+            </span>
+        <?php elseif ($hs['rev_data']['valuation'] == 2): ?>
+            <span class="badge bg-orange">
+                {{TR Average!}}
+            </span>
+        <?php elseif ($hs['rev_data']['valuation'] == 1): ?>
+            <span class="badge bg-red">
+                {{TR Poor!}}
+            </span>
+        <?php endif; ?>
+    </td>
+    <td class="rating-stars">
+        <?php foreach ($hs['rev_data']['stars'] as $star): ?>
+            <span>
+                <?php echo($star); ?>
+            </span>
+        <?php endforeach; ?>
+    </td>
+    <td class="time">
+        <?php echo($hs['rev_data']['time']); ?>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo($hs['rev_data']['plink']); ?>" class="waves-effect waves-block">
+                        {{TR Product page}}
+                    </a>
+                </li>
+                <li data-onclick="account_review_data" data-id="<?php echo($hs['rev_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Show details}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

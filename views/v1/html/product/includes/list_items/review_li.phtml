@@ -1,0 +1,61 @@
+<div class="review-list-item" data-review-li="<?php echo $hs['review_data']['id']; ?>">
+	<div class="header-part">
+		<div class="avatar">
+			<img src="<?php echo $hs['review_data']['avatar']; ?>" alt="">
+		</div>
+		<div class="user-info">
+			<div class="user-name">
+				<a href="<?php echo $hs['review_data']['ulink']; ?>">
+					<?php echo $hs['review_data']['uname']; ?>
+					<?php if ($hs['review_data']['verified'] == '1'): ?>
+						<?php echo hs_svg('verified-icon'); ?>
+					<?php endif; ?>
+				</a>
+				<?php if ($hs['review_data']['owner']): ?>
+					<div class="delete-review">
+						<div class="dropdown dropright">
+							<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+								<span class="arrow">
+									<?php echo hs_svg('arrow-down'); ?>
+								</span>
+							</a>
+					        <div class="dropdown-menu dropdown-menu-right">
+					        	<a data-trigger-event="submit" data-target="form#delete-review-form" data-data="<?php echo $hs['review_data']['id']; ?>" class="dropdown-item" href="javascript:void(0);">
+									{{TR Delete this review}}
+								</a>
+					        </div>
+				     	</div>	
+					</div>
+				<?php endif; ?>
+			</div>
+			<div class="rating">
+				<?php foreach ($hs['review_data']['stars'] as $star): ?>
+					<span>
+						<?php echo $star; ?>
+					</span>
+				<?php endforeach; ?>
+
+				<time class="time">
+					<?php echo $hs['review_data']['time']; ?>
+				</time>
+			</div>
+		</div>
+	</div>
+	<div class="body-part">
+		<?php if (not_empty($hs['review_data']['review'])): ?>
+			<article>
+				<?php echo $hs['review_data']['review']; ?>
+			</article>
+		<?php endif; ?>
+		
+		<?php if (not_empty($hs['review_data']['media'])): ?>
+			<div class="images-list">
+				<?php foreach ($hs['review_data']['media'] as $id => $rev_med): ?>				
+					<a class="images-list-item" data-fancybox="images" href="<?php echo($rev_med['file_path']); ?>">
+						<img src="<?php echo($rev_med['file_path']); ?>" alt="Product image">
+					</a>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+	</div>
+</div>

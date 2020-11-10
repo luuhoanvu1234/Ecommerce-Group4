@@ -1,0 +1,69 @@
+<?php if ($hs['pn'] == 'wallet'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/wallet/store.wallet.style.css">
+<?php endif; ?>
+
+<?php if (in_array($hs['pn'], array('add_product','edit_product'))): ?>
+	<link href="{{CONFIG url}}/store/statics/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+	<link href="{{CONFIG url}}/store/statics/css/apps/upsert_product/store.upsertprod.style.css" rel="stylesheet">
+	<link href="{{CONFIG url}}/store/statics/css/apps/upsert_product/store.upsertprod.mq.css" rel="stylesheet">
+<?php endif; ?>
+
+<?php if (in_array($hs['pn'], array('withdrawals','market_payouts'))): ?>
+	<link href="{{CONFIG url}}/store/statics/css/apps/withdrawal/store.withdrawal.style.css" rel="stylesheet">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'dashboard'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/dashboard/store.dashboard.style.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'create_announcement'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/announcements/store.announcements.mq.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'site_map'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/sitemap/store.sitemap.mq.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'site_settings'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/site_settings/store.sitesettings.style.css">
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/site_settings/store.sitesettings.mq.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'additional_settings'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/additional_settings/store.additionalsettings.mq.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'payment_settings'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/payment_settings/store.paymsettings.mq.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'main_settings'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/account_settings/store.accsettings.style.css">
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/account_settings/store.accsettings.mq.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'changelogs'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/changelogs/store.changelogs.style.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'site_languages'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/site_languages/store.sitelangs.style.css">
+<?php endif; ?>
+
+<?php if ($hs['pn'] == 'market_users'): ?>
+	<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/site_users/store.siteusers.style.css">
+<?php endif; ?>
+
+<?php if (not_empty($hs['child_pn'])): ?>
+	<?php if (in_array($hs['child_pn'], array('order_invoice','order_details'))): ?>
+		<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/order_data/store.orderdata.style.css">
+		<link rel="stylesheet" href="{{CONFIG url}}/store/statics/css/apps/order_data/store.orderdata.mq.css">
+	<?php endif ?>
+<?php endif; ?>
+
+<?php if (in_array($hs['pn'], array('account_verification'))): ?>
+	<link rel="stylesheet" type="text/css" href="{{CONFIG url}}/views/v1/statics/css/jquery.fancybox.css">
+<?php endif ?>
+
+<link rel="stylesheet" type="text/css" href="{{CONFIG url}}/views/v1/statics/css/bootstrap.notify.css">
+<link rel="stylesheet" type="text/css" href="{{CONFIG url}}/store/statics/plugins/bootstrap-select/css/bootstrap-select.min.css">

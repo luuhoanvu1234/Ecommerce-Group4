@@ -1,0 +1,44 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var MAIN_HEADER    = $("header#main-header-container");
+		var MAIN_HEADER_SF = MAIN_HEADER.find('form#search-form');
+		var MAIN_HEADER_SR = MAIN_HEADER_SF.find('div#search-result');
+
+		MAIN_HEADER_SF.find('input').keyup(function(event) {
+			delay(function() {
+				MAIN_HEADER_SR.removeClass('show');
+				MAIN_HEADER_SR.find('div#result').removeClass('show');
+				MAIN_HEADER_SR.find('div#result').empty();
+				if ($.trim(MAIN_HEADER_SF.find('input#search-keyword').val())) {
+					$.ajax({
+						url: '{{CONFIG url}}/req/products/search_prods',
+						type: 'GET',
+						dataType: 'json',
+						data: {keyword: $.trim(MAIN_HEADER_SF.find('input#search-keyword').val())},
+					}).done(function(data) {
+						MAIN_HEADER_SR.addClass('show');
+						MAIN_HEADER_SR.find('div#result').addClass('show');
+						if (data.status == 200) {
+							$(data.result).each(function(index, el) {
+								MAIN_HEADER_SR.find('div#result').append($('<a>',{
+									href: el.url,
+									text: el.query,
+								}));
+							});
+						}
+						else{
+							MAIN_HEADER_SR.find('div#result').html($('<span>',{
+								class:'no-result',
+								text: "{{TR No results found}}",
+							}));
+						}
+					});
+				}
+				else {
+					MAIN_HEADER_SF.find('div#result').empty().removeClass('show');
+				}
+			},600);
+		});
+	});
+</script>

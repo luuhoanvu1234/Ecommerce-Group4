@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /apps
+Disallow: /core
+Disallow: /requests
+Disallow: /site_backups
+Disallow: /store
+Disallow: /install
+Disallow: /views
+Disallow: /xhr

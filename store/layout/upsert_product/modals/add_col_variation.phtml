@@ -1,0 +1,141 @@
+<div class="modal animated fadeIn product-upsertvar-modal" id="product-colvar-modal" tabindex="-1" role="dialog"  data-keyboard="false" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form clearfix" id="prod-colvar-upsert-form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Product color variation}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                        <div class="data-management-area">
+                            <div class="form-fieldset-title clearfix">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p>
+                                            {{TR Enter a basic variant info}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box">
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">
+                                            {{TR Image}}
+                                        </label>
+                                        <div class="filed-box" data-form-field="1">
+                                            <div class="variation-color-image">
+                                                <div class="image" id="select-pcv-image">
+                                                    <div class="flex-cont">
+                                                        <i class="material-icons">add_a_photo</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <p class="info-message info">
+                                            <i class="material-icons">info</i>
+                                            {{TR Please select a color variation image for your product and select a color name for this product variant}}.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box">
+                                <div class="row clearfix">
+                                    <div class="col-sm-12" data-form-field="2">
+                                        <label class="form-label">
+                                            {{TR Color name}}
+                                        </label>
+                                        <div class="filed-box">
+                                            <select data-size="7" name="col_name" title="{{TR Please select the color name}}" class="form-control" data-live-search="true">
+                                                <?php foreach ($hs['color_types'] as $hex => $name): ?>        
+                                                    <?php if (hs_prod_type_exists(array('prod_id' => $hs['prod_id'],'var_type' => 'color','col_hex' => $hex))): ?>
+                                                        <option  disabled="true" value="<?php echo $hex; ?>">
+                                                            <?php echo hs_translate($name); ?>  {{TR Already Exists}}
+                                                        </option>
+                                                    <?php else: ?>
+                                                        <option value="<?php echo $hex; ?>">
+                                                            <?php echo hs_translate($name); ?>
+                                                        </option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row clearfix">
+                                    <div class="col-sm-6 p-r-10 mb-20" data-form-field="3">
+                                        <label class="form-label">
+                                            {{TR Regular price}}
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="reg_price" type="number" step="any" class="form-control" placeholder="{{TR Enter the product regular price}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20" data-form-field="4">
+                                        <label class="form-label">
+                                            {{TR Sale price}}
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="sale_price" type="number" class="form-control" placeholder="{{TR Enter the product sale price}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row clearfix">
+                                    <div class="col-sm-6 p-r-10 mb-20" data-form-field="5">
+                                        <label class="form-label">
+                                            {{TR Quantity}}
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="quantity" type="number" class="form-control" placeholder="{{TR Maximum is 1200}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20" data-form-field="6">
+                                        <label class="form-label">
+                                            SKU
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="sku" type="text" class="form-control" placeholder="{{TR Enter SKU}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row clearfix">
+                                    <div class="col-sm-12 no-mb">
+                                        <div class="filed-box">
+                                            <div class="btns">
+                                                <button data-section-node="main_cancel_btn" type="button" class="btn btn-lg btn-custom bg-grey" data-dismiss="modal" title="{{TR Cancel}}">
+                                                    <i class="material-icons">close</i> <span>{{TR Cancel}}</span>
+                                                </button>
+                                                <button data-section-node="main_submit_btn" type="submit" class="btn btn-lg btn-custom bg-blue m-l-15" title="{{TR Add variant}}">
+                                                    <i class="material-icons">add</i> <span>{{TR Add variant}}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <form id="upload-product-cvimg" class="hidden">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <input name="image" type="file" class="hidden" onchange="$(this).parent('form').submit();" accept="image/*">
+            </form>
+        </div>
+    </div>
+    <?php echo hs_loadpage('upsert_product/static/js/add_colvar_script');?>
+</div>
+
+

@@ -1,0 +1,71 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+    	var ADMIN_STORE_DBOARD  = $("div#admin-dashboard-panel");
+        var weekly_stats_canvas = document.getElementById('yearly_markets_analytics').getContext('2d');
+        var weekly_stats        = new Chart(weekly_stats_canvas, {
+            type: 'line',
+            data: {
+                labels: [
+                    "{{TR January}}", 
+                    "{{TR February}}", 
+                    "{{TR March}}", 
+                    "{{TR April}}", 
+                    "{{TR May}}", 
+                    "{{TR June}}", 
+                    "{{TR July}}",
+                    "{{TR August}}",
+                    "{{TR September}}",
+                    "{{TR October}}",
+                    "{{TR November}}",
+                    "{{TR December}}",
+                ],
+                datasets: [{
+                    label: "{{TR Commission income}}",
+                    borderColor: '#ff9809',
+                    backgroundColor: '#ff9809',
+                    fill: false,
+                    data: <?php echo json($hs['main_stats']['profit'],'e') ?>,
+                    pointRadius: 5,
+                    pointHoverRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: { 
+                    mode: 'label',
+                    intersect: false,
+                    callbacks: {
+                        label: function(tooltipItem, data) { 
+                            let fnum = tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            let fval = "{0}: {1}";
+                            return fval.format(data.datasets[tooltipItem.datasetIndex].label,hs_format_currency(fnum));
+                        },
+                    }
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: true,
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: true,
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>

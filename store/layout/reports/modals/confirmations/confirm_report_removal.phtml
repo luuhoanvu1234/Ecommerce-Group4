@@ -1,0 +1,20 @@
+<div class="modal animated vh-center fadeIn confirm-report-removal confirm-action-modal" id="confirm-report-removal-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="remove-report-form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{TR Please confirm your actions!}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{TR Are you sure that you want to delete this report? Note that this action is undonable!}}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn bg-main-red waves-effect">{{TR Yes, delete it!}}</button>
+                    <button type="button" class="btn bg-grey waves-effect" data-dismiss="modal">{{TR No, Cancel}}</button>
+                </div>
+                <input type="hidden" name="report_id" value="">
+            </form>
+        </div>
+    </div>
+</div>

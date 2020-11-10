@@ -1,0 +1,79 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var HOME_PAGE_CONTENT   = $("div#home-page-content");
+		var HOME_PAGE_PROD_LS   = HOME_PAGE_CONTENT.find('div#prods-items-container');
+		var HOME_PAGE_CONT_PREL = HOME_PAGE_CONTENT.find("div#prods-grid-items-preloader");
+		var GRID_BLOCK_WIDTH    = (HOME_PAGE_PROD_LS.width() / 5);
+
+		if (HOME_PAGE_PROD_LS.width() >= 768 && HOME_PAGE_PROD_LS.width() <= 1024) {
+			GRID_BLOCK_WIDTH = (HOME_PAGE_PROD_LS.width() / 4);
+		}
+
+		else if(HOME_PAGE_PROD_LS.width() >= 481 && HOME_PAGE_PROD_LS.width() <= 820) {
+			GRID_BLOCK_WIDTH = (HOME_PAGE_PROD_LS.width() / 3);
+		}
+
+		else if(HOME_PAGE_PROD_LS.width() >= 320 && HOME_PAGE_PROD_LS.width() <= 480) {
+			GRID_BLOCK_WIDTH = (HOME_PAGE_PROD_LS.width() / 2);
+		}
+
+		else if(HOME_PAGE_PROD_LS.width() <= 320) {
+			GRID_BLOCK_WIDTH = HOME_PAGE_PROD_LS.width();
+		}
+
+		var HOME_PAGE_GA_CONFIG = {
+			loading: false,
+			selector: 'div.prod-item',
+			gutter: 0,
+			width: GRID_BLOCK_WIDTH,
+			animate: true,
+			animationOptions: { 
+				speed: 100, 
+				duration: 200
+			}
+		};
+
+		HOME_PAGE_PROD_LS.gridalicious(HOME_PAGE_GA_CONFIG);
+
+		$(window).scroll(function(event) {
+			if (HOME_PAGE_GA_CONFIG.loading == false) {
+				var items_list  = [];
+				var last_item   = 0;
+				HOME_PAGE_GA_CONFIG.loading = true;
+
+				HOME_PAGE_PROD_LS.find('div.prod-item').each(function(index, el) {
+					items_list.push($(el).attr('data-product-li'));
+				}).promise().done(function() {
+					if (items_list.length) {
+						HOME_PAGE_CONT_PREL.removeClass('hidden');
+						var last_id = (Math.min.apply(Math, items_list));
+						$.ajax({
+							url: '{{CONFIG url}}/req/products/load_popular_items',
+							type: 'GET',
+							dataType: 'json',
+							data: {offset: last_id},
+						}).done(function(data) {
+							if (data.status == 200) {
+								HOME_PAGE_GA_CONFIG.loading = false;
+								HOME_PAGE_PROD_LS.gridalicious('append',$(data.html));
+							}
+
+							delay(function() {
+								HOME_PAGE_CONT_PREL.addClass('hidden');
+							},1000);
+						});
+					}
+
+					else {
+						return false;
+					}	
+				});
+			}
+
+			else {
+				return false;
+			}
+		});
+	});
+</script>

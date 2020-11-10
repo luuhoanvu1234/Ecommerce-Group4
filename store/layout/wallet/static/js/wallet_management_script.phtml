@@ -1,0 +1,207 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        
+		var TUP_BALANCE_M       = $("div#topup-balance-modal");
+		var WALLET_MNG_PAGE     = $("div#wallet-management-page");
+		var weekly_stats_canvas = document.getElementById('weekly_stats').getContext('2d');
+		var weekly_stats        = new Chart(weekly_stats_canvas, {
+			type: 'line',
+			data: {
+				labels: ["{{TR Sunday}}", "{{TR Monday}}", "{{TR Tuesday}}", "{{TR Wedesday}}", "{{TR Thusday}}", "{{TR Friday}}", "{{TR Saturday}}"],
+				datasets: [{
+					label: "{{TR Sales}}",
+					borderColor: '#f39c11',
+                    backgroundColor: '#f39c11',
+					fill: false,
+					data: <?php echo json_encode($hs['weekly_stats']['sales']); ?>,
+					pointRadius: 5,
+					pointHoverRadius: 5,
+				}]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+                tooltips: { 
+                    mode: 'label',
+                    intersect: false,
+                    callbacks: {
+                        label: function(tooltipItem, data) { 
+                            let fnum = tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            let fval = "{0}: {1}";
+                            return fval.format(data.datasets[tooltipItem.datasetIndex].label,hs_format_currency(fnum));
+                        },
+                    }
+                },
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				legend: {
+					position: 'bottom',
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						gridLines: {
+							display: true,
+						}
+					}],
+					yAxes: [{
+						display: true,
+						gridLines: {
+							display: true,
+						}
+					}]
+				}
+			}
+		});
+
+        TUP_BALANCE_M.find('form#tup-form').ajaxForm({
+			url: '{{CONFIG url}}/req/main_settings/tup_balance',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				TUP_BALANCE_M.find('button').attr('disabled', 'true');
+                TUP_BALANCE_M.find('small.error-message').remove();
+			},
+			success: function(data) {
+				if (data.status == 200) {
+					delay(function() {
+						hs_redirect(data.url);
+					},1500);
+
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    }); TUP_BALANCE_M.modal('hide');
+				}
+				else {
+					TUP_BALANCE_M.find('div[data-form-field="amount"]').append($('<small>',{
+                        class: 'animated flash error-message',
+                        text: data.message
+                    })); TUP_BALANCE_M.find('button').removeAttr('disabled');
+				}
+			}
+        });
+
+        WALLET_MNG_PAGE.find('i#clear-searching-terms').on('click',function(event) {
+            $(this).addClass('hidden');
+            WALLET_MNG_PAGE.find('input#search-transactions').trigger('keyup').val('');
+        });
+
+        WALLET_MNG_PAGE.find('input#search-transactions').keyup(function(event) {
+            delay(function(){
+                var trans_list  = WALLET_MNG_PAGE.find('table#transactions-list');
+                var preloader   = WALLET_MNG_PAGE.find('div#table-preloader');
+                var keyword_val = WALLET_MNG_PAGE.find('input#search-transactions').val();
+                var keyword     = ((keyword_val.length >= 1) ? keyword_val : 0);
+
+                if (keyword && trans_list.find('tr.empty-table.no-data').length == 0) {
+                    WALLET_MNG_PAGE.find('i#clear-searching-terms').removeClass('hidden');
+                    preloader.removeClass('hidden');
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/profile/search_transactions',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {keyword: keyword}
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            trans_list.find('tbody').html(data.html);
+                        }
+                        else {
+                            WALLET_MNG_PAGE.find('a.pagination-ctrls').addClass('hidden');
+                            trans_list.find('tbody').html(data.html);
+                        }
+                    }).fail(function() {
+                        $.notify({
+                            message: 'Error: Failed to connect to the server. Please check your internet connection',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }).always(function() {
+                        setTimeout(function(){
+                            preloader.addClass('hidden');
+                        },500);
+                    });
+                }
+
+                else {
+                    if (hs_empty(keyword_val)) {
+                        WALLET_MNG_PAGE.find('i#clear-searching-terms').addClass('hidden');
+                        WALLET_MNG_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                    }
+
+                    if (window.transactions_table_rows) {
+                        trans_list.html(window.transactions_table_rows);
+                    }
+                } 
+            },1000);
+        });
+
+        if (WALLET_MNG_PAGE.find('table#transactions-list').find('tr[data-trans-id]').length) {
+            if (WALLET_MNG_PAGE.find('table#transactions-list').find('tr.empty-table.no-data').length == 0) {
+                window.transactions_table_rows = WALLET_MNG_PAGE.find('table#transactions-list').html();
+            }
+        }
+
+        WALLET_MNG_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = WALLET_MNG_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var chtrns_list = WALLET_MNG_PAGE.find('table#transactions-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_req    = chtrns_list.find('tr[data-trans-id]').last().data('trans-id');
+                var first_req   = chtrns_list.find('tr[data-trans-id]').first().data('trans-id');
+                var preloader   = WALLET_MNG_PAGE.find('div#table-preloader').removeClass('hidden');
+                var keyword     = WALLET_MNG_PAGE.find('input#search-transactions').val();
+                var keyword     = ((keyword.length >= 1) ? keyword : '');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/profile/get_account_transactions',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_req, 
+                        first: first_req,
+                        keyword: keyword,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        chtrns_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+	});
+</script>

@@ -1,0 +1,48 @@
+<?php if (not_empty($hs['chats_history'])): ?>
+	<ul class="contacts-list">
+		<li class="no-contacts-found hidden" id="no-contacts-found">
+			{{TR No contacts found}}
+		</li>
+		<?php foreach ($hs['chats_history'] as $chat): ?>
+			<li class="contacts-list-item <?php echo($chat['active_class']); ?>">
+				<a href="<?php echo($chat['chat_url']); ?>" class="fluid-block">
+					<div class="contact">
+						<div class="avatar">
+							<img src="<?php echo($chat['avatar']); ?>" alt="Avatar">
+						</div>
+						<div class="contact-body">
+							<h6>
+								<span class="username">
+									<?php echo($chat['name']); ?>
+									
+									<?php if ($chat['verified_user'] == '1'): ?>
+										<?php echo hs_svg('verified-icon'); ?>
+									<?php endif; ?>
+								</span> 
+								<time>
+									<?php echo($chat['time']); ?>
+								</time>
+							</h6>
+							<div class="message">
+								<span class="last">
+									<?php if (not_empty($chat['last_message'])): ?>
+										<?php echo($chat['last_message']); ?>
+									<?php else: ?>
+										{{TR No messages}}
+									<?php endif; ?>
+								</span>
+								<span class="new">
+									<?php echo($chat['new_messages']); ?>
+								</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</li>
+		<?php endforeach; ?>
+	</ul>
+<?php else: ?>
+	<div class="no-contacts-found">
+		{{TR You have no contacts}}
+	</div>
+<?php endif; ?>

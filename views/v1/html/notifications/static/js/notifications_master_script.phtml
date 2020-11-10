@@ -1,0 +1,147 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var NOTIFS_PAGE   = $("div#notifications-page-cont");
+		var NOTIFS_LIST   = NOTIFS_PAGE.find('ul#notifications-list');
+		var BS_NOTIF_CONF = Object({allow_dismiss: false,icon_type: "class",type: 'default',timer: 500, placement: {from: "bottom",align: "left"}, offset: {x: 40,y: 40}, animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}});
+		var NOTIFS_CTRL   = Object({
+			selected:[],
+			offset_id: 0,
+			load: function() {
+				var this_obj = this;
+				if($.isNumeric(this_obj.offset_id) && this_obj.offset_id) {
+					$.ajax({
+						url: '{{CONFIG url}}/req/notifications/load_notifications',
+						type: 'GET',
+						dataType: 'json',
+						data: {offset: this_obj.offset_id},
+					}).done(function(data) {
+						if (data.status == 200) {
+							NOTIFS_LIST.append(data.html);
+						}
+						else if(data.status == 404) {
+							NOTIFS_PAGE.find('button#load-notifications').text("{{TR You have reached the end of the list}}");
+							NOTIFS_PAGE.find('button#load-notifications').attr('disabled', 'true');
+						}
+					}).always(function() {
+						this_obj.preloader('end');
+					});
+				}
+			},
+			delete: function() {
+				if (this.selected.length) {
+					var selected_notifs = this.selected;
+					$.ajax({
+						url: '{{CONFIG url}}/req/notifications/delete_notifs',
+						type: 'POST',
+						dataType: 'json',
+						data: {notifs:selected_notifs}
+					}).done(function(data) {
+						if (data.status == 200) {
+							NOTIFS_CTRL.reset_ids();
+							$(selected_notifs).each(function(index,el) {
+								NOTIFS_LIST.find('li[data-notifications-list-item="{0}"]'.format(el)).slideUp(300,function(){
+									$(this).remove();
+									if (NOTIFS_LIST.find('li.notifications-list-item').length < 1) {
+										$(window).reloadPage(100); return;
+									}
+								});
+							});
+						}
+						else {
+							if (data.message) {
+								$.notify({
+									message: data.message,
+								},BS_NOTIF_CONF);
+							}
+						}
+					});
+				}
+			},
+			push_id: function (id = 0) {
+				this.selected.push(id);
+				return this;
+			},
+			reset_ids: function() {
+				this.selected = [];
+				return this;
+			},
+			offset: function(id = 0) {
+				this.offset_id = id;
+				return this;
+			},
+			preloader: function(anim = null) {
+				if (anim == 'start') {
+					NOTIFS_PAGE.find("div#notifs-preloader").removeClass('hidden');
+				}
+				else if (anim == 'end') {
+					NOTIFS_PAGE.find("div#notifs-preloader").addClass('hidden');
+				}
+				return this;
+			}
+		});
+
+		NOTIFS_LIST.find('input[type="checkbox"]').on('change',function(event) {
+			var this_el = $(this);
+			if (this_el.prop('checked') == true) {		
+				NOTIFS_PAGE.find('div#delete-selected-notifs').removeClass('disabled');		
+			} 
+			else {
+				if (NOTIFS_LIST.find('input[type="checkbox"]:checked').length < 1) {
+					NOTIFS_PAGE.find('div#delete-selected-notifs').addClass('disabled');
+					NOTIFS_PAGE.find('input#select-all-notifications').prop("checked",false);
+				}
+			}
+		});
+
+		NOTIFS_PAGE.find('div#delete-selected-notifs').on('click',function(event) {
+			if ($(this).hasClass('disabled')) {
+				return false;
+			}
+			else {
+				NOTIFS_CTRL.reset_ids();
+				NOTIFS_LIST.find('input[type="checkbox"]:checked').each(function(index, el) {
+					NOTIFS_CTRL.push_id($(el).data('id'));
+				}).promise().done(function() {
+					NOTIFS_CTRL.delete();
+				});
+			}
+		});
+
+		NOTIFS_PAGE.find('input#select-all-notifications').on('change',function(event) {
+			var this_el = $(this);
+			if (this_el.prop('checked') == true) {		
+				if (NOTIFS_LIST.find('li.notifications-list-item').length) {
+					NOTIFS_PAGE.find('div#delete-selected-notifs').removeClass('disabled');
+					NOTIFS_LIST.find('li.notifications-list-item').each(function(index, el) {
+						$(el).find('input[type="checkbox"]').prop("checked",true);
+					});
+				}		
+			} 
+			else {	
+				if (NOTIFS_LIST.find('li.notifications-list-item').length) {
+					NOTIFS_PAGE.find('div#delete-selected-notifs').addClass('disabled');
+					NOTIFS_LIST.find('li.notifications-list-item').each(function(index, el) {
+						$(el).find('input[type="checkbox"]').prop("checked",false);
+					});
+				}
+			}
+		});
+
+		$(document).on('click', 'div.delete-notification', function(event) {
+			event.preventDefault();
+			var this_el  = $(this);
+			var notif_id = this_el.data('id');
+			if ($.isNumeric(notif_id) && notif_id) {
+				NOTIFS_CTRL.push_id(notif_id).delete();
+			}
+		});
+
+		NOTIFS_PAGE.find('button#load-notifications').on('click',function(event) {
+			var last_notif = NOTIFS_LIST.find('li.notifications-list-item').last();
+			if (last_notif.length) {
+				NOTIFS_CTRL.offset(last_notif.data('notifications-list-item')).preloader('start').load();
+			}
+		});
+	});
+</script>

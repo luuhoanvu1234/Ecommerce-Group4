@@ -1,0 +1,164 @@
+<div class="user-profile-page-container" id="user-profile-page-container">
+	<div class="prof-info-heading">
+		<div class="content-container">
+			<div class="user-avatar-panel">
+				<div class="avatar">
+					<img src="<?php echo($hs['prof_data']['avatar']); ?>" alt="Avatar">
+				</div>
+				<div class="prof-user-info">
+					<h4>
+						<?php echo($hs['prof_data']['name']); ?>
+						<span>
+							<?php if ($hs['prof_data']['verified'] || not_empty($hs['prof_data']['is_root'])): ?>
+								<?php echo hs_svg('verified-icon'); ?>
+							<?php endif; ?>
+						</span>
+					</h4>
+
+					<?php if (not_empty($hs['prof_data']['acc_addr'])): ?>
+						<div class="address">
+							<span>
+								<a href="<?php echo($hs['prof_data']['url']); ?>">
+									<?php echo($hs['prof_data']['name']); ?>
+								</a>
+							</span>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/></svg>
+							<span>
+								<?php echo hs_country($hs['prof_data']['country_id']); ?>, 
+								<?php echo $hs['prof_data']['state']; ?>, 
+								<?php echo $hs['prof_data']['city']; ?>
+							</span>
+						</div>
+					<?php endif; ?>
+					
+					<div class="rating">
+						<?php foreach ($hs['prof_rating_stars'] as $star): ?>
+							<span>
+								<?php echo $star; ?>
+							</span>
+						<?php endforeach; ?>
+						<?php if (floatval($hs['prof_rating'])): ?>
+							<span class="rating-num">
+								<?php echo $hs['prof_rating_format']; ?>
+							</span>
+						<?php endif; ?>
+					</div>
+
+					<div class="profile-activity-stats">
+						<ul>
+							<li>
+								<span class="stat-num">
+									<?php echo fetch_or_get($hs['prof_items_total'],0); ?>
+								</span>
+								<span class="stat-label">
+									{{TR Items}}
+								</span>
+							</li>
+							<li>
+								<span class="stat-num">
+									<?php echo fetch_or_get($hs['prof_data']['sales'],0); ?>
+								</span>
+								<span class="stat-label">
+									{{TR Sales}}
+								</span>
+							</li>
+							<li>
+								<span class="stat-num">
+									<?php echo fetch_or_get($hs['prof_rating_total'],0); ?>
+								</span>
+								<span class="stat-label">
+									{{TR Reviews}}
+								</span>
+							</li>
+						</ul>
+					</div>
+
+					<?php if (not_empty($hs['prof_data']['bio'])): ?>
+						<p class="profile-bio">
+							<?php echo $hs['prof_data']['bio']; ?>
+						</p>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+		<div class="user-prof-navbar">
+			<div class="navbar-wrapper clearfix">
+				<div class="content-container">
+					<nav class="navbar navbar-expand-lg navbar-light bg-light clearfix">
+						<ul class="navbar-nav">
+							<li class="nav-item <?php echo ($hs['prf_page'] == 'traditems') ? 'active' : '' ?>">
+								<a class="nav-link" href="<?php echo($hs['prof_data']['ti_url']); ?>">
+									<?php echo hs_svg('grid'); ?>
+									<span>
+										{{TR Trading Items}}
+									</span>
+								</a>
+							</li>
+							<li class="nav-item <?php echo ($hs['prf_page'] == 'bestproducts') ? 'active' : '' ?>">
+								<a class="nav-link" href="<?php echo($hs['prof_data']['bp_url']); ?>">
+									<?php echo hs_svg('check-outline'); ?>
+									<span>
+										{{TR Best Products}}
+									</span>
+								</a>
+							</li>
+							<li class="nav-item <?php echo ($hs['prf_page'] == 'mostsold') ? 'active' : '' ?>">
+								<a class="nav-link" href="<?php echo($hs['prof_data']['ms_url']); ?>">
+									<?php echo hs_svg('cart'); ?>
+									<span>
+										{{TR Most Sold Products}}
+									</span>
+								</a>
+							</li>
+							<li class="nav-item <?php echo ($hs['prf_page'] == 'reviews') ? 'active' : '' ?>">
+								<a class="nav-link" href="<?php echo($hs['prof_data']['cr_url']); ?>">
+									<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 512 512"><path d="M96.4 416h77.1l50.9-96.6V96h-160v223.4h77.1L96.4 416zm224 0h77.1l50-96.6V96H288.4v223.4h82l-50 96.6z"/></svg> 
+									<span>{{TR Rating & Reviews}}</span>
+								</a>
+							</li>
+							<li class="nav-item ml-auto" id="user-portfolio-info">
+								<a href="javascript:void();" class="nav-link">
+									<?php echo hs_svg('info'); ?>
+								</a>
+							</li>
+							<?php if (empty($hs['prof_data']['isme'])): ?>
+								<li class="nav-item contact-seller">
+									<a class="nav-link" href="<?php echo $hs['prof_data']['chaturl']; ?>">
+										<?php echo hs_svg('message'); ?>
+									</a>
+								</li>
+							<?php endif; ?>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="user-prods-container">
+		<div class="content-container">
+			{{page_content}}
+		</div>
+	</div>
+
+	<?php if (empty($hs['prof_data']['isme']) || 21): ?>
+		<?php echo hs_loadpage('profile/includes/modals/portfolio',array(
+			'name'        => $hs['prof_data']['name'],
+			'email'       => $hs['prof_data']['email'],
+			'phone'       => $hs['prof_data']['phone'],
+			'avatar'      => $hs['prof_data']['avatar'],
+			'country'     => hs_country($hs['prof_data']['country_id']),
+			'state'       => $hs['prof_data']['state'],
+			'city'        => $hs['prof_data']['city'],
+			'street'      => $hs['prof_data']['street'],
+			'off_apt'     => $hs['prof_data']['off_apt'],
+			'joined'      => date('F, Y',$hs['prof_data']['joined']),
+			'last_active' => date('Y, F d, h:m',$hs['prof_data']['last_active']),
+			'items_total' => $hs['prof_items_total'],
+		)); ?>
+	<?php endif; ?>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>
+<?php echo hs_loadpage('profile/static/js/profile_master_script'); ?>
+

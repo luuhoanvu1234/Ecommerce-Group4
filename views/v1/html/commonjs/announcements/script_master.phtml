@@ -1,0 +1,20 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		$(document).on('click', '[data-delete-announcement]', function(event) {
+			event.preventDefault();
+			var this_el = $(this);
+			var annc_id = this_el.data('delete-announcement');
+			$.ajax({
+				url: '{{CONFIG url}}/req/req_common/delete_announcement',
+				type: 'GET',
+				dataType: 'json',
+				data: {annc_id: annc_id},
+			});
+
+			$("div[data-announcement-message='{0}']".format(annc_id)).fadeOut(300, function() {
+				$(this).remove();
+			});
+		});
+	});
+</script>

@@ -1,0 +1,162 @@
+<div class="modal animated vh-center fadeIn popup-ticket-modal"  data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="ticket-content">
+                <div class="ticket-time">
+                    <time>
+                        <i class="material-icons">info_outline</i> {{TR Date}}: <?php echo($hs['trans_data']['time']); ?>
+                    </time>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                        <ul class="dropdown-menu bs-dropdown-menu pull-right">
+                            <li>
+                                <a href="<?php echo($hs['trans_data']['prod_url']); ?>" class="waves-effect waves-block">
+                                    {{TR Product page}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>  
+                <div class="user-info">
+                    <div class="avatar">
+                        <img src="<?php echo($hs['trans_data']['buyer_avatar']); ?>" alt="Avatar">
+                    </div>
+                    <div class="uname">
+                        <h6>
+                            <a href="#">
+                                <?php echo($hs['trans_data']['buyer_name']); ?>
+                            </a>
+                        </h6>
+                        <p>
+                            <span>
+                                <?php echo($hs['trans_data']['buyer_email']); ?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="ticket-message">
+                    <div class="ticket-message-header">
+                        <h5>
+                            {{TR Payment info}}:
+                        </h5>
+                    </div>   
+                    <div class="table-info">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Customer}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <a href="<?php echo($hs['trans_data']['buyer_url']); ?>">
+                                            <?php echo($hs['trans_data']['buyer_name']); ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Seller}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <a href="<?php echo($hs['trans_data']['seller_url']); ?>">
+                                            <?php echo($hs['trans_data']['seller_name']); ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Product}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <a href="<?php echo($hs['trans_data']['prod_url']); ?>">
+                                            <?php echo($hs['trans_data']['prod_name']); ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Order ID}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <b>#<?php echo($hs['trans_data']['order_id']); ?></b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Payment method}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <?php if ($hs['trans_data']['method'] == 'card'): ?>
+                                            {{TR Bank card}}
+                                        <?php elseif($hs['trans_data']['method'] == 'paypal'): ?>
+                                            PayPal
+                                        <?php elseif($hs['trans_data']['method'] == 'wallet'): ?>
+                                            {{TR Account wallet}}
+                                        <?php elseif($hs['trans_data']['method'] == 'cod'): ?>
+                                            {{TR Cash on delivery}}
+                                        <?php else: ?>
+                                            {{TR Undefined}}
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <?php if ($hs['trans_data']['method'] != 'wallet'): ?>
+                                    <tr>
+                                        <td class="lable-text">
+                                            {{TR Payment ID}}:
+                                        </td>
+                                        <td class="label-val">
+                                            <?php if ($hs['trans_data']['method'] == 'card'): ?>
+                                                <span class="badge bg-grey"><?php echo($hs['trans_data']['stripe_pid']); ?></span>
+                                            <?php elseif($hs['trans_data']['method'] == 'paypal'): ?>
+                                                <span class="badge bg-grey"><?php echo($hs['trans_data']['paypal_pid']); ?></span>
+                                            <?php else: ?>
+                                                {{TR Undefined}}
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Date}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <time><?php echo $hs['trans_data']['time']; ?> <i class="material-icons">access_time</i></time>
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Purchase amount}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <span class="col-green">
+                                            <?php echo $hs['trans_data']['amount']; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Status}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <?php if($hs['trans_data']['status'] == 'success'): ?>
+                                            <span class="badge bg-green">{{TR Success}}</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-red">{{TR Failed}}</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="ticket-ctrls">
+                    <button type="button" data-dismiss="modal" class="btn bg-main-red btn-block btn-sm waves-effect">
+                        {{TR Close window}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

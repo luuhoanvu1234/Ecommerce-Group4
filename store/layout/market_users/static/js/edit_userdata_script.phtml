@@ -1,0 +1,222 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+
+		$.AdminBSB.init('controls');
+
+		var EDIT_UDATA_M       = $("div#edit-udata-modal");
+		var AVATAR_SETTING_F   = EDIT_UDATA_M.find('form#user-avatar-form');
+		var GENERAL_SETTING_F  = EDIT_UDATA_M.find('form#general');
+		var ADDRESS_SETTING_F  = EDIT_UDATA_M.find('form#address');
+		var ADVANCED_SETTING_F = EDIT_UDATA_M.find('form#advanced');
+
+		EDIT_UDATA_M.find('div[data-gset-collapse]').on('click', function(event) {
+			event.preventDefault();
+			var this_el = $(this);
+			var target  = this_el.data('gset-collapse');
+			var tarobj  = EDIT_UDATA_M.find('[data-gset="{0}"]'.format(target));
+
+			if (tarobj.length) {
+				tarobj.slideToggle(150,function() {
+					$(this).toggleClass('open');
+					this_el.toggleClass('open');
+				});
+			}
+		});
+
+		GENERAL_SETTING_F.find('button#select-avatar-image').click(function(event) {
+			AVATAR_SETTING_F.find('input[type="file"]').trigger('click');
+		});
+
+		AVATAR_SETTING_F.ajaxForm({
+			url: '{{CONFIG url}}/req/admin/upload_user_avatar',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				GENERAL_SETTING_F.find('button#select-avatar-image').attr('disabled', 'true');
+			},
+			success: function(data) {
+				if(data.status == 200){
+					GENERAL_SETTING_F.find('img#user-avatar-holder').attr('src', data.url);
+				}
+
+				else {
+					EDIT_UDATA_M.modal('hide');
+
+					if (data.message) {
+	            		$.notify({
+		                    message: data.message,
+		                },{
+						    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+						    placement: {from: "bottom",align: "left"},
+						    offset: {x: 40,y: 30},
+						    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+						});
+	            	}
+            	}
+			},
+			complete: function() {
+				GENERAL_SETTING_F.find('button#select-avatar-image').removeAttr('disabled');
+			}
+		});
+
+		GENERAL_SETTING_F.ajaxForm({
+			url: '{{CONFIG url}}/req/admin/update_user_data',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				GENERAL_SETTING_F.find("small.error-message").each(function(index, el) {
+					$(this).remove();
+				}).promise().done(function(){
+					GENERAL_SETTING_F.find('button[type="submit"]').attr('disabled', 'true');
+					GENERAL_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+				});
+			},
+			success: function(data) {
+				if (data.status == 200) {
+	                GENERAL_SETTING_F.find('button[type="submit"]').replaceClass('bg-main-red','bg-green');
+	                GENERAL_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Changes saved}}");
+
+	                delay(function() {
+		                GENERAL_SETTING_F.find('button[type="submit"]').replaceClass('bg-green','bg-main-red');
+		                GENERAL_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Save changes}}");
+		                GENERAL_SETTING_F.find('button[type="submit"]').removeAttr('disabled');
+	                },3000);
+	            } 
+	            else {
+	            	if (data.message) {
+	            		var invalid_field = GENERAL_SETTING_F.find('[data-form-field="{0}"]'.format(data.err_field));
+                        if (invalid_field.length) {
+                            EDIT_UDATA_M.scroll2inner(invalid_field,500);
+                            invalid_field.append($("<small>",{
+                                text: data.message,
+                                class: 'col-red animated flash error-message'
+                            }));
+
+                            GENERAL_SETTING_F.find('button[type="submit"]').removeAttr('disabled');
+                            GENERAL_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Save changes}}");
+                        }
+
+		            	else {
+		            		EDIT_UDATA_M.modal('hide');
+		            		$.notify({
+			                    message: data.message,
+			                },{
+							    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+							    placement: {from: "bottom",align: "left"},
+							    offset: {x: 40,y: 30},
+							    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+							});
+		            	}
+	            	}
+	            }
+			}
+		});
+
+		ADDRESS_SETTING_F.ajaxForm({
+			url: '{{CONFIG url}}/req/admin/update_addres_info',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				ADDRESS_SETTING_F.find("small.error-message").each(function(index, el) {
+					$(this).remove();
+				}).promise().done(function(){
+					ADDRESS_SETTING_F.find('button[type="submit"]').attr('disabled', 'true');
+					ADDRESS_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+				});
+			},
+			success: function(data) {
+				if (data.status == 200) {
+	                ADDRESS_SETTING_F.find('button[type="submit"]').replaceClass('bg-main-red','bg-green');
+	                ADDRESS_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Changes saved}}");
+
+	                delay(function() {
+		                ADDRESS_SETTING_F.find('button[type="submit"]').replaceClass('bg-green','bg-main-red');
+		                ADDRESS_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Save changes}}");
+		                ADDRESS_SETTING_F.find('button[type="submit"]').removeAttr('disabled');
+	                },3000);
+	            } 
+	            else {
+	            	if (data.message) {
+	            		var invalid_field = ADDRESS_SETTING_F.find('[data-form-field="{0}"]'.format(data.err_field));
+                        if (invalid_field.length) {
+                            EDIT_UDATA_M.scroll2inner(invalid_field,500);
+                            invalid_field.append($("<small>",{
+                                text: data.message,
+                                class: 'col-red animated flash error-message'
+                            }));
+
+                            ADDRESS_SETTING_F.find('button[type="submit"]').removeAttr('disabled');
+                            ADDRESS_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Save changes}}");
+                        }
+
+		            	else {
+		            		EDIT_UDATA_M.modal('hide');
+		            		$.notify({
+			                    message: data.message,
+			                },{
+							    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+							    placement: {from: "bottom",align: "left"},
+							    offset: {x: 40,y: 30},
+							    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+							});
+		            	}
+	            	}
+	            }
+			}
+		});
+
+		ADVANCED_SETTING_F.ajaxForm({
+			url: '{{CONFIG url}}/req/admin/update_user_advanced_info',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				ADVANCED_SETTING_F.find("small.error-message").each(function(index, el) {
+					$(this).remove();
+				}).promise().done(function(){
+					ADVANCED_SETTING_F.find('button[type="submit"]').attr('disabled', 'true');
+					ADVANCED_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+				});
+			},
+			success: function(data) {
+				if (data.status == 200) {
+	                ADVANCED_SETTING_F.find('button[type="submit"]').replaceClass('bg-main-red','bg-green');
+	                ADVANCED_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Changes saved}}");
+
+	                delay(function() {
+	                	ADVANCED_SETTING_F.find('button[type="submit"]').replaceClass('bg-green','bg-main-red');
+		                ADVANCED_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Save changes}}");
+		                ADVANCED_SETTING_F.find('button[type="submit"]').removeAttr('disabled');
+	                },3000);
+	            } 
+	            else {
+	            	if (data.message) {
+	            		var invalid_field = ADVANCED_SETTING_F.find('[data-form-field="{0}"]'.format(data.err_field));
+                        if (invalid_field.length) {
+                            EDIT_UDATA_M.scroll2inner(invalid_field,500);
+                            invalid_field.append($("<small>",{
+                                text: data.message,
+                                class: 'col-red animated flash error-message'
+                            }));
+
+                            ADVANCED_SETTING_F.find('button[type="submit"]').removeAttr('disabled');
+                            ADVANCED_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Save changes}}");
+                        }
+
+		            	else {
+		            		EDIT_UDATA_M.modal('hide');
+		            		$.notify({
+			                    message: data.message,
+			                },{
+							    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+							    placement: {from: "bottom",align: "left"},
+							    offset: {x: 40,y: 30},
+							    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+							});
+		            	}
+	            	}
+	            }
+			}
+		});
+	});
+</script>

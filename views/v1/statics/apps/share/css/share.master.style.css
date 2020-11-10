@@ -1,0 +1,402 @@
+html {
+  scroll-behavior: smooth; }
+
+body {
+  background: #f2f3f2;
+  min-width: 340px !important;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif; }
+
+div.share-page-main-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+  background-color: rgba(0, 0, 0, 0.4); }
+  div.share-page-main-container div.product-info-lightbox-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 100px 0px; }
+    div.share-page-main-container div.product-info-lightbox-wrapper::-webkit-scrollbar {
+      display: none !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper::scrollbar {
+      display: none !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner {
+      width: auto;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+      padding-right: 30px;
+      padding-left: 30px; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-titling {
+        width: 100%;
+        overflow: hidden;
+        line-height: 0; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-titling h1.header {
+          color: #fff;
+          font-size: 23px;
+          line-height: 23px;
+          padding: 0;
+          margin: 0 0 5px 0;
+          font-weight: 700;
+          text-align: center;
+          opacity: 0.9; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-titling p.text {
+          color: #fff;
+          font-size: 14px;
+          line-height: 14px;
+          padding: 0;
+          margin: 0 0 15px 0;
+          font-weight: 400;
+          text-align: center;
+          opacity: 0.9; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.market-copyright {
+        width: 100%;
+        line-height: 0px;
+        text-align: center; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.market-copyright span {
+          font-size: 13px;
+          line-height: 20px;
+          color: #fff;
+          opacity: 0.9; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container {
+        max-width: 680px;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+        align-items: flex-start; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.left-part {
+          position: relative;
+          height: 100%;
+          width: 50%;
+          flex-basis: 50%;
+          min-width: 50%;
+          max-width: 50%; }
+          div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.left-part img {
+            width: 100%;
+            object-fit: cover; }
+          div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.left-part div.prod-discount {
+            position: absolute;
+            z-index: 10;
+            top: 20px;
+            left: 20px;
+            background: #35c85f;
+            padding: 5px 15px;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part {
+          width: 50%;
+          flex-basis: 50%;
+          min-width: 50%;
+          max-width: 50%;
+          position: relative; }
+          div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block {
+            width: 100%;
+            height: 100%;
+            padding: 20px; }
+            div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.header {
+              width: 100%;
+              overflow: hidden;
+              margin: 0px; }
+              div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.header div.rating-info {
+                width: 100%;
+                display: flex;
+                height: 30px;
+                align-items: center; }
+                div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.header div.rating-info span {
+                  color: #f7d96c;
+                  line-height: 0px;
+                  margin-left: -2px; }
+                  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.header div.rating-info span svg {
+                    width: 20px;
+                    height: 20px; }
+                  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.header div.rating-info span:first-child {
+                    margin-left: 0px; }
+              div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.header h5 {
+                padding: 0;
+                margin: 0;
+                font-size: 16px;
+                line-height: 24px;
+                color: #192a32;
+                font-weight: 300;
+                text-transform: capitalize; }
+            div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block .body {
+              width: 100%;
+              overflow: hidden; }
+              div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block .body div.product-prices {
+                margin-top: 15px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap; }
+                div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block .body div.product-prices h4 {
+                  padding: 0;
+                  margin: 0;
+                  line-height: 28px; }
+                  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block .body div.product-prices h4.sale-price {
+                    font-size: 28px;
+                    font-weight: 400;
+                    color: #2d2f43; }
+                  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block .body div.product-prices h4.reg-price {
+                    margin-left: 15px;
+                    font-weight: 400;
+                    font-size: 18px;
+                    text-decoration: line-through;
+                    color: #9697a1; }
+            div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.footer {
+              border-top: 1px solid #eee;
+              margin-top: 15px;
+              padding-top: 15px; }
+              div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.footer p.message-label {
+                width: 100%;
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+                font-size: 12px;
+                color: #1fb4ef;
+                line-height: 18px; }
+              div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.footer div.ctrls {
+                width: 100%;
+                overflow: hidden;
+                margin-top: 15px; }
+                div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.footer div.ctrls a {
+                  display: inline-block;
+                  text-decoration: none;
+                  outline: 0;
+                  width: 100%;
+                  text-align: center; }
+                  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.footer div.ctrls a button {
+                    width: 100%;
+                    text-align: center;
+                    box-shadow: none;
+                    margin: 0;
+                    background: #fff;
+                    color: #ff7676;
+                    border: 1px solid #ff7676;
+                    outline: 0;
+                    font-size: 13px;
+                    line-height: 13px;
+                    border-radius: 5px;
+                    padding: 15px 15px; }
+                    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.product-info-block div.footer div.ctrls a button.btn-outline {
+                      margin-right: 10px; }
+  div.share-page-main-container div.prods-items-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 30px 50px 10px 50px;
+    background: #f1f1f1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 0px -5px; }
+    div.share-page-main-container div.prods-items-container:after {
+      position: fixed;
+      content: "";
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(25, 42, 50, 0.7); }
+    div.share-page-main-container div.prods-items-container div.galcolumn {
+      padding-right: 7px !important;
+      padding-left: 7px !important;
+      margin: 0px !important; }
+      div.share-page-main-container div.prods-items-container div.galcolumn div.prod-item {
+        width: 100% !important;
+        overflow: hidden;
+        border-radius: 5px !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item {
+      overflow: hidden;
+      margin-bottom: 15px !important;
+      cursor: pointer;
+      box-shadow: none;
+      border-radius: 5px; }
+      div.share-page-main-container div.prods-items-container div.prod-item .prod-img {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+        height: auto;
+        background: #fff; }
+        div.share-page-main-container div.prods-items-container div.prod-item .prod-img img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important; }
+        div.share-page-main-container div.prods-items-container div.prod-item .prod-img span.discount {
+          position: absolute;
+          left: 15px;
+          bottom: 15px;
+          line-height: 18px;
+          font-size: 10px;
+          color: #fff;
+          background: #35c85f;
+          border-radius: 4px;
+          padding: 0px 5px;
+          vertical-align: top;
+          float: right;
+          box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px; }
+        div.share-page-main-container div.prods-items-container div.prod-item .prod-img span.total-sales {
+          display: inline-block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: #192a3294;
+          line-height: 0px;
+          padding: 0px 10px;
+          border-bottom-left-radius: 5px; }
+          div.share-page-main-container div.prods-items-container div.prod-item .prod-img span.total-sales span.inline-label {
+            display: inline-block;
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+            width: 0px;
+            overflow: hidden;
+            text-overflow: clip;
+            display: none;
+            font-size: 12px;
+            line-height: 22px;
+            color: #f8fafb; }
+          div.share-page-main-container div.prods-items-container div.prod-item .prod-img span.total-sales span.num {
+            display: inline-block;
+            font-size: inherit;
+            color: inherit;
+            line-height: inherit;
+            vertical-align: top;
+            font-size: 12px;
+            line-height: 22px;
+            color: #f8fafb; }
+        div.share-page-main-container div.prods-items-container div.prod-item .prod-img:hover span.total-sales span.inline-label {
+          width: auto;
+          display: inline-block;
+          overflow: auto; }
+      div.share-page-main-container div.prods-items-container div.prod-item .prod-desc {
+        width: 100%;
+        background: #fff;
+        overflow: hidden;
+        padding: 10px 15px; }
+        div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body {
+          line-height: 0px; }
+          div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prod-name {
+            width: 100%;
+            overflow: hidden; }
+            div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prod-name h6 {
+              padding: 0px;
+              margin: 0 0 5px 0;
+              line-height: 14px;
+              font-size: 13px;
+              max-height: 15px;
+              overflow: hidden; }
+          div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prices {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            line-height: 0px;
+            align-items: center; }
+            div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prices span.price {
+              font-size: 17px;
+              font-weight: 500;
+              color: #333;
+              line-height: 21px; }
+            div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prices span.old-price {
+              font-size: 17px;
+              font-weight: normal;
+              color: #ababab;
+              line-height: 21px;
+              margin-left: 10px;
+              text-decoration: line-through; }
+            div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prices span.currency {
+              display: inline-block;
+              line-height: 18px;
+              margin-left: 5px; }
+              div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prices span.currency svg {
+                width: 13px;
+                height: 13px;
+                vertical-align: top;
+                color: #72777b; }
+            div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prices span.star-icon svg {
+              width: 15px;
+              height: 15px;
+              fill: #9597a0; }
+            div.share-page-main-container div.prods-items-container div.prod-item .prod-desc div.body div.prices span.rating-num {
+              font-size: 13px;
+              line-height: 14px;
+              color: #2d2f43; }
+      div.share-page-main-container div.prods-items-container div.prod-item a {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        line-height: 0px; }
+      div.share-page-main-container div.prods-items-container div.prod-item.ghost {
+        overflow: hidden;
+        margin: 0;
+        margin-bottom: 15px !important;
+        cursor: pointer;
+        box-shadow: none;
+        border-radius: 5px;
+        background: #fff; }
+        div.share-page-main-container div.prods-items-container div.prod-item.ghost .prod-img {
+          background: #fff; }
+        div.share-page-main-container div.prods-items-container div.prod-item.ghost .prod-desc {
+          width: 100%;
+          background: #fff;
+          overflow: hidden;
+          padding: 10px 15px; }
+          div.share-page-main-container div.prods-items-container div.prod-item.ghost .prod-desc div.body {
+            line-height: 0px; }
+            div.share-page-main-container div.prods-items-container div.prod-item.ghost .prod-desc div.body div.prod-name {
+              width: 100%;
+              overflow: hidden; }
+              div.share-page-main-container div.prods-items-container div.prod-item.ghost .prod-desc div.body div.prod-name h6 {
+                padding: 0px;
+                margin: 0 0 5px 0;
+                line-height: 16px;
+                font-size: 13px;
+                max-height: 15px;
+                overflow: hidden;
+                background: #e0e0e0;
+                color: #e0e0e0;
+                border-radius: 2px; }
+            div.share-page-main-container div.prods-items-container div.prod-item.ghost .prod-desc div.body div.prices {
+              display: flex;
+              flex-direction: row;
+              flex-wrap: nowrap;
+              overflow: hidden;
+              line-height: 0px;
+              align-items: center;
+              margin-top: 4px; }
+              div.share-page-main-container div.prods-items-container div.prod-item.ghost .prod-desc div.body div.prices span {
+                font-size: 17px;
+                color: #e0e0e0;
+                line-height: 17px;
+                margin-right: 10px;
+                background: #e0e0e0;
+                border-radius: 2px; }
+
+/*# sourceMappingURL=share.master.style.css.map */

@@ -1,0 +1,197 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var MARKET_CHOUTS_PAGE   = $("div#market-checkouts-management-page");
+		var TRANSACTIONS_LIST    = MARKET_CHOUTS_PAGE.find('table#trans-list');
+		var TRANSACTIONS_FILTER  = $('div#table-filter-modal');
+		var TRANS_FILTER_OPTIONS = Object({});
+		
+		MARKET_CHOUTS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			if ($(this).hasClass('disabled') != true) {	
+				var pager_ctrls = MARKET_CHOUTS_PAGE.find('a.pagination-ctrls').removeClass('disabled');
+				var this_ctrl   = $(this);
+				var trans_list  = MARKET_CHOUTS_PAGE.find('table#trans-list');
+				var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+				var last_req    = trans_list.find('tr[data-transaction-li]').last().data('transaction-li');
+				var first_req   = trans_list.find('tr[data-transaction-li]').first().data('transaction-li');
+				var preloader   = MARKET_CHOUTS_PAGE.find('div#table-preloader').removeClass('hidden');
+				var filter_data = (($.isEmptyObject(TRANS_FILTER_OPTIONS)) ? Object({}) : TRANS_FILTER_OPTIONS);
+
+				$.ajax({
+					url: '{{CONFIG url}}/req/admin/get_market_checkouts',
+					type: 'GET',
+					dataType: 'json',
+					data: {
+						dir: pager_dir, 
+						last: last_req, 
+						first: first_req,
+						filter: filter_data
+					},
+				}).done(function(data) {
+					if (data.status == 200) {
+						trans_list.find('tbody').html(data.html);
+						pager_ctrls.removeClass('disabled');
+					}
+					else{
+						this_ctrl.addClass('disabled');
+					}
+				}).fail(function() {
+					$.notify({
+						message: 'Error: Failed to connect to the server. Please check your internet connection',
+					},{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+				}).always(function() {
+					delay(function(){
+						preloader.addClass('hidden');
+					},500);
+				});
+			}
+			else {
+				return false;
+			}
+		});
+
+		TRANSACTIONS_FILTER.find('form#form').on('submit',function(event) {
+			event.preventDefault();
+			var filter_data = $(this).serializeObject();
+			var this_form   = $(this);
+			if ($.isEmptyObject(filter_data)) {
+				return false;
+			}
+			else{
+				TRANS_FILTER_OPTIONS = filter_data;
+				var trans_list       = MARKET_CHOUTS_PAGE.find('table#trans-list');
+				var preloader        = MARKET_CHOUTS_PAGE.find('div#table-preloader').removeClass('hidden');
+				var pager_ctrls      = MARKET_CHOUTS_PAGE.find('a.pagination-ctrls');
+
+				$.ajax({
+					url: '{{CONFIG url}}/req/admin/filter_market_checkouts',
+					type: 'GET',
+					dataType: 'json',
+					data: filter_data,
+				}).done(function(data) {
+					if (data.status == 200) {
+						trans_list.find('tbody').html(data.html);
+						pager_ctrls.removeClass('disabled');
+					}
+					else {
+						trans_list.find('tbody').html(data.html);
+						pager_ctrls.addClass('disabled');
+
+						if (data.message) {
+							$.notify({
+								message: data.message,
+							},{
+							    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+							    placement: {from: "bottom",align: "left"},
+							    offset: {x: 40,y: 30},
+							    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+							});
+						}
+					}
+				}).fail(function() {
+					$.notify({
+						message: 'Error: Failed to connect to the server. Please check your internet connection',
+					},{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+				}).always(function() {
+
+					TRANSACTIONS_FILTER.modal('hide');
+
+					delay(function(){
+						preloader.addClass('hidden');
+					},500);
+				});
+			}
+		});
+
+		if (TRANSACTIONS_LIST.find('tr[data-transaction-li]').length) {
+            if (TRANSACTIONS_LIST.find('tr.empty-table.no-data').length == 0) {
+                window.trans_table_rows = TRANSACTIONS_LIST.html();
+            }
+        }
+
+        TRANSACTIONS_FILTER.find('form#form').on('reset',function(event) {
+        	TRANS_FILTER_OPTIONS = Object({});
+        	if (window.trans_table_rows) {
+        		TRANSACTIONS_LIST.html(window.trans_table_rows);
+        		MARKET_CHOUTS_PAGE.find('a.pagination-ctrls').removeClass('disabled');
+        	}
+        	TRANSACTIONS_FILTER.modal('hide');
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var this_el    = $(this);
+            var event_trig = this_el.data('onclick');
+
+            if (event_trig == 'show_trans_details') {
+                var trans_id = this_el.data('id');
+
+                if ($.isNumeric(trans_id) == true) {
+                	$.ajax({
+                		url: '{{CONFIG url}}/req/admin/get_transaction_details',
+                		type: 'GET',
+                		dataType: 'json',
+                		data: {trans_id: trans_id},
+                	}).done(function(data) {
+                		if (data.status == 200) {
+                			$('body').append($(data.html).modal('show'));
+                		}
+                		else {
+                			if (data.message) {
+                				$.notify({
+									message: data.message,
+								},{
+								    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+								    placement: {from: "bottom",align: "left"},
+								    offset: {x: 40,y: 30},
+								    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+								});
+                			}
+                			else {
+                				$.notify({
+									message: 'Error found while processing your request. Please try again later!',
+								},{
+								    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+								    placement: {from: "bottom",align: "left"},
+								    offset: {x: 40,y: 30},
+								    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+								});
+                			}
+                		}
+                	}).fail(function() {
+                		$.notify({
+							message: 'Error: Failed to connect to the server. Please check your internet connection',
+						},{
+						    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+						    placement: {from: "bottom",align: "left"},
+						    offset: {x: 40,y: 30},
+						    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+						});
+                	});
+                }
+                else {
+                	$.notify({
+						message: 'Error: Invalid request data. Please check your details!',
+					},{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+                }
+            }
+        });
+	});
+</script>

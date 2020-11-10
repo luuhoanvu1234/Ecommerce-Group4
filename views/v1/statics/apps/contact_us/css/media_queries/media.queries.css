@@ -1,0 +1,67 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.contactus-page-container nav.breadcrumbs-cust ol li {
+    font-size: 12px !important; }
+    div.contactus-page-container nav.breadcrumbs-cust ol li a {
+      font-size: 12px !important; }
+  div.contactus-page-container div.contactus-page-wrapper div.top-part {
+    padding: 25px !important; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.contactus-page-container nav.breadcrumbs-cust ol li {
+    font-size: 10px !important; }
+    div.contactus-page-container nav.breadcrumbs-cust ol li a {
+      font-size: 10px !important; }
+  div.contactus-page-container div.content-container {
+    padding: 0px 20px !important; }
+  div.contactus-page-container div.contactus-page-wrapper div.top-part {
+    padding: 20px !important; }
+    div.contactus-page-container div.contactus-page-wrapper div.top-part div.header {
+      margin-bottom: 15px !important; }
+      div.contactus-page-container div.contactus-page-wrapper div.top-part div.header h1 {
+        font-size: 18px !important;
+        line-height: 18px !important; }
+    div.contactus-page-container div.contactus-page-wrapper div.top-part p {
+      font-size: 13px !important;
+      line-height: 18px !important; }
+  div.contactus-page-container div.contactus-page-wrapper div.bottom-part {
+    height: 350px !important; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.contactus-page-container nav.breadcrumbs-cust ol li {
+    font-size: 10px !important; }
+    div.contactus-page-container nav.breadcrumbs-cust ol li a {
+      font-size: 10px !important; }
+  div.contactus-page-container div.content-container {
+    padding: 0px 10px !important; }
+  div.contactus-page-container div.contactus-page-wrapper div.top-part {
+    padding: 15px !important; }
+    div.contactus-page-container div.contactus-page-wrapper div.top-part div.header {
+      margin-bottom: 10px !important; }
+      div.contactus-page-container div.contactus-page-wrapper div.top-part div.header h1 {
+        font-size: 16px !important;
+        line-height: 16px !important; }
+    div.contactus-page-container div.contactus-page-wrapper div.top-part p {
+      font-size: 12px !important;
+      line-height: 16px !important; }
+  div.contactus-page-container div.contactus-page-wrapper div.bottom-part {
+    height: 250px !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

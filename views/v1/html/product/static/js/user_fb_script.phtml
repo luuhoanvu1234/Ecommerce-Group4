@@ -1,0 +1,366 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var PROD_DET_PAGE = $("div#product-details-page");
+		var BS_NOTIF_CONF = Object({allow_dismiss: false,icon_type: "class",type: 'default',timer: 500, placement: {from: "bottom",align: "left"}, offset: {x: 40,y: 40}, animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}});
+
+		PROD_DET_PAGE.find('form#write-review-form').find("div.rate-post-btn").on({
+			mouseenter: function() {
+				var prevs = $(this).prevAll();
+				var _self = $(this);
+
+				_self.removeClass('selected');
+				_self.siblings('div.rate-post-btn').each(function(index, el) {
+					$(el).removeClass('selected');
+				}).promise().done(function(){
+					_self.find('span.out-line').css({
+						display: 'none',
+						visibility: 'hidden'
+					});
+
+					_self.find('span.in-line').css({
+						display: 'inline',
+						visibility: 'visible'
+					});
+
+					prevs.each(function(index, el) {
+						$(el).find('span.out-line').css({
+							display: 'none',
+							visibility: 'hidden'
+						});
+
+						$(el).find('span.in-line').css({
+							display: 'inline',
+							visibility: 'visible'
+						});
+					});
+				});
+			}, 
+
+			mouseleave: function() {
+				var prevs = $(this).prevAll();
+				var next  = $(this).nextAll();
+				var _self = $(this);
+				var selected = PROD_DET_PAGE.find('form#write-review-form').find("div.rate-post-btn.selected");
+
+				if (selected.length == 0) {
+					_self.find('span.out-line').css({
+						display: 'inline',
+						visibility: 'visible'
+					});
+
+					_self.find('span.in-line').css({	
+						display: 'none',
+						visibility: 'hidden'
+					});
+
+					prevs.each(function(index, el) {
+						$(el).find('span.out-line').css({
+							display: 'inline',
+							visibility: 'visible'
+						});
+
+						$(el).find('span.in-line').css({
+							display: 'none',
+							visibility: 'hidden'
+						});
+					});
+
+					next.each(function(index, el) {
+						$(el).find('span.out-line').css({
+							display: 'inline',
+							visibility: 'visible'
+						});
+
+						$(el).find('span.in-line').css({
+							display: 'none',
+							visibility: 'hidden'
+						});
+					});
+
+					PROD_DET_PAGE.find('form#write-review-form').find("input#valuation").val('');
+				}
+			}
+		});
+
+		PROD_DET_PAGE.find('form#write-review-form').find("div.rate-post-btn").on('click',function(event) {
+			var prevs = $(this).prevAll();
+			var next  = $(this).nextAll();
+			var _self = $(this);
+			var stars = _self.data('star');
+
+			_self.addClass('selected');
+
+			_self.find('span.out-line').css({
+				display: 'none',
+				visibility: 'hidden'
+			});
+
+			_self.find('span.in-line').css({
+				display: 'inline',
+				visibility: 'visible'
+			});
+
+			prevs.each(function(index, el) {
+				$(el).find('span.out-line').css({
+					display: 'none',
+					visibility: 'hidden'
+				});
+
+				$(el).find('span.in-line').css({
+					display: 'inline',
+					visibility: 'visible'
+				});
+			});
+
+			next.each(function(index, el) {
+				$(el).find('span.in-line').css({
+					display: 'none',
+					visibility: 'hidden'
+				});
+
+				$(el).find('span.out-line').css({
+					display: 'inline',
+					visibility: 'visible'
+				});
+			});
+
+			PROD_DET_PAGE.find('form#write-review-form').find("input#valuation").val(stars);
+		});
+
+		PROD_DET_PAGE.find("a#write-review").on('click',function(event) {
+			PROD_DET_PAGE.find("div#review-box-wrapper-preloader").removeClass('hidden');
+			PROD_DET_PAGE.find("button#cancel-reporting").trigger('click');
+
+			$.ajax({
+				url: '{{CONFIG url}}/req/products/write_review',
+				type: 'POST',
+				dataType: 'json',
+				data: {prod_id: '{{prod_id}}'},
+			}).done(function(data) {
+				if (data.status == 200 && data.review) {
+					PROD_DET_PAGE.find("div#review-box-wrapper").slideDown(200,function(){
+						$(this).find('form#write-review-form').scroll2(500,140); eqheight();
+					});
+				}
+				else {
+					$.notify({
+						message: data.message,
+					},BS_NOTIF_CONF);
+				}
+			}).always(function(){
+				PROD_DET_PAGE.find("div#review-box-wrapper-preloader").addClass('hidden');
+			});
+		});
+
+		PROD_DET_PAGE.find("button#cancel-review").on('click',function(event) {
+			$("div#review-box-wrapper").slideUp(200,function(){
+				$(this).find("form#write-review-form").find('textarea').removeAttr('style');
+				$(this).find("form#write-review-form").find('textarea').val('');
+				$(this).find('div#review-images-list').find('div.images-list-item').remove();
+				$(this).find('p#alert-text').text($(this).find('p#alert-text').data('message'));
+
+				$(this).find('span.out-line').css({
+					display: 'inline',
+					visibility: 'visible'
+				});
+
+				$(this).find('span.in-line').css({	
+					display: 'none',
+					visibility: 'hidden'
+				});
+
+				$(this).find("input#valuation").val('');
+			});
+		});
+
+		PROD_DET_PAGE.find("a#write-report").on('click',function(event) {
+			PROD_DET_PAGE.find("button#cancel-review").trigger('click');
+			PROD_DET_PAGE.find("div#report-box-wrapper").slideDown(200,function(){
+				$(this).find("form#write-report-form").scroll2(500,140);
+			});
+		});
+
+		PROD_DET_PAGE.find("button#cancel-reporting").on('click',function(event) {
+			PROD_DET_PAGE.find("div#report-box-wrapper").slideUp(200,function() {
+				$(this).find("form#write-report-form").find('textarea').val('');
+				$(this).find("form#write-report-form").find('textarea').removeAttr('style');
+				$(this).find('p#alert-text').text($(this).find('p#alert-text').data('message'));
+			});
+		});
+
+		PROD_DET_PAGE.find('form#write-review-form').ajaxForm({
+			url: "{{CONFIG url}}/req/products/save_review",
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				var this_form = PROD_DET_PAGE.find('form#write-review-form');
+				var form_data = this_form.serializeObject();
+				if (hs_in_array(form_data.valuation,[1,2,3,4,5]) != true) {
+					this_form.find('p#alert-text').addClass('animated flash').text("{{TR No rating selected. Please select a review rating}}");
+					delay(function(){
+						this_form.find('p#alert-text').removeClass('animated flash');
+					},1500);
+
+					return false;
+				}
+				else {
+					this_form.find('button').attr('disabled', 'true');
+				}
+			},
+			success: function(data) {
+				var this_form = PROD_DET_PAGE.find('form#write-review-form');
+				if (data.status == 200) {
+					if (PROD_DET_PAGE.find("div#reviews-list").length == 1) {
+						PROD_DET_PAGE.find("div#reviews-list").prepend(data.html);
+						PROD_DET_PAGE.find("button#cancel-review").trigger('click');
+						
+						if ($.isNumeric(data.pr)) {
+							PROD_DET_PAGE.find('[data-review-li="{0}"]'.format(data.pr)).slideUp(100,function(){
+								$(this).remove();
+							});
+						}
+					}
+					else {
+						$(window).reloadPage(300);
+					}
+				}
+				else {
+					this_form.find('p#alert-text').addClass('animated flash').text(data.message);
+					delay(function(){
+						this_form.find('p#alert-text').removeClass('animated flash');
+					},1500);
+				}
+			},
+			complete: function(xhr) {
+				var this_form = PROD_DET_PAGE.find('form#write-review-form');
+				this_form.find('button').removeAttr('disabled');
+			}
+		});
+
+		PROD_DET_PAGE.find('form#write-report-form').ajaxForm({
+			url: "{{CONFIG url}}/req/products/report_product",
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				var this_form = PROD_DET_PAGE.find('form#write-report-form');
+				var form_data = this_form.serializeObject();
+				if ($.trim(form_data.report.length) < 32) {
+					this_form.find('p#alert-text').text("{{TR The description is too short. please write the main thing about the problem}}");
+					this_form.find('p#alert-text').addClass('animated flash');
+					delay(function() {
+						this_form.find('p#alert-text').removeClass('animated flash');
+					},2000);
+					return false;
+				}
+				else {
+					this_form.find('button').attr('disabled', 'true');
+				}
+			},
+			success: function(data) {
+				var this_form = PROD_DET_PAGE.find('form#write-report-form');
+				if (data.status == 200) {
+					PROD_DET_PAGE.find("button#cancel-reporting").trigger('click');
+					$.notify({
+						message: data.message,
+					},BS_NOTIF_CONF);
+				}
+				else {
+					this_form.find('p#alert-text').addClass('animated flash').text(data.message);
+					delay(function(){
+						this_form.find('p#alert-text').removeClass('animated flash');
+					},1500);
+				}
+			},
+			complete: function(xhr) {
+				var this_form = PROD_DET_PAGE.find('form#write-report-form');
+				this_form.find('button').removeAttr('disabled');
+			}
+		});
+
+		PROD_DET_PAGE.find('input#attach-review-image').on('change',function(event) {
+			PROD_DET_PAGE.find('form#upload-review-image-form').submit();
+		});
+
+		PROD_DET_PAGE.find('form#upload-review-image-form').ajaxForm({
+			url: "{{CONFIG url}}/req/products/attach_review_image",
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				var this_form = PROD_DET_PAGE.find('form#upload-review-image-form');
+				var form_data = this_form.serializeObject();
+				log(form_data);
+			},
+			success: function(data) {
+				if (data.status == 200) {
+					var write_rev_form = PROD_DET_PAGE.find('form#write-review-form');
+					var img_selector   = write_rev_form.find('div#review-images-list').find('div#img-selector');
+					$(data.html).insertBefore(img_selector);
+				}
+				else {
+					if (data.message) {
+						$.notify({
+							message: data.message,
+						},BS_NOTIF_CONF);
+					}
+				}
+			}
+		});
+
+		PROD_DET_PAGE.find('form#delete-review-image-form').on('submit',function(event) {
+			event.preventDefault();
+			var review_form = PROD_DET_PAGE.find('form#write-review-form');
+			var media_id    = $(this).data('data');
+			if ($.isNumeric(media_id)) {
+				review_form.find('[data-review-image-li="{0}"]'.format(media_id)).fadeOut(300, function() {
+					$(this).remove();
+				});
+
+				$.ajax({
+					url: '{{CONFIG url}}/req/products/delete_review_image',
+					type: 'POST',
+					dataType: 'json',
+					data: {img_id: media_id},
+				}).done(function(data) {
+					if (data.status != 200) {	
+						if (data.message) {
+							$.notify({
+								message: data.message,
+							},BS_NOTIF_CONF);
+						}
+					}
+				});
+			}
+		});
+
+		PROD_DET_PAGE.find('form#delete-review-form').on('submit',function(event) {
+			event.preventDefault();
+			var review_id = $(this).data('data');
+			if ($.isNumeric(review_id)) {
+				$.ajax({
+					url: '{{CONFIG url}}/req/products/delete_review',
+					type: 'POST',
+					dataType: 'json',
+					data: {review_id: review_id},
+				}).done(function(data) {
+					if (data.status == 200) {		
+						if (PROD_DET_PAGE.find('div#reviews-list').find('[data-review-li]').length > 1) {
+							PROD_DET_PAGE.find('[data-review-li="{0}"]'.format(review_id)).slideUp(100,function(){
+								$(this).remove();
+							});
+						}
+						else {
+							PROD_DET_PAGE.find('[data-review-li="{0}"]'.format(review_id)).css('opacity', '0.5');
+							$(window).reloadPage(1000);
+						}
+					}
+					else {
+						$.notify({
+							message: data.message,
+						},BS_NOTIF_CONF);
+					}
+				});
+			}
+		});
+	});
+</script>

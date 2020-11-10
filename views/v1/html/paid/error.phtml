@@ -1,0 +1,25 @@
+<div class="content-container">
+	<div class="payment-paid-page-container">
+		<div class="error">
+			<div class="icon">
+				<?php echo hs_svg('payment-failed'); ?>
+			</div>
+			<h5 class="title">
+				{{title}}
+			</h5>
+			<p>
+				{{message}}
+			</p>
+			<div class="action-btns">
+				<a href="{{url}}">
+					<button>
+						{{call2action}}
+					</button>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>

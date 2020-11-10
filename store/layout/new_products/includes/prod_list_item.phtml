@@ -1,0 +1,57 @@
+<tr class="products" data-prod-list-item="<?php echo($hs['prod_item']['id']); ?>">
+    <td>
+        <?php echo($hs['prod_item']['id']); ?>
+    </td>
+    <td class="poster">
+        <a href="#" class="poster-holder">
+            <img src="<?php echo($hs['prod_item']['thumb']); ?>" alt="Image">
+        </a>
+    </td>
+    <td class="link">
+        <a href="#">
+            <?php echo($hs['prod_item']['name']); ?>
+        </a>
+    </td>
+    <td>
+        <span class="col-green">  
+            <?php echo hs_money($hs['prod_item']['sale_price']); ?>
+        </span>
+    </td>
+    <td>
+        <?php if ($hs['prod_item']['approved'] == 'Y'): ?>
+            <span class="badge bg-pink">{{TR Active}}</span>
+        <?php else: ?>
+            <span class="badge bg-orange">{{TR Not approved}}</span>
+        <?php endif; ?>
+    </td>
+    <td>
+        <span class="badge bg-blue"><?php echo($hs['prod_item']['sales']); ?> {{TR Items}}</span>
+    </td>
+    <td class="time">
+        <?php echo($hs['prod_item']['time']); ?>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a target="_blank" href="<?php echo($hs['prod_item']['url']); ?>" class="waves-effect waves-block">
+                        {{TR Show Details}}
+                    </a>
+                </li>
+                <li class="approve-product" data-onclick="approve_product" data-id="<?php echo($hs['prod_item']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Approve}}
+                    </a>
+                </li>
+                <li class="delete-product" data-onclick="delete_product" data-id="<?php echo($hs['prod_item']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

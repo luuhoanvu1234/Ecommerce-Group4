@@ -1,0 +1,80 @@
+<tr data-order-li="<?php echo $hs['ord_item']['id']; ?>">
+    <td>
+        <?php echo $hs['ord_item']['id']; ?>
+    </td>
+    <td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo $hs['ord_item']['avatar']; ?>" alt="Avatar">
+        </div>
+        <a href="#">
+            <?php echo $hs['ord_item']['cust_name']; ?>
+
+            <?php if ($hs['ord_item']['buyer_verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+        </a>
+    </td>
+    <td class="link">
+        <a href="<?php echo $hs['ord_item']['prod_url']; ?>">
+            <?php echo $hs['ord_item']['prod_name']; ?>
+        </a>
+    </td>
+    <td>
+        <span class="col-green">
+            <?php echo $hs['ord_item']['total']; ?>
+        </span>
+    </td>
+    <td>
+        <span class="badge bg-blue">
+            <?php echo $hs['ord_item']['quantity']; ?> {{TR Items}}
+        </span>
+    </td>
+    
+    <td class="time">
+        <time>
+            <?php echo $hs['ord_item']['placed_date']; ?>
+        </time>
+    </td>
+    <td>
+        <?php if ($hs['ord_item']['status'] == 'pending'): ?>
+            <span class="badge bg-orange">{{TR Pending}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'processing'): ?>
+            <span class="badge bg-blue">{{TR Processing}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'processed'): ?>
+            <span class="badge bg-purple">{{TR Processed}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'sent'): ?>
+            <span class="badge bg-pink">{{TR Sent}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'shipped'): ?>
+            <span class="badge bg-green">{{TR Shipped}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'canceled'): ?>
+            <span class="badge bg-red">{{TR Canceled}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'declined'): ?>
+            <span class="badge bg-red">{{TR Declined}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'expired'): ?>
+            <span class="badge bg-red">{{TR Expired}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'returned'): ?>
+            <span class="badge bg-red">{{TR Returned}}</span>
+        <?php elseif($hs['ord_item']['status'] == 'failed'): ?>
+            <span class="badge bg-red">{{TR Failed}}</span>
+        <?php endif; ?>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo($hs['ord_item']['url']); ?>" class=" waves-effect waves-block">
+                        {{TR Show Details}}
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo($hs['ord_item']['buyer_contact']); ?>" class=" waves-effect waves-block">
+                        {{TR Contact customer}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

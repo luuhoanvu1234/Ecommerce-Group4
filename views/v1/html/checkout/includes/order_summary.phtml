@@ -1,0 +1,69 @@
+<div class="content-panel">
+	<div class="order-summary" id="prods-order-summary-panel">
+		<h2 class="block-title">{{TR Order Summary}}</h2>
+		<ul class="order-summary-panel">
+			<li>
+				<span class="txt-label">{{TR Price}}:</span> 
+				<span id="items_cost"><?php echo hs_money('0.00'); ?></span>
+			</li>
+			<li>
+				<span class="txt-label">{{TR Delivery}}:</span>
+				<span id="ship-cost">{{TR Free}}</span>
+			</li>
+			<li>
+				<span class="txt-label">{{TR Discount}}:</span> 
+				<span class="discount" id="items_discount">0%</span>
+			</li>
+		</ul>
+		<div class="payment-service-providers-list-wrapper">
+			<div class="top-panel-wrapper">
+				<?php if (hs_inactive_payment_gateways()): ?>
+					<p>
+						<span class="icon"><?php echo hs_svg('info'); ?></span> {{TR Some payment methods are not available for this checkout.}}
+					</p>
+				<?php else: ?>
+					<p>
+						{{TR Choose a payment method}}:
+					</p>
+				<?php endif; ?>
+			</div>
+			<div class="payment-methods-list-wrapper">
+				<?php echo hs_loadpage('checkout/includes/payment_methods/payment_providers'); ?>
+			</div>
+		</div>
+		<div class="call2action">
+			<div>
+				<b>{{TR Total}}:</b>
+				<span class="items2pay">
+					<?php echo hs_money('0.00'); ?>		
+				</span>
+			</div>
+			<button class="btn btn-red" id="checkout">
+				{{TR Pay Order}} (<span class="items2pay"><?php echo hs_money('0.00'); ?>	</span>)
+			</button>
+		</div>
+		<div class="payment-methods">
+			<h2>{{TR Payment Methods}}</h2>
+			<div class="cards-list">
+				<div class="card-item">
+					<svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg" width="100%"><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path><path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path><path d="M28.3 10.1H28c-.4 1-.7 1.5-1 3h1.9c-.3-1.5-.3-2.2-.6-3zm2.9 5.9h-1.7c-.1 0-.1 0-.2-.1l-.2-.9-.1-.2h-2.4c-.1 0-.2 0-.2.2l-.3.9c0 .1-.1.1-.1.1h-2.1l.2-.5L27 8.7c0-.5.3-.7.8-.7h1.5c.1 0 .2 0 .2.2l1.4 6.5c.1.4.2.7.2 1.1.1.1.1.1.1.2zm-13.4-.3l.4-1.8c.1 0 .2.1.2.1.7.3 1.4.5 2.1.4.2 0 .5-.1.7-.2.5-.2.5-.7.1-1.1-.2-.2-.5-.3-.8-.5-.4-.2-.8-.4-1.1-.7-1.2-1-.8-2.4-.1-3.1.6-.4.9-.8 1.7-.8 1.2 0 2.5 0 3.1.2h.1c-.1.6-.2 1.1-.4 1.7-.5-.2-1-.4-1.5-.4-.3 0-.6 0-.9.1-.2 0-.3.1-.4.2-.2.2-.2.5 0 .7l.5.4c.4.2.8.4 1.1.6.5.3 1 .8 1.1 1.4.2.9-.1 1.7-.9 2.3-.5.4-.7.6-1.4.6-1.4 0-2.5.1-3.4-.2-.1.2-.1.2-.2.1zm-3.5.3c.1-.7.1-.7.2-1 .5-2.2 1-4.5 1.4-6.7.1-.2.1-.3.3-.3H18c-.2 1.2-.4 2.1-.7 3.2-.3 1.5-.6 3-1 4.5 0 .2-.1.2-.3.2M5 8.2c0-.1.2-.2.3-.2h3.4c.5 0 .9.3 1 .8l.9 4.4c0 .1 0 .1.1.2 0-.1.1-.1.1-.1l2.1-5.1c-.1-.1 0-.2.1-.2h2.1c0 .1 0 .1-.1.2l-3.1 7.3c-.1.2-.1.3-.2.4-.1.1-.3 0-.5 0H9.7c-.1 0-.2 0-.2-.2L7.9 9.5c-.2-.2-.5-.5-.9-.6-.6-.3-1.7-.5-1.9-.5L5 8.2z" fill="#142688"></path></svg>
+				</div>
+				<div class="card-item">
+					<svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"  width="100%"><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path><path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path><path fill="#003087" d="M23.9 8.3c.2-1 0-1.7-.6-2.3-.6-.7-1.7-1-3.1-1h-4.1c-.3 0-.5.2-.6.5L14 15.6c0 .2.1.4.3.4H17l.4-3.4 1.8-2.2 4.7-2.1z"></path><path fill="#3086C8" d="M23.9 8.3l-.2.2c-.5 2.8-2.2 3.8-4.6 3.8H18c-.3 0-.5.2-.6.5l-.6 3.9-.2 1c0 .2.1.4.3.4H19c.3 0 .5-.2.5-.4v-.1l.4-2.4v-.1c0-.2.3-.4.5-.4h.3c2.1 0 3.7-.8 4.1-3.2.2-1 .1-1.8-.4-2.4-.1-.5-.3-.7-.5-.8z"></path><path fill="#012169" d="M23.3 8.1c-.1-.1-.2-.1-.3-.1-.1 0-.2 0-.3-.1-.3-.1-.7-.1-1.1-.1h-3c-.1 0-.2 0-.2.1-.2.1-.3.2-.3.4l-.7 4.4v.1c0-.3.3-.5.6-.5h1.3c2.5 0 4.1-1 4.6-3.8v-.2c-.1-.1-.3-.2-.5-.2h-.1z"></path></svg>
+				</div>
+				<div class="card-item">
+					<svg viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"  width="100%"><path opacity=".07" d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"></path><path fill="#fff" d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32"></path><circle fill="#EB001B" cx="15" cy="12" r="7"></circle><circle fill="#F79E1B" cx="23" cy="12" r="7"></circle><path fill="#FF5F00" d="M22 12c0-2.4-1.2-4.5-3-5.7-1.8 1.3-3 3.4-3 5.7s1.2 4.5 3 5.7c1.8-1.2 3-3.3 3-5.7z"></path></svg>
+				</div>
+				<div class="card-item">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 24"  width="100%"><path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z" fill="#000" opacity=".07"></path><path d="M35 1c1.1 0 2 .9 2 2v18c0 1.1-.9 2-2 2H3c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2h32" fill="#FFF"></path><path d="M37 16.95V21c0 1.1-.9 2-2 2H23.228c7.896-1.815 12.043-4.601 13.772-6.05z" fill="#EDA024"></path><path fill="#494949" d="M9 11h20v2H9z"></path><path d="M22 12c0 1.7-1.3 3-3 3s-3-1.4-3-3 1.4-3 3-3c1.7 0 3 1.3 3 3z" fill="#EDA024"></path></svg>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="content-panel">
+	<div class="customer-care">
+		<h2><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512" xml:space="preserve"><polygon points="234.53,285.912 169.76,224.259 142.172,253.242 236.775,343.294 380.923,182.799 351.154,156.061"/><path d="M420.499,65.192c-48.502-8.692-93.168-35.18-115.476-50.195C290.447,5.186,273.496,0,256.001,0     s-34.447,5.186-49.022,14.996C184.671,30.011,140.005,56.5,91.503,65.192c-28.726,5.148-49.576,30.002-49.576,59.097v120.71     c0,39.877,11.157,78.749,33.159,115.539c17.214,28.781,41.064,56.288,70.888,81.757c50.147,42.825,99.804,65.156,101.892,66.086     L256,512l8.134-3.619c2.089-0.929,51.745-23.261,101.892-66.086c29.823-25.469,53.675-52.976,70.888-81.757     c22.004-36.789,33.159-75.662,33.159-115.539V124.29C470.075,95.194,449.225,70.34,420.499,65.192z M430.061,245     c0,59.45-30.033,115.375-89.267,166.224c-34.432,29.558-69.39,48.824-84.791,56.643C220.601,449.879,81.941,371.328,81.941,245     V124.29c0-9.695,6.99-17.985,16.621-19.711c55.718-9.985,105.843-39.616,130.761-56.388c7.947-5.35,17.172-8.178,26.678-8.178     c9.506,0,18.732,2.828,26.678,8.177c24.919,16.773,75.043,46.402,130.761,56.387c9.63,1.726,16.621,10.016,16.621,19.711V245z"/></svg><b>{{TR Customer service}}</b></h2>
+		<p>{{TR We will refund if the order is not received or does not match the description.}}</p>
+	</div>
+</div>

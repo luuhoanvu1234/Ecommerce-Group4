@@ -1,0 +1,70 @@
+<div class="clearfix" id="store-customers-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ME url}}">
+                        {{ME name}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Store customers}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header">
+                    <h2>{{TR Store customers list}}</h2>
+                    <div class="rows-filter">
+                        <input type="text" placeholder="{{TR Search by customer name}}" id="search-customers">
+                        <i class="material-icons search">search</i>
+                        <i class="material-icons clear hidden" id="clear-searching-terms">clear</i>
+                    </div>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table common-table no-mb" id="customers-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Customer}}</th>
+                                <th>{{TR E-Mail}}</th>
+                                <th>{{TR Phone}}</th>
+                                <th>{{TR Country}}</th>
+                                <th>{{TR Total orders}}</th>
+                                <th>{{TR Last order}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['store_customers'])): ?>
+                                <?php foreach ($hs['store_customers'] as $hs['cust_data']): ?>
+                                    <?php echo hs_loadpage('customers/includes/cust_list_item'); ?>
+                                <?php endforeach ?>
+                            <?php else: ?>
+                                <?php echo hs_loadpage('customers/includes/empty_table'); ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['store_customers'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('customers/static/js/customers_master_script'); ?>

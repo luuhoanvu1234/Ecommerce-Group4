@@ -1,0 +1,95 @@
+<nav class="navbar navbar-expand-lg">	
+	<ul class="navbar-nav">
+		<li class="nav-item go-back">
+			<a href="#" data-onclick="view_chat_history">
+				<?php echo hs_svg('go-back'); ?>
+			</a>
+		</li>
+		<li class="nav-item">
+			<div class="avatar">
+				<img src="<?php echo($hs['interloc_data']['avatar']); ?>" alt="Avatar">
+			</div>
+		</li>
+		<li class="nav-item">
+			<div class="user-info">
+				<h6>
+					<?php echo($hs['interloc_data']['name']); ?>
+
+					<?php if ($hs['interloc_data']['verified'] == '1'): ?>
+						<?php echo hs_svg('verified-icon'); ?>
+					<?php endif; ?>
+				</h6>
+				<p>{{TR Last active}}: <?php echo date('d M, Y h:m',$hs['interloc_data']['last_active']); ?></p>
+			</div>
+		</li>
+		<li class="nav-item ml-auto dropdown-menu-cont">
+			<div class="dropdown dropleft">
+				<a class="dropdown-toggle" data-toggle="dropdown">
+					<?php echo hs_svg('more'); ?>
+				</a>
+				<div class="dropdown-menu anim scale-up-tr">
+					<a class="dropdown-item" href="javascript:void(0);" data-toggle="selecting-mode">{{TR Select Messages}}</a>
+					<a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#confirm-clear-chat">{{TR Clear chat}}</a>
+					<a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#confirm-delete-chat">{{TR Delete chat}}</a>
+				</div>
+			</div>
+		</li>
+	</ul>
+</nav>
+<!-- Using inline styles here, necessary for dynamically displaying background wallpapers -->
+<div class="messages-container" style="background-image: url('{{CONFIG url}}/views/v1/statics/img/chat-wp/default.png');">
+	<ul class="messages-list" id="messages-list">
+		<li class="messages-preloader hidden" id="messages-preloader">
+			<div class="data-preloader">	
+				<div class="loading">
+					<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+				</div>
+			</div>
+		</li>
+		<?php foreach ($hs['conversation'] as $hs['msg_data']): ?>
+			<?php echo hs_loadpage('messages/includes/message'); ?>
+		<?php endforeach; ?>
+	</ul>	
+</div>
+<div class="message-form-wrapper">
+	<div class="message-form-wrapper-inner">
+		<div class="message-send-preloader hidden" id="message-send-preloader">	
+			<div class="loading">
+				<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+			</div>
+		</div>
+		<div class="selected-message-control hidden" id="selected-message-control">
+			<div class="selected-messages">
+				<span>
+					{{TR Selected messages}} (<span id="total">0</span>)
+				</span>
+			</div>
+			<div class="delete-selected" id="delete-selected">
+				<?php echo hs_svg('trash'); ?>
+			</div>
+			<div class="cancel" id="cancel-deleting">
+				<?php echo hs_svg('close'); ?>
+			</div>
+		</div>
+		<form id="send-message" class="form">
+			<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+			<div class="inputs-wrapper">
+				<input name="image" type="file" class="hidden d-none" id="input-file" accept="image/*">
+				<input name="message" type="text" class="form-control" placeholder="{{TR Write a message and hit Enter}}...">
+				<button type="button" class="attach-file" id="attach-file">
+					<?php echo hs_svg('camera'); ?>
+				</button>
+				<button type="submit" class="submit-message">
+					<?php echo hs_svg('telegram-send'); ?>
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<?php echo hs_loadpage('messages/modals/delete_message'); ?>
+<?php echo hs_loadpage('messages/modals/delete_chat'); ?>
+<?php echo hs_loadpage('messages/modals/clear_chat'); ?>
+<?php echo hs_loadpage('messages/modals/image_preview'); ?>
+
+<?php echo hs_loadpage('messages/static/js/chat_master_script'); ?>

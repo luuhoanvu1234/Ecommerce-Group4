@@ -1,0 +1,28 @@
+<div class="product-details-page-wrapper clearfix">
+	<div class="blocked-product-item">
+		<div class="icon">
+			<?php echo hs_svg("lock-inline"); ?>
+		</div>
+		<h5>
+			{{TR Temporary blocked}}
+		</h5>
+		<p>
+			{{TR This product item has been temporary blocked by the market}}
+		</p>
+		<div class="ctrls">
+			<a href="{{CONFIG url}}">
+				<button class="inline-btn">
+					{{TR Continue shopping}}
+				</button>
+			</a>
+			<a href="{{seller_url}}">
+				<button>
+					{{TR Go to seller profile}}
+				</button>
+			</a>
+		</div>
+	</div>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>
+</footer>

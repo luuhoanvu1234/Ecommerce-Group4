@@ -1,0 +1,33 @@
+<div class="modal animated fadeIn create--edit-wishlist-modal" id="edit-rename-wl" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form class="form" id="form">
+				<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 512 512"><path d="M64 368v80h80l235.727-235.729-79.999-79.998L64 368zm377.602-217.602c8.531-8.531 8.531-21.334 0-29.865l-50.135-50.135c-8.531-8.531-21.334-8.531-29.865 0l-39.468 39.469 79.999 79.998 39.469-39.467z"/></svg>
+						{{TR Rename}}
+					</h5>
+				</div>
+				<div class="modal-body">
+					<div class="input-box" id="input-box">
+						<label for="list-name">{{TR Choose a new list name}}</label>
+						<input autofocus id="list-name" name="name" autofocus type="text" class="form-control" placeholder="{{TR List title}}" value="{{list_name}}">
+						<small>
+							<?php echo hs_svg('info'); ?>Maximum name length 20 characters
+						</small>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn cancel" data-dismiss="modal">
+						{{TR Cancel}}
+					</button>
+					<button type="submit" class="btn create">
+						{{TR Save}}
+					</button>
+				</div>
+				<input id="list-id" type="hidden" class="hidden" name="list_id" value="{{list_id}}">
+			</form>
+		</div>
+	</div>
+</div>

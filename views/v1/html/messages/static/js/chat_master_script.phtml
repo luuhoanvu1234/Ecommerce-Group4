@@ -1,0 +1,314 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var MSG_PAGE_CONT = $('div#messages-page-container');
+		var MSG_LIST_CONT = MSG_PAGE_CONT.find('ul#messages-list');
+		var BS_NOTIF_CONF = Object({allow_dismiss: false,icon_type: "class",type: 'default',timer: 500, placement: {from: "bottom",align: "left"}, offset: {x: 40,y: 40}, animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}});
+		var CHAT_CONV_MNG = Object({
+			selecting_mode: false,
+			selected_messages: [],
+			loadmore_old: true,
+			scroll_down: function(speed = 0) {
+				if (!speed) {
+					speed = 1000;
+				}
+
+				MSG_LIST_CONT.animate({
+					scrollTop: (MSG_LIST_CONT.get(0).scrollHeight)
+				}, speed);
+				return this;
+			},
+			reset_form: function() {
+				MSG_PAGE_CONT.find('form#send-message').get(0).reset();
+				return this;
+			},
+			send_preloader: function(anim = null) {
+				var preloader = MSG_PAGE_CONT.find('div#message-send-preloader');
+				if (anim == 'start') {
+					preloader.removeClass('hidden');
+				}
+				else if(anim == 'end') {
+					preloader.addClass('hidden');
+				}
+				return this;
+			},
+			get_messages: function() {	
+				setInterval(function() {
+					var last_msg = MSG_LIST_CONT.find('li[data-message]:last');
+					var last_id  = ((last_msg.length) ? last_msg.data('message') : 1);
+					if (last_id) {
+						$.ajax({
+							url: '{{CONFIG url}}/req/messages/get_messages',
+							type: 'GET',
+							dataType: 'json',
+							data: {offset: last_id},
+						}).done(function(data) {
+							if (data.status == 200) {
+								CHAT_CONV_MNG.insert_new(data.html,true);
+							}
+						});
+					}
+				},5000);
+			},
+			get_old_messages: function() {	
+				var first_msg = MSG_LIST_CONT.find('li[data-message]:first');
+				var first_id  = ((first_msg.length) ? first_msg.data('message') : 0);
+				if (first_id) {
+					$.ajax({
+						url: '{{CONFIG url}}/req/messages/get_old_messages',
+						type: 'GET',
+						dataType: 'json',
+						data: {offset: first_id},
+					}).done(function(data) {
+						if (data.status == 200) {
+							CHAT_CONV_MNG.prepend_messages(data.html,true);
+						}
+						else {
+							CHAT_CONV_MNG['loadmore_old'] = false;
+						}
+					}).always(function() {
+						MSG_LIST_CONT.find('li#messages-preloader').addClass('hidden');
+						MSG_LIST_CONT.scroll2inner(MSG_LIST_CONT.find('li[data-message="{0}"]'.format(first_id)),5);
+					});
+				}
+			},
+			insert_new: function(data_html = "",anim = false) {
+				var this_obj = this;
+				var msgs     =  $(data_html);
+				msgs.each(function(index, el) {
+					var curr_el = $(el);
+
+					if (CHAT_CONV_MNG['selecting_mode']) {
+						curr_el.find('div.input-checkbox').removeClass('hidden');
+					}
+
+					MSG_LIST_CONT.append(curr_el.addClass('animated fadeIn'));
+					this_obj.scroll_down(50);
+				});
+
+				return this_obj;
+			},
+			prepend_messages: function(data_html = "",anim = false) {
+				var this_obj  = this;
+				var msgs      =  $(data_html);
+				var preloader = MSG_LIST_CONT.find('li#messages-preloader');
+				msgs.each(function(index, el) {
+					if (CHAT_CONV_MNG['selecting_mode']) {
+						var curr_el = $(el);
+						curr_el.find('div.input-checkbox').removeClass('hidden');
+						curr_el.addClass('animated fadeIn').insertAfter(preloader);
+					}
+					else{
+						var curr_el = $(el);
+						curr_el.addClass('animated fadeIn').insertAfter(preloader);
+					}
+				});
+
+				return this_obj;
+			}
+		});
+
+		CHAT_CONV_MNG.scroll_down(50).get_messages();
+
+		MSG_PAGE_CONT.find('form#send-message').ajaxForm({
+			url: '{{CONFIG url}}/req/messages/send',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				var msg_text = MSG_PAGE_CONT.find('form#send-message').find('input[name="message"]').val();
+				var msg_file = MSG_PAGE_CONT.find('form#send-message').find('input[name="image"]').val();
+				if (hs_empty(msg_text) && hs_empty(msg_file)) {
+					return false;
+				}
+				else {
+					CHAT_CONV_MNG.send_preloader('start');
+				}
+			},
+			success: function(data) {
+				if (data.status != 200) {
+					$.notify({
+						message: data.message,
+					},BS_NOTIF_CONF);
+				}
+			},
+			complete: function(xhr, textStatus) {
+				CHAT_CONV_MNG.reset_form().scroll_down(200);
+				delay(function(){
+					CHAT_CONV_MNG.send_preloader('end');
+				},200);
+			},
+		});
+
+		MSG_PAGE_CONT.find('form#send-message').find('button#attach-file').on('click',function(event) {
+			MSG_PAGE_CONT.find('form#send-message').find('input#input-file').trigger('click');
+		});
+
+		MSG_PAGE_CONT.find('form#send-message').find('input#input-file').on('change',function(event) {
+			MSG_PAGE_CONT.find('form#send-message').submit();
+		});
+
+		MSG_PAGE_CONT.find('form#clear-chat-form').on('submit',function(event) {
+			event.preventDefault();
+			if (MSG_LIST_CONT.find('li.messages-list-item').length) {
+				var this_form = MSG_PAGE_CONT.find('form#clear-chat-form');
+				this_form.find('button').attr('disabled', 'true');
+				this_form.find('button.btn-submit').text("{{TR Please wait}}");
+				$.ajax({
+					url: '{{CONFIG url}}/req/messages/clear_chat',
+					type: 'GET',
+					dataType: 'json'
+				}).done(function(data) {
+					if (data.status == 200) {
+						MSG_LIST_CONT.find('li.messages-list-item').each(function(index, el) {
+							$(el).fadeOut(100, function() {
+								$(this).remove();
+							});
+						});
+					}
+				}).always(function() {
+					this_form.find('button').removeAttr('disabled');
+					this_form.find('button.btn-submit').text("{{TR Yes, delete it!}}");
+
+					this_form.parents('div#confirm-clear-chat').modal('hide');
+				});
+			}
+		});
+
+		MSG_PAGE_CONT.find('form#delete-chat-form').on('submit',function(event) {
+			event.preventDefault();		
+			var this_form = MSG_PAGE_CONT.find('form#delete-chat-form');
+			this_form.find('button').attr('disabled', 'true');
+			this_form.find('button.btn-submit').text("{{TR Please wait}}");
+			$.ajax({
+				url: '{{CONFIG url}}/req/messages/delete_chat',
+				type: 'GET',
+				dataType: 'json'
+			}).done(function(data) {
+				if (data.status == 200) {
+					if (MSG_LIST_CONT.find('li.messages-list-item').length) {
+						MSG_LIST_CONT.find('li.messages-list-item').each(function(index, el) {
+							$(el).fadeOut(100, function() {
+								$(this).remove();
+							});
+						});
+					}
+				}
+			}).always(function() {
+				this_form.parents('div#confirm-delete-chat').modal('hide');
+				delay(function() {
+					hs_redirect("{{LINK messages}}");
+				},500);
+			});
+		});
+
+		MSG_PAGE_CONT.find('[data-toggle="selecting-mode"]').on('click',function(event) {
+			event.preventDefault();
+			if (CHAT_CONV_MNG['selecting_mode'] == false) {
+				MSG_LIST_CONT.find('li[data-message]').each(function(index, el) {
+					$(el).find('div.input-checkbox').removeClass('hidden');
+				}).promise().done(function() {
+					var msg_ctrl_panel = MSG_PAGE_CONT.find('div#selected-message-control');
+					msg_ctrl_panel.removeClass('hidden');
+					msg_ctrl_panel.find('span#total').text(0);
+					CHAT_CONV_MNG['selecting_mode'] = true;
+				});
+			}
+		});
+
+		$(document).on('change', 'input[type="checkbox"][data-select-message]', function(event) {
+			event.preventDefault();
+			var msg_ctrl_panel = MSG_PAGE_CONT.find('div#selected-message-control');			
+			var message_id     = $(this).data('select-message');
+			var total_checked  = MSG_LIST_CONT.find('input[type="checkbox"][data-select-message]:checked').length;
+			msg_ctrl_panel.find('span#total').text(total_checked);
+
+			$(this).parents('li[data-message]').toggleClass('selected');
+		});
+		
+		MSG_PAGE_CONT.find('div#selected-message-control').find('div#delete-selected').on('click',function(event) {
+			MSG_PAGE_CONT.find('div#confirm-delete-message').modal("show");
+		});
+
+		MSG_PAGE_CONT.find('div#selected-message-control').find('div#cancel-deleting').on('click',function(event) {
+			MSG_LIST_CONT.find('li[data-message]').each(function(index, el) {
+				$(el).removeClass('selected');
+				$(el).find('div.input-checkbox').addClass('hidden');
+				$(el).find('div.input-checkbox').find('input[type="checkbox"]:checked').prop('checked',false);
+			});
+
+			var msg_ctrl_panel = MSG_PAGE_CONT.find('div#selected-message-control');
+			msg_ctrl_panel.addClass('hidden');
+			msg_ctrl_panel.find('span#total').text(0);
+			CHAT_CONV_MNG['selecting_mode'] = false;
+		});
+
+		MSG_PAGE_CONT.find('form#delete-message-form').on('submit',function(event) {
+			event.preventDefault();
+			var selected_messages = [];
+
+			MSG_LIST_CONT.find('li[data-message]').each(function(index, el) {
+				var msg_id = $(el).find('input[data-select-message]:checked').data('select-message');
+				if (msg_id) {
+					selected_messages.push(msg_id);
+				}
+			}).promise().done(function() {
+				var this_form  = MSG_PAGE_CONT.find('form#delete-message-form');
+				this_form.find('button').attr('disabled', 'true');
+				this_form.find('button.btn-submit').text("{{TR Please wait}}");
+
+				$.ajax({
+					url: '{{CONFIG url}}/req/messages/delete_messages',
+					type: 'POST',
+					dataType: 'json',
+					data:{messages: selected_messages}
+				}).done(function(data) {
+					if (data.status == 200) {
+						$(selected_messages).each(function(index, msg_id) {
+							MSG_LIST_CONT.find('li[data-message="{0}"]'.format(msg_id)).fadeOut(300, function() {
+								$(this).remove();
+							});
+						});
+					}
+				}).always(function() {
+					this_form.parents('div#confirm-delete-message').modal('hide');
+					this_form.find('button').removeAttr('disabled', 'true');
+					this_form.find('button.btn-submit').text("{{TR Yes, delete it!}}");
+					MSG_PAGE_CONT.find('div#selected-message-control').find('div#cancel-deleting').trigger('click');
+				});
+			});
+		});
+
+		MSG_LIST_CONT.on('scroll', function() {
+			if (CHAT_CONV_MNG['loadmore_old']) {
+				var scrollTop = $(this).scrollTop();
+
+				if (scrollTop + $(this).innerHeight() >= this.scrollHeight) {
+					$(this).find('li#messages-preloader').addClass('hidden');
+				} 
+				else if (scrollTop <= 0) {
+					$(this).find('li#messages-preloader').removeClass('hidden');
+					CHAT_CONV_MNG.get_old_messages();
+				} 
+
+				else {
+					$(this).find('li#messages-preloader').addClass('hidden');
+				}
+			}
+			else{
+				return false;
+			}
+		});
+
+		$(document).on('click', '[data-onclick]', function(event) {
+			event.preventDefault();
+			var this_el    = $(this);
+			var event_trig = this_el.data('onclick');
+
+			if (event_trig == 'popup_image_preview') {
+				var img_source = this_el.attr('src');
+				$('div#popup-image-modal').find('img').attr('src', img_source);
+				$('div#popup-image-modal').modal('show');
+			}
+		});
+	});
+</script>

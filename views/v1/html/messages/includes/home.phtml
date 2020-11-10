@@ -1,0 +1,12 @@
+<!-- Using inline styles here, necessary for dynamically displaying background wallpapers -->
+<div class="messages-container home" style="background-image: url('{{CONFIG url}}/views/v1/statics/img/chat-wp/default.png');">
+	<div class="icon">
+		<?php echo hs_svg('message'); ?>
+	</div>
+	<h5>
+		{{TR Please select a chat to start messaging}}
+	</h5>
+	<button class="select-chat" data-onclick="view_chat_history">
+		{{TR Select}}
+	</button>
+</div>

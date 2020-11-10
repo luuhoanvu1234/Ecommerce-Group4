@@ -1,0 +1,139 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  div.messages-content-container div.messages-page-container div.left-part {
+    width: 280px !important; }
+    div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.avatar {
+      width: 35px !important;
+      height: 35px !important; }
+    div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 span {
+      font-size: 13px !important;
+      line-height: 16px !important; }
+    div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 time {
+      font-size: 10px !important;
+      line-height: 16px !important; }
+  div.messages-content-container div.messages-page-container div.right-part {
+    left: 280px !important; }
+    div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li {
+      padding-right: 30px !important;
+      padding-left: 30px !important; }
+      div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li div.message-image {
+        width: 220px !important;
+        height: 140px !important; } }
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.messages-content-container nav.breadcrumbs-cust ol li {
+    font-size: 12px !important; }
+    div.messages-content-container nav.breadcrumbs-cust ol li a {
+      font-size: 12px !important; }
+  div.messages-content-container div.messages-page-container div.left-part {
+    width: 0px !important;
+    overflow: hidden;
+    left: -999999 !important;
+    border-right: none !important; }
+    div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.avatar {
+      width: 35px !important;
+      height: 35px !important; }
+    div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 span {
+      font-size: 13px !important;
+      line-height: 16px !important; }
+    div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 time {
+      font-size: 10px !important;
+      line-height: 16px !important; }
+  div.messages-content-container div.messages-page-container div.right-part {
+    left: 0px !important; }
+    div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li {
+      padding-right: 25px !important;
+      padding-left: 25px !important; }
+      div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li div.message-image {
+        width: 220px !important;
+        height: 140px !important; }
+    div.messages-content-container div.messages-page-container div.right-part div.messages-container.home button.select-chat {
+      display: inherit !important; }
+    div.messages-content-container div.messages-page-container div.right-part nav.navbar li.nav-item.go-back {
+      display: inherit !important; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.messages-content-container {
+    padding: 0px 10px !important; }
+    div.messages-content-container nav.breadcrumbs-cust ol li {
+      font-size: 10px !important; }
+      div.messages-content-container nav.breadcrumbs-cust ol li a {
+        font-size: 10px !important; }
+    div.messages-content-container div.messages-page-container div.left-part {
+      width: 0px !important;
+      overflow: hidden;
+      left: -999999 !important;
+      border-right: none !important; }
+      div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.avatar {
+        width: 35px !important;
+        height: 35px !important; }
+      div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 span {
+        font-size: 13px !important;
+        line-height: 16px !important; }
+      div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 time {
+        font-size: 10px !important;
+        line-height: 16px !important; }
+    div.messages-content-container div.messages-page-container div.right-part {
+      left: 0px !important; }
+      div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li {
+        padding-right: 25px !important;
+        padding-left: 25px !important; }
+        div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li div.message-image {
+          width: 220px !important;
+          height: 140px !important; }
+      div.messages-content-container div.messages-page-container div.right-part div.messages-container.home button.select-chat {
+        display: inherit !important; }
+      div.messages-content-container div.messages-page-container div.right-part nav.navbar li.nav-item.go-back {
+        display: inherit !important; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.messages-content-container {
+    padding: 0px 10px !important; }
+    div.messages-content-container nav.breadcrumbs-cust ol li {
+      font-size: 10px !important; }
+      div.messages-content-container nav.breadcrumbs-cust ol li a {
+        font-size: 10px !important; }
+    div.messages-content-container div.messages-page-container div.left-part {
+      width: 0px !important;
+      overflow: hidden;
+      left: -999999 !important;
+      border-right: none !important; }
+      div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.avatar {
+        width: 35px !important;
+        height: 35px !important; }
+      div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 span {
+        font-size: 13px !important;
+        line-height: 16px !important; }
+      div.messages-content-container div.messages-page-container div.left-part ul.contacts-list li div.contact-body h6 time {
+        font-size: 10px !important;
+        line-height: 16px !important; }
+    div.messages-content-container div.messages-page-container div.right-part {
+      left: 100% !important; }
+      div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li {
+        padding-right: 25px !important;
+        padding-left: 25px !important; }
+        div.messages-content-container div.messages-page-container div.right-part div.messages-container ul.messages-list li div.message-image {
+          width: 220px !important;
+          height: 140px !important; }
+      div.messages-content-container div.messages-page-container div.right-part div.messages-container.home button.select-chat {
+        display: inherit !important; }
+      div.messages-content-container div.messages-page-container div.right-part nav.navbar li.nav-item.go-back {
+        display: inherit !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

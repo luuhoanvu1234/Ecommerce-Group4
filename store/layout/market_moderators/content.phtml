@@ -1,0 +1,61 @@
+<div class="clearfix" id="market-moders-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/market_moderators}}">
+                        {{TR Market moderators}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Market moderators management}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header">
+                    <h2>{{TR List of market moderators}} (<?php echo($hs['total_moders']); ?>)</h2>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table common-table no-mb" id="users-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR User Name}}</th>
+                                <th>{{TR E-Mail}}</th>
+                                <th>{{TR Last seen}}</th>
+                                <th>{{TR Action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['market_moders'])): ?>
+                                <?php foreach ($hs['market_moders'] as $hs['user_data']): ?>
+                                    <?php echo hs_loadpage('market_moderators/includes/user_list_item'); ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['market_moders'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('market_moderators/modals/confirmations/conf_moder_removal'); ?>
+<?php echo hs_loadpage('market_moderators/static/js/market_moders_script'); ?>

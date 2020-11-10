@@ -1,0 +1,220 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+        
+        var EDIT_LANGUAGE_PAGE = $("div#edit-language-page");
+        var EDIT_LANG_TEXT_M   = $("div#edit-language-text-modal");
+
+        EDIT_LANGUAGE_PAGE.find('i#clear-searching-terms').on('click',function(event) {
+            $(this).addClass('hidden');
+            EDIT_LANGUAGE_PAGE.find('input#search-rows').trigger('keyup').val('');
+        });
+
+        EDIT_LANGUAGE_PAGE.find('input#search-rows').keyup(function(event) {
+            delay(function(){
+                var langs_list  = EDIT_LANGUAGE_PAGE.find('table#languages-list');
+                var preloader   = EDIT_LANGUAGE_PAGE.find('div#table-preloader');
+                var keyword_val = EDIT_LANGUAGE_PAGE.find('input#search-rows').val();
+                var keyword     = ((keyword_val.length >= 1) ? keyword_val : 0);
+
+                if (keyword && langs_list.find('tr.empty-table').length == 0) {
+                    EDIT_LANGUAGE_PAGE.find('i#clear-searching-terms').removeClass('hidden');
+                    preloader.removeClass('hidden');
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/search_langs',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {keyword: keyword}
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            langs_list.find('tbody').html(data.html);
+                            EDIT_LANGUAGE_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                        }
+                        else {
+                            EDIT_LANGUAGE_PAGE.find('a.pagination-ctrls').addClass('hidden');
+                            langs_list.find('tbody').html(data.html);
+                        }
+                    }).fail(function() {
+                        $.notify({
+                            message: 'Error: Failed to connect to the server. Please check your internet connection',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }).always(function() {
+                        setTimeout(function(){
+                            preloader.addClass('hidden');
+                        },500);
+                    });
+                }
+
+                else {
+                    if (hs_empty(keyword_val)) {
+                        EDIT_LANGUAGE_PAGE.find('i#clear-searching-terms').addClass('hidden');
+                        EDIT_LANGUAGE_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                    }
+
+                    if (window.langs_table_rows) {
+                        langs_list.html(window.langs_table_rows);
+                    }
+                } 
+            },1000);
+        });
+
+        if (EDIT_LANGUAGE_PAGE.find('table#languages-list').find('tr[data-lang-li]').length) {
+            if (EDIT_LANGUAGE_PAGE.find('table#languages-list').find('tr.empty-table').length == 0) {
+                window.langs_table_rows = EDIT_LANGUAGE_PAGE.find('table#languages-list').html();
+            }
+        }
+
+        EDIT_LANGUAGE_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = EDIT_LANGUAGE_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var langs_list  = EDIT_LANGUAGE_PAGE.find('table#languages-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_req    = langs_list.find('tr[data-lang-li]').last().data('lang-li');
+                var first_req   = langs_list.find('tr[data-lang-li]').first().data('lang-li');
+                var preloader   = EDIT_LANGUAGE_PAGE.find('div#table-preloader').removeClass('hidden');
+                var keyword     = EDIT_LANGUAGE_PAGE.find('input#search-rows').val();
+                var keyword     = ((keyword.length >= 1) ? keyword : '');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/admin/get_languages',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_req, 
+                        first: first_req,
+                        keyword: keyword,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        langs_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var this_el    = $(this);
+            var event_trig = this_el.data('onclick');
+
+            if (event_trig == 'edit_language_text') {
+                var lang_id   = this_el.data('id');
+                var lang_text = EDIT_LANGUAGE_PAGE.find('p[data-lang-text="{0}"]'.format(lang_id)).text();
+                var lang_text = $.trim(lang_text);
+
+                EDIT_LANG_TEXT_M.find('textarea[name="lang_text"]').val(lang_text);
+                EDIT_LANG_TEXT_M.find('input[name="lang_id"]').val(lang_id);
+                EDIT_LANG_TEXT_M.modal('show');
+            }
+        });
+
+        EDIT_LANG_TEXT_M.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/save_language_text',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                EDIT_LANG_TEXT_M.find('button').attr('disabled', 'true');
+                EDIT_LANG_TEXT_M.find('small.error-message').remove();
+            },
+            success: function(data) {   
+                if (data.status == 200) {
+                    EDIT_LANG_TEXT_M.modal('hide');
+                    var lang_text = EDIT_LANG_TEXT_M.find('textarea[name="lang_text"]').val();
+                    var lang_id   = EDIT_LANG_TEXT_M.find('input[name="lang_id"]').val();
+
+                    EDIT_LANGUAGE_PAGE.find('p[data-lang-text="{0}"]'.format(lang_id)).text($.trim(lang_text));
+                    EDIT_LANG_TEXT_M.find('textarea[name="lang_text"]').val('');
+                    EDIT_LANG_TEXT_M.find('input[name="lang_id"]').val('');
+                    EDIT_LANG_TEXT_M.find('button').removeAttr('disabled');
+
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }  
+                else {
+                    if (data.message) {
+                        EDIT_LANG_TEXT_M.find('button').removeAttr('disabled');
+                        if (EDIT_LANG_TEXT_M.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+                            EDIT_LANG_TEXT_M.find('[data-form-field="{0}"]'.format(data.err_field)).append($("<small>",{
+                                text: data.message,
+                                class: 'col-red error-message animated flash'
+                            }));
+                        }
+                        else {
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    }
+                    else {
+                        EDIT_LANG_TEXT_M.modal('hide');
+                        EDIT_LANG_TEXT_M.find('textarea[name="lang_text"]').val('');
+                        EDIT_LANG_TEXT_M.find('input[name="lang_id"]').val('');
+                        EDIT_LANG_TEXT_M.find('button').removeAttr('disabled');
+                        $.notify({
+                            message: 'Error found while processing your request. Please try again later!',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }
+            },
+            error: function() {
+                EDIT_LANG_TEXT_M.modal('hide');
+                EDIT_LANG_TEXT_M.find('textarea[name="lang_text"]').val('');
+                EDIT_LANG_TEXT_M.find('input[name="lang_id"]').val('');
+                EDIT_LANG_TEXT_M.find('button').removeAttr('disabled');
+                $.notify({
+                    message: 'Error found while processing your request. Please try again later!',
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            }
+        });
+    });
+</script>

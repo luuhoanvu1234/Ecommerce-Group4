@@ -1,0 +1,41 @@
+<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{CONFIG url}}">{{TR Home}}</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="<?php echo($hs['prof_data']['url']); ?>">
+				{{TR Profile}}
+			</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="<?php echo($hs['prof_data']['url']); ?>">
+				<?php echo($hs['prof_data']['name']); ?>
+			</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">
+			{{TR Trading Items}}
+		</li>
+	</ol>
+</nav>
+<div class="prods-items-container" id="prods-items-container">
+	<?php if (not_empty($hs['user_items'])): ?>
+		<?php foreach ($hs['user_items'] as $hs['prod_item']): ?>
+			<?php echo hs_loadpage('profile/includes/cards/prod_item'); ?>
+		<?php endforeach; ?>
+	<?php else: ?>
+		<?php echo hs_loadpage('profile/includes/no_items'); ?>
+	<?php endif; ?>
+</div>
+<?php if (not_empty($hs['user_items'])): ?>
+	<div class="load-more-products">
+		<button  id="load-more-pruducts" data-text="Load more prodcuts">
+			{{TR Load more prodcuts}}
+		</button>
+		<div class="preloader-wrapper hidden" id="preloader">
+			<?php echo hs_loadpage('components/data_preloader'); ?>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<?php echo hs_loadpage('profile/static/js/profile_items_script'); ?>
+<?php endif; ?>

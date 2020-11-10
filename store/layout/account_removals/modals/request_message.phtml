@@ -1,0 +1,91 @@
+<div class="modal animated vh-center fadeIn popup-ticket-modal account-removal-message" id="account-removal-message-modal" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="ticket-content">
+                <div class="ticket-time">
+                    <time>
+                        <i class="material-icons">account_box</i> {{TR Requested at}}: <?php echo $hs['req_data']['time']; ?>
+                    </time>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                        <ul class="dropdown-menu bs-dropdown-menu pull-right">
+                            <li>
+                                <a href="<?php echo($hs['req_data']['url']); ?>" class="waves-effect waves-block">
+                                    {{TR User profile page}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="avatar">
+                        <img src="<?php echo($hs['req_data']['avatar']); ?>" alt="Avatar">
+                    </div>
+                    <div class="uname">
+                        <h6>
+                            <a href="#">
+                                <?php echo($hs['req_data']['full_name']); ?>
+
+                                <?php if ($hs['req_data']['verified'] == '1'): ?>
+                                    <?php echo hs_svg('verified-icon'); ?>
+                                <?php endif; ?>
+                            </a>
+                        </h6>
+                        <p>
+                            <span>
+                                <?php echo($hs['req_data']['email']); ?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="ticket-message">
+                    <div class="ticket-message-header">
+                        <h5>
+                            <span>
+                                {{TR Removal Reason}}:
+                            </span>
+                            
+                            <?php if ($hs['req_data']['reason'] == '1'): ?>
+                                <span class="col-red">
+                                    {{TR Troubles in getting started}}
+                                </span>
+                            <?php elseif($hs['req_data']['reason'] == '2'): ?>
+                                <span class="col-green">
+                                    {{TR I have a duplicate account}}
+                                </span>
+                            <?php elseif($hs['req_data']['reason'] == '3'): ?>
+                                <span class="col-blue">
+                                    {{TR Can not find buyers}}
+                                </span>
+                            <?php elseif($hs['req_data']['reason'] == '4'): ?>
+                                <span class="col-orange">
+                                    {{TR I don't find it useful}}
+                                </span>
+                            <?php else: ?>
+                                <span class="col-pink">
+                                    {{TR Other reasons}}
+                                </span>
+                            <?php endif; ?>
+                        </h5>
+                    </div>
+                    <?php if (not_empty($hs['req_data']['message'])): ?>
+                        <p class="message2reviwer">
+                            <?php echo($hs['req_data']['message']); ?>
+                        </p>
+                    <?php else: ?>
+                        <p class="message2reviwer">
+                            {{TR This user has not provided any additional information about his departure}}
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <div class="ticket-ctrls">
+                    <button type="button" data-dismiss="modal" class="btn bg-main-red btn-block btn-sm waves-effect">
+                        {{TR Close request message}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+        
+    	var PAYMENT_SET_PAGE = $("div#payment-settings-page");
+    	var PAYMENT_SET_FORM = PAYMENT_SET_PAGE.find("form#payment-settings-form");
+
+        PAYMENT_SET_FORM.ajaxForm({
+            url: '{{CONFIG url}}/req/admin/save_configs',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                PAYMENT_SET_PAGE.find('button[data-main-btn="submit"]').attr('disabled', 'true');
+                PAYMENT_SET_PAGE.find('button[data-main-btn="submit"]').find('span').text("{{TR Please wait}}!");
+                PAYMENT_SET_FORM.find('small.error-message').remove();
+            },
+            success: function(data) {
+                if (data.status == 200) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+
+                    PAYMENT_SET_PAGE.find('button[data-main-btn="submit"]').removeClass('bg-main-red').addClass("bg-green").find('span').text("{{TR Changes saved}}");
+                } 
+                else {
+                	PAYMENT_SET_FORM.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+                		text: data.message,
+                		class: 'col-red error-message animated flash'
+                	}));
+                }
+            },
+            complete: function() {
+            	delay(function() {
+                    PAYMENT_SET_PAGE.find('button[data-main-btn="submit"]').removeAttr('disabled');
+            		PAYMENT_SET_PAGE.find('button[data-main-btn="submit"]').removeClass('bg-green').addClass('bg-main-red').find('span').text("{{TR Save changes}}");
+            	},3000);
+            }
+        });
+
+        PAYMENT_SET_PAGE.find('button[data-main-btn="submit"]').on('click', function(event) {
+            event.preventDefault();
+            PAYMENT_SET_FORM.submit();
+        });
+
+        PAYMENT_SET_PAGE.find('#right-sidepart').stickySidebar({
+            topSpacing: 130,
+            bottomSpacing: 20,
+            stickyClass: 'is-affixed'
+        });
+
+        PAYMENT_SET_PAGE.find('[data-affix-scroll]').on('click', function(event) {
+            event.preventDefault();
+            var this_el = $(this);
+            var label   = this_el.data('affix-scroll');
+            if (label && PAYMENT_SET_PAGE.find('[data-affix-label="{0}"]'.format(label)).length) {
+                PAYMENT_SET_PAGE.find('[data-affix-label="{0}"]'.format(label)).scroll2(200,125);
+
+                this_el.addClass('active');
+                this_el.siblings('li.list-group-item').removeClass('active');
+            }
+        });
+    });
+</script>

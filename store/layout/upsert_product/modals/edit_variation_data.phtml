@@ -1,0 +1,88 @@
+<div class="modal animated fadeIn edit-prodvar-modal" id="edit-prodvar-modal" data-keyboard="false" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <form class="form clearfix" id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Edit product variation}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                        <div class="data-management-area">
+                            <div class="form-fieldset-title clearfix">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p>
+                                            {{TR Edit product variation basic info}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10 mb-20" data-form-field="reg_price">
+                                        <label class="form-label">
+                                            {{TR Regular price}}:
+                                        </label>
+                                        <div class="filed-box" >
+                                            <input name="reg_price" type="number" step="any" class="form-control" value="<?php echo($hs['var_data']['reg_price']); ?>" placeholder="{{TR Enter the product regular price}}.">
+                                        </div> 
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20" data-form-field="sale_price">
+                                        <label class="form-label">
+                                            {{TR Sale price}}:
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="sale_price" type="numver" class="form-control" value="<?php echo($hs['var_data']['sale_price']); ?>" placeholder="{{TR Enter the product sale price}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row">
+                                    <div class="col-sm-12 mb-20">
+                                        <label class="form-label">
+                                            {{TR Quantity}}:
+                                        </label>
+                                        <div class="filed-box" data-form-field="quantity">
+                                            <input name="quantity" type="text" class="form-control" value="<?php echo($hs['var_data']['quantity']); ?>" placeholder="{{TR Maximum is 1200}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row">
+                                    <div class="col-sm-12 mb-20" data-form-field="sku">
+                                        <label class="form-label">
+                                            SKU:
+                                        </label>
+                                        <div class="filed-box">
+                                            <input value="<?php echo($hs['var_data']['sku']); ?>" name="sku" type="text" class="form-control" placeholder="{{TR Enter the stock keeping unit of your item}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="btns">
+                                    <div class="row">
+                                        <div class="col-sm-12 no-mb">
+                                            <button data-section-node="main_cancel_btn" type="button" class="btn bg-grey btn-lg btn-custom" data-dismiss="modal" title="{{TR Cancel}}">
+                                                <i class="material-icons">close</i> <span>{{TR Cancel}}</span>
+                                            </button>
+                                            <button data-section-node="main_submit_btn" type="submit" class="btn bg-blue btn-lg btn-custom m-l-15" title="{{TR Save changes}}">
+                                                <i class="material-icons">save</i> <span>{{TR Save changes}}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php echo hs_loadpage('upsert_product/static/js/edit_prodvar_script');?>
+</div>

@@ -1,0 +1,86 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var USR_PROF_PAGE = $("div#user-profile-page-container");
+		var RATING_FILT_F = USR_PROF_PAGE.find('form#filter-reviews');
+		var BS_NOTIF_CONF = Object({allow_dismiss: false,icon_type: "class",type: 'default',timer: 500, placement: {from: "bottom",align: "left"}, offset: {x: 40,y: 40}, animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}});
+		
+		if (USR_PROF_PAGE.width() >= 1000) {
+			USR_PROF_PAGE.find('div#sticky-fixedbar-left').stickySidebar({
+			    topSpacing: 20,
+			    bottomSpacing: 20
+			});
+		}
+
+		RATING_FILT_F.find('input[type="checkbox"]').on('change',function(event) {
+			event.preventDefault();
+			var this_box = $(this);
+			var filters  = RATING_FILT_F.serializeObject();
+			var loadbtn  = USR_PROF_PAGE.find('button#load-more-reviews');
+			USR_PROF_PAGE.find('div#prof-review-list-wrap').addClass('strained');
+			$.ajax({
+				url: '{{CONFIG url}}/req/profile/load_reviews',
+				type: 'POST',
+				dataType: 'json',
+				data: {filters: filters},
+			}).done(function(data) {
+				if (data.status == 200) {
+					USR_PROF_PAGE.find('div#prof-review-list').html(data.html);
+				}
+				else {
+					if (data.message) {
+						$.notify({
+							message: data.message,
+						},BS_NOTIF_CONF);
+					}
+				}
+			}).always(function() {
+				USR_PROF_PAGE.find('div#prof-review-list-wrap').removeClass('strained');
+			});
+
+
+			loadbtn.text(loadbtn.data('text')).removeAttr('disabled');
+			if (this_box.attr('name') == 'all_stars') {
+				RATING_FILT_F.find('input[type="checkbox"]').not(this_box).each(function(index, el) {
+					$(this).prop('checked', false);
+				});
+			}
+			else{
+				RATING_FILT_F.find('input[type="checkbox"]').not(this_box).each(function(index, el) {
+					if ($(el).attr('name') == 'all_stars') {
+						$(this).prop('checked', false);
+					}
+				});
+			}
+		});
+
+		USR_PROF_PAGE.find('button#load-more-reviews').on('click',function(event) {
+			var reviews_list  = USR_PROF_PAGE.find('div#prof-review-list');
+			var last_rev      = reviews_list.find('div[data-review-li]').last();
+			if (last_rev.length) {
+				var offset    = last_rev.data('review-li');
+				var filters   = RATING_FILT_F.serializeObject();
+				var this_btn  = $(this).addClass('hidden');
+				var preloader = USR_PROF_PAGE.find('div#reviews-preloader').removeClass('hidden');
+
+				$.ajax({
+					url: '{{CONFIG url}}/req/profile/load_reviews',
+					type: 'POST',
+					dataType: 'json',
+					data: {filters: filters,offset:offset},
+				}).done(function(data) {
+					if (data.status == 200) {
+						USR_PROF_PAGE.find('div#prof-review-list').append(data.html);
+					}
+					else {
+						this_btn.attr('disabled', 'true').text("{{TR You have reached the end of this list}}");
+					}
+				}).always(function() {
+					delay(function(){
+						this_btn.removeClass('hidden');preloader.addClass('hidden');
+					},300);
+				});
+			}
+		});
+	});
+</script>

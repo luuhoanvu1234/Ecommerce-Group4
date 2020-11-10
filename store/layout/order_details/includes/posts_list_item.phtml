@@ -1,0 +1,58 @@
+<tr data-status="<?php echo($hs['tl_post']['status']); ?>">
+    <td class="time">
+        <time>
+            <?php echo date('d M, Y - h:m',$hs['tl_post']['time']); ?>
+        </time>
+    </td>
+    <td class="comment">
+        <span>
+            <?php echo($hs['tl_post']['comment']); ?>
+        </span>
+    </td>
+    <td>
+        <?php if ($hs['tl_post']['status'] == 'pending'): ?>
+
+            <span class="badge bg-orange">{{TR Pending}}</span>
+
+        <?php elseif($hs['tl_post']['status'] == 'processing'): ?>
+
+            <span class="badge bg-blue">{{TR Processing}}</span>
+
+        <?php elseif($hs['tl_post']['status'] == 'processed'): ?>
+
+            <span class="badge bg-purple">{{TR Processed}}</span>
+
+        <?php elseif($hs['tl_post']['status'] == 'sent'): ?>
+
+            <span class="badge bg-pink">{{TR Sent}}</span>
+
+        <?php elseif($hs['tl_post']['status'] == 'shipped'): ?>
+
+            <span class="badge bg-green">{{TR Shipped}}</span>
+
+        <?php elseif($hs['tl_post']['status'] == 'canceled'): ?>
+
+            <span class="badge bg-red">{{TR Canceled}}</span>
+
+        <?php elseif($hs['tl_post']['status'] == 'expired'): ?>
+
+            <span class="badge bg-red">{{TR Expired}}</span>
+            
+        <?php elseif($hs['tl_post']['status'] == 'returned'): ?>
+
+            <span class="badge bg-red">{{TR Returned}}</span>
+
+        <?php elseif($hs['tl_post']['status'] == 'failed'): ?>
+
+            <span class="badge bg-red">{{TR Failed}}</span>
+
+        <?php endif; ?>
+    </td>
+    <td> 
+        <?php if ($hs['tl_post']['buyer_notified'] == 'y'): ?>
+            <span class="badge bg-green">{{TR Yes}}</span>
+        <?php else: ?>
+            <span class="badge bg-main-red">{{TR No}}</span>
+        <?php endif; ?>
+    </td>
+</tr> 

@@ -1,0 +1,126 @@
+<div class="modal animated vh-center fadeIn table-filter-modal" id="table-filter-modal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form class="form" id="form">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        {{TR Filter products}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                        <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                        <div class="filter-body clearfix">
+                            <div class="form-group form-field-box">
+                                <div class="filed-box">
+                                    <label class="input-label">
+                                        {{TR Product name}}:
+                                    </label>
+                                    <input type="text" name="prod_name" class="form-control" placeholder="{{TR Search for products by name}}">
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10 mb-20">
+                                        <div class="filed-box">
+                                            <label class="input-label">
+                                                {{TR Status}}:
+                                            </label>
+                                            <select name="prod_status" class="form-control">
+                                                <option value="all" selected="true">{{TR All}}</option>
+                                                <option value="active">{{TR Active}}</option>
+                                                <option value="inactive">{{TR Inactive}}</option>
+                                                <option value="blocked">{{TR Blocked}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20">
+                                        <div class="filed-box">
+                                            <label class="input-label">
+                                                {{TR Type of variation}}:
+                                            </label>
+                                            <select name="var_type" class="form-control">
+                                                <option value="all" selected="true">{{TR All}}</option>
+                                                <option value="single">{{TR Single variant product}}</option>
+                                                <option value="color">{{TR Color variant product}}</option>
+                                                <option value="size">{{TR Size variant product}}</option>
+                                                <option value="color_size">{{TR Color & Size variant product}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10 mb-20">
+                                        <div class="filed-box">
+                                            <label class="input-label">
+                                                SKU:
+                                            </label>
+                                            <input type="text" name="sku" class="form-control" placeholder="{{TR Enter SKU}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20">
+                                        <div class="filed-box">
+                                            <label class="input-label">
+                                                {{TR Payment method}}:
+                                            </label>
+                                            <select name="payment_method" class="form-control">
+                                                <option value="all" selected="true">{{TR Any}}</option>
+                                                <option value="all_payments">{{TR All methods}}</option>
+                                                <option value="cod_payments">{{TR Cash on delivery}}</option>
+                                                <option value="pre_payments">{{TR Prepayment}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row">
+                                    <div class="col-sm-6 p-r-10 mb-20">
+                                        <div class="filed-box">
+                                            <label class="input-label">
+                                                {{TR Approval status}}:
+                                            </label>
+                                            <select name="approval_status" class="form-control" title="{{TR All}}">
+                                                <option value="all" selected="true">{{TR All}}</option>
+                                                <option value="approved">{{TR Approved}}</option>
+                                                <option value="not_approved">{{TR Not approved}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20">
+                                        <div class="filed-box">
+                                            <label class="input-label">
+                                                {{TR Category}}:
+                                            </label>
+                                            <select data-size="4" name="category" class="form-control" title="{{TR All categories}}">
+                                                <option value="all" selected="true">
+                                                    {{TR All categories}}
+                                                </option>
+                                                <?php foreach ($hs['categories'] as $id => $cat_name): ?>
+                                                    <option value="<?php echo $id; ?>">
+                                                        <?php echo hs_translate($cat_name); ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-footer text-right">
+                            <button type="reset" class="btn bg-grey waves-effect">
+                                {{TR Reset all}}
+                            </button>
+                            <button type="submit" class="btn bg-main-red waves-effect">
+                                {{TR Apply filter}}
+                            </button>    
+                        </div> 
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,1051 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+div.messages-content-container{
+	div.messages-page-container{
+		width: 100%;
+		overflow: hidden;
+		display: block;
+		height: calc(100vh - 140px);
+		background: #fff;
+		min-height: 70vh;
+		position: relative;
+		border-radius: 5px;
+		border: none;
+		margin-bottom: 20px;
+
+		div.left-part{
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			border-right: 1px solid #eee;	
+			width: 370px;
+			.navbar{
+				width: 100%;
+				padding:15px;
+				margin: 0;
+				border-bottom: 1px solid #eee;
+				height: 66px;
+				
+				ul.navbar-nav{
+					width: 100%;
+				
+					.nav-item{
+						flex: 1;
+						form.search-contacts{
+							width: 100%;
+							overflow: hidden;
+							div.input-wrapper{
+								width: 100%;
+								overflow: hidden;
+								position: relative;
+								height: 35px;
+								input{
+									height: 35px;
+									border:1px solid #f5f5f5;
+									outline: 0;
+									box-shadow: none;
+									background: #f5f5f5;
+									border-radius: 10em;
+									padding: 10px 50px 12px 15px;
+									transition: all .27s ease-in-out;
+
+									&::placeholder{
+										font-size: 13px;
+										line-height: 13px;
+										color: $pl_holder;
+										transition: all .27s ease-in-out;
+									}
+
+									&:hover,&:active,&:focus{
+								    	outline: 0;
+								    	box-shadow: none;
+								    	border: 2px solid $red;
+								    	&::placeholder{
+								    		color: $red;
+								    	}
+
+								    	& + button svg{
+								    		fill: $red;
+								    	}
+								    }
+
+								}
+
+								button{
+									width: 30px;
+								    position: absolute;
+								    right: 10px;
+								    top: 0px;
+								    height: 34px;
+								    color: $pl_holder;
+								    background: transparent;
+								    border: none;
+								    &:hover,&:active,&:focus{
+								    	outline: 0;
+								    	box-shadow: none;
+								    	border: none;
+								    }
+								    svg{
+								    	transition: all .27s ease-in-out;
+								    }
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.contacts-list-wrapper{
+				width: 100%;
+				position: absolute;
+				top: 66px;
+				left: 0;
+				right: 0;
+				bottom: 0;
+
+				ul.contacts-list{
+					width: 100%;
+					overflow-x: hidden;
+					overflow-y: auto;
+					height: 100%;
+					list-style-type: none;
+					padding: 0;
+					margin: 0;
+					li.contacts-list-item{
+						width: 100%;
+						overflow: hidden;
+						padding: 0;
+						margin: 0;
+						transition: all 0.25s ease-in-out;
+						cursor: pointer;
+
+						a{
+							text-decoration: none;
+						}
+
+						.contact{
+							display: flex;
+							overflow: hidden;
+							flex-direction: row;
+							flex-wrap: nowrap;
+							padding: 0 15px;
+							
+							.avatar{
+								width: 45px;
+								margin: 10px 0px;
+								height: 45px;
+								overflow: hidden;
+								border-radius: 10em;
+								overflow: hidden;
+								margin-right: 10px;
+								img{
+									width: 100%;
+									height: 100%;
+									object-fit: cover;
+									border-radius: 10em;
+								}
+							}
+
+							.contact-body{
+								flex: 1;
+								overflow: hidden;
+								padding: 10px 0px;
+								border-bottom: 1px solid #e9ebeb;
+								h6{
+									padding: 0;
+									overflow: hidden;
+									margin: 0;
+									font-weight: 400;
+									line-height: 0px;
+									span{
+										line-height: 25px;
+										font-size: 14px;
+										color: $black;
+										max-width:60%;
+										overflow: hidden;
+										white-space: nowrap;
+										text-overflow: ellipsis;
+										display: inline-block;
+
+										span.verified{ 
+											vertical-align: middle;
+											margin-top: -3px;
+											svg{
+												width: 15px;
+												height: 15px;
+												fill: $main;
+												path{
+													fill: $main;
+												}
+											}
+										}
+									}
+
+									time{
+										font-weight: 400;
+										float: right;
+										font-size: 12px;
+										line-height: 25px;
+										color: #adadad;
+										display: inline-block;
+									}
+								}
+
+								div.message{
+									width: 100%;
+									display: flex;
+									flex-direction: row;
+									flex-wrap: nowrap;
+									justify-content: space-between;
+									align-items: center;
+
+									span.last{
+										padding: 0;
+										margin: 0;
+										font-size: 13px;
+										line-height: 18px;
+										color: #616161;
+										font-weight: normal;
+										white-space: nowrap;
+										overflow: hidden;
+										text-overflow: ellipsis;
+									}
+
+									span.new{
+										font-size: 11px;
+										background: $red;
+										color: #fff;
+										border-radius: 20px;
+										line-height: 18px;
+										padding: 0px 10px;
+										&:empty{
+											display: none;
+											opacity: 0;
+											visibility: hidden;
+										}
+									}
+								}
+							}
+						}
+
+						&:hover,&:active,&:focus,&.active{
+							background: #e9ebeb;
+						}
+
+						&:last-child{
+							div.contact-body{
+								border-bottom: none;
+							}
+						}
+					}
+
+					li.no-contacts-found{
+						width: 100%;
+						overflow: hidden;
+						padding: 20px 0px;
+						text-align: center;
+						font-size: 16px;
+						color: $black;
+						background: #eee;
+						position: relative;
+						z-index: 1000;
+						margin-right: -10px;
+						&.hidden{
+							display: none;
+							visibility: hidden;
+							opacity: 0;
+						}
+					}
+					
+					&::-webkit-scrollbar-track{
+						background-color: #fff;
+					}
+
+					&::-webkit-scrollbar{
+						width: 5px;
+						background-color: #fff;
+					}
+
+					&::-webkit-scrollbar-thumb{
+						background-color: #d1d1d1;
+						border: 2px solid #d1d1d1;
+					}
+				}
+
+				div.no-contacts-found{
+					width: 100%;
+					overflow: hidden;
+					text-align: center;
+					line-height: 150px;
+					font-weight: 600;
+					color: $pl_holder;
+				}
+			}
+
+			&.open-fluid{
+				width: 100% !important;
+				right: 0px !important;
+				z-index: 100;
+				background: #fff;
+			}
+		}
+
+		div.right-part{
+			position: absolute;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			left: 370px;
+			overflow: hidden;
+
+			div.right-part-content{
+				width: 100%;
+				overflow: hidden;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				flex-wrap: nowrap;
+			
+				.navbar{
+					flex-basis: 66px;
+					width: 100%;
+					margin: 0;
+					padding: 0;
+					ul.navbar-nav{
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						flex-wrap: nowrap;
+						width: 100%;
+						height: 100%;
+						align-items: center;
+						padding: 0px 15px;
+
+						.nav-item{
+							div.avatar{
+								width: 40px;
+								height: 40px;
+								margin-right: 10px;
+								img{
+									width: 100%;
+									height: 100%;
+									object-fit: cover;
+									border-radius: 10em;
+								}
+							}
+
+							&.go-back{
+								margin-right: 15px;
+								display: none;
+								a{
+									text-decoration: none;
+									svg{
+										width: 20px;
+										height: 20px;
+										fill: $black;
+									}
+								}
+							}
+
+							div.user-info{
+								h6{
+									padding: 0;
+									margin: 0;
+									font-weight: normal;
+									color: $black2;
+									font-size: 14px;
+									line-height: 22px;
+									max-width: 180px;
+									overflow: hidden;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+
+									span.verified{
+										line-height: 0px;
+										vertical-align: middle;
+										display: inline-block;
+										width: 15px;
+										height: 15px;
+										margin-top: -2px;
+										svg{
+											fill: $main;
+											width: 15px;
+											height: 15px;
+											vertical-align: middle;
+											path{
+												fill: $main;
+											}
+										}
+									}
+								}
+
+								p{
+									padding: 0;
+									margin: 0;
+									color: #9697a1;
+									font-size: 12px;
+									line-height: 16px;
+									max-width: 180px;
+									overflow: hidden;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+								}
+							}
+
+							&.dropdown-menu-cont{
+								align-self: center;
+
+								.dropdown{
+									height: 35px;
+								}
+								a.dropdown-toggle{
+									width: 35px;
+									height: 35px;
+									display: inline-block;
+									border-radius: 10em;
+									transition: all 0.27s ease-in-out;
+									cursor: pointer;
+									position: relative;
+									&:after,&:before{
+										display: none;
+									}
+
+									&:hover,&:active,&:focus{
+										background: #f5f3f5;
+									}
+
+									svg{
+										width: 24px;
+										height: 25px;
+										position: absolute;
+										left: 0;
+										top: 0;
+										bottom: 0;
+										right: 0;
+										margin: auto;
+										fill:$pl_holder;
+
+									}
+								}
+
+								.dropdown-menu{
+									top: 40px;
+									position: absolute;
+									right: 0px;
+									transition: all 0.27s ease-in-out;
+									border-radius: 5px;
+									border: none;
+			    					box-shadow: 0 -0.6rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+			    					padding: 8px 0px;
+
+									a.dropdown-item{
+										padding: 12px 20px;
+										font-size: 13px;
+										line-height: 13px;
+										color: $black;
+
+										&:active,&:focus,&:hover{
+											background-color: #f8f9fa;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				.messages-container{
+					width: 100%;
+					height: calc(100% - 131px);
+					background-color: #fff;
+		    		box-shadow: inset 1px 0px 18px 2px rgba(68, 68, 68, 0.03);
+		    		background-size: contain;
+		    		background-repeat: repeat;
+		    		
+		    		.messages-list{
+		    			width: 100%;
+		    			overflow-x: hidden;
+		    			overflow-y: auto;
+		    			height: 100%;
+		    			list-style-type: none;
+		    			margin: 0px;
+		    			padding: 0px;
+		    			li.messages-list-item{
+		    				width: 100%;
+		    				overflow: hidden;
+		    				padding: 15px 50px;
+		    				background: transparent;
+		    				div.message{
+		    					width: 100%;
+		    					display: flex;
+		    					padding: 0px;
+		    					flex-direction: row;
+		    					flex-wrap: nowrap;
+		    					align-items: flex-start;
+
+		    					div.input-checkbox{
+		    						line-height: 0px;
+		    						padding: 0px 10px 0px 0px; 
+		    						align-self: center;
+		    						position: relative;
+
+		    						&.hidden{
+										opacity: 0;
+										visibility: hidden;
+										display: none;	
+		    						}
+
+		    						label{
+		    							margin-bottom: 0px;
+		    							padding-bottom: 0px;
+		    							width: 20px;
+		    							height: 20px;
+		    							line-height: 20px;
+		    							padding-left: 0;
+		    						}
+		    					}
+
+		    					div.message-header{
+		    						flex-basis: auto;
+									div.flex-cont{
+										width: 100%;
+										display: flex;
+										flex-direction: row;
+				    					flex-wrap: nowrap;
+				    					align-items:flex-start;
+
+				    					
+				    					div.avatar{
+				    						min-width: 45px;
+				    						min-height: 45px;
+				    						width: 45px;
+				    						height: 45px;
+				    						border-radius: 10em;
+				    						overflow: hidden;
+				    						
+				    						border: 3px solid #fff;
+
+				    						img{
+				    							width: 100%;
+				    							height: 100%;
+				    							border-radius: 10em;
+				    							object-fit: cover;
+				    						}
+				    					}
+			    					}
+		    					}
+
+		    					div.message-body{	
+		    						padding: 0 20px 0 5px;
+		    						height: auto;
+		    						border-radius:0px 10px 10px 10px;
+		    						flex: 1;
+
+		    						div.message-content{
+		    							width: 100%;
+		    							display: flex;
+		    							flex-direction: row;
+		    							flex-wrap: wrap;
+
+		    							div.message-text{
+			    							max-width: 75%;
+			    							line-height: 0px;
+			    							color: #fff;
+			    							padding: 7px 10px;
+			    							p{
+												font-size: 13px;
+												padding: 0;
+												margin: 0;
+												line-height: 18px;
+			    							}
+
+			    							div.message-time{
+				    							width: 100%;
+				    							overflow: hidden;
+				    							text-align: right;
+				    							line-height: 12px;
+				    							time{
+				    								font-size: 9px;
+				    								line-height: 9px;
+				    								color: #fff;
+				    								text-transform: uppercase;
+				    							}
+				    						}
+			    						}
+
+			    						div.message-image{
+			    							width: 300px;
+			    							height: 200px;
+			    							overflow: hidden;
+			    							border-radius: 5px;
+			    							border: 3px solid #eee;
+			    							cursor: pointer;
+			    							position: relative;
+
+			    							img{
+			    								width: 100%;
+			    								height: 100%;
+			    								object-fit: cover;
+			    							}
+
+			    							div.message-time{
+				    							width: 100%;
+				    							overflow: hidden;
+				    							text-align: right;
+				    							line-height: 12px;
+				    							position: absolute;
+				    							padding: 5px 10px;
+				    							left: 0;
+				    							right: 0;
+				    							bottom: 0px;
+				    							background: linear-gradient(0deg,rgba(0,0,0,.3),transparent);
+				    							time{
+				    								font-size: 9px;
+				    								line-height: 9px;
+				    								color: #fff;
+				    								text-transform: uppercase;
+				    							}
+				    						}
+			    						}
+		    						}
+		    					}
+		    				}
+
+		    				&:hover div.message div.message-body div.uname{
+		    					span.delmessage{
+		    						width: 15px;
+		    					}
+		    				}
+
+		    				&.selected{
+		    					background: #f2f6fa;
+		    				}
+
+		    				&.right{
+		    					div.message{
+		    						div.message-body{
+		    							div.message-content{
+		    								justify-content: flex-end;
+
+		    								div.message-text{
+		    									border-radius: 15px 0px 15px 15px;
+		    									border: 1px solid #dcf8c6;
+		    									background: #dcf8c6;
+		    									box-shadow: $btn_shadow;
+		    									p{
+		    										color: $black;
+		    									}
+		    									div.message-time{
+		    										time{
+			    										color: $pl_holder;
+			    									}
+		    									}
+		    								}
+		    							}
+		    						}
+		    					}
+		    				}
+							
+							&.left{
+								div.message{
+		    						div.message-body{
+		    							div.message-content{
+		    								justify-content: flex-start;
+
+		    								div.message-text{
+		    									border-radius:  0px 15px 15px 15px;
+		    									border: 1px solid #e5e5ea;
+		    									background: #e5e5ea;
+		    									box-shadow: $btn_shadow;
+		    									p{
+		    										color: $black;
+		    									}
+		    									div.message-time{
+		    										time{
+			    										color: $pl_holder;
+			    									}
+		    									}
+		    								}
+		    							}
+		    						}
+		    					}
+							}
+		    			}
+
+		    			li.messages-preloader{
+		    				width: 100%;
+		    				overflow: hidden;
+		    				padding: 20px 0;
+		    				text-align: center;
+		    				&.hidden{
+		    					display: none;
+		    					visibility: hidden;
+		    					opacity: 0;
+		    				}
+		    			}
+
+		    			&::-webkit-scrollbar-track{
+							background-color: #fff;
+						}
+
+						&::-webkit-scrollbar{
+							width: 5px;
+							background-color: #fff;
+						}
+
+						&::-webkit-scrollbar-thumb{
+							background-color: #d1d1d1;
+							border: 2px solid #d1d1d1;
+						}
+		    		}
+				}
+
+				.messages-container.home{
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+		    		background-size: contain;
+		    		background-repeat: repeat;
+
+					div.icon{
+						overflow: hidden;
+						width: 50px;
+						height: 50px;	
+						margin-bottom: 20px;
+
+						svg{
+							fill: $red;
+						}
+					}
+					h5{
+						padding: 0;
+						margin: 0;
+						font-size: 14px;
+						line-height: 20px;
+						color: $red;
+						font-weight: normal;
+						text-align: center;
+					}
+
+					button.select-chat{
+						border-radius: 5px;
+						outline: 0px;
+						border: 1px solid $red;
+						font-size: 10px;
+						line-height: 10px;
+						padding: 10px 25px;
+						background: transparent;
+						color: $red;
+						margin-top: 15px;
+						text-transform: uppercase;
+						display: none;
+					}
+				}
+
+				.message-form-wrapper{
+					width: 100%;
+					height: auto;
+					background-color: #fff;
+					height: 65px;
+
+					div.message-form-wrapper-inner{
+						width: 100%;
+						height: 100%;
+						overflow: hidden;
+						display: block;
+						position: relative;
+					
+					
+						div.inputs-wrapper{
+							padding: 15px 80px;
+							position: relative;
+							height: 100%;
+							input{
+								height: 35px;
+								box-shadow: none;
+								border: 2px solid #f5f5f5;
+								background: #f5f5f5;
+								border-radius: 10em;
+								outline: 0;
+								padding: 10px 20px 14px 20px;
+								transition: all 0.50s ease-in-out;
+
+								&::placeholder{
+									font-size: 13px;
+									color: $pl_holder;
+									transition: all 0.50s ease-in-out;
+								}
+
+								&:hover,&:active,&:focus{
+									border: 2px solid $red;
+									&::placeholder{
+										color: $red;
+									}
+								}
+							}
+
+							button.attach-file{
+								transition: all 0.27s ease-in-out;
+								position: absolute;
+								left: 20px;
+								top: 15px;
+								border: none;
+								background: transparent;
+								color: $pl_holder;
+								width: 35px;
+								height: 34px;
+								border-radius: 10em;
+								&:active,&:focus{
+									outline: 0;
+									border: none;
+									background: none;
+									box-shadow:none;
+								}
+
+								&:hover{
+									color: $red;
+								}
+							}
+
+							button.submit-message{
+								transition: all 0.27s ease-in-out;
+								position: absolute;
+								right: 20px;
+								top: 15px;
+								border: none;
+								background: transparent;
+								color: $pl_holder;
+								width: 35px;
+								height: 34px;
+								border-radius: 10em;
+								&:active,&:focus{
+									outline: 0;
+									border: none;
+									background: none;
+									box-shadow:none;
+								}
+
+								&:hover{
+									color: $red;
+								}
+							}
+						}
+
+						div.selected-message-control{
+							position: absolute;
+							padding: 0px 20px;
+							left: 0;
+							top: 0px;
+							bottom: 0px;
+							right: 0;
+							background: #fff;
+							z-index: 20;
+							display: flex;
+							flex-direction: row;
+							justify-content: flex-start;
+							align-items: center;
+
+							&.hidden{
+								display: none;
+								visibility: hidden;
+								outline: 0;
+							}
+
+							div.selected-messages{
+								cursor: pointer;
+								line-height: 18px;
+								color: $red;
+								padding: 5px 0px;
+								border-radius: 2px;
+								span{
+									font-size: 13px;
+									line-height: 18px;
+									display: inline-block;
+									text-transform: uppercase;
+									color: $red;
+								}
+								svg{
+									width: 18px;
+									height: 18px;
+									fill: $red;
+								}
+							}
+
+							div.delete-selected{
+								margin-left: auto;
+								cursor: pointer;
+								line-height: 18px;
+								margin-right: 10px;
+
+								svg{
+									transition: all 0.30s ease-in-out;
+									width: 19px;
+									height: 19px;
+									fill: $pl_holder;
+								}
+
+								&:hover,&:active{
+									svg{
+										fill:$red;
+									}
+								}
+							}
+
+							div.cancel{
+								cursor: pointer;
+								line-height: 18px;
+
+								&:hover,&:active{
+									svg{
+										fill:$red;
+									}
+								}
+
+								svg{
+									transition: all 0.30s ease-in-out;
+									width: 22px;
+									height: 22px;
+									fill: $pl_holder;
+								}
+							}
+						}
+
+						div.message-send-preloader{
+							position: absolute;
+							left: 0;
+							top: 0px;
+							bottom: 0px;
+							right: 0;
+							background: #ffffffb3;
+							z-index: 15;
+							display: flex;
+							flex-direction: row;
+							justify-content: center;
+							align-items: center;
+
+							&.hidden{
+								display: none;
+								opacity: 0;
+								visibility: hidden;
+							}
+							
+							div.loading{
+								padding: 7px 30px;
+								flex-basis: auto;
+								background: none;
+								border-radius: 10em;
+								text-align: center;
+								line-height: 0px;
+								box-shadow: none;
+								.lds-ellipsis {
+									display: inline-block;
+									position: relative;
+									line-height: 14px;
+									width: 62px;
+									height: 14px;
+								}
+
+								.lds-ellipsis div {
+									position: absolute;
+									top: calc(50% - 6px);
+									width: 12px;
+									height: 12px;
+									border-radius: 50%;
+									background: $red;
+									animation-timing-function: cubic-bezier(0, 1, 1, 0);
+								}
+
+								.lds-ellipsis div:nth-child(1) {
+									left: 6px;
+									animation: lds-ellipsis1 0.6s infinite;
+								}
+
+								.lds-ellipsis div:nth-child(2) {
+									left: 6px;
+									animation: lds-ellipsis2 0.6s infinite;
+								}
+
+								.lds-ellipsis div:nth-child(3) {
+									left: 26px;
+									animation: lds-ellipsis2 0.6s infinite;
+								}
+
+								.lds-ellipsis div:nth-child(4) {
+									left: 45px;
+									animation: lds-ellipsis3 0.6s infinite;
+								}
+
+								@keyframes lds-ellipsis1 {
+									0% {
+										transform: scale(0);
+									}
+									100% {
+										transform: scale(1);
+									}
+								}
+
+								@keyframes lds-ellipsis3 {
+									0% {
+										transform: scale(1);
+									}
+									100% {
+										transform: scale(0);
+									}
+								}
+
+								@keyframes lds-ellipsis2 {
+									0% {
+										transform: translate(0, 0);
+									}
+									100% {
+										transform: translate(19px, 0);
+									}
+								}
+
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+div.popup-image-modal-container{
+	div.modal-content{
+		border: none;
+
+		div.image-cont{
+			width: 100%;
+			height: 100%;
+			max-height: 400px;
+			overflow: hidden;
+			img{
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+}

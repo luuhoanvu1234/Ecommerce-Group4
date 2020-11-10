@@ -1,0 +1,45 @@
+<div class="modal animated fadeIn vh-center addnew-category-modal" id="addnew-category-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form" id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Add new category}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                        <div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Category name}}:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="catg_name">
+                                <input name="catg_name" type="text" class="form-control" placeholder="{{TR Enter a new category name}}">
+                            </div>
+                            <p class="info-message info">
+                                <i class="material-icons">info</i>
+                                {{TR Please note that when adding a new category, the category name should contain only English letters!}}
+                            </p>
+                        </div>
+                        <div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Status}}:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="status">
+                                <select name="status" class="form-control">
+                                    <option value="on">{{TR Enabled}}</option>
+                                    <option value="off">{{TR Disabled}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-grey waves-effect tt-up" data-dismiss="modal">{{TR Cancel}}</button>
+                    <button type="submit" class="btn bg-light-blue waves-effect tt-up">{{TR Add category}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

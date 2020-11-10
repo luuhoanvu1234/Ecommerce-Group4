@@ -1,0 +1,603 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+div.catalog-page-container{
+	width: 100%;
+	overflow: hidden;
+	display: block;
+	padding: 0px 10px;
+	min-width: 320px !important;
+	overflow: hidden;
+	min-height: calc(100vh - 140px);
+
+	nav.breadcrumbs-cust{
+		width: 100%;
+		display: block;
+		overflow: hidden;
+		ol{
+			padding-top: 0px;
+			padding-bottom: 20px;
+			li{
+				color: #9697a1;
+				a{
+					color: #9697a1;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+
+	.left-part{
+		width: 100%;
+		display: block;
+		.cat-navbar-wrapper{
+			width: 100%;
+			overflow: hidden;
+			background: #fff;
+		    border: none;
+		    border-radius: 5px;
+		    margin-bottom: 15px;
+
+		    .cat-navbar{
+		    	width: 100%;
+		    	overflow: hidden;
+		    	display: block;
+		    	padding: 12px 17px;
+		    	ul{
+		    		width: 100%;
+		    		display: block;
+		    		padding: 0;
+		    		margin: 0;
+		    		list-style-type: none;
+		    		li{
+		    			&.active{
+		    				font-weight: 700;
+		    				a{
+		    					color: $red;
+		    				}
+		    			}
+		    			a{
+		    				font-size: 13px;
+		    				line-height: 25px;
+		    				color: $black2;
+		    				text-decoration: none;
+		    				width: 100%;
+		    				transition: all 0.15s ease-in-out;
+
+		    				&:hover,&:active{
+		    					color: $red;
+		    				}
+		    			}
+		    		}
+		    	}
+		    }
+		}
+		
+		.footer-sm{
+			width: 100%;
+			overflow: hidden;
+			padding: 15px;
+			background: #fff;
+		    border: none;
+		    border-radius: 5px;
+		    line-height: 0px;
+
+			.top-line{
+				width: 100%;
+				overflow: hidden;
+				padding-bottom: 5px;
+				border-bottom: 1px solid $border;
+
+				ul{
+					width: 100%;
+					overflow: hidden;
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					list-style-type: none;
+					padding: 0;
+					margin: 0;	
+					li{
+						line-height: 0px;
+						a{
+							line-height: 20px;
+							color: #9697a1;
+							text-decoration: none;
+							margin-right: 20px;
+							font-size: 12px;
+							transition: color 0.27s ease-in-out;
+
+							&:hover,&:active{
+								color: $red;
+							}
+						}
+					}
+
+				}
+			}
+
+			.bottom-line{
+				width: 100%;
+				overflow: hidden;
+				line-height: 0px;
+				margin-top: 10px;
+				ul{
+					width: 100%;
+					overflow: hidden;
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					list-style-type: none;
+					padding: 0;
+					margin: 0;	
+					line-height: 0px;
+					height: auto;
+					min-height: 0px;
+					li{
+						line-height: 0px;
+						padding: 0px;
+						height: auto;
+						min-height: 0px;
+						a{
+							line-height: 12px;
+							color: #9697a1;
+							text-decoration: none;
+							font-size: 12px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.right-part{
+		.pords-sorting-panel{
+			background: #fff;
+			border: none;
+			border-radius: 5px;
+			margin-bottom: 15px;
+
+			div.current-catg{
+				padding: 15px 20px;
+				border-bottom: 1px solid #eee;
+				h4{
+					font-size: 16px;
+				    line-height: 20px;
+				    color: $black2;
+				    margin: 0;
+				    padding: 0px;
+				}
+			}
+
+		    div.filter-form-wrapper{
+		    	form{
+		    		padding: 15px 15px 0px 15px;
+		    		display: flex;
+		    		flex-direction: row;
+		    		flex-wrap: wrap;
+		    		align-items: center;
+		    		div.filt-option{
+		    			flex-basis: auto;
+		    			margin-right: 10px;
+		    			margin-bottom: 15px;
+		    			div.bootstrap-select{
+		    				width: auto !important;
+		    			}
+
+		    			&.price-range{
+		    				.dropdown-toggle{
+		    					border: 1px solid #eee;
+		    					font-size: 12px;
+		    					color: $black2;
+		    					padding: 0px 15px;
+		    					line-height:30px;
+		    					border-radius: 3px;
+		    					display: block;
+		    					cursor: pointer;
+		    					span{
+		    						line-height: inherit;
+		    					}
+		    				}
+
+		    				.dropdown-menu{
+		    					top: 40px !important;
+		    					border: none;
+								box-shadow: 0 -0.6rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+
+								table{
+									padding: 15px;
+									tr{
+										
+										td{
+											&.input{
+												padding: 5px 15px 5px 10px;
+												input{
+													border: 1px solid #eee;
+													border-radius: 5px;
+													width: 130px;
+													outline: 0;
+													transition: all 0.30s ease-in-out;
+													color: $pl_holder;
+													font-size: 12px;
+													padding: 5px 5px 5px 15px;
+
+													&:active,&:hover,&:focus{
+														border:1px solid $red;
+														&::placeholder{
+															color: $red;
+														}
+													}
+
+													&::placeholder{
+														transition: all 0.30s ease-in-out;
+														color: $pl_holder;
+														font-size: 12px;
+
+													}
+												}
+											}
+											&.label{
+												padding-left: 15px;
+												span{
+													font-size: 12px;
+													line-height: 12px;
+													color: $black;
+													font-weight: 700;
+												}
+											}
+
+											&.apply-filter{
+												padding: 10px 15px 5px 10px;
+												button{
+													border: 1px solid $red;
+													background: $red;
+													color: #fff;
+													font-size: 12px;
+													width: 100%;
+													padding: 5px 0px;
+													text-align: center;
+													border-radius:5px;
+												}
+											}
+										}
+
+
+									}
+								}
+		    				}
+		    			}
+
+		    			&.brand-name,&.key-word{
+
+		    				.dropdown-toggle{
+		    					border: 1px solid #eee;
+		    					font-size: 12px;
+		    					color: $black2;
+		    					padding: 0px 15px;
+		    					line-height:30px;
+		    					border-radius: 3px;
+		    					display: block;
+		    					cursor: pointer;
+		    					span{
+		    						line-height: inherit;
+		    					}
+		    				}
+
+		    				.dropdown-menu{
+		    					top: 40px !important;
+		    					border: none;
+								top: 40px !important;
+								box-shadow: 0 -0.6rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+
+								table{
+									padding: 15px;
+									tr{
+										
+										td{
+											&.input{
+												padding: 5px 15px 5px 10px;
+												input{
+													border: 1px solid #eee;
+													border-radius: 5px;
+													width: 200px;
+													outline: 0;
+													transition: all 0.30s ease-in-out;
+													color: $pl_holder;
+													font-size: 12px;
+													padding: 5px 5px 5px 15px;
+
+													&:active,&:hover,&:focus{
+														border:1px solid $red;
+														&::placeholder{
+															color: $red;
+														}
+													}
+
+													&::placeholder{
+														transition: all 0.30s ease-in-out;
+														color: $pl_holder;
+														font-size: 12px;
+
+													}
+												}
+											}
+											&.label{
+												padding-left: 15px;
+												span{
+													font-size: 12px;
+													line-height: 12px;
+													color: $black;
+													font-weight: 700;
+												}
+											}
+
+											&.apply-filter{
+												padding: 10px 15px 5px 10px;
+												button{
+													border: 1px solid $red;
+													background: $red;
+													color: #fff;
+													font-size: 12px;
+													width: 100%;
+													padding: 5px 0px;
+													text-align: center;
+													border-radius:5px;
+												}
+											}
+										}
+
+									}
+								}
+		    				}
+		    			}
+
+		    			&.bootstrap-select-picker{
+		    				button.dropdown-toggle{
+		    					background: #fff;
+		    					border: 1px solid #eee;
+		    					font-size: 12px;
+		    					color: $black;
+		    					outline: 0 !important;
+		    					box-shadow:none;
+		    				}
+
+		    				.dropdown-menu{
+		    					max-height: 250px;
+		    					top: 40px !important;
+		    					border: none;
+								box-shadow: 0 -0.6rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+								
+								.bs-searchbox{
+									padding: 5px 15px;
+									input{
+										box-shadow: none;
+										border: 1px solid #eee;
+										border-radius: 5px;
+										padding: 0px 0px 0px 15px;
+										height: 30px;
+										color: $pl_holder;
+										font-size: 13px;
+
+										&:active,&:hover,&:focus{
+											border: 2px solid $red;
+										}
+									}
+								}
+								.dropdown-item{
+									font-size: 13px;
+									color: $black;
+									&:hover,&:active,&:focus{
+										background: #fff;
+									}
+
+									&.active{
+										background: #fff;
+									}
+								}
+		    				}
+		    			}
+
+		    			button.reset-filter{
+		    				border: 1px solid $red;
+		    				font-size: 12px;
+		    				line-height: 28px;
+		    				padding: 0 30px;
+		    				border-radius: 3px;
+		    				color: #fff;
+		    				background: $red;
+		    				outline: 0 !important;
+		    				box-shadow: $btn_shadow;
+		    			}
+
+		    			button:disabled{
+		    				opacity: 0.3;
+		    				cursor: not-allowed;
+		    			}
+		    		}
+		    	}
+		    }
+		}
+
+		.active-filter-options{
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			div.option{
+				background: #fff;
+				border: 1px solid #eee;
+				border-radius: 15px;
+				box-shadow:$btn_shadow;
+				padding: 1px 15px;
+				margin-bottom: 10px;
+				margin-right: 10px;
+				line-height: 0px;
+
+				span.val{
+					font-size: 12px;
+					line-height: 22px;
+					color: $black2;
+					opacity: 0.8;
+				}
+
+				span.delete{
+					cursor: pointer;
+					svg{
+						width: 15px;
+						height: 15px;
+						fill:$black2;
+					}
+				}
+
+				&:hover{
+					span{
+						svg{
+							fill:$red;
+						}
+					}
+				}
+			}
+		}
+
+		.prealoader-wrapper{
+			width: 100%;
+			overflow: hidden;
+			display: block;
+			padding: 15px 0;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			justify-content: center;
+			align-items: center;
+
+			&.hidden{
+				display: none;
+				visibility: hidden;
+			}
+
+			&:not(.hidden) {
+				& ~ .prods-items-container{
+					display: none;
+					visibility: hidden;
+				}
+				& ~ .prods-items-container-404{
+					display: none;
+					visibility: hidden;
+				}
+				& ~ .load-more-pruducts{
+					display: none;
+					visibility: hidden;
+				}
+			}
+
+			div.loader-icon{
+				width: 30px;
+				height: 30px;
+				svg{
+					width: 100%;
+					height: 100%;
+				}
+			}
+			h5{
+				padding: 0;
+				margin: 0;
+				font-size: 13px;
+				font-weight: 300;
+				color: $pl_holder;
+				margin-top: 10px;
+			}
+		}
+
+		.filter-404{
+			width: 100%;
+			overflow: hidden;
+			display: block;
+			padding: 15px 0;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			justify-content: center;
+			align-items: center;	
+
+			div.icon{
+				width: 30px;
+				height: 30px;
+				svg{
+					width: 100%;
+					height: 100%;
+					fill: $pl_holder;
+				}
+			}
+			h5{
+				padding: 0;
+				margin: 0;
+				font-size: 20px;
+				font-weight: 700;
+				color: $black;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				text-align: center;
+			}
+
+			p{
+				font-size: 13px;
+				line-height: 14px;
+				color: $black2;
+				text-align: center;
+			}
+		}
+
+		.prods-items-container{
+			margin: 0px -10px !important;
+
+			div.galcolumn{
+				padding: 0px 10px !important;
+			}
+
+			.prod-item{
+				overflow: hidden;
+				border-radius: 5px;
+				border: none;
+			}
+		}
+
+		.load-more-pruducts{
+			width: 100%;
+			overflow: hidden;
+			text-align: center;
+			padding: 15px 0;
+			button{
+				padding: 5px 20px;
+				color: $red;
+				border-radius: 4px;
+				border:1px solid $red;
+				outline: 0;
+				font-size: 13px;
+				box-shadow: none;
+				background: transparent;
+				&:disabled{
+					cursor: not-allowed;
+					opacity: 0.5;
+				}
+			}
+		}
+	}
+}

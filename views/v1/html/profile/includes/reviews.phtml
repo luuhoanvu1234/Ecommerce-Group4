@@ -1,0 +1,218 @@
+<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{CONFIG url}}">{{TR Home}}</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="<?php echo($hs['prof_data']['url']); ?>">
+				{{TR Profile}}
+			</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="<?php echo($hs['prof_data']['url']); ?>">
+				<?php echo($hs['prof_data']['name']); ?>
+			</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">
+			{{TR Rating & Reviews}}
+		</li>
+	</ol>
+</nav>
+<div class="user-profile-reviews-container clearfix">
+	<?php if (not_empty($hs['profile_reviews'])): ?>
+		<div class="row">
+			<div class="col-md-12 col-lg-4 col-sm-12 col-xs-12 clearfix">
+				<div class="clearfix" id="sticky-fixedbar-left">
+					<div class="side-bar-filter">
+						<div class="header">
+							<h5>
+								{{TR Customer ratings and reviews}} (<?php echo($hs['prof_rating_total']); ?>)
+							</h5>
+							<a href="#">
+								<svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 512 512"><path d="M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422s-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z"/><path d="M235 339h42v42h-42zM276.8 318h-41.6c0-67 62.4-62.2 62.4-103.8 0-22.9-18.7-41.7-41.6-41.7S214.4 192 214.4 214h-41.6c0-46 37.2-83 83.2-83s83.2 37.1 83.2 83.1c0 52-62.4 57.9-62.4 103.9z"/></svg>
+							</a>
+						</div>
+						<div class="store-rating-display-wrapper">			
+							<div class="store-rating-display">
+								<div class="c100 gold <?php echo($hs['prof_rating_bar']); ?>">
+									<span class="svg-icon">
+										<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+									</span>
+									<span>
+										<?php echo($hs['prof_rating_format']); ?>
+									</span>
+								  	<div class="slice">
+									    <div class="bar"></div>
+									    <div class="fill"></div>
+								  	</div>
+								</div>
+								<div class="rating-bars">
+									<ul>
+										<li>
+											<span class="rating-val">5</span>
+											<span class="star">
+												<svg fill="currentColor" width="15px" height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+											</span>
+											<span class="rating-bar">
+												<span class="bar-inner" style="width: <?php echo($hs['prof_rating_percent']['5']); ?>;"></span>
+											</span>
+										</li>
+										<li>
+											<span class="rating-val">4</span>
+											<span class="star">
+												<svg fill="currentColor" width="15px" height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+											</span>
+											<span class="rating-bar">
+												<span class="bar-inner" style="width: <?php echo($hs['prof_rating_percent']['4']); ?>;"></span>
+											</span>
+										</li>
+										<li>
+											<span class="rating-val">3</span>
+											<span class="star">
+												<svg fill="currentColor" width="15px" height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+											</span>
+											<span class="rating-bar">
+												<span class="bar-inner" style="width: <?php echo($hs['prof_rating_percent']['3']); ?>;"></span>
+											</span>
+										</li>
+										<li>
+											<span class="rating-val">2</span>
+											<span class="star">
+												<svg fill="currentColor" width="15px" height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+											</span>
+											<span class="rating-bar">
+												<span class="bar-inner" style="width: <?php echo($hs['prof_rating_percent']['2']); ?>;"></span>
+											</span>
+										</li>
+										<li>
+											<span class="rating-val">1</span>
+											<span class="star">
+												<svg fill="currentColor" width="15px" height="15px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 372.686L380.83 448l-33.021-142.066L458 210.409l-145.267-12.475L256 64l-56.743 133.934L54 210.409l110.192 95.525L131.161 448z"></path></svg>
+											</span>
+											<span class="rating-bar">
+												<span class="bar-inner" style="width: <?php echo($hs['prof_rating_percent']['1']); ?>;"></span>
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<h5 class="fiter-by">
+							{{TR Feedback Filter}}
+						</h5>
+						<div class="reviews-filter-cont">
+							<form id="filter-reviews">
+								<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+								<ul class="list-group">
+									<li class="list-group-item">
+										<div class="filter-option">
+											<?php if (not_empty($hs['prof_rating_total5'])): ?>
+												<input name="five_stars" type="checkbox" id="reviews-filter-by5" class="filled-in chk-col-red">
+												<label class="md-chbox" for="reviews-filter-by5">
+													{{TR Excellent}} (<?php echo($hs['prof_rating_total5']); ?>)	
+												</label>	
+											<?php else: ?>
+												<input type="checkbox" disabled="true" class="filled-in chk-col-red">
+												<label class="md-chbox">{{TR Excellent}}</label>
+											<?php endif; ?>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="filter-option">
+											<?php if (not_empty($hs['prof_rating_total4'])): ?>
+												<input name="four_stars" type="checkbox" id="reviews-filter-by4" class="filled-in chk-col-red">
+												<label class="md-chbox" for="reviews-filter-by4">
+													{{TR Very well}} (<?php echo($hs['prof_rating_total4']); ?>)	
+												</label>	
+											<?php else: ?>
+												<input type="checkbox" disabled="true" class="filled-in chk-col-red">
+												<label class="md-chbox">{{TR Very well}}</label>
+											<?php endif; ?>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="filter-option">
+											<?php if (not_empty($hs['prof_rating_total3'])): ?>
+												<input name="three_stars" type="checkbox" id="reviews-filter-by3" class="filled-in chk-col-red">
+												<label class="md-chbox" for="reviews-filter-by3">
+													{{TR Good}} (<?php echo($hs['prof_rating_total3']); ?>)	
+												</label>	
+											<?php else: ?>
+												<input type="checkbox" disabled="true" class="filled-in chk-col-red">
+												<label class="md-chbox">{{TR Good}}</label>
+											<?php endif; ?>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="filter-option">
+											<?php if (not_empty($hs['prof_rating_total2'])): ?>
+												<input name="two_stars" type="checkbox" id="reviews-filter-by2" class="filled-in chk-col-red">
+												<label class="md-chbox" for="reviews-filter-by2">
+													{{TR Poor}} (<?php echo($hs['prof_rating_total2']); ?>)	
+												</label>	
+											<?php else: ?>
+												<input type="checkbox" disabled="true" class="filled-in chk-col-red">
+												<label class="md-chbox">{{TR Poor}}</label>
+											<?php endif; ?>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="filter-option">
+											<?php if (not_empty($hs['prof_rating_total1'])): ?>
+												<input name="one_star" type="checkbox" id="reviews-filter-by1" class="filled-in chk-col-red">
+												<label class="md-chbox" for="reviews-filter-by1">
+													{{TR Bad}} (<?php echo($hs['prof_rating_total1']); ?>)	
+												</label>	
+											<?php else: ?>
+												<input type="checkbox" disabled="true" class="filled-in chk-col-red">
+												<label class="md-chbox">{{TR Bad}}</label>
+											<?php endif; ?>
+										</div>
+									</li>
+									<li class="list-group-item">
+										<div class="filter-option">
+											<?php if (not_empty($hs['prof_rating_total'])): ?>
+												<input name="all_stars" type="checkbox" id="reviews-filter-all" class="filled-in chk-col-red">
+												<label class="md-chbox" for="reviews-filter-all">
+													{{TR All reviews}} (<?php echo($hs['prof_rating_total']); ?>)	
+												</label>	
+											<?php else: ?>
+												<input type="checkbox" disabled="true" class="filled-in chk-col-red">
+												<label class="md-chbox">{{TR All reviews}}</label>
+											<?php endif; ?>
+										</div>
+									</li>
+								</ul>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-8 col-sm-12 col-xs-12 clearfix">
+				<div class="clearfix"  id="sticky-fixedbar-right">
+					<div class="prof-review-list-wrapper" id="prof-review-list-wrap">
+						<div class="header">
+							<h5>{{TR Customer Reviews}}</h5>
+						</div>
+						<div class="prof-review-list" id="prof-review-list">
+							<?php foreach ($hs['profile_reviews'] as $hs['review_data']): ?>
+								<?php echo hs_loadpage('profile/includes/cards/review'); ?>
+							<?php endforeach; ?>
+						</div>
+						<div class="load-more-reviews-cont">
+							<button id="load-more-reviews" data-text="{{TR Show the following reviews}}">
+								{{TR Show the following reviews}}
+							</button>
+							<div class="reviews-preloader hidden" id="reviews-preloader">
+								<?php echo hs_loadpage('components/data_preloader'); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php echo hs_loadpage('profile/static/js/profile_rating_script'); ?>
+	<?php else: ?>
+		<?php echo hs_loadpage('profile/includes/no_reviews'); ?>
+	<?php endif; ?>
+</div>

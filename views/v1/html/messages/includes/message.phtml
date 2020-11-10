@@ -1,0 +1,75 @@
+<?php if ($hs['msg_data']['owner'] == true): ?>
+	<li class="messages-list-item right" data-message="<?php echo($hs['msg_data']['id']); ?>">
+		<div class="message clearfix">
+			<div class="input-checkbox hidden">
+				<input type="checkbox" id="message-item-<?php echo($hs['msg_data']['id']); ?>" data-select-message="<?php echo($hs['msg_data']['id']); ?>" class="filled-in chk-col-red">
+				<label class="md-chbox" for="message-item-<?php echo($hs['msg_data']['id']); ?>"></label>
+			</div>
+			<div class="message-body">
+				<div class="message-content">
+					<?php if (not_empty($hs['msg_data']['media_file'])): ?>
+						<div class="message-image">
+							<img src="<?php echo($hs['msg_data']['media_file']); ?>" alt="Picture" data-onclick="popup_image_preview">
+							<div class="message-time">
+								<time><?php echo($hs['msg_data']['time']); ?></time>
+							</div>
+						</div>
+					<?php else: ?>
+						<div class="message-text">
+							<p>
+								<?php echo($hs['msg_data']['message']); ?>
+							</p>
+							<div class="message-time">
+								<time><?php echo($hs['msg_data']['time']); ?></time>
+							</div>
+						</div>
+					<?php endif ?>
+				</div>			
+			</div>
+			<div class="message-header">
+				<div class="flex-cont">
+					<div class="avatar">
+						<img src="<?php echo($hs['me']['avatar']); ?>" alt="Avatar">
+					</div>	
+				</div>
+			</div>
+		</div>
+	</li>
+<?php else: ?>
+	<li class="messages-list-item left" data-message="<?php echo($hs['msg_data']['id']); ?>">
+		<div class="message clearfix">
+			<div class="input-checkbox hidden">
+				<input type="checkbox" id="message-item-<?php echo($hs['msg_data']['id']); ?>" data-select-message="<?php echo($hs['msg_data']['id']); ?>" class="filled-in chk-col-red">
+				<label class="md-chbox" for="message-item-<?php echo($hs['msg_data']['id']); ?>"></label>
+			</div>
+			<div class="message-header">
+				<div class="flex-cont">	
+					<div class="avatar">
+						<img src="<?php echo($hs['interloc_data']['avatar']); ?>" alt="Avatar">
+					</div>
+				</div>
+			</div>
+			<div class="message-body">
+				<div class="message-content">
+					<?php if (not_empty($hs['msg_data']['media_file'])): ?>
+						<div class="message-image">
+							<img src="<?php echo($hs['msg_data']['media_file']); ?>" alt="Picture" data-onclick="popup_image_preview">
+							<div class="message-time">
+								<time><?php echo($hs['msg_data']['time']); ?></time>
+							</div>
+						</div>
+					<?php else: ?>
+						<div class="message-text">
+							<p>
+								<?php echo($hs['msg_data']['message']); ?>
+							</p>
+							<div class="message-time">
+								<time><?php echo($hs['msg_data']['time']); ?></time>
+							</div>
+						</div>
+					<?php endif ?>
+				</div>
+			</div>
+		</div>
+	</li>
+<?php endif; ?>

@@ -1,0 +1,71 @@
+<div class="clearfix edit-language-page" id="edit-language-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    {{TR Languages}}
+                </li>
+                <li class="breadcrumb-item active">
+                    <?php echo hs_translate(ucfirst($hs['el_name'])); ?>
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header">
+                    <h2>
+                        <i class="material-icons">edit</i>
+                        {{TR Edit language}}
+                    </h2>
+                    <div class="rows-filter">
+                        <input type="text" placeholder="{{TR Search rows by keyword}}" id="search-rows">
+                        <i class="material-icons search">search</i>
+                        <i class="material-icons clear hidden" id="clear-searching-terms">clear</i>
+                    </div>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table common-table table-striped no-mb" id="languages-list">
+                        <thead>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th colspan="2">
+                                    <?php echo hs_translate(ucfirst($hs['el_name'])); ?>
+                                </th>
+                                <th>
+                                    {{TR Action}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['langs_dataset'])): ?>
+                                <?php foreach ($hs['langs_dataset'] as $hs['lang_data_li']): ?>
+                                    <?php echo hs_loadpage('edit_language/includes/lang_data_li'); ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['langs_dataset'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('edit_language/static/js/edit_language_script'); ?>
+<?php echo hs_loadpage('edit_language/modals/edit_language_text'); ?>

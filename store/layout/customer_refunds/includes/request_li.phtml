@@ -1,0 +1,92 @@
+<tr data-request-li="<?php echo($hs['req_data']['id']); ?>">
+	<td>
+		<?php echo($hs['req_data']['id']); ?>
+	</td>
+	<td class="link">
+		<div class="avatar-holder">
+			<img src="<?php echo($hs['req_data']['cust_avatar']); ?>" alt="Avatar">
+		</div>
+		<a href="#">
+			<?php echo($hs['req_data']['cust_name']); ?>
+
+			<?php if ($hs['req_data']['cust_verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+		</a>
+	</td>
+	<td class="link">
+		<a href="<?php echo($hs['req_data']['prod_url']); ?>">
+			<?php echo($hs['req_data']['prod_name']); ?>
+		</a>
+	</td>
+	<td>
+		<span class="col-green">  
+            <?php echo hs_money($hs['req_data']['payment_amount']); ?>
+        </span>
+	</td>
+	<td>
+		<?php if ($hs['req_data']['payment_method'] == 'card'): ?>
+			<span>
+				<small>{{TR Bank card}}</small>
+			</span>
+		<?php elseif($hs['req_data']['payment_method'] == 'paypal'): ?>
+			<span>
+				<small>PayPal</small>
+			</span>
+		<?php elseif($hs['req_data']['payment_method'] == 'wallet'): ?>
+			<span>
+				<small>{{TR Account wallet}}</small>
+			</span>
+		<?php elseif($hs['req_data']['payment_method'] == 'cod'): ?>
+			<span>
+				<small>{{TR Cash on delivery}}</small>
+			</span>
+		<?php else: ?>
+			<i class="material-icons">help</i>
+		<?php endif; ?>
+	</td>
+	<td>	
+        <?php if($hs['req_data']['status'] == 'canceled'): ?>
+            <span class="badge bg-red">{{TR Canceled}}</span>
+        <?php elseif($hs['req_data']['status'] == 'declined'): ?>
+            <span class="badge bg-red">{{TR Declined}}</span>
+        <?php elseif($hs['req_data']['status'] == 'expired'): ?>
+            <span class="badge bg-red">{{TR Expired}}</span>
+        <?php elseif($hs['req_data']['status'] == 'returned'): ?>
+            <span class="badge bg-red">{{TR Returned}}</span>
+        <?php elseif($hs['req_data']['status'] == 'failed'): ?>
+            <span class="badge bg-red">{{TR Failed}}</span>
+        <?php else: ?>
+        	<span class="badge bg-red">{{TR Undefined}}</span>
+        <?php endif; ?>
+	</td>
+	<td class="time">
+		<time>
+			<?php echo($hs['req_data']['time']); ?>
+		</time>
+	</td>	
+	<td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo($hs['req_data']['prod_url']); ?>" class="waves-effect waves-block">
+                        {{TR Product page}}
+                    </a>
+                </li>
+                <li data-onclick="show_req_details" data-id="<?php echo($hs['req_data']['id']); ?>">
+                    <a class="waves-effect waves-block">
+                        {{TR Show details}}
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo($hs['req_data']['buyer_contact']); ?>" class="waves-effect waves-block">
+                        {{TR Contact customer}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

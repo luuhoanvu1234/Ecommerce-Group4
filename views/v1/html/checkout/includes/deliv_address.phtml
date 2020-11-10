@@ -1,0 +1,209 @@
+<div class="delivery-address" id="delivery-address">
+	<div class="content-panel clearfix">
+		<div class="top-panel-wrapper">
+			<h2><b>{{TR Delivery address}}</b></h2>
+			<?php if (not_empty($me['address'])): ?>
+				<span class="ml-auto">
+					<a href="javascript:void(0);" id="toggle-addr-maparea">
+						<?php echo hs_svg('map-pin'); ?>
+					</a>
+				</span>
+			<?php endif; ?>
+		</div>
+		<div class="tabs-wrapper">
+			<div class="tabs-switcher">
+				<div class="switch-control active" data-target="default-addr">
+					{{TR Delivery address}}
+				</div>
+				<div class="switch-control" data-target="user-addrs">
+					{{TR Saved Addresses}}
+				</div>
+				<div class="switch-control" data-target="custom-addr">
+					{{TR Add new}}
+				</div>
+			</div>
+			<div class="tabs-holder">
+				<div class="tab-content active" id="default-addr">
+					<h5 class="tab-content-title">
+						{{TR Default delivery address}}
+					</h5>
+					<div class="address-display-wrapper">
+						<?php if (not_empty($hs['me']['address'])): ?>
+							<ul>					
+								<li>
+									<span class="icon">
+										<?php echo hs_svg('globe-2'); ?>		
+									</span>
+									<?php echo $hs['me']['address']['country']; ?>,
+									<?php echo $hs['me']['address']['state']; ?>
+								</li>
+								<li>
+									<span class="icon">
+										<?php echo hs_svg('business'); ?>
+									</span> 
+									<?php echo $hs['me']['address']['city']; ?>,
+									<?php echo $hs['me']['address']['zip_postal']; ?>
+								</li>
+								<li>
+									<span class="icon">
+										<?php echo hs_svg('map-pin'); ?>
+									</span> 
+									<?php echo $hs['me']['address']['street']; ?>,
+									<?php echo $hs['me']['address']['off_apt']; ?>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<span class="icon">
+										<?php echo hs_svg('user'); ?>
+									</span>
+									<?php echo $hs['me']['address']['full_name']; ?>
+								</li>
+								<li>
+									<span class="icon">
+										<?php echo hs_svg('email'); ?>
+									</span> <?php echo $hs['me']['address']['email']; ?>
+								</li>
+								<li>
+									‎<span class="icon">
+										<?php echo hs_svg('call'); ?>
+									</span>
+									<?php echo $hs['me']['address']['phone']; ?>
+								</li>
+							</ul>
+						<?php else: ?>
+							<div class="no-selected-address">
+								<p>
+									{{TR You do not have a saved default shipping address. In order to add an address, go to your account settings, or add an additional address by clicking the add address button}}
+								</p>
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="tab-content" id="user-addrs">
+					<h5 class="tab-content-title">
+						{{TR Saved delivery addresses list}}
+					</h5>
+					<div class="user-addrs-list-wrapper">
+						<form id="change-deliv-addr">
+							<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+							<ul class="user-addrs-list">
+								<?php if (not_empty($hs['me']['acc_addr'])): ?>
+									<li class="addr-list-item">
+										<div class="input-radio">
+											<input data-pick-delivaddr="" name="addr_id" value="default" type="checkbox" id="user-addr-default" class="filled-in chk-col-red">
+											<label for="user-addr-default">
+												<span class="name fluid">
+													<?php echo $hs['me']['acc_addr']['full_name']; ?>, <?php echo $hs['me']['acc_addr']['email']; ?>
+												</span>
+												<span class="fluid">
+													<?php echo $hs['me']['acc_addr']['phone']; ?>
+												</span>
+												<span class="fluid">
+													<?php echo $hs['me']['acc_addr']['street']; ?>,<?php echo $hs['me']['acc_addr']['off_apt']; ?>
+												</span>
+												<span class="fluid">
+													<?php echo $hs['me']['acc_addr']['country']; ?>,
+													<?php echo $hs['me']['acc_addr']['state']; ?>,
+													<?php echo $hs['me']['acc_addr']['city']; ?>,
+													<?php echo $hs['me']['acc_addr']['zip_postal']; ?>
+												</span>
+											</label>
+										</div>
+										<div class="controls hide animated fadeIn">
+											<button type="submit" name="act" value="set">
+												{{TR Select}}
+											</button>
+										</div>
+									</li>
+								<?php endif; ?>
+								<?php if (not_empty($hs['addresses'])): ?>
+									<?php foreach ($hs['addresses'] as $hs['addr']): ?>
+										<?php echo hs_loadpage('checkout/includes/address_list_item'); ?>
+									<?php endforeach; ?>
+								<?php else: ?>
+									<li class="no-addresses">
+										{{TR You do not have a saved shipping addresses yet. In order to add an address, go to your account settings, or add an additional address by clicking the add address button}}
+									</li>
+								<?php endif; ?>	
+							</ul>
+						</form>
+					</div>
+				</div>
+				<div class="tab-content" id="custom-addr">
+					<h5 class="tab-content-title">
+						{{TR Add new delivery address}}
+					</h5>
+					<div class="address-form-wrapper">
+						<form id="add-addr" class="form">
+							<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+							<div class="form-group">
+								<p class="group-label">{{TR Contact Information}}</p>
+								<div class="flex-group cell-2">
+									<div class="flex-group-item" data-form-field="full_name">
+										<input name="full_name" type="text" class="form-control" placeholder="{{TR The full name of the recipient}}">
+									</div>
+									<div class="flex-group-item" data-form-field="phone">
+										<input name="phone" type="text" class="form-control" placeholder="{{TR Telephone number}}">
+									</div>
+								</div>
+							</div>
+							<div class="fluid">
+								<p class="group-label">{{TR Delivery address}}</p>
+								<div class="flex-group cell-2">
+									<div class="flex-group-item" data-form-field="street">
+										<input name="street" type="text" class="form-control" placeholder="{{TR Street name}}">
+									</div>
+									<div class="flex-group-item" data-form-field="off_apt">
+										<input name="off_apt" type="text" class="form-control" placeholder="{{TR House, Apartment, etc.}}">
+									</div>
+								</div>
+								<br>
+								<div class="flex-group cell-3">
+									<div class="flex-group-item" data-form-field="country_id">
+										<select title="{{TR Shipping country}}" data-size="5" name="country_id" class="form-control show-tick">
+											<?php foreach ($hs['countries'] as $cntr_id => $cntr_name): ?>
+												<option value="<?php echo($cntr_id); ?>">
+													<?php echo hs_translate($cntr_name); ?>
+												</option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+									<div class="flex-group-item" data-form-field="state">
+										<input name="state" type="text" class="form-control" placeholder="{{TR Area / Territory / Region}}">
+									</div>
+									<div class="flex-group-item" data-form-field="city">
+										<input name="city" type="text" class="form-control" placeholder="{{TR City / Town}}">
+									</div>
+								</div>
+								<br>
+								<div class="flex-group cell-2">
+									<div class="flex-group-item" data-form-field="zip_postal">
+										<input name="zip_postal" type="text" class="form-control" placeholder="{{TR Postcode}}">
+									</div>
+									<div class="flex-group-item" data-form-field="email">
+										<input name="email" type="text" class="form-control" placeholder="{{TR E-mail address}}">
+									</div>
+								</div>
+							</div>
+							<div class="fluid form-footer">
+								<div class="input-checkbox">
+									<input name="default" type="checkbox" id="setasdefault" class="filled-in chk-col-red">
+					                <label class="md-chbox" for="setasdefault">{{TR Set as default shipping address}}</label>	
+								</div>
+								<button type="submit" class="btn submit">
+									{{TR Add Address}}
+								</button>
+								<button type="reset" class="btn cancel">
+									{{TR Cancel}}
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

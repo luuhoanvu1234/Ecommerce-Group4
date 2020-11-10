@@ -1,0 +1,64 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var ANNOUNC_MNG_PAGE = $('div#announcement-management-page');
+		var ANNOUNC_FORM     = ANNOUNC_MNG_PAGE.find('form#announcement-form');
+
+		ANNOUNC_FORM.ajaxForm({
+	        url: '{{CONFIG url}}/req/admin/announce',
+	        type: 'POST',
+	        dataType: 'json',
+	        beforeSend: function() {
+	            ANNOUNC_FORM.find('button[type="submit"]').attr('disabled', 'true');
+	            ANNOUNC_FORM.find('small.error-message').remove();
+	            ANNOUNC_FORM.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+	        },
+	        success: function(data) {
+	            if (data.status == 200) {
+	                $.notify({
+	                    message: data.message,
+	                },{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+
+	                ANNOUNC_FORM.get(0).reset(function(event) {
+	                	$('select:not(.ms)').selectpicker('refresh');
+	                });
+	            } 
+	            else if(data.status == 400){
+	            	ANNOUNC_FORM.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+	            		text: data.message,
+	            		class: 'col-red error-message animated flash'
+	            	}));
+	            }
+	            else if(data.status == 500){
+	            	$.notify({
+	                    message: data.message,
+	                },{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+	            }
+	            else {
+	            	$.notify({
+	                    message: "Error: Found while processing your request. Please try again later!",
+	                },{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+	            }
+	        },
+	        complete: function() {
+	        	ANNOUNC_FORM.find('button[type="submit"]').removeAttr('disabled');
+	        	ANNOUNC_FORM.find('button[type="submit"]').find('span').text("{{TR Announce}}");
+	        }
+	    });
+	});
+</script>

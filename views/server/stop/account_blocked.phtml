@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo hs_translate('Your account has been suspended!'); ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/bootstrap.min.css',$hs['config']['url'])); ?>">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/server.message.styles.css',$hs['config']['url'])); ?>">
+</head>
+<body>
+	<div class="message-container-block">
+		<div class="message-container-inner">
+			<div class="icon main-red">
+				<?php echo hs_svg('sad'); ?>
+			</div>
+			<h2>
+				<?php echo hs_translate('Your account has been suspended!'); ?>
+			</h2>
+			<p class="tex">
+				<?php echo hs_translate('Your account has been suspended. Please check your email inbox. If you have not received a message to your email with a description of the reason for blocking your account, then you can contact us on this email {%market_email%} if you have questions!',array(
+					'market_email' => sprintf('<a href="mailto:%s">%s</a>',$hs['config']['email'],$hs['config']['email'])
+				)); ?>
+			</p>
+		</div>
+	</div>
+</body>
+</html>
+

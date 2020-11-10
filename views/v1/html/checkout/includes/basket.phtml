@@ -1,0 +1,45 @@
+<div class="basket" id="basket-page-cont">
+	<div class="content-panel">
+		<div class="top-panel-wrapper">
+			<h2>
+				<b>{{TR Items in the basket}} <span class="basket-total-itmes">{{total_items}}</span></b> 
+			</h2>
+			<div class="alertbox-wrapper" id="pm-restriction-alert">
+				<div class="alert alert-info">
+					<div class="icon">
+						<?php echo hs_svg('info-inline'); ?>
+					</div>
+					<div class="alert-message">
+						<p>{{TR Some products are not available for payment through the selected payment method.}}</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="item-selection-box">
+				<input type="checkbox" id="selectallitems" class="filled-in chk-col-red">
+                <label class="md-chbox" for="selectallitems">
+                	<span>
+                		{{TR Select all products}}
+                	</span>
+                </label>
+				<span class="ml-auto delete-selected disabled" id="delete-selected-items">
+					<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M128 405.429C128 428.846 147.198 448 170.667 448h170.667C364.802 448 384 428.846 384 405.429V160H128v245.429zM416 96h-80l-26.785-32H202.786L176 96H96v32h320V96z"/></svg> <span>{{TR Delete selected}}</span>
+				</span>
+			</div>
+		</div>
+		<div class="basket-list-wrapper" id="basket-items-list">	
+			<?php foreach ($hs['basket'] as $hs['prod_data']): ?>	
+				<?php echo hs_loadpage("checkout/includes/basket/basket_list_item"); ?>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</div>
+<?php echo hs_loadpage("checkout/includes/modals/confirmations/wallet_payment_confirmation"); ?>
+<?php echo hs_loadpage("checkout/includes/modals/confirmations/basket_item_removal"); ?>
+<?php echo hs_loadpage("checkout/includes/modals/confirmations/basket_purge_removal"); ?>
+
+<?php if (not_empty($me['address'])): ?>
+	<?php echo hs_loadpage("checkout/includes/modals/deliv_address_map"); ?>
+<?php endif; ?>
+
+<?php echo hs_loadpage("checkout/static/js/basket_script"); ?>

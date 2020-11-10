@@ -1,0 +1,346 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var ACCOUNT_SETTINGS_PAGE = $("div#account-setting-page");
+		var GENERAL_SETTINGS_F    = ACCOUNT_SETTINGS_PAGE.find("form#general");
+		var AVATAR_SETTING_F      = ACCOUNT_SETTINGS_PAGE.find("form#user-avatar-form");
+		var PASSWORD_SETTING_F    = ACCOUNT_SETTINGS_PAGE.find("form#password");
+		
+		GENERAL_SETTINGS_F.ajaxForm({
+			url: '{{CONFIG url}}/req/main_settings/general_settings',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				GENERAL_SETTINGS_F.find("small.error-message").each(function(index, el) {
+					$(this).remove();
+				}).promise().done(function(){
+					GENERAL_SETTINGS_F.find('button[type="submit"]').attr('disabled', 'true');
+					GENERAL_SETTINGS_F.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+				});
+			},
+			success: function(data) {
+				if (data.status == 200) {
+	                $.notify({
+	                    message: data.message,
+	                },{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+
+					GENERAL_SETTINGS_F.find('button[type="submit"]').removeClass('bg-main-red').addClass("bg-green").find('span').text("{{TR Changes saved}}");
+	            } 
+	            else {
+	            	if (data.message) {
+	            		if (GENERAL_SETTINGS_F.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+		            		GENERAL_SETTINGS_F.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+			            		text: data.message,
+			            		class: 'col-red error-message animated flash'
+			            	}));
+		            	}
+		            	else {
+		            		$.notify({
+			                    message: data.message,
+			                },{
+							    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+							    placement: {from: "bottom",align: "left"},
+							    offset: {x: 40,y: 30},
+							    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+							});
+		            	}
+	            	}
+	            }
+			},
+			complete: function() {
+				delay(function() {
+                    GENERAL_SETTINGS_F.find('button[type="submit"]').removeAttr('disabled');
+            		GENERAL_SETTINGS_F.find('button[type="submit"]').removeClass('bg-green').addClass('bg-main-red').find('span').text("{{TR Save changes}}");
+            	},3000);
+			}
+		});
+
+		GENERAL_SETTINGS_F.find('button#select-avatar-image').on('click',function(event) {
+			AVATAR_SETTING_F.find('input[type="file"]').trigger('click');
+		});
+
+		AVATAR_SETTING_F.ajaxForm({
+			url: '{{CONFIG url}}/req/main_settings/avatar',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				AVATAR_SETTING_F.find("small.error-message").remove();
+			},
+			success: function(data) {
+				if(data.status == 200){
+					$('img[data-user-avatar-image="{{ME id}}"]').attr('src', data.url);
+					$.notify({
+	                    message: data.message,
+	                },{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+				}
+				else {
+					if (data.message) {
+	            		if (GENERAL_SETTINGS_F.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+		            		GENERAL_SETTINGS_F.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+			            		text: data.message,
+			            		class: 'col-red error-message animated flash'
+			            	}));
+		            	}
+		            	else {
+		            		$.notify({
+			                    message: data.message,
+			                },{
+							    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+							    placement: {from: "bottom",align: "left"},
+							    offset: {x: 40,y: 30},
+							    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+							});
+		            	}
+	            	}
+            	}
+			}
+		});
+
+		PASSWORD_SETTING_F.ajaxForm({
+			url: '{{CONFIG url}}/req/main_settings/password',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				PASSWORD_SETTING_F.find("small.error-message").each(function(index, el) {
+					$(this).remove();
+				}).promise().done(function(){
+					PASSWORD_SETTING_F.find('button[type="submit"]').attr('disabled', 'true');
+					PASSWORD_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+				});
+			},
+			success: function(data) {
+				if (data.status == 200) {
+					PASSWORD_SETTING_F.get(0).reset();
+					$.notify({
+	                    message: data.message,
+	                },{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					}); $(window).reloadPage(1500);
+	            } 
+	            else {
+	            	if (data.message) {
+	            		if (PASSWORD_SETTING_F.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+		            		PASSWORD_SETTING_F.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+			            		text: data.message,
+			            		class: 'col-red error-message animated flash'
+			            	}));
+		            	}
+		            	else {
+		            		$.notify({
+			                    message: data.message,
+			                },{
+							    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+							    placement: {from: "bottom",align: "left"},
+							    offset: {x: 40,y: 30},
+							    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+							});
+		            	}
+	            	}
+	            }
+			},
+			complete: function() {
+				PASSWORD_SETTING_F.find('button[type="submit"]').removeAttr('disabled');
+				PASSWORD_SETTING_F.find('button[type="submit"]').find('span').text("{{TR Change my password}}");
+			}
+		});
+
+		ACCOUNT_SETTINGS_PAGE.find('#right-sidepart').stickySidebar({
+            topSpacing: 130,
+            bottomSpacing: 20,
+            stickyClass: 'is-affixed'
+        });
+
+        ACCOUNT_SETTINGS_PAGE.find('[data-affix-scroll]').on('click', function(event) {
+            event.preventDefault();
+            var this_el = $(this);
+            var label   = this_el.data('affix-scroll');
+            if (label && ACCOUNT_SETTINGS_PAGE.find('[data-affix-label="{0}"]'.format(label)).length) {
+                ACCOUNT_SETTINGS_PAGE.find('[data-affix-label="{0}"]'.format(label)).scroll2(200,125);
+
+                this_el.addClass('active');
+                this_el.siblings('li.list-group-item').removeClass('active');
+            }
+        });
+	});
+</script>
+
+<?php if ($me['verified'] == '0' && $me['verif_status'] == 'none'): ?>
+	<script>
+		jQuery(document).ready(function($) {
+			"use strict";
+			var ACCOUNT_SETTINGS_PAGE = $("div#account-setting-page");
+			var VERIF_SETTINGS_FORM   = ACCOUNT_SETTINGS_PAGE.find('form#verification');
+
+			VERIF_SETTINGS_FORM.find('input[name="identity"]').on('change', function(event) {
+	            event.preventDefault();
+	            var file_name  = event.target.files[0].name;
+	            var name_holdr = VERIF_SETTINGS_FORM.find('[data-snode="select_user_id"]').find('[data-snode="file_name"]');
+
+	            if (file_name) {
+	                name_holdr.text(file_name);
+	            }
+	            else {
+	                $.notify({
+	                    message: 'Error: Could not determine file name!',
+	                },{
+	                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+	                    placement: {from: "bottom",align: "left"},
+	                    offset: {x: 40,y: 30},
+	                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+	                }); name_holdr.text("{{TR Unknown}}");
+	            }
+	        });
+
+	        VERIF_SETTINGS_FORM.find('input[name="photo"]').on('change', function(event) {
+	            event.preventDefault();
+	            var file_name  = event.target.files[0].name;
+	            var name_holdr = VERIF_SETTINGS_FORM.find('[data-snode="select_user_photo"]').find('[data-snode="file_name"]');
+
+	            if (file_name) {
+	                name_holdr.text(file_name);
+	            }
+	            else {
+	                $.notify({
+	                    message: 'Error: Could not determine file name!',
+	                },{
+	                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+	                    placement: {from: "bottom",align: "left"},
+	                    offset: {x: 40,y: 30},
+	                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+	                }); name_holdr.text("{{TR Unknown}}");
+	            }
+	        });
+
+	        VERIF_SETTINGS_FORM.find('div[data-snode="select_user_id"]').on('click', function(event) {
+	        	event.preventDefault();
+	        	VERIF_SETTINGS_FORM.find('input[name="identity"]').trigger('click');
+	        });
+
+	        VERIF_SETTINGS_FORM.find('div[data-snode="select_user_photo"]').on('click', function(event) {
+	        	event.preventDefault();
+	        	VERIF_SETTINGS_FORM.find('input[name="photo"]').trigger('click');
+	        });
+
+	        VERIF_SETTINGS_FORM.ajaxForm({
+				url: '{{CONFIG url}}/req/main_settings/request_verification',
+				type: 'POST',
+				dataType: 'json',
+				beforeSend: function() {
+					VERIF_SETTINGS_FORM.find("small.error-message").each(function(index, el) {
+						$(this).remove();
+					}).promise().done(function(){
+						VERIF_SETTINGS_FORM.find('button[type="submit"]').attr('disabled', 'true');
+						VERIF_SETTINGS_FORM.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+					});
+				},
+				success: function(data) {
+					if (data.status == 200) {
+						$.notify({
+		                    message: data.message,
+		                },{
+						    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+						    placement: {from: "bottom",align: "left"},
+						    offset: {x: 40,y: 30},
+						    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+						}); $(window).reloadPage(1500);
+		            } 
+		            else {
+		            	if (data.message) {
+		            		if (VERIF_SETTINGS_FORM.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+			            		VERIF_SETTINGS_FORM.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+				            		text: data.message,
+				            		class: 'col-red error-message animated flash'
+				            	}));
+			            	}
+			            	else {
+			            		$.notify({
+				                    message: data.message,
+				                },{
+								    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+								    placement: {from: "bottom",align: "left"},
+								    offset: {x: 40,y: 30},
+								    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+								});
+			            	}
+		            	}
+		            }
+				},
+				complete: function() {
+					VERIF_SETTINGS_FORM.find('button[type="submit"]').removeAttr('disabled');
+					VERIF_SETTINGS_FORM.find('button[type="submit"]').find('span').text("{{TR Submit request}}");
+				}
+			});
+		});
+	</script>
+<?php endif; ?>	
+
+<?php if (empty($me['is_root'])): ?>
+	<script>
+		jQuery(document).ready(function($) {
+			"use strict";
+			var ACCOUNT_SETTINGS_PAGE = $("div#account-setting-page");
+			var ACCOUNT_DELETION_F    = ACCOUNT_SETTINGS_PAGE.find("form#delete");
+			ACCOUNT_DELETION_F.ajaxForm({
+				url: '{{CONFIG url}}/req/main_settings/delete_account',
+				type: 'POST',
+				dataType: 'json',
+				beforeSend: function() {
+					ACCOUNT_DELETION_F.find("small.error-message").each(function(index, el) {
+						$(this).remove();
+					}).promise().done(function(){
+						ACCOUNT_DELETION_F.find('button[type="submit"]').attr('disabled', 'true');
+					});
+				},
+				success: function(data) {
+					if (data.status == 200) {
+						ACCOUNT_DELETION_F.get(0).reset();
+						$.notify({
+		                    message: data.message,
+		                },{
+						    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+						    placement: {from: "bottom",align: "left"},
+						    offset: {x: 40,y: 30},
+						    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+						}); $(window).reloadPage(1500);
+		            } 
+		            else {
+		            	if (data.message) {
+		            		if (ACCOUNT_DELETION_F.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+			            		ACCOUNT_DELETION_F.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+				            		text: data.message,
+				            		class: 'col-red error-message animated flash'
+				            	}));
+			            	}
+			            	else {
+			            		$.notify({
+				                    message: data.message,
+				                },{
+								    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+								    placement: {from: "bottom",align: "left"},
+								    offset: {x: 40,y: 30},
+								    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+								});
+			            	}
+		            	}
+		            }
+				},
+				complete: function() {
+					ACCOUNT_DELETION_F.find('button[type="submit"]').removeAttr('disabled');
+				}
+			});
+		});
+	</script>
+<?php endif; ?>

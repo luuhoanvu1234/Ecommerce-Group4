@@ -1,0 +1,37 @@
+<div class="modal animated fadeIn create--edit-wishlist-modal" id="ceare-new-wl" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form class="form" id="form">
+				<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"  x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+						<rect x="0" y="64" width="256" height="42.667"/>
+						<rect x="0" y="149.333" width="256" height="42.667"/>
+						<rect x="0" y="234.667" width="170.667" height="42.667"/>
+						<polygon points="341.333,234.667 341.333,149.333 298.667,149.333 298.667,234.667 213.333,234.667 213.333,277.333      298.667,277.333 298.667,362.667 341.333,362.667 341.333,277.333 426.667,277.333 426.667,234.667"/></svg> 
+						{{TR Create Wish List}}
+					</h5>
+				</div>
+				<div class="modal-body">
+					<div class="input-box" id="input-box">
+						<label for="list-name">{{TR Name the new list}}</label>
+						<input id="list-name" name="name" autofocus type="text" class="form-control" placeholder="{{TR List title}}">
+						<small>
+							<?php echo hs_svg('info'); ?>Maximum name length 20 characters
+						</small>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn cancel" data-dismiss="modal">
+						{{TR Cancel}}
+					</button>
+					<button type="submit" class="btn create">
+						{{TR Create}}
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

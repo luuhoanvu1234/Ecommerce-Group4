@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		<?php echo fetch_or_get($hs['page_title'],'');?>
+	</title>
+	<link rel="icon" type="image/png" sizes="16x16" href="{{CONFIG url}}/views/v1/statics/img/favicon.png">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="title" content="<?php echo fetch_or_get($hs['prod_data']['name'],'');?>">
+    <meta name="description" content="<?php echo fetch_or_get($hs['prod_data']['description'],'');?>">
+    <meta name="keywords" content="<?php echo fetch_or_get($hs['prod_data']['keywords'],'');?>">
+	<meta property="og:type" content="article" />
+	<meta property="og:image" content="<?php echo hs_get_media(fetch_or_get($hs['prod_data']['poster'],''));?>" />
+	<meta property="og:image:secure_url" content="<?php echo hs_get_media(fetch_or_get($hs['prod_data']['poster'],''));?>" />
+	<meta property="og:description" content="<?php echo fetch_or_get($hs['prod_data']['description'],'');?>" />
+	<meta property="og:title" content="<?php echo fetch_or_get($hs['prod_data']['name'],'');?>" />
+	<meta property="og:url" content="<?php echo fetch_or_get($hs['prod_data']['pres_link'],'');?>" />
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="<?php echo fetch_or_get($hs['prod_data']['name'],'');?>" />
+	<meta name="twitter:description" content="<?php echo fetch_or_get($hs['prod_data']['description'],'');?>" />
+	<meta name="twitter:image" content="<?php echo hs_get_media(fetch_or_get($hs['prod_data']['poster'],''));?>" />
+
+	<link rel="stylesheet" href="{{CONFIG url}}/views/v1/statics/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{CONFIG url}}/views/v1/statics/apps/share/css/share.master.style.css">
+	<link rel="stylesheet" href="{{CONFIG url}}/views/v1/statics/apps/share/css/media_queries/media.queries.css">
+	<link rel="stylesheet" href="{{CONFIG url}}/views/v1/statics/css/anim.master.css">
+	<link rel="stylesheet" href="{{CONFIG url}}/views/v1/statics/css/preloader.min.css">
+
+	<script src="{{CONFIG url}}/views/v1/statics/javascript/jquery-v3-3-1.js"></script>
+	<script src="{{CONFIG url}}/views/v1/statics/javascript/popper.min.js"></script>
+	<script src="{{CONFIG url}}/views/v1/statics/javascript/gridAlicious/jquery.grid-a-licious.js"></script>
+	<script src="{{CONFIG url}}/views/v1/statics/javascript/master.tools.js"></script>
+
+	{{CONFIG google_analytics}}
+</head>
+<body>
+	<input type="hidden" class="hidden d-none csrf-token" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+	<div class="main-preloader-holder">
+		<div class="main-preloader">
+			<div class="loading">
+				<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+			</div>
+		</div>
+	</div>
+	<div class="share-page-main-container" id="share-page-main-container">
+		<div class="prods-items-container" id="prods-items-container">
+			<?php if (not_empty($hs['prods'])): ?>
+				<?php foreach ($hs['prods'] as $hs['prod_item']): ?>
+					<?php echo hs_loadpage('share/includes/prod_item'); ?>
+				<?php endforeach; ?>
+			<?php endif; ?>
+
+			<?php if (not_empty($hs['ghosts'])): ?>
+				<?php foreach ($hs['ghosts'] as $ghost): ?>
+					<?php echo hs_loadpage('share/includes/ghost_item'); ?>
+				<?php endforeach; ?>	
+			<?php endif; ?>
+		</div>
+
+		<div class="product-info-lightbox-wrapper">
+			<div class="product-info-lightbox-inner animated fadeIn">
+				<div class="block-titling">
+					<h1 class="header">
+						{{CONFIG name}}
+					</h1>
+					<p class="text">
+						{{CONFIG description}}
+					</p>
+				</div>
+				<div class="block-body-container">
+					<div class="left-part">
+						<?php if (not_empty($hs['prod_data']['discount'])): ?>
+							<div class="prod-discount">
+								<span>
+									-<?php echo($hs['prod_data']['discount']); ?>%
+								</span>
+							</div>
+						<?php endif; ?>
+						
+						<img src="<?php echo hs_get_media(fetch_or_get($hs['prod_data']['poster'],''));?>" alt="Poster">
+					</div>
+					<div class="right-part">
+						<div class="product-info-block">
+							<div class="header">
+								<?php if (not_empty($hs['prod_data']['rating_stars'])): ?>
+									<?php if (is_array($hs['prod_data']['rating_stars'])): ?>
+										<div class="rating-info">
+											<?php foreach ($hs['prod_data']['rating_stars'] as $star): ?>
+												<span><?php echo($star); ?></span>
+											<?php endforeach; ?>
+										</div>
+									<?php endif; ?>
+								<?php endif; ?>
+								<h5>
+									<?php echo fetch_or_get($hs['prod_data']['name'],'Product name');?>
+								</h5>
+							</div>
+							<div class="body">
+								<div class="product-prices">
+									<h4 class="sale-price">
+										<?php echo($hs['prod_data']['fs_price']); ?>
+									</h4>
+									<h4 class="reg-price">
+										<?php echo($hs['prod_data']['fr_price']); ?>
+									</h4>
+								</div>
+							</div>
+							<div class="footer">
+								<p class="message-label">
+									<?php echo hs_translate("In order to see more information about this product, or to purchase it, you must first log in or register if you have not previously been registered on - {%market_name%}",array('market_name' => $hs['config']['name'])); ?>
+								</p>
+								<div class="ctrls">
+									<a href="{{LINK auth}}">
+										<button class="btn-outline">
+											{{TR Login}} / {{TR Register}}
+										</button>
+									</a>
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="market-copyright">
+					<span>
+						{{CONFIG name}} &copy; <?php echo date('Y'); ?>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<?php echo hs_loadpage('share/static/js/share_master_script'); ?>
+</body>
+</html>

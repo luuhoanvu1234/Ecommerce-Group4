@@ -1,0 +1,92 @@
+<ul class="payment-service-providers-list">
+	<?php if ($hs['config']['paypal_gateway_status'] == 'off'): ?>
+		<li class="payment-method disabled" data-method="paypal">
+	<?php else: ?>
+		<li class="payment-method" data-method="paypal">
+	<?php endif; ?>
+		<div class="provider-logo">
+			<img src="<?php echo(hs_png("paypal")); ?>" alt="Icon">
+		</div>
+		<div class="provider-name">
+			PayPal
+		</div>
+		<span class="check">
+			<?php echo(hs_svg("check-mark")); ?>
+		</span>
+	</li>
+
+	<?php if ($hs['config']['stripe_gateway_status'] == 'off'): ?>
+		<li class="payment-method disabled" data-method="card">
+	<?php else: ?>
+		<li class="payment-method" data-method="card">
+	<?php endif; ?>
+		<div class="provider-logo">
+			<img src="<?php echo(hs_png("credit-card")); ?>" alt="Icon">
+		</div>
+		<div class="provider-name">
+			{{TR Bank card}}
+		</div>
+		<span class="check">
+			<?php echo(hs_svg("check-mark")); ?>
+		</span>
+	</li>
+	
+	<!-- Disabled payment methods -->
+
+		<!-- <li class="payment-method disabled" data-method="qiwi">
+			<div class="provider-logo">
+				<img src="<?php echo(hs_png("qiwi")); ?>" alt="Icon">
+			</div>
+			<div class="provider-name">
+				{{TR Qiwi Wallet}}
+			</div>
+			<span class="check">
+				<?php echo(hs_svg("check-mark")); ?>
+			</span>
+		</li>
+		<li class="payment-method disabled" data-method="yandmoney">
+			<div class="provider-logo">
+				<img src="<?php echo(hs_png("yandmoney")); ?>" alt="Icon">
+			</div>
+			<div class="provider-name">
+				{{TR Yandex money}}
+			</div>
+			<span class="check">
+				<?php echo(hs_svg("check-mark")); ?>
+			</span>
+		</li> -->
+		
+	<!-- Disabled payment methods END -->
+	
+	<?php if ($hs['config']['cod_gateway_status'] == 'off'): ?>
+		<li class="payment-method disabled" data-method="cod">
+	<?php else: ?>
+		<li class="payment-method" data-method="cod">
+	<?php endif; ?>
+		<div class="provider-logo">
+			<img src="<?php echo(hs_png("cash")); ?>" alt="Icon">
+		</div>
+		<div class="provider-name">
+			{{TR Cash on delivery}}
+		</div>
+		<span class="check">
+			<?php echo(hs_svg("check-mark")); ?>
+		</span>
+	</li>
+
+	<?php if ($hs['config']['wallet_gateway_status'] == 'off'): ?>
+		<li class="payment-method disabled" data-method="wallet">
+	<?php else: ?>
+		<li class="payment-method" data-method="wallet">
+	<?php endif; ?>
+		<div class="provider-logo">
+			<img src="<?php echo(hs_png("wallet")); ?>" alt="Icon">
+		</div>
+		<div class="provider-name">
+			{{TR My wallet}} ({{ME wallet}})
+		</div>
+		<span class="check">
+			<?php echo(hs_svg("check-mark")); ?>
+		</span>
+	</li>
+</ul>

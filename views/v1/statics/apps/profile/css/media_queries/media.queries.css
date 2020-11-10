@@ -1,0 +1,242 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.avatar {
+    width: 80px !important;
+    height: 80px !important;
+    min-width: 80px !important; }
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info h4 {
+    font-size: 16px;
+    line-height: 18px; } }
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.avatar {
+    width: 55px !important;
+    height: 55px !important;
+    min-width: 55px !important; }
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info h4 {
+    font-size: 14px;
+    line-height: 18px; }
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.address {
+    font-size: 12px; }
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats {
+    margin-top: 5px !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats span.stat-num {
+      font-size: 16px;
+      line-height: 18px; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats span.stat-label {
+      font-size: 12px;
+      line-height: 12px; }
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info p.profile-bio {
+    font-size: 11px;
+    line-height: 16px; }
+  div.user-profile-page-container div.user-prof-navbar li.nav-item span {
+    display: none; }
+  div.user-profile-page-container div.user-prof-navbar li.nav-item.contact-seller {
+    margin-left: 15px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container div.side-bar-filter {
+    margin-bottom: 20px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container .col-lg-4 {
+    padding-right: 15px !important; }
+  div.user-profile-page-container div.is-affixed {
+    position: static !important;
+    height: auto !important; }
+    div.user-profile-page-container div.is-affixed div.inner-wrapper-sticky {
+      position: static !important; }
+  div.user-profile-page-container div.content-container {
+    padding: 0px 20px !important; }
+  div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prod-name h6 {
+    font-size: 11px !important;
+    margin-bottom: 0px !important; }
+  div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.price, div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.old-price {
+    font-size: 12px !important; }
+  div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+    width: 12px !important;
+    height: 12px !important; }
+  div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.rating-num {
+    font-size: 12px !important; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.avatar {
+      width: 100px !important;
+      height: 100px !important;
+      min-width: 100px !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info h4 {
+      font-size: 16px;
+      line-height: 28px;
+      width: 100%;
+      text-align: center; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.address {
+      text-align: center;
+      line-height: 0px !important; }
+      div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.address span {
+        font-size: 11px !important;
+        line-height: 18px !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats {
+      margin-top: 5px !important; }
+      div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats span.stat-num {
+        font-size: 14px;
+        line-height: 16px; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats ul {
+      width: 100%;
+      justify-content: center !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.rating {
+      justify-content: center !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info p.profile-bio {
+      font-size: 11px !important;
+      line-height: 18px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      text-align: center; }
+  div.user-profile-page-container div.user-prof-navbar li.nav-item span {
+    display: none; }
+  div.user-profile-page-container div.user-prof-navbar li.nav-item.contact-seller {
+    margin-left: 15px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container div.side-bar-filter {
+    margin-bottom: 20px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container div.prof-review-list-wrapper div.prof-review-list div.review div.avatar {
+    width: 35px !important;
+    min-width: 35px !important;
+    height: 35px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container div.prof-review-list-wrapper div.prof-review-list div.review div.user-name h6.user-name-holder a, div.user-profile-page-container div.user-profile-reviews-container div.prof-review-list-wrapper div.prof-review-list div.review div.user-name h6.user-name-holder span {
+    font-size: 10px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container .col-lg-4 {
+    padding-right: 15px !important; }
+  div.user-profile-page-container div.is-affixed {
+    position: static !important;
+    height: auto !important; }
+    div.user-profile-page-container div.is-affixed div.inner-wrapper-sticky {
+      position: static !important; }
+  div.user-profile-page-container div.content-container {
+    padding: 0px 10px !important; }
+  div.user-profile-page-container nav.breadcrumbs-cust ol {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important; }
+    div.user-profile-page-container nav.breadcrumbs-cust ol li {
+      font-size: 10px !important; }
+      div.user-profile-page-container nav.breadcrumbs-cust ol li a {
+        font-size: 10px !important; }
+  div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc {
+    padding: 7px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prod-name h6 {
+      font-size: 11px !important;
+      margin-bottom: 0px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.price, div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.old-price {
+      font-size: 12px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+      width: 12px !important;
+      height: 12px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.rating-num {
+      font-size: 12px !important; }
+  div.user-profile-page-container div.load-more-products {
+    padding: 10px 0px !important; }
+    div.user-profile-page-container div.load-more-products button {
+      padding: 15px 20px !important;
+      font-size: 12px !important; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.user-profile-page-container div.prof-info-heading div.user-avatar-panel {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.avatar {
+      width: 100px !important;
+      height: 100px !important;
+      min-width: 100px !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info h4 {
+      font-size: 16px;
+      line-height: 28px;
+      width: 100%;
+      text-align: center; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.address {
+      text-align: center;
+      line-height: 0px !important; }
+      div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.address span {
+        font-size: 11px !important;
+        line-height: 18px !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats {
+      margin-top: 5px !important; }
+      div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats span.stat-num {
+        font-size: 14px;
+        line-height: 16px; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.profile-activity-stats ul {
+      width: 100%;
+      justify-content: center !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info div.rating {
+      justify-content: center !important; }
+    div.user-profile-page-container div.prof-info-heading div.user-avatar-panel div.prof-user-info p.profile-bio {
+      font-size: 11px !important;
+      line-height: 18px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      text-align: center; }
+  div.user-profile-page-container div.user-prof-navbar li.nav-item span {
+    display: none; }
+  div.user-profile-page-container div.user-prof-navbar li.nav-item.contact-seller {
+    margin-left: 15px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container div.side-bar-filter {
+    margin-bottom: 20px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container div.prof-review-list-wrapper div.prof-review-list div.review div.avatar {
+    width: 35px !important;
+    min-width: 35px !important;
+    height: 35px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container div.prof-review-list-wrapper div.prof-review-list div.review div.user-name h6.user-name-holder a, div.user-profile-page-container div.user-profile-reviews-container div.prof-review-list-wrapper div.prof-review-list div.review div.user-name h6.user-name-holder span {
+    font-size: 10px !important; }
+  div.user-profile-page-container div.user-profile-reviews-container .col-lg-4 {
+    padding-right: 15px !important; }
+  div.user-profile-page-container div.is-affixed {
+    position: static !important;
+    height: auto !important; }
+    div.user-profile-page-container div.is-affixed div.inner-wrapper-sticky {
+      position: static !important; }
+  div.user-profile-page-container div.content-container {
+    padding: 0px 10px !important; }
+  div.user-profile-page-container nav.breadcrumbs-cust ol {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important; }
+    div.user-profile-page-container nav.breadcrumbs-cust ol li {
+      font-size: 10px !important; }
+      div.user-profile-page-container nav.breadcrumbs-cust ol li a {
+        font-size: 10px !important; }
+  div.user-profile-page-container div.prods-items-container div.prod-item:last-child {
+    margin-bottom: 0px !important; }
+  div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc {
+    padding: 5px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prod-name h6 {
+      font-size: 11px !important;
+      margin-bottom: 0px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.price, div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.old-price {
+      font-size: 10px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+      width: 10px !important;
+      height: 10px !important; }
+    div.user-profile-page-container div.prods-items-container div.prod-item div.prod-desc div.prices span.rating-num {
+      font-size: 10px !important; }
+  div.user-profile-page-container div.load-more-products {
+    padding: 10px 0px !important; }
+    div.user-profile-page-container div.load-more-products button {
+      padding: 10px 15px !important;
+      font-size: 10px !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

@@ -1,0 +1,73 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var USR_PROF_PAGE    = $("div#user-profile-page-container");
+		var PROD_ITEMS_LS    = USR_PROF_PAGE.find('div#prods-items-container');
+		var GRID_BLOCK_WIDTH = (PROD_ITEMS_LS.width() / 5);
+
+		if (PROD_ITEMS_LS.width() >= 768 && PROD_ITEMS_LS.width() <= 1024) {
+			GRID_BLOCK_WIDTH = (PROD_ITEMS_LS.width() / 4);
+		}
+
+		else if(PROD_ITEMS_LS.width() >= 481 && PROD_ITEMS_LS.width() <= 820) {
+			GRID_BLOCK_WIDTH = (PROD_ITEMS_LS.width() / 3);
+		}
+
+		else if(PROD_ITEMS_LS.width() >= 320 && PROD_ITEMS_LS.width() <= 480) {
+			GRID_BLOCK_WIDTH = (PROD_ITEMS_LS.width() / 2);
+		}
+
+		else if(PROD_ITEMS_LS.width() <= 320) {
+			GRID_BLOCK_WIDTH = PROD_ITEMS_LS.width();
+		}
+
+		var USR_PROF_PAGE_GA_CONF  = {
+			selector: 'div.prod-item',
+			gutter: 0,
+			width: GRID_BLOCK_WIDTH,
+			animate: true,
+			animationOptions: { 
+				speed: 100, 
+				duration: 200
+			}
+		};
+		
+		PROD_ITEMS_LS.gridalicious(USR_PROF_PAGE_GA_CONF);
+
+		USR_PROF_PAGE.find('button#load-more-pruducts').on('click',function(event) {
+			var items_list  = [];
+			var last_item   = 0;
+			var this_btn    = $(this);
+			var this_parent = $(this).parent('div');
+
+			PROD_ITEMS_LS.find('div.prod-item').each(function(index, el) {
+				items_list.push($(el).attr('data-product-li'));
+			}).promise().done(function() {
+				var last_id = (Math.min.apply(Math, items_list));
+				if ($.isNumeric(last_id)) {
+					this_parent.find('div#preloader').removeClass('hidden');
+					this_btn.addClass('hidden');
+					$.ajax({
+						url: '{{CONFIG url}}/req/profile/load_profile_items',
+						type: 'GET',
+						dataType: 'json',
+						data: {offset: last_id},
+					}).done(function(data) {
+						if (data.status == 200) {
+							PROD_ITEMS_LS.gridalicious('append',$(data.html));
+						}
+						else {
+							this_btn.attr('disabled', 'true');
+							this_btn.text("{{TR You have reached the end of this list}}");
+						}
+					}).always(function() {
+						delay(function() {
+							this_parent.find('div#preloader').addClass('hidden');
+							this_btn.removeClass('hidden');
+						},500);
+					});
+				}
+			});
+		});
+	});
+</script>

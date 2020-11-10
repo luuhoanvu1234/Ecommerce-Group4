@@ -1,0 +1,180 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+
+        var SITE_CURRENCIES_PAGE = $("div#site-currencies-page");
+        var ADD_NEW_CURR_MODAL   = $("div#addnew-currency-modal");
+        var CONFIRM_CHANGE_MCM   = $("div#change-market-curr-modal");
+        var DEL_CURRENCY_MODAL   = $("div#delete-market-curr-modal");
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var this_el    = $(this);
+            var event_trig = this_el.data('onclick');
+
+            if (event_trig == 'set_default_currency') {
+                var curr_id = this_el.data('curr-id');
+                CONFIRM_CHANGE_MCM.find('input[name="curr_id"]').val(curr_id);
+                CONFIRM_CHANGE_MCM.modal('show');
+            }
+
+            else if (event_trig == 'delete_currency') {
+                var curr_id = this_el.data('curr-id');
+                DEL_CURRENCY_MODAL.find('input[name="curr_id"]').val(curr_id);
+                DEL_CURRENCY_MODAL.modal('show');
+            }
+        });
+
+
+        ADD_NEW_CURR_MODAL.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/add_new_currency',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                ADD_NEW_CURR_MODAL.find('button').attr('disabled', 'true');
+                ADD_NEW_CURR_MODAL.find('small.error-message').remove();
+            },
+            success: function(data) {   
+                if (data.status == 200) {
+                    ADD_NEW_CURR_MODAL.modal('hide');
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    }); $(window).reloadPage(1500);
+                }  
+                else {
+                    ADD_NEW_CURR_MODAL.find('button').removeAttr('disabled');
+                    
+                    if (data.message) {
+                        if (ADD_NEW_CURR_MODAL.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+                            ADD_NEW_CURR_MODAL.find('[data-form-field="{0}"]'.format(data.err_field)).append($("<small>",{
+                                text: data.message,
+                                class: 'col-red error-message animated flash'
+                            }));
+                        }
+                        else {
+                            ADD_NEW_CURR_MODAL.modal('hide');
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    }
+                    else {
+                        ADD_NEW_CURR_MODAL.modal('hide');
+                        $.notify({
+                            message: 'Error found while processing your request. Please try again later!',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }
+            },
+            error: function() {
+                ADD_NEW_CURR_MODAL.find('button').removeAttr('disabled');
+                ADD_NEW_CURR_MODAL.modal('hide');
+                $.notify({
+                    message: 'Error found while processing your request. Please try again later!',
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            }
+        });
+
+        CONFIRM_CHANGE_MCM.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/set_default_currency',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                CONFIRM_CHANGE_MCM.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (data.status == 200) {
+                    $(window).reloadPage(1500);
+                }  
+            },
+            error: function() {
+                CONFIRM_CHANGE_MCM.find('button').removeAttr('disabled');
+                CONFIRM_CHANGE_MCM.modal('hide');
+                $.notify({
+                    message: 'Error found while processing your request. Please try again later!',
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            },
+            complete: function() {
+                CONFIRM_CHANGE_MCM.find('button').removeAttr('disabled');
+                CONFIRM_CHANGE_MCM.modal('hide');
+            }
+        });
+
+        DEL_CURRENCY_MODAL.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/delete_currency',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                DEL_CURRENCY_MODAL.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (data.status == 200) {
+                    $(window).reloadPage(1500);
+                }  
+            },
+            error: function() {
+                DEL_CURRENCY_MODAL.find('button').removeAttr('disabled');
+                DEL_CURRENCY_MODAL.modal('hide');
+                $.notify({
+                    message: 'Error found while processing your request. Please try again later!',
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            },
+            complete: function() {
+                DEL_CURRENCY_MODAL.find('button').removeAttr('disabled');
+                DEL_CURRENCY_MODAL.modal('hide');
+            }
+        });
+    });
+</script>

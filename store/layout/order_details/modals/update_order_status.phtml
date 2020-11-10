@@ -1,0 +1,87 @@
+<div class="modal animated fadeIn update-order-status-modal" id="update-order-status-modal" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <form class="form" id="addpost">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title tt-up">
+                        {{TR Update order timeline history}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                    <div class="data-management-page">
+                        <div class="form-group form-field-box">
+                            <div class="form-fieldset-title clearfix">
+                                <p>{{TR Add to story}}</p>
+                            </div>
+                            <div class="filed-box-holder" data-form-field="post_status">
+                                <label class="form-label">
+                                    {{TR Order status}}:
+                                </label>
+                                <div class="filed-box">
+                                    <select data-snode="order_status" title="{{TR Choose order status}}" data-size="5" name="status" class="form-control">      
+                                        <?php foreach ($hs['ord_stats'] as $key => $val): ?>
+                                            <option value="<?php echo($key); ?>">
+                                                <?php echo hs_translate($val); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hidden" data-snode="order_stat_alert">
+                                <p class="info-message warning">   
+                                    <?php echo hs_translate('Please note that if you change the status of this order to one of ({%stats%}), you will no longer be able to process this order {%link%}',array(
+                                        'stats' => implode(', ', array(
+                                            hs_html_el('b',hs_translate('Canceled')),
+                                            hs_html_el('b',hs_translate('Expired')),
+                                            hs_html_el('b',hs_translate('Returned')),
+                                            hs_html_el('b',hs_translate('Failed'))
+                                        )),
+                                        'link' => hs_html_el('a','<i class="material-icons">help</i>',array(
+                                            'href' => hs_link('merchant_terms')
+                                        ))
+                                    )); ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box">
+                            <div class="filed-box-holder">
+                                <div class="filed-box">
+                                    <input type="checkbox" name="notify" value="1" id="input-notify" class="filled-in chk-col-light-blue">
+                                    <label for="input-notify" class="checkbox-label">{{TR Notify Buyer}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box">
+                            <div class="filed-box-holder" data-form-field="post_comment">
+                                <label class="form-label">
+                                    {{TR Comment}}:
+                                </label>
+                                <div class="filed-box">
+                                    <textarea rows="4" placeholder="{{TR Enter a comment for your post}}" name="comment" rows="2" id="input-comment" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <p class="info-message info">
+                                <i class="material-icons">info</i>
+                                {{TR Leave a comment on your post so that your customers can receive more detailed information about their orders}}
+                            </p>                           
+                        </div>
+                        <div class="form-group form-field-box no-mb">
+                            <div class="filed-box-holder">
+                                <div class="filed-box">
+                                    <button type="reset" class="btn bg-grey btn-md btn-custom form-ctrl-btns">
+                                        <i class="material-icons">close</i> <span>{{TR Cancel}}</span>
+                                    </button>
+                                    <button type="submit" class="btn bg-main-red btn-md btn-custom form-ctrl-btns m-l-15">
+                                        <i class="material-icons">update</i> <span>{{TR Update order status}}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input name="ord_id" type="hidden" class="hidden d-none" value="<?php echo $hs['order_data']['id']; ?>">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

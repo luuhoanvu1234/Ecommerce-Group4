@@ -1,0 +1,61 @@
+<li class="notifications-list-item" data-notifications-list-item="<?php echo($hs['notif']['id']); ?>">
+	<div class="select-item-box">
+		<input type="checkbox" id="bp-item-<?php echo($hs['notif']['id']); ?>" data-id="<?php echo($hs['notif']['id']); ?>" class="filled-in chk-col-red">
+		<label class="md-chbox" for="bp-item-<?php echo($hs['notif']['id']); ?>"></label>
+	</div>
+	<div class="notif-body">
+		<div class="notif-body-inner">
+			<div class="avatar">
+				<img src="<?php echo $hs['notif']['notifier_avatar']; ?>" alt="Avatar">
+			</div>
+			<div class="notification-info">
+				<div class="top-line">
+					<div class="notif-type">
+						<?php if ($hs['notif']['subject'] == 'order_cancellation'): ?>
+							<span class="order-cancellation">
+								{{TR Order cancellation}}
+							</span>
+						<?php elseif($hs['notif']['subject'] == 'order'): ?>
+							<span class="new-order">
+								{{TR New order}}
+							</span>
+						<?php elseif($hs['notif']['subject'] == 'withdrawal'): ?>
+							<span class="withdrawal-declined">
+								{{TR Withdrawal declined}}
+							</span>
+						<?php elseif($hs['notif']['subject'] == 'product_review'): ?>
+							<span class="product-review">
+								{{TR Customer feedback}}
+							</span>
+						<?php endif; ?>
+					</div>
+					<div class="delete-notification" data-id="<?php echo($hs['notif']['id']); ?>">
+						<?php echo hs_svg('trash'); ?>
+					</div>
+				</div>
+				<div class="bottom-line">
+					<?php if (not_empty($hs['notif']['url'])): ?>
+						<a href="<?php echo($hs['notif']['url']); ?>">
+					<?php else: ?>
+						<a href="javascript:void(0);">
+					<?php endif; ?>
+						<b>
+							<?php echo $hs['notif']['notifier_name']; ?>
+							<?php if ($hs['notif']['notifier_verified'] == '1'): ?>
+								<?php echo hs_svg('verified-icon'); ?>
+							<?php endif; ?>	
+						</b>
+						<span>
+							<?php echo $hs['notif']['message']; ?>
+						</span>
+					</a>
+					<div class="notif-time">
+						<time>
+							<?php echo $hs['notif']['time']; ?>
+						</time>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</li>

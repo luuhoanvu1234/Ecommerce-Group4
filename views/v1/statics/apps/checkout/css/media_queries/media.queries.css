@@ -1,0 +1,216 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  div.checkout-page-content-wrapper div.left-part div.basket {
+    margin-bottom: 20px; }
+  div.checkout-page-content-wrapper div.right-part div.customer-care p {
+    margin-bottom: 0px !important; }
+
+  div.deliv-addr-map-modal div.preview-address-wrapper div.right-part {
+    display: none; }
+  div.deliv-addr-map-modal div.preview-address-wrapper div.left-part {
+    width: 100% !important;
+    flex-basis: 100% !important; } }
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.checkout-page-content-wrapper nav.breadcrumbs-cust ol li {
+    font-size: 12px; }
+    div.checkout-page-content-wrapper nav.breadcrumbs-cust ol li a {
+      font-size: 12px !important; }
+  div.checkout-page-content-wrapper div.page-parts-holder div.page-right-part {
+    padding-left: 15px !important; }
+  div.checkout-page-content-wrapper div.left-part div.basket {
+    margin-bottom: 20px; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.header h5 {
+      max-width: 70%;
+      overflow: hidden; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.flex-group-item {
+    width: 100% !important;
+    flex-basis: 100% !important;
+    margin-bottom: 20px; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.flex-group-item:last-child {
+      margin-bottom: 0px !important; }
+  div.checkout-page-content-wrapper div.right-part div.customer-care p {
+    margin-bottom: 0px !important; }
+  div.checkout-page-content-wrapper div.content-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important; }
+
+  div.deliv-addr-map-modal div.preview-address-wrapper div.right-part {
+    display: none; }
+  div.deliv-addr-map-modal div.preview-address-wrapper div.left-part {
+    width: 100% !important;
+    flex-basis: 100% !important; }
+    div.deliv-addr-map-modal div.preview-address-wrapper div.left-part div.preview-address {
+      height: 280px !important; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.checkout-page-content-wrapper nav.breadcrumbs-cust ol li {
+    font-size: 10px; }
+    div.checkout-page-content-wrapper nav.breadcrumbs-cust ol li a {
+      font-size: 10px !important; }
+  div.checkout-page-content-wrapper div.page-parts-holder div.page-right-part {
+    padding-left: 15px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-switcher div.switch-control {
+    font-size: 10px !important;
+    padding: 5px 10px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content h5.tab-content-title {
+    font-size: 10px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul {
+    width: 100% !important;
+    flex-basis: 100% !important; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul li {
+      font-size: 12px !important; }
+      div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul li span.icon {
+        margin-right: 0px !important; }
+        div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul li span.icon svg {
+          width: 12px !important;
+          height: 12px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.flex-group-item {
+    width: 100% !important;
+    flex-basis: 100% !important;
+    margin-bottom: 20px; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.flex-group-item:last-child {
+      margin-bottom: 0px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.fluid.form-footer button {
+    width: 100%;
+    margin: 0px 0px 15px 0; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.fluid.form-footer button:last-child {
+      margin: 0; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item {
+    display: block !important; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item div.input-radio {
+      width: 100% !important; }
+      div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item div.input-radio label {
+        width: 100% !important;
+        display: block !important; }
+        div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item div.input-radio label span {
+          font-size: 12px !important; }
+  div.checkout-page-content-wrapper div.left-part div.basket {
+    margin-bottom: 20px !important; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.header h5 {
+      max-width: 70%;
+      overflow: hidden; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-photo {
+      flex-basis: 60px !important;
+      width: 60px !important;
+      min-width: 60px !important;
+      height: 60px !important; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details {
+      padding: 0px !important; }
+      div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details div.flx-cr-inner {
+        padding-left: 10px !important; }
+        div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details div.flx-cr-inner ul {
+          flex-basis: 100% !important;
+          width: 100% !important; }
+          div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details div.flx-cr-inner ul li span {
+            font-size: 10px !important;
+            line-height: 18px !important; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.top-panel-wrapper span.delete-selected span {
+      display: none; }
+  div.checkout-page-content-wrapper div.content-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important; }
+  div.checkout-page-content-wrapper div.right-part div.customer-care p {
+    margin-bottom: 0px !important; }
+
+  div.deliv-addr-map-modal div.preview-address-wrapper div.right-part {
+    display: none; }
+  div.deliv-addr-map-modal div.preview-address-wrapper div.left-part {
+    width: 100% !important;
+    flex-basis: 100% !important; }
+    div.deliv-addr-map-modal div.preview-address-wrapper div.left-part div.preview-address {
+      height: 220px !important; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.checkout-page-content-wrapper nav.breadcrumbs-cust ol li {
+    font-size: 10px; }
+    div.checkout-page-content-wrapper nav.breadcrumbs-cust ol li a {
+      font-size: 10px !important; }
+  div.checkout-page-content-wrapper div.page-parts-holder div.page-right-part {
+    padding-left: 15px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-switcher div.switch-control {
+    font-size: 10px !important;
+    padding: 5px 10px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content h5.tab-content-title {
+    font-size: 10px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul {
+    width: 100% !important;
+    flex-basis: 100% !important; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul li {
+      font-size: 12px !important; }
+      div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul li span.icon {
+        margin-right: 0px !important; }
+        div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-display-wrapper ul li span.icon svg {
+          width: 12px !important;
+          height: 12px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.flex-group-item {
+    width: 100% !important;
+    flex-basis: 100% !important;
+    margin-bottom: 20px; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.address-form-wrapper div.flex-group-item:last-child {
+      margin-bottom: 0px !important; }
+  div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item {
+    display: block !important; }
+    div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item div.input-radio {
+      width: 100% !important; }
+      div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item div.input-radio label {
+        width: 100% !important;
+        display: block !important; }
+        div.checkout-page-content-wrapper div.left-part div.delivery-address div.tabs-wrapper div.tabs-holder div.tab-content div.user-addrs-list-wrapper ul li.addr-list-item div.input-radio label span {
+          font-size: 12px !important; }
+  div.checkout-page-content-wrapper div.left-part div.basket {
+    margin-bottom: 20px  !important; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.header h5 {
+      max-width: 70%;
+      overflow: hidden; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-photo {
+      flex-basis: 60px !important;
+      width: 60px !important;
+      min-width: 60px !important;
+      height: 60px !important; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details {
+      padding: 0px !important; }
+      div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details div.flx-cr-inner {
+        padding-left: 10px !important; }
+        div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details div.flx-cr-inner ul {
+          flex-basis: 100% !important;
+          width: 100% !important; }
+          div.checkout-page-content-wrapper div.left-part div.basket div.basket-list-wrapper div.basket-list-item div.body div.item-details div.flx-cr-inner ul li span {
+            font-size: 10px !important;
+            line-height: 18px !important; }
+    div.checkout-page-content-wrapper div.left-part div.basket div.top-panel-wrapper span.delete-selected span {
+      display: none; }
+  div.checkout-page-content-wrapper div.content-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important; }
+  div.checkout-page-content-wrapper div.right-part div.customer-care p {
+    margin-bottom: 0px !important; }
+
+  div.deliv-addr-map-modal div.preview-address-wrapper div.right-part {
+    display: none; }
+  div.deliv-addr-map-modal div.preview-address-wrapper div.left-part {
+    width: 100% !important;
+    flex-basis: 100% !important; }
+    div.deliv-addr-map-modal div.preview-address-wrapper div.left-part div.preview-address {
+      height: 180px !important; } }
+@media (min-width: 10px) and (max-width: 240px) {
+  body {
+    display: none !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

@@ -1,0 +1,13 @@
+<div class="announcements-list-cont pm-content">
+    <?php foreach ($hs['announcements'] as $hs['anc_data']): ?>
+        <?php if ($hs['anc_data']['type'] == 'success'): ?>
+            <?php echo hs_loadpage('announcements/plm_content/includes/success'); ?>
+        <?php elseif ($hs['anc_data']['type'] == 'error'): ?>
+            <?php echo hs_loadpage('announcements/plm_content/includes/error'); ?>
+        <?php elseif ($hs['anc_data']['type'] == 'info'): ?>
+            <?php echo hs_loadpage('announcements/plm_content/includes/info'); ?>
+        <?php else: ?>
+            <?php echo hs_loadpage('announcements/plm_content/includes/warning'); ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>

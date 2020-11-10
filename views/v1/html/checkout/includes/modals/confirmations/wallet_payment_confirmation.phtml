@@ -1,0 +1,27 @@
+<div class="modal animated vh-center fadeIn confirm-action-modal confirm-wallpay-modal" id="confirm-wallet-payment-modal">
+    <div class="modal-dialog col-md-4" role="document">
+        <div class="modal-content">
+            <form id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-body">
+                    <div class="icon">
+                        <?php echo hs_svg('reset-password'); ?>
+                    </div>
+                    <h4>
+                        {{TR Enter your password}}
+                    </h4>
+                    <p>
+                        {{TR Your password is required to confirm payment}}
+                    </p>
+                    <div class="pass-field-holder" data-form-field="password">
+                        <input type="password" name="pass" placeholder="{{TR Enter your account password}}" autofocus autocomplete="true">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="remove-selected-items" class="btn btn-submit bg-blue">{{TR Confirm}}</button>
+                    <button type="button" class="btn btn-cancel bg-grey" data-dismiss="modal">{{TR Cancel}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

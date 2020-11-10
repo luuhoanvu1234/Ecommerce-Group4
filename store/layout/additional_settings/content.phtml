@@ -1,0 +1,534 @@
+<div class="other-settings-page data-management-page" data-sblock="additional_settings_page">
+	<div class="block-header">
+	    <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/additional_settings}}">
+                        {{TR Additional settings}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Market additional settings}}
+                </li>
+            </ol>
+        </nav>
+	</div>
+	<div class="clearfix">
+        <div class="affixed-page-section">
+        	<div class="affixed-page-part-1">
+	            <div class="card">
+	                <div class="header">
+	                    <h2>{{TR Market additional settings}}</h2>
+	                </div>
+	                <div class="body">
+	                    <form class="form" data-snode="settings_form">
+	                    	<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+	                        <div class="form-fieldset-title" data-affix-label="social_login">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Social Login API Settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="facebook_api_id">
+		                            	<label class="form-label">
+		                        			{{TR Facebook API ID}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="facebook_api_id" type="text" class="form-control" value="{{CONFIG facebook_api_id}}" placeholder="{{TR Enter your facebook login api application ID}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="facebook_api_key">
+		                            	<label class="form-label">
+		                        			{{TR Facebook API Key}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="facebook_api_key" type="text" class="form-control" value="{{CONFIG facebook_api_key}}" placeholder="{{TR Enter your facebook login api application Key}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="twitter_api_id">
+		                            	<label class="form-label">
+		                        			{{TR Twitter API ID}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="twitter_api_id" type="text" class="form-control" value="{{CONFIG twitter_api_id}}" placeholder="{{TR Enter your twitter login api application ID}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="twitter_api_key">
+		                            	<label class="form-label">
+		                        			{{TR Twitter API Key}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="twitter_api_key" type="text" class="form-control" value="{{CONFIG twitter_api_key}}" placeholder="{{TR Enter your twitter login api application Key}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box no-mb">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="google_api_id">
+		                            	<label class="form-label">
+		                        			{{TR Google API ID}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="google_api_id" type="text" class="form-control" value="{{CONFIG google_api_id}}" placeholder="{{TR Enter your Google login api application ID}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="google_api_key">
+		                            	<label class="form-label">
+		                        			{{TR Google API Key}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="google_api_key" type="text" class="form-control" value="{{CONFIG google_api_key}}" placeholder="{{TR Enter your Google login api application Key}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+			                        	<p class="info-message info">
+			                    			<i class="material-icons">lock_outline</i>
+			                    			{{TR These are your personal social media (Facebook, Google, Twitter) credentials to access their oAuth API systems. Please do not post or share this data in any way.}}
+			                    		</p>
+			                        </div>
+	                            </div>
+	                        </div>
+	                        <hr>
+	                        <div class="form-fieldset-title" data-affix-label="email_settings">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Market mailing system settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb">
+		                            	<label class="form-label">
+		                        			{{TR SMTP User}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="smtp_username" type="text" class="form-control" value="{{CONFIG smtp_username}}" placeholder="{{TR Enter SMTP server username}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb">
+		                            	<label class="form-label">
+		                        			{{TR SMTP Host}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="smtp_host" type="text" class="form-control" value="{{CONFIG smtp_host}}" placeholder="{{TR Enter SMTP host name}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb">
+		                            	<label class="form-label">
+		                        			{{TR SMTP Password}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="smtp_password" type="password" class="form-control" value="{{CONFIG smtp_password}}" placeholder="{{TR Enter SMTP server password}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="smtp_encryption">
+		                            	<label class="form-label">
+		                        			{{TR SMTP Encription type}}:
+		                        		</label>
+		                            	<div class="filed-box">
+		                            		<select name="smtp_encryption" class="form-control">
+	                            				<option value="ssl" <?php if($hs['config']['smtp_encryption'] == 'ssl'){ echo("selected");} ?>>
+	                            					SSL
+	                            				</option>
+	                            				<option value="tls" <?php if($hs['config']['smtp_encryption'] == 'tls'){ echo("selected");} ?>>
+	                            					TLS
+	                            				</option>
+	                            			</select>
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="smtp_or_mail">
+		                            	<label class="form-label">
+		                        			{{TR SMTP Server type}}:
+		                        		</label>
+		                            	<div class="filed-box">
+		                            		<select name="smtp_or_mail" class="form-control">
+	                            				<option value="smtp" <?php if($hs['config']['smtp_or_mail'] == 'smtp'){ echo("selected");} ?>>
+	                            					{{TR SMTP Server}}
+	                            				</option>
+	                            				<option value="mail" <?php if($hs['config']['smtp_or_mail'] == 'mail'){ echo("selected");} ?>>
+	                            					{{TR Mail (Default unix server)}}
+	                            				</option>
+	                            			</select>
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="smtp_port">
+		                            	<label class="form-label">
+		                        			{{TR SMTP Port}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="smtp_port" type="number" class="form-control" value="{{CONFIG smtp_port}}" placeholder="{{TR Enter SMTP server port}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+			                        	<p class="info-message info">
+			                    			<i class="material-icons">info</i>
+			                    			The configuration of the SMTP server is necessary for confirming user registrations, for password recovery, as well as for other site features
+			                    		</p>
+			                        </div>
+	                            </div>
+	                        </div>
+							<hr>
+							<div class="form-fieldset-title" data-affix-label="amazon_s3_storage">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Amazon S3 image upload settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="as3_storage">
+		                            	<label class="form-label">
+		                        			{{TR Amazon S3 Storage}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<select name="as3_storage" class="form-control">
+	                            				<option value="on" <?php if($hs['config']['as3_storage'] == 'on') { echo('selected="true"'); }; ?>>{{TR Enabled}}</option>
+	                            				<option value="off" <?php if($hs['config']['as3_storage'] == 'off') { echo('selected="true"'); }; ?>>{{TR Disabled}}</option>
+	                            			</select>
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<?php if ($hs['config']['as3_storage'] == 'off'): ?>
+		                            		<p class="info-message warning">
+		                            			<i class="material-icons">warning</i>
+												{{TR Please note that before you enable Amazon S3 storage, make sure you upload the whole "upload/*" folder (including all its contents) to your remote S3 bucket.}}
+		                            		</p>
+		                            	<?php else: ?>
+		                            		<p class="info-message warning">
+		                            			<i class="material-icons">warning</i>
+												{{TR Please note that before you disable Amazon S3 storage, make sure you download the whole "upload/*" folder (including all its contents) to your server.}}
+		                            		</p>
+		                            	<?php endif; ?>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="as3_bucket_name">
+		                            	<label class="form-label">
+		                        			{{TR AS3 bucket name}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="as3_bucket_name" type="text" class="form-control" value="{{CONFIG as3_bucket_name}}" placeholder="{{TR Enter AS3 storage bucket name}}. I.e. mysite_storage">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="as3_api_key">
+		                            	<label class="form-label">
+		                        			{{TR Amazon S3 API key}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="as3_api_key" type="text" class="form-control" value="{{CONFIG as3_api_key}}" placeholder="{{TR Enter AS3 storage api key}}...">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="as3_api_secret_key">
+		                            	<label class="form-label">
+		                        			{{TR Amazon S3 API secret key}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="as3_api_secret_key" type="password" class="form-control" value="{{CONFIG as3_api_secret_key}}" placeholder="{{TR Enter AS3 storage api secret key}}...">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="as3_bucket_region">
+		                            	<label class="form-label">
+		                        			{{TR AS3 bucket region}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<select data-size="5" name="as3_bucket_region" class="form-control">
+												<option value="us-east-1" <?php echo (($hs['config']['as3_bucket_region'] == 'us-east-1') ? 'selected' : '');?>>US East (N. Virginia)</option>
+												<option value="us-east-2" <?php echo (($hs['config']['as3_bucket_region'] == 'us-east-2') ? 'selected' : '');?>>US East (Ohio)</option>
+												<option value="us-west-1" <?php echo (($hs['config']['as3_bucket_region'] == 'us-west-1') ? 'selected' : '');?>>US West (N. California)</option>
+												<option value="us-west-2" <?php echo (($hs['config']['as3_bucket_region'] == 'us-west-2') ? 'selected' : '');?>>US West (Oregon)</option>
+												<option value="ap-northeast-2" <?php echo (($hs['config']['as3_bucket_region'] == 'ap-northeast-2') ? 'selected' : '');?>>Asia Pacific (Seoul)</option>
+												<option value="ap-south-1" <?php echo (($hs['config']['as3_bucket_region'] == 'ap-south-1') ? 'selected' : '');?>>Asia Pacific (Mumbai)</option>
+												<option value="ap-southeast-1" <?php echo (($hs['config']['as3_bucket_region'] == 'ap-southeast-1') ? 'selected' : '');?>>Asia Pacific (Singapore)</option>
+												<option value="ap-southeast-2" <?php echo (($hs['config']['as3_bucket_region'] == 'ap-southeast-2') ? 'selected' : '');?>>Asia Pacific (Sydney)</option>
+												<option value="ap-northeast-1" <?php echo (($hs['config']['as3_bucket_region'] == 'ap-northeast-1') ? 'selected' : '');?>>Asia Pacific (Tokyo)</option>
+												<option value="ca-central-1" <?php echo (($hs['config']['as3_bucket_region'] == 'ca-central-1') ? 'selected' : '');?>>Canada (Central)</option>
+												<option value="eu-central-1" <?php echo (($hs['config']['as3_bucket_region'] == 'eu-central-1') ? 'selected' : '');?>>EU (Frankfurt)</option>
+												<option value="eu-west-1" <?php echo (($hs['config']['as3_bucket_region'] == 'eu-west-1') ? 'selected' : '');?>>EU (Ireland)</option>
+												<option value="eu-west-2" <?php echo (($hs['config']['as3_bucket_region'] == 'eu-west-2') ? 'selected' : '');?>>EU (London)</option>
+												<option value="sa-east-1" <?php echo (($hs['config']['as3_bucket_region'] == 'sa-east-1') ? 'selected' : '');?>>South America (São Paulo)</option>
+	                            			</select>
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="as3_onup_delete">
+		                            	<label class="form-label">
+		                        			{{TR Delete from server}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<select name="as3_onup_delete" class="form-control">
+	                            				<option value="yes" <?php if($hs['config']['as3_onup_delete'] == 'yes') { echo('selected="true"'); }; ?>>{{TR Yes}}</option>
+	                            				<option value="no" <?php if($hs['config']['as3_onup_delete'] == 'no') { echo('selected="true"'); }; ?>>{{TR No}}</option>
+	                            			</select>
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+		                        			{{TR If you enable this option, then after uploading the images to the AS3 Servers, the uploaded file will be deleted from your server}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row">
+	                        		<div class="col-sm-12 no-mb">
+				                        <div class="inline-alertbox-wrapper">
+				                            <div class="inline-alertbox info">
+				                                <div class="icon">
+				                                    <i class="material-icons">info</i>
+				                                </div>
+				                                <div class="alert-message">
+				                                    <h6>
+				                                        {{TR Test AS3 API Connection}}!
+				                                    </h6>
+				                                    <p class="mb-15">
+				                                        {{TR Please check if everything is configured correctly in the as3 API settings, otherwise this function will fail. However, if you are sure that everything is configured correctly, before saving, click on the "Test Connection" button and wait for a response from the server}}
+				                                    </p>
+				                                    <button type="button" data-snode="api_test_btn" class="btn bg-grey btn-md btn-custom">
+					                        			<i class="material-icons">sync_problem</i> <span>{{TR Test AS3 API Connection}}</span>
+					                        		</button>
+				                                </div>
+				                            </div>
+				                        </div>
+		                        	</div>
+	                        	</div>
+		                    </div>
+	                        <hr>
+	                        <div class="form-fieldset-title" data-affix-label="prod_data_settings">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Product data settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                        	<div class="col-sm-6 p-r-10 no-mb" data-form-field="prod_min_name">
+		                        		<label class="form-label">
+		                        			{{TR Product name min length}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="prod_min_name" type="number" class="form-control" value="{{CONFIG prod_min_name}}" placeholder="{{TR Minimum. E.g. 5}}">
+	                            		</div>
+	                            	</div>
+                            		<div class="col-sm-6 p-l-10 no-mb" data-form-field="prod_max_name">
+                            			<label class="form-label">
+		                        			{{TR Product name max length}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="prod_max_name" type="number" class="form-control" value="{{CONFIG prod_max_name}}" placeholder="{{TR Minimum. E.g. 120}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+										<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+		                        			{{TR Set the minimum and maximum (Not exceeding 145) length of the product name.}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>                  
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                        	<div class="col-sm-6 p-r-10 no-mb" data-form-field="prod_min_desc">
+		                        		<label class="form-label">
+		                        			{{TR Product description min length}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="prod_min_desc" type="number" class="form-control" value="{{CONFIG prod_min_desc}}" placeholder="{{TR Minimum. E.g. 120}}">
+	                            		</div>
+	                            	</div>
+                            		<div class="col-sm-6 p-l-10 no-mb" data-form-field="prod_max_desc">
+                            			<label class="form-label">
+		                        			{{TR Product description max length}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="prod_max_desc" type="number" class="form-control" value="{{CONFIG prod_max_desc}}" placeholder="{{TR Minimum. E.g. 650}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+		                        			{{TR Set the minimum and maximum (Not exceeding 60,000) length of the product description text}}.
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                        	<div class="col-sm-6 no-mb p-r-10" data-form-field="prod_min_images">
+		                        		<label class="form-label">
+		                        			{{TR Product images (Minimum)}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="prod_min_images" type="number" class="form-control" value="{{CONFIG prod_min_images}}" placeholder="{{TR Minimum. E.g. 5}}">
+	                            		</div>
+		                            </div>
+                            		<div class="col-sm-6 no-mb p-l-10" data-form-field="prod_max_images">
+                            			<label class="form-label">
+		                        			{{TR Product images (Maximum)}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="prod_max_images" type="number" class="form-control" value="{{CONFIG prod_max_images}}" placeholder="{{TR Maximum E.g. 25}}">
+	                            		</div>
+		                            </div>
+									<div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+	                            			{{TR Enter the minimum & maximum number of product images}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="curr_symbol_position">
+		                            	<label class="form-label">
+		                        			{{TR Currency symbol}}:
+		                        		</label>
+		                            	<div class="filed-box">
+		                            		<select name="curr_symbol_position" class="form-control">
+		                            			<option value="after" <?php if($hs['config']['curr_symbol_position'] == 'after') { echo 'selected="true"'; }; ?>>
+		                            				{{TR Set after price tag}}
+		                            			</option>
+		                            			<option value="before" <?php if($hs['config']['curr_symbol_position'] == 'before') { echo 'selected="true"'; }; ?>>
+		                            				{{TR Set before price tag}}
+		                            			</option>
+		                            		</select>
+	                            		</div>	
+		                            </div>
+									<div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+	                            			{{TR Determining the position of a currency symbol, that is, either before the product price tag or after}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <hr>
+	                        <div class="form-fieldset-title" data-affix-label="user_data_settings">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb">
+		                        		<p>
+		                        			{{TR User data settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="user_max_wls">
+		                            	<label class="form-label">
+		                        			{{TR Wishlists}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="user_max_wls" type="number" class="form-control" value="{{CONFIG user_max_wls}}" placeholder="{{TR Enter the maximum number of user wishlists}}">
+	                            		</div>
+		                            </div>
+									<div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+	                            			The value of this field restricts users from creating wishlists over this value.
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box no-mb">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="acc_validation">
+		                            	<label class="form-label">
+		                        			{{TR Account validation}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<select name="acc_validation" class="form-control">
+	                            				<option value="on" <?php echo ($hs['config']['acc_validation'] == 'on') ? 'selected="true"' : ''; ?>>On</option>
+	                            				<option value="off" <?php echo ($hs['config']['acc_validation'] == 'off') ? 'selected="true"' : ''; ?>>Off</option>
+	                            			</select>
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+		                        			{{TR If you enable this option, then after registration the user will have to go through confirmation by sending a confirmation code link to his email.}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+            </div>
+            <div class="affixed-page-part-2" id="right-sidepart">
+	        	<div class="sidebar__inner">
+	        		<div class="card">
+	        			<div class="header">
+				            <h2>{{TR Market settings}}</h2>
+				        </div>
+				        <div class="body">
+			            	<ul class="list-group">
+			            		<li class="list-group-item active" data-affix-scroll="social_login">
+			            			{{TR Social login}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="email_settings">
+			            			{{TR E-mail settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="amazon_s3_storage">
+			            			{{TR Amazon S3 Storage}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="prod_data_settings">
+			            			{{TR Product data settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="user_data_settings">
+			            			{{TR User data settings}}
+			            		</li>
+			            	</ul>
+			            	<div class="ctrls">
+			            		<button class="btn btn-lg bg-main-red" data-main-btn="submit">
+			            			<i class="material-icons">save</i> <span class="btn-text">{{TR Save changes}}</span>
+			            		</button>
+			            	</div>
+		            	</div>
+		            </div>
+	        	</div>
+		    </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('additional_settings/static/js/additional_settings_script'); ?>

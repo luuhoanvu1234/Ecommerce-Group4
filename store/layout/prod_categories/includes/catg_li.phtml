@@ -1,0 +1,45 @@
+<tr class="languages" data-catg-li="<?php echo $hs['catg_data']['sort_order']; ?>">
+	<td>
+		<b><?php echo $hs['catg_data']['sort_order']; ?></b>
+	</td>
+    <td class="link">
+        <a href="<?php echo $hs['catg_data']['url'] ?>">
+            <?php echo hs_translate(ucfirst($hs['catg_data']['catg_name'])); ?>
+        </a>
+    </td>
+    <td class="switch">
+        <?php if ($hs['catg_data']['status'] == 'active'): ?>
+            <label>
+                <input data-onchange="toggle_catg_status" data-cid="<?php echo $hs['catg_data']['catg_id']; ?>" type="checkbox" checked="true"><span class="lever switch-col-blue"></span>
+            </label>
+        <?php else: ?>
+            <label>
+                <input data-onchange="toggle_catg_status" data-cid="<?php echo $hs['catg_data']['catg_id']; ?>" type="checkbox"><span class="lever switch-col-blue"></span>
+            </label>
+        <?php endif ?>
+    </td>
+    <td>
+        <span class="badge bg-blue">
+            (<?php echo $hs['catg_data']['usage']; ?>) {{TR Products}}
+        </span>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li data-onclick="delete_category" data-cid="<?php echo($hs['catg_data']['catg_id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+                <li data-onclick="change_catg_sortorder" data-cid="<?php echo($hs['catg_data']['catg_id']); ?>" data-sin="<?php echo($hs['catg_data']['sort_order']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Change sort order}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

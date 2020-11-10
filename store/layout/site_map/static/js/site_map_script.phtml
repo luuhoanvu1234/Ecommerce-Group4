@@ -1,0 +1,80 @@
+<script>
+    "use strict";
+    
+	var SITE_MAP_PAGE = $("div#site-map-page");
+	var SITE_MAP_FORM = SITE_MAP_PAGE.find("form#site-map-form");
+
+    SITE_MAP_FORM.ajaxForm({
+        url: '{{CONFIG url}}/req/admin/update_sitemap',
+        type: 'POST',
+        dataType: 'json',
+        beforeSend: function() {
+            SITE_MAP_FORM.find('button[type="submit"]').attr('disabled', 'true');
+            SITE_MAP_FORM.find('small.error-message').remove();
+            SITE_MAP_FORM.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+        },
+        success: function(data) {   
+            if (data.status == 200) {
+                SITE_MAP_FORM.find('button[type="submit"]').removeClass('bg-blue');
+                SITE_MAP_FORM.find('button[type="submit"]').addClass('bg-green');
+                SITE_MAP_FORM.find('button[type="submit"]').find('span').text("{{TR Updated successfully}}!");
+                SITE_MAP_FORM.find('time#last-update').text(data.last_update);
+
+                $.notify({
+                    message: data.message,
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            } 
+            else {
+                SITE_MAP_FORM.find('button').removeAttr('disabled');
+                if (data.message) {
+                    if (SITE_MAP_FORM.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+                        SITE_MAP_FORM.find('[data-form-field="{0}"]'.format(data.err_field)).scroll2().append($("<small>",{
+                            text: data.message,
+                            class: 'col-red error-message animated flash'
+                        }));
+                    }
+                    else {
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }
+                else {
+                    $.notify({
+                        message: 'Error found while processing your request. Please try again later!',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+            }
+        },
+        error: function() {
+            SITE_MAP_FORM.find('button').removeAttr('disabled');
+        }
+    });
+
+    SITE_MAP_FORM.find('div#sitemap_last_modification').find('select').on('change',function(event) {
+        event.preventDefault();
+        if ($(this).val() == 'client_time') {
+            SITE_MAP_FORM.find('div#sitemap_last_modification').find('input#client-time-val').val('');
+            SITE_MAP_FORM.find('div#sitemap_last_modification').find('input#client-time-val').removeAttr('disabled');
+        }
+        else {
+            SITE_MAP_FORM.find('div#sitemap_last_modification').find('input#client-time-val').val('');
+            SITE_MAP_FORM.find('div#sitemap_last_modification').find('input#client-time-val').attr('disabled',true);
+        }
+    });
+</script>

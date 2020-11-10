@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>
+        <?php echo fetch_or_get($hs['page_title'],'');?>
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="title" content="<?php echo fetch_or_get($hs['page_title'],'');?>"/>
+    <meta name="description" content="<?php echo fetch_or_get($hs['page_desc'],'');?>"/>
+    <meta name="keywords" content="<?php echo fetch_or_get($hs['page_kw'],'');?>"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo hs_get_media($hs['config']['site_favicon']); ?>">
+    <link href="{{CONFIG url}}/store/statics/material_icon_fonts/material_icon.css" rel="stylesheet" type="text/css"/>
+    <link href="{{CONFIG url}}/store/statics/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{CONFIG url}}/views/v1/statics/css/preloader.min.css"/>
+    <link href="{{CONFIG url}}/store/statics/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="{{CONFIG url}}/store/statics/plugins/animate-css/animate.css" rel="stylesheet" />
+    <link href="{{CONFIG url}}/store/statics/css/style.css" rel="stylesheet"/>
+    <!-- ADP Default css styles END-->
+
+    <!-- ADP Custom common css styles -->
+    <link href="{{CONFIG url}}/store/statics/css/apps/common/store.common.style.css" rel="stylesheet"/>
+    <link href="{{CONFIG url}}/store/statics/css/apps/common/store.common.mq.css" rel="stylesheet"/>
+    <!-- ADP Custom common css styles END -->
+    
+    <link href="{{CONFIG url}}/store/statics/css/themes/all-themes.css" rel="stylesheet" />
+
+    <?php echo hs_loadpage('css_plugins'); ?>
+    <?php echo hs_loadpage('js_plugins'); ?>
+
+    {{CONFIG google_analytics}}
+
+    <?php echo hs_loadpage('commonjs/frontend_jstools/script_master'); ?>
+</head>
+
+<body class="theme-red">
+    <input type="hidden" class="hidden d-none csrf-token" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+    <div class="main-preloader-holder" id="main-preloader-holder">
+        <div class="main-preloader">
+            <div class="loading">
+                <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <?php echo hs_loadpage('sp_header/content'); ?>
+    
+    <aside id="leftsidebar" class="sidebar hs-store-main-sidebar">
+        <div class="user-info">
+            <div class="image">
+                <img src="{{ME avatar}}" alt="Avatar" data-user-avatar-image="{{ME id}}">
+            </div>
+            <div class="info-container">
+                <div class="name">{{ME name}}</div>
+                <div class="email">{{ME email}}</div>
+            </div>
+        </div>
+        <div class="menu">
+            <ul class="list" data-snode="main-sidebarmenu">
+                <li class="header">{{TR Main navigation}}</li>
+                <li class="mml" data-nav-list-item="dashboard">
+                    <a href="{{LINK merchant_panel/dashboard}}">
+                        <i class="material-icons">home</i>
+                        <span>{{TR Dashboard}}</span>
+                    </a>
+                </li>
+                <li class="mtl">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">shopping_basket</i>
+                        <span>{{TR Orders}}</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li data-nav-list-item="customer_orders">
+                            <a href="{{LINK merchant_panel/customer_orders}}">{{TR Customer orders}}</a>
+                        </li>
+                        <li data-nav-list-item="my_orders">
+                            <a href="{{LINK merchant_panel/my_orders}}">{{TR My orders}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mtl">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">assignment</i>
+                        <span>{{TR Trading items}}</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li data-nav-list-item="my_products">
+                            <a href="{{LINK merchant_panel/my_products}}">{{TR Products}}</a>
+                        </li>
+                        <li data-nav-list-item="products_draft">
+                            <a href="{{LINK merchant_panel/products_draft}}">{{TR Draft}}</a>
+                        </li>
+                        <li data-nav-list-item="add_product">
+                            <a href="{{LINK merchant_panel/add_product}}">{{TR Add Product}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="mml" data-nav-list-item="customers">
+                    <a href="{{LINK merchant_panel/customers}}">
+                        <i class="material-icons">group</i>
+                        <span>{{TR Customers}}</span>
+                    </a>
+                </li>
+                <li class="mml" data-nav-list-item="wallet">
+                    <a href="{{LINK merchant_panel/wallet}}">
+                        <i class="material-icons">account_balance_wallet</i>
+                        <span>{{TR Wallet}}</span>
+                    </a>
+                </li>
+                <?php if (not_empty($hs['is_admin'])): ?>
+                    <li class="mtl">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">cached</i>
+                            <span>{{TR New Updates}}</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li data-nav-list-item="new_products">
+                                <a href="{{LINK merchant_panel/new_products}}">
+                                    {{TR New products}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="account_removals">
+                                <a href="{{LINK merchant_panel/account_removals}}">
+                                    {{TR Account deleting}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="account_verification">
+                                <a href="{{LINK merchant_panel/account_verification}}">
+                                    {{TR Account verification}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="product_removals">
+                                <a href="{{LINK merchant_panel/product_removals}}">
+                                    {{TR Product deleting}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="customer_refunds">
+                                <a href="{{LINK merchant_panel/customer_refunds}}">
+                                    {{TR Refunds}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mtl">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">dashboard</i>
+                            <span>{{TR System}}</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li data-nav-list-item="market_products">
+                                <a href="{{LINK merchant_panel/market_products}}">{{TR Products}}</a>
+                            </li>
+                            <li data-nav-list-item="market_merchants">
+                                <a href="{{LINK merchant_panel/market_merchants}}">{{TR Merchants}}</a>
+                            </li>
+                            <li data-nav-list-item="market_users">
+                                <a href="{{LINK merchant_panel/market_users}}">{{TR Users}}</a>
+                            </li>
+                            <li data-nav-list-item="market_moderators">
+                                <a href="{{LINK merchant_panel/market_moderators}}">{{TR Moderators}}</a>
+                            </li>
+                            <li data-nav-list-item="reports">
+                                <a href="{{LINK merchant_panel/reports}}">{{TR Reports}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mtl">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">monetization_on</i>
+                            <span>{{TR Payments}}</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li data-nav-list-item="market_payouts">
+                                <a href="{{LINK merchant_panel/market_payouts}}">{{TR Payouts}}</a>
+                            </li>
+                            <li data-nav-list-item="market_transactions">
+                                <a href="{{LINK merchant_panel/market_transactions}}">{{TR Checkouts}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mtl">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">build</i>
+                            <span>{{TR Tools}}</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li data-nav-list-item="create_announcement">
+                                <a href="{{LINK merchant_panel/create_announcement}}">
+                                    {{TR Announcements}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="site_map">
+                                <a href="{{LINK merchant_panel/site_map}}">
+                                    {{TR SiteMap}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="backup">
+                                <a href="{{LINK merchant_panel/backup}}">
+                                    {{TR Backup}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mtl">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">settings</i>
+                            <span>{{TR Global settings}}</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li data-nav-list-item="site_settings">
+                                <a href="{{LINK merchant_panel/site_settings}}">
+                                    {{TR Site settings}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="payment_settings">
+                                <a href="{{LINK merchant_panel/payment_settings}}">
+                                    {{TR Payment settings}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="prod_categories">
+                                <a href="{{LINK merchant_panel/prod_categories}}">
+                                    {{TR Product categories}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="additional_settings">
+                                <a href="{{LINK merchant_panel/additional_settings}}">
+                                    {{TR Additional settings}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mtl">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">public</i>
+                            <span>{{TR Localization}}</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li data-nav-list-item="site_languages">
+                                <a href="{{LINK merchant_panel/site_languages}}">
+                                    {{TR Languages}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="site_currencies">
+                                <a href="{{LINK merchant_panel/site_currencies}}">
+                                    {{TR Currencies}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="mtl">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">info_outline</i>
+                            <span>{{TR Documentation}}</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li data-nav-list-item="doc_about_us">
+                                <a href="{{LINK merchant_panel/doc_about_us}}">
+                                    {{TR About us}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="doc_privacy_policy">
+                                <a href="{{LINK merchant_panel/doc_privacy_policy}}">
+                                    {{TR Policy}}
+                                </a>
+                            </li>
+                            <li data-nav-list-item="doc_terms">
+                                <a href="{{LINK merchant_panel/doc_terms}}">
+                                    {{TR Terms}}
+                                </a>
+                            </li>    
+                            <li data-nav-list-item="doc_merchant_terms">
+                                <a href="{{LINK merchant_panel/doc_merchant_terms}}">
+                                    {{TR Merchant terms}}
+                                </a>
+                            </li>    
+                        </ul>
+                    </li>
+                <?php endif; ?>
+                
+                <li class="mml" data-nav-list-item="withdrawals">
+                    <a href="{{LINK merchant_panel/withdrawals}}">
+                        <i class="material-icons">account_balance</i>
+                        <span>{{TR Withdrawals}}</span>
+                    </a>
+                </li>
+                <li class="mtl">
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">account_circle</i>
+                        <span>{{TR Account}}</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li data-nav-list-item="account_reviews">
+                            <a href="{{LINK merchant_panel/account_reviews}}">
+                                {{TR Customer Reviews}}
+                            </a>
+                        </li>
+                        <li data-nav-list-item="main_settings">
+                            <a href="{{LINK merchant_panel/main_settings}}">
+                                {{TR Account Settings}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="mml" data-nav-list-item="help">
+                    <a href="{{LINK help}}">
+                        <i class="material-icons">help</i>
+                        <span>{{TR Help}}</span>
+                    </a>
+                </li>
+                
+                <?php if (not_empty($hs['is_admin'])): ?>
+                    <li class="mml" data-nav-list-item="changelogs">
+                        <a href="{{LINK merchant_panel/changelogs}}">
+                            <i class="material-icons">update</i>
+                            <span>{{TR Changelogs}}</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+        <div class="legal">
+            <?php echo hs_loadpage('footer/small'); ?>
+        </div>
+    </aside>
+
+    <section class="content" data-storepage="{{store_page}}">
+        <?php if (not_empty($hs['temp_session'])): ?>
+            <div class="clearfix text-right m-b-10">
+                <button class="btn btn-custom btn-lg bg-main-red btn-rounded" data-anchor="{{LINK temporary_session_finish}}">
+                    <span>{{TR Finish session}}</span> <i class="material-icons">exit_to_app</i>
+                </button>
+            </div>
+            <div class="alert alert-warning">
+                <p>
+                    <strong><i class="material-icons">warning</i> {{TR Please note}}:</strong> 
+                    <?php echo hs_translate("You are now logged in as {%uname%}, please be careful all the actions that you will carry out will be generated on this user's account!", array('uname' => sprintf('<b>%s</b>',$hs['me']['name']))); ?>
+                </p>
+            </div>
+        <?php endif; ?>  
+
+        <?php if (not_empty($hs['announcements'])): ?>
+            <?php echo hs_loadpage('announcements/plm_content/content'); ?>
+            <?php echo hs_loadpage('commonjs/announcements/script_master'); ?>
+        <?php endif; ?>
+
+        {{page_content}}
+    </section>
+    <script>
+        jQuery(document).ready(function($) {     
+            "use strict";
+            
+            var curr_store_page = $("section.content").data('storepage');
+            if ($('li[data-nav-list-item="{0}"]'.format(curr_store_page)).length) {
+
+                if ($('li[data-nav-list-item="{0}"]'.format(curr_store_page)).hasClass('mml')) {
+                    $('li[data-nav-list-item="{0}"]'.format(curr_store_page)).addClass('active');
+                } 
+
+                else{
+                    $('li[data-nav-list-item="{0}"]'.format(curr_store_page)).addClass('active').parents('li.mtl').addClass('active').find('a.menu-toggle').addClass('toggled');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

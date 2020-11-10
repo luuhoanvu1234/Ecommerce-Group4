@@ -1,0 +1,120 @@
+<div class="user-auth-modal-container" id="user-login-modal">
+	<div class="user-auth-modal-wrapper">
+		<div class="user-auth-modal animated fadeIn login">
+			<div class="block-titling">
+				<h1 class="header">
+					{{CONFIG name}}
+				</h1>
+				<p class="text">
+					{{CONFIG description}}
+				</p>
+			</div>
+			<div class="user-auth-modal-inner">
+				<div class="left-part">
+					<div class="prod-price" id="featured-items-price">
+						<div class="prod-info">
+							<span id="rp" class="old-price"><?php echo($hs['fi_rprice']); ?></span>
+							<span id="sp" class="price"><?php echo($hs['fi_sprice']); ?></span>
+						</div>
+						<div class="corner"></div>
+					</div>
+					<div class="carousel slide" data-ride="carousel" id="featured-items-cr">
+						<div class="carousel-inner">
+							<?php if (not_empty($hs['prods'])): ?>
+								<?php foreach ($hs['prods'] as $ind => $hs['prod_item']): ?>
+									<div data-sp="<?php echo($hs['prod_item']['fs_price']); ?>" data-rp="<?php echo($hs['prod_item']['fr_price']); ?>" class="carousel-item <?php echo ($ind == 0) ? 'active' : ''; ?>">
+										<div class="carousel-item-data">
+											<img class="d-block w-100" src="<?php echo($hs['prod_item']['poster']); ?>" alt="Poster">
+										</div>
+									</div>
+								<?php endforeach; ?>
+							<?php endif; ?>
+
+							<?php if (not_empty($hs['ghosts'])): ?>
+								<?php foreach ($hs['ghosts'] as $ind => $ghost): ?>
+									<div data-sp="<?php echo hs_money('0.00'); ?>" data-rp="<?php echo hs_money('0.00'); ?>" class="carousel-item <?php echo ($ind == 0 && empty($hs['prods'])) ? 'active' : ''; ?>">
+										<div class="carousel-item-data">
+											<img src="https://via.placeholder.com/700x700.png" alt="Placeholder">
+										</div>
+									</div>
+								<?php endforeach; ?>	
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
+				<div class="right-part">
+					<div class="auth-form-container">
+						<div class="header">
+							<h2>
+								<a href="#">
+									{{TR Login}}
+								</a>
+							</h2>
+						</div>
+						<div class="body">
+							<article>
+								{{TR Log in to view products!}}
+							</article>
+							<div class="auth-form-body">
+								<form class="form" id="user-login-form">
+									<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+									<div class="form-group" data-form-field="email">
+										<input name="email" type="email" class="form-control" placeholder="{{TR E-Mail}}" title="{{TR E-Mail}}">
+									</div>
+									<div class="form-group" data-form-field="password">
+										<input name="password" type="password" class="form-control" placeholder="{{TR Password}}" title="{{TR Password}}">
+									</div>
+									<div class="form-group">
+										<button class="btn fluid btn-submit-form" type="submit">
+											{{TR Login}}
+										</button>
+										<div class="form-group">
+											<div class="forgot-pass">
+												<span data-anchor="{{LINK auth/reset_password}}">{{TR Forgot your password?}}</span>
+												<span data-anchor="{{LINK auth/signup}}">{{TR Sign up}}</span>
+											</div>
+										</div>
+									</div>	
+								</form>
+							</div>
+						</div>
+						<div class="footer">
+							<div class="social-btns">
+								<div class="oauth-login facebook">
+									<a href="{{LINK social_login?provider=Facebook}}">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M426.8 64H85.2C73.5 64 64 73.5 64 85.2v341.6c0 11.7 9.5 21.2 21.2 21.2H256V296h-45.9v-56H256v-41.4c0-49.6 34.4-76.6 78.7-76.6 21.2 0 44 1.6 49.3 2.3v51.8h-35.3c-24.1 0-28.7 11.4-28.7 28.2V240h57.4l-7.5 56H320v152h106.8c11.7 0 21.2-9.5 21.2-21.2V85.2c0-11.7-9.5-21.2-21.2-21.2z"/></svg>
+									</a>
+								</div>
+								<div class="oauth-login twitter">
+									<a href="{{LINK social_login?provider=Twitter}}">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M492 109.5c-17.4 7.7-36 12.9-55.6 15.3 20-12 35.4-31 42.6-53.6-18.7 11.1-39.4 19.2-61.5 23.5C399.8 75.8 374.6 64 346.8 64c-53.5 0-96.8 43.4-96.8 96.9 0 7.6.8 15 2.5 22.1-80.5-4-151.9-42.6-199.6-101.3-8.3 14.3-13.1 31-13.1 48.7 0 33.6 17.2 63.3 43.2 80.7-16-.4-31-4.8-44-12.1v1.2c0 47 33.4 86.1 77.7 95-8.1 2.2-16.7 3.4-25.5 3.4-6.2 0-12.3-.6-18.2-1.8 12.3 38.5 48.1 66.5 90.5 67.3-33.1 26-74.9 41.5-120.3 41.5-7.8 0-15.5-.5-23.1-1.4C62.8 432 113.7 448 168.3 448 346.6 448 444 300.3 444 172.2c0-4.2-.1-8.4-.3-12.5C462.6 146 479 129 492 109.5z"/></svg>
+									</a>
+								</div>	
+								<div class="oauth-login google-plus">
+									<a href="{{LINK social_login?provider=Google}}">
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M318.2 230.9l-1.6-7H160V288h90.7c-9.4 45-48.4 63.6-84.1 63.6-26 0-50.2-7.8-68.3-25.3-18.6-18.1-28.9-43.1-28.9-70.4 0-27.1 9.8-51.8 27.6-69.6 17.7-17.7 42-25.4 68.7-25.4 30.5 0 49.9 13.8 58.1 21.1l48-47.7C258.3 122.6 221.5 93 164.1 93c-44.3 0-86.7 16.8-117.7 47.8C15.9 171.3 0 215.2 0 256s15 82.6 44.6 113.3C76.3 402 121.2 419 167.5 419c42.1 0 81.9-16.5 110.3-46.3 28-29.4 42.4-70.1 42.4-112.7-.1-18-1.9-28.7-2-29.1zM512 224h-57v-57h-41v57h-57v41h57v57h41v-57h57z"/></svg>
+									</a>
+								</div>
+							</div>
+							<div class="join-us">
+								<span>
+									{{TR First time here?}}
+								</span>
+								<span data-anchor="{{LINK auth/signup}}">
+									<a href="#">{{TR Sign up}}</a>
+								</span>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="market-copyright">
+				<span>
+					{{CONFIG name}} &copy; <?php echo date('Y'); ?>
+				</span>
+			</div>
+		</div>
+	</div>
+	<?php echo hs_loadpage('auth/includes/popular_items_flow'); ?>
+</div>
+<?php echo(hs_loadpage('auth/static/js/login')); ?>

@@ -1,0 +1,16 @@
+div.stat-page-container {
+  width: 100%;
+  display: block;
+  background: transparent;
+  min-height: calc(100vh - 140px); }
+  div.stat-page-container div.content-panel {
+    width: 70vw !important;
+    overflow: hidden;
+    min-width: 330px;
+    margin-left: auto;
+    margin-right: auto;
+    background: transparent; }
+    div.stat-page-container div.content-panel div.data-holder {
+      padding: 20px 0px; }
+
+/*# sourceMappingURL=statpage.master.style.css.map */

@@ -1,0 +1,71 @@
+<div class="modal animated vh-center fadeIn popup-ticket-modal" id="account-verification-message-modal" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="ticket-content">
+                <div class="ticket-time">
+                    <time>
+                        <i class="material-icons">account_box</i> {{TR Requested at}}: <?php echo $hs['req_data']['time']; ?>
+                    </time>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                        <ul class="dropdown-menu bs-dropdown-menu pull-right">
+                            <li>
+                                <a href="<?php echo($hs['req_data']['url']); ?>" class="waves-effect waves-block">
+                                    {{TR User profile page}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="avatar">
+                        <img src="<?php echo($hs['req_data']['avatar']); ?>" alt="Avatar">
+                    </div>
+                    <div class="uname">
+                        <h6>
+                            <a href="#">
+                                <?php echo($hs['req_data']['full_name']); ?>
+                            </a>
+                        </h6>
+                        <p>
+                            <span>
+                                <?php echo($hs['req_data']['email']); ?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="ticket-message">
+                    <div class="ticket-message-header">
+                        <h5>
+                            <span>
+                                {{TR Request details}}:
+                            </span>
+                        </h5>
+                    </div>
+                    <p class="message2reviwer">
+                        <?php echo($hs['req_data']['message']); ?>
+                    </p>
+                </div>
+                <div class="attached-media">
+                    <div class="img-holder">
+                        <a href="<?php echo($hs['req_data']['id_photo']); ?>" data-fancybox="images" class="popup-ticket-modal-media">
+                            <img src="<?php echo($hs['req_data']['id_photo']); ?>" alt="Image">
+                        </a>
+                    </div>
+                    <div class="img-holder">
+                        <a href="<?php echo($hs['req_data']['pr_photo']); ?>" data-fancybox="images" class="popup-ticket-modal-media">
+                            <img src="<?php echo($hs['req_data']['pr_photo']); ?>" alt="Image">
+                        </a>
+                    </div>
+                </div>
+                <div class="ticket-ctrls">
+                    <button type="button" data-dismiss="modal" class="btn bg-main-red btn-block btn-sm waves-effect">
+                        {{TR Close request message}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

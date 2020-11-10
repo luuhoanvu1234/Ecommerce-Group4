@@ -1,0 +1,42 @@
+<tr data-backup-li="<?php echo($hs['backup_data']['id']); ?>">
+	<td>
+		<?php echo($hs['backup_data']['id']); ?>
+	</td>
+    <td class="link">
+		<a href="#">
+			<?php echo($hs['backup_data']['files_backup']); ?>
+		</a>
+    </td>
+    <td class="link">
+        <a href="#">
+            <?php echo($hs['backup_data']['sql_backup']); ?>
+        </a>
+    </td>
+    <td>
+        <span class="badge">
+            <?php echo($hs['backup_data']['file_size']); ?>
+        </span>
+    </td>
+    <td>
+        <span class="badge">
+            <?php echo($hs['backup_data']['sql_size']); ?>
+        </span>
+    </td>
+    <td class="time">
+    	<?php echo($hs['backup_data']['time']); ?>
+    </td>
+    <td>
+    	<div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu bs-dropdown-menu pull-right">
+                <li data-onclick="delete_backup" data-id="<?php echo($hs['backup_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

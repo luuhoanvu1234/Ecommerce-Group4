@@ -1,0 +1,687 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var BSKT_PAGE_CTR  = $("div#checkout-page-content");
+		var BSKT_ITEMS_LS  = BSKT_PAGE_CTR.find("div#basket-items-list");
+		var BSKT_DELIV_AD  = BSKT_PAGE_CTR.find('div#delivery-address');
+		var BSKT_ITEMS_RM  = $("div#confirm-bitem-removal-modal");
+		var BSKT_ITEMS_PRM = $("div#confirm-bitem-purge-removal-modal");
+		var BSKT_ORDER_SUM = $("div#prods-order-summary-panel");
+		var WALL_PAYCONF_M = $("div#confirm-wallet-payment-modal");
+		var AJAX_REQUESTED = false;
+		var STICKYSIDEBAR  = Object({});
+		var PREPAYM_PRODS  = Number(<?php echo intval($hs['prepaym_prods']); ?>);
+		var CODPAYM_PRODS  = Number(<?php echo intval($hs['codpaym_prods']); ?>);
+		var BS_NOTIF_CONF  = Object({allow_dismiss: false,icon_type: "class",type: 'default',timer: 500, placement: {from: "bottom",align: "left"}, offset: {x: 40,y: 40}, animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}});
+		var BSKT_UPDT_ORSM = Object({
+			update: function () {
+				if(BSKT_ITEMS_LS.find('input[type="checkbox"]:checked').length < 1) {
+					this.reset();
+					return false;
+				} 
+				else {
+					var selected_items = [];
+					BSKT_ITEMS_LS.find('input[type="checkbox"]:checked').each(function(index, el) {
+						if ($(el).prop('disabled') != true) {
+							selected_items.push($(el).parents('div.basket-list-item').attr('data-basket-list-item'));
+						}
+					}).promise().done(function(){
+						$.ajax({
+							url: '{{CONFIG url}}/req/products/get_bo_summary',
+							type: 'POST',
+							dataType: 'json',
+							data: {items: selected_items},
+						})
+						.done(function(data) {
+							if (data.status == 200) {
+								BSKT_ORDER_SUM.find('span#items_cost').text($.trim(data.info.prod_cost));
+								BSKT_ORDER_SUM.find('span#items_discount').text($.trim(data.info.discount));
+								BSKT_ORDER_SUM.find('span#ship-cost').text(data.info.ship_cost);
+								BSKT_ORDER_SUM.find('span.items2pay').text($.trim(data.info.to_pay));
+							} 
+							else{
+								if (data.message) {
+									$.notify({
+										message: data.message,
+									},BS_NOTIF_CONF);
+								}
+							}
+						});
+					});
+				}
+			},
+			reset: function() {
+				$.get('{{CONFIG url}}/req/products/reset_bo_summary', function(data) {
+					BSKT_ORDER_SUM.find('span#items_cost').text(hs_format_currency('0.00'));
+					BSKT_ORDER_SUM.find('span#items_discount').text('0%');
+					BSKT_ORDER_SUM.find('span#ship-cost').text("{{TR Free}}");
+					BSKT_ORDER_SUM.find('span.items2pay').text(hs_format_currency('0.00'));
+				});
+			}
+		});
+
+		if ($("div#checkout-page-content-wrapper").width() > 768) {
+			$("div#checkout-page-content-wrapper").find('div#right-sidepart').stickySidebar({
+			    topSpacing: 130,
+			    bottomSpacing: 75
+			});
+		}
+
+		BSKT_ORDER_SUM.find('li.payment-method').on('click',function(event) {
+			var this_el = $(this);
+			if (this_el.hasClass('disabled')) {
+				return false;
+			}
+			else {
+				var payment_method  = this_el.data('method');
+				var prepaym_methods = ['card','paypal','qiwi','yandmoney','wallet'];
+				this_el.addClass('active');
+				this_el.siblings('li.payment-method').removeClass('active');
+
+				if (payment_method == 'cod' && PREPAYM_PRODS > 0) {
+					BSKT_PAGE_CTR.find('div#pm-restriction-alert').fadeIn();
+					BSKT_ITEMS_LS.find('[data-basket-list-item]').each(function(index, el) {
+						if ($(el).data('pm') == 'pre_payments') {
+							$(el).find('input[type="checkbox"]').prop('disabled', true);
+							$(el).find('input[type="checkbox"]').prop('checked', false);
+						}
+
+						else {
+							$(el).find('input[type="checkbox"]').prop('disabled', false);
+						}
+					}).promise().done(function(){
+						BSKT_UPDT_ORSM.update();
+						BSKT_PAGE_CTR.find('input#selectallitems').prop('checked', false);
+						BSKT_PAGE_CTR.find('span#delete-selected-items').addClass('disabled');
+					});
+				}
+
+				else if(hs_in_array(payment_method,prepaym_methods) && CODPAYM_PRODS > 0) {
+					BSKT_PAGE_CTR.find('div#pm-restriction-alert').fadeIn();
+					BSKT_ITEMS_LS.find('[data-basket-list-item]').each(function(index, el) {
+						if ($(el).data('pm') == 'cod_payments') {
+							$(el).find('input[type="checkbox"]').prop('disabled', true);
+							$(el).find('input[type="checkbox"]').prop('checked', false);
+						}
+
+						else {
+							$(el).find('input[type="checkbox"]').prop('disabled', false);
+						}
+					}).promise().done(function(){
+						BSKT_UPDT_ORSM.update();
+						BSKT_PAGE_CTR.find('input#selectallitems').prop('checked', false);
+						BSKT_PAGE_CTR.find('span#delete-selected-items').addClass('disabled');
+					});
+				}
+
+				else {
+					BSKT_PAGE_CTR.find('div#pm-restriction-alert').fadeOut('hidden');
+					BSKT_ITEMS_LS.find('[data-basket-list-item]').each(function(index, el) {
+						$(el).find('input[type="checkbox"]').prop('disabled', false);
+						$(el).find('input[type="checkbox"]').removeAttr('disabled');
+					}).promise().done(function(){
+						BSKT_UPDT_ORSM.update();
+					});
+				}
+			}
+
+			if ($("div#checkout-page-content-wrapper").width() > 768) {
+				$("div#checkout-page-content-wrapper").find('div#right-sidepart').stickySidebar('updateSticky');
+			}
+		});
+
+		BSKT_ORDER_SUM.find('button#checkout').on('click',function(event) {
+			if (AJAX_REQUESTED) {
+				$.notify({
+					message: 'Please wait until your previous request is complete!',
+				},BS_NOTIF_CONF);
+				return false;
+			}
+			else if(BSKT_ITEMS_LS.find('input[type="checkbox"]:checked').length < 1) {
+				$.notify({
+					message: "{{TR Please select the products you want to include in the order!}}",
+				},BS_NOTIF_CONF);
+				return false;
+			} 
+			else if(BSKT_ORDER_SUM.find('li.payment-method.active').length != 1) {
+				$.notify({
+					message: "{{TR Please select a payment method to place an order!}}",
+				},BS_NOTIF_CONF);
+				return false;
+			} 
+			else {
+				var payment_methods = ['card','paypal','qiwi','yandmoney','wallet','cod'];
+				var pay_med         = BSKT_ORDER_SUM.find('li.payment-method.active').attr('data-method');
+
+				if (hs_empty(pay_med) || hs_in_array(pay_med,payment_methods) != true) {
+					$.notify({
+						message: 'Please select the correct payment method',
+					},BS_NOTIF_CONF);
+					return false;
+				}
+				else if(pay_med == 'card') {
+					<?php if ($hs['config']['stripe_gateway_status'] == 'on'): ?>
+						AJAX_REQUESTED = true;
+						BSKT_ORDER_SUM.find('button#checkout').attr('disabled', 'true');
+						var stripe = Stripe('{{CONFIG stripe_api_key}}');
+						$.ajax({
+							url: '{{CONFIG url}}/req/products/items_checkout',
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								payment_method: pay_med,
+							},
+						}).done(function(data) {
+							if (data.status == 200) {
+								delay(function(){
+									stripe.redirectToCheckout({
+										sessionId: data.sess_id
+									}).then(function (result) {
+										$.notify({
+											message: result.error.message,
+										},BS_NOTIF_CONF);
+									});
+								},1500);
+							}
+
+							else {
+								BSKT_ORDER_SUM.find('button#checkout').removeAttr('disabled');
+							}
+
+							if (data.message) {
+								$.notify({
+									message: data.message,
+								},BS_NOTIF_CONF);
+							}	
+						}).always(function() {
+							AJAX_REQUESTED = false;
+						});
+					<?php else: ?>
+						$.notify({
+							message: 'Please select the correct payment method',
+						},BS_NOTIF_CONF);
+						return false;
+					<?php endif; ?>	
+				}
+				else if(pay_med == 'paypal') {
+					<?php if ($hs['config']['paypal_gateway_status'] == 'on'): ?>
+						AJAX_REQUESTED = true;
+						BSKT_ORDER_SUM.find('button#checkout').attr('disabled', 'true');
+						$.ajax({
+							url: '{{CONFIG url}}/req/products/items_checkout',
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								payment_method: pay_med,
+							},
+						}).done(function(data) {
+							if (data.status == 200) {
+								delay(function() {
+									hs_redirect(data.url);
+								},1500);
+							}
+
+							else {
+								BSKT_ORDER_SUM.find('button#checkout').removeAttr('disabled');
+							}
+
+							if (data.message) {
+								$.notify({
+									message: data.message,
+								},BS_NOTIF_CONF);
+							}
+						}).always(function() {
+							AJAX_REQUESTED = false;
+						});
+					<?php else: ?>
+						$.notify({
+							message: 'Please select the correct payment method',
+						},BS_NOTIF_CONF);
+						return false;
+					<?php endif; ?>	
+				}
+				else if(pay_med == 'cod') {
+					<?php if ($hs['config']['cod_gateway_status'] == 'on'): ?>
+						BSKT_ORDER_SUM.find('button#checkout').attr('disabled', 'true');
+						AJAX_REQUESTED = true;
+						$.ajax({
+							url: '{{CONFIG url}}/req/products/items_checkout',
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								payment_method: pay_med,
+							},
+						}).done(function(data) {
+							if(data.status == 200) {
+								hs_redirect(data.url);
+							}
+							else {
+								delay(function(){
+									BSKT_ORDER_SUM.find('button#checkout').removeAttr('disabled');
+								},1500);
+
+								if (data.message) {
+									$.notify({
+										message: data.message,
+									},BS_NOTIF_CONF);
+								}
+							}
+						}).always(function() {
+							AJAX_REQUESTED = false;
+						});
+					<?php else: ?>
+						$.notify({
+							message: 'Please select the correct payment method',
+						},BS_NOTIF_CONF);
+						return false;
+					<?php endif; ?>
+				}
+				else if(pay_med == 'qiwi') {
+					BSKT_ORDER_SUM.find('button#checkout').attr('disabled', 'true');
+					AJAX_REQUESTED = true;
+					$.ajax({
+						url: '{{CONFIG url}}/req/products/items_checkout',
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							payment_method: pay_med,
+						},
+					})
+					.done(function(data) {
+						if (data.message) {
+							$.notify({
+								message: data.message,
+							},BS_NOTIF_CONF);
+						}
+					}).always(function() {
+						AJAX_REQUESTED = false;
+					});	
+				}
+				else if(pay_med == 'yandmoney') {
+					BSKT_ORDER_SUM.find('button#checkout').attr('disabled', 'true');
+					AJAX_REQUESTED = true;
+					$.ajax({
+						url: '{{CONFIG url}}/req/products/items_checkout',
+						type: 'POST',
+						dataType: 'json',
+						data: {
+							payment_method: pay_med,
+						},
+					})
+					.done(function(data) {
+						if (data.message) {
+							$.notify({
+								message: data.message,
+							},BS_NOTIF_CONF);
+						}
+					}).always(function() {
+						AJAX_REQUESTED = false;
+					});
+				}
+				else if(pay_med == 'wallet') {
+					<?php if ($hs['config']['wallet_gateway_status'] == 'on'): ?>
+						$("div#confirm-wallet-payment-modal").modal('show');
+					<?php else: ?>
+						$.notify({
+							message: 'Please select the correct payment method',
+						},BS_NOTIF_CONF);
+					<?php endif; ?>
+				}
+			}
+		});
+		
+		WALL_PAYCONF_M.find('form#form').ajaxForm({
+			url: '{{CONFIG url}}/req/products/items_checkout',
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				payment_method: 'wallet',
+			},
+			beforeSend: function() {
+				var pass = WALL_PAYCONF_M.find('input[name="pass"]').val();
+				WALL_PAYCONF_M.find('small.error-message').remove();
+	
+				if(hs_empty(pass)){
+					WALL_PAYCONF_M.find('[data-form-field="password"]').append($('<small>',{
+						class: 'error-message animated flash',
+						text: "{{TR Please enter your password to continue!}}"
+					}));
+					return false;
+				} 
+				else if(AJAX_REQUESTED) {
+					WALL_PAYCONF_M.find('[data-form-field="password"]').append($('<small>',{
+						class: 'error-message animated flash',
+						text: 'Please wait until your previous request is complete!'
+					}));
+					return false;
+				}
+				else {
+					AJAX_REQUESTED = true;
+					WALL_PAYCONF_M.find('button').attr('disabled', 'true');
+				}
+			},
+			success: function(data) {
+				if (data.status == 200) {
+					hs_redirect(data.url);
+				}
+				else {
+					if (data.message) {
+						WALL_PAYCONF_M.find('[data-form-field="password"]').append($('<small>',{
+							class: 'error-message animated flash',
+							text: data.message
+						}));
+					}
+				}
+			},
+			complete: function() {
+				AJAX_REQUESTED = false;
+			    delay(function() {
+					WALL_PAYCONF_M.find('input[type="password"]').val('');
+					WALL_PAYCONF_M.find('button').removeAttr('disabled', 'true');
+				},2000);
+			},
+		});	
+
+		BSKT_ITEMS_LS.find('span.delete-bp-item').on('click',function(event) {
+			var this_el = $(this);
+			var item_id = this_el.attr('data-bitem');
+			if($.isNumeric(item_id) && (item_id > 0)) {
+				BSKT_ITEMS_RM.find('input[name="item_id"]').val(item_id);
+				BSKT_ITEMS_RM.modal('show');
+			} 
+
+			else {
+				$(window).reloadPage(300);
+				return false;
+			}
+		});
+
+		BSKT_ITEMS_LS.find('input[type="checkbox"]').on('change',function(event) {
+			var this_el = $(this);
+			if (this_el.prop('disabled') != true) {
+				BSKT_UPDT_ORSM.update();
+				if (this_el.prop('checked') == true) {		
+					BSKT_PAGE_CTR.find('span#delete-selected-items').removeClass('disabled');		
+				} 
+				else {
+					if (BSKT_ITEMS_LS.find('input[type="checkbox"]:checked').length < 1) {
+						BSKT_PAGE_CTR.find('span#delete-selected-items').addClass('disabled');
+						BSKT_PAGE_CTR.find('input#selectallitems').prop("checked",false);
+					}
+				}
+			}
+		});
+
+		BSKT_PAGE_CTR.find('input#selectallitems').on('change',function(event) {
+			var this_el = $(this);	
+			if (this_el.prop('checked') == true) {		
+				if (BSKT_ITEMS_LS.find('div.basket-list-item').length) {
+					BSKT_PAGE_CTR.find('span#delete-selected-items').removeClass('disabled');
+					BSKT_ITEMS_LS.find('div.basket-list-item').each(function(index, el) {
+						if ($(el).find('input[type="checkbox"]').prop('disabled') != true) {
+							$(el).find('input[type="checkbox"]').prop("checked",true);
+						}
+					}).promise().done(function(){
+						BSKT_UPDT_ORSM.update();
+					});
+				}		
+			} 
+			else {	
+				if (BSKT_ITEMS_LS.find('div.basket-list-item').length) {
+					BSKT_PAGE_CTR.find('span#delete-selected-items').addClass('disabled');
+					BSKT_ITEMS_LS.find('div.basket-list-item').each(function(index, el) {
+						if ($(el).find('input[type="checkbox"]').prop('disabled') != true) {
+							$(el).find('input[type="checkbox"]').prop("checked",false);
+						}
+					}).promise().done(function(){
+						BSKT_UPDT_ORSM.reset();
+					});
+				}
+			}
+		});
+
+		BSKT_ITEMS_RM.find("form#remove-bitem-form").ajaxForm({
+			url: '{{CONFIG url}}/req/products/rm_bitem',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend:function(){
+				var bite_id = BSKT_ITEMS_RM.find('input[name="item_id"]').val();
+				if($.isNumeric(bite_id) != true || bite_id < 1) {
+					$(window).reloadPage(300);
+					return false;
+				}
+				BSKT_ITEMS_RM.find('button').attr('disabled', 'true');
+			},
+			success: function(data) {
+				if (data.status == 200 && data.code == 1) {
+					var item_id = BSKT_ITEMS_RM.find('input[name="item_id"]').val();
+					$.notify({
+						message: data.message,
+					},BS_NOTIF_CONF);
+
+					if (data.tl_items_num > 0) {	
+						BSKT_ITEMS_LS.find('div[data-basket-list-item="{0}"]'.format(item_id)).slideUp(300,function(){			
+							$(this).remove();
+							$("span.basket-total-itmes").text(data.tl_items);
+							$("span#hb-items-total-fixed").text(data.tl_items);
+							$("span#hb-items-total-fixed-2").text(data.total);
+						});
+					} 
+					else {
+						delay(function(){
+							hs_redirect('{{CONFIG checkout/basket}}');
+						},1500);
+					}	
+				}
+				else {
+					if (data.message) {
+						$.notify({
+							message: data.message,
+						},BS_NOTIF_CONF);
+					}
+				}
+			},
+			complete: function() {
+				BSKT_ITEMS_RM.find('input[name="item_id"]').val('');
+				BSKT_ITEMS_RM.modal('hide');
+				BSKT_ITEMS_RM.find('button').removeAttr('disabled', 'true');
+			},
+		});	
+
+		BSKT_PAGE_CTR.find('span#delete-selected-items').on('click',function(event) {
+			var this_el = $(this);
+			if (this_el.hasClass('disabled')) {
+				return false;
+			}
+
+			else if(BSKT_ITEMS_LS.find('input[type="checkbox"]:checked').length < 1) {
+				return false;
+			} 
+
+			else {
+				BSKT_ITEMS_PRM.modal('show');
+			}
+		});	
+
+		BSKT_ITEMS_PRM.find('button#remove-selected-items').on('click',function(event) {
+			if(BSKT_ITEMS_LS.find('input[type="checkbox"]:checked').length < 1) {
+				return false;
+			} 
+			else {
+				var selected_items = [];
+				BSKT_ITEMS_LS.find('input[type="checkbox"]:checked').each(function(index, el) {
+					selected_items.push($(el).parents('div.basket-list-item').attr('data-basket-list-item'));	
+				}).promise().done(function(){
+					BSKT_ITEMS_PRM.find('button').attr('disabled', 'true');
+					$.ajax({
+						url: '{{CONFIG url}}/req/products/rm_bitems',
+						type: 'POST',
+						dataType: 'json',
+						data: {items: selected_items},
+					})
+					.done(function(data) {
+						if (data.status == 200) {
+							$.notify({
+								message: data.message,
+							},BS_NOTIF_CONF);
+
+							BSKT_ITEMS_LS.find('div[data-basket-list-item]').each(function(index, el) {
+								for (var i = 0; i < selected_items.length; i++) {
+									BSKT_ITEMS_LS.find('div[data-basket-list-item="{0}"]'.format(selected_items[i])).slideUp(300,function() {			
+										$(this).remove();	
+									});
+								}
+							});
+
+							if (data.tl_items_num < 1) {
+								hs_redirect('{{CONFIG checkout/basket}}');
+							} 
+							
+							else {
+								$("span.basket-total-itmes").text(data.tl_items);
+								$("span#hb-items-total-fixed").text(data.tl_items);
+								$("span#hb-items-total-fixed-2").text(data.total);
+							}
+						} 
+						else{
+							if (data.message) {
+								$.notify({
+									message: data.message,
+								},BS_NOTIF_CONF);
+							}
+						}
+					}).always(function() {
+						BSKT_ITEMS_PRM.modal('hide');
+						BSKT_ITEMS_PRM.find('button').removeAttr('disabled', 'true');
+					});
+				});
+			}
+		});
+
+		BSKT_DELIV_AD.find('div.switch-control').on('click',function(event) {
+			var this_el = $(this);
+			var target_id = $(this).attr('data-target');
+			if(this_el.hasClass('active')) {
+				return false;
+			}
+			else {
+				this_el.addClass('active');
+				this_el.siblings('div.switch-control').removeClass('active');
+				BSKT_DELIV_AD.find('#{0}'.format(target_id)).addClass('active');
+				BSKT_DELIV_AD.find('#{0}'.format(target_id)).siblings('div.tab-content').removeClass('active');
+			}
+		});
+
+		$('iframe#mapreview-area').on("load", function(event) {
+			$("div.preview-address").find('div.loading-bar').fadeOut(10);
+		});
+
+		BSKT_DELIV_AD.find("a#toggle-addr-maparea").on('click',function(event) {
+			$("div#delivery-address-map-modal").modal('show');
+		});
+
+		$("div#delivery-address-map-modal").find('span#change-address').on('click',function(event) {
+			$("div#delivery-address-map-modal").modal('hide');
+			BSKT_DELIV_AD.find('div.switch-control[data-target="custom-addr"]').trigger('click');
+		});
+
+		BSKT_DELIV_AD.find('form#add-addr').find('select').selectpicker();
+
+		BSKT_DELIV_AD.find('form#add-addr').ajaxForm({
+			url: '{{CONFIG url}}/req/main_settings/add_addr',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend:function(){
+				BSKT_DELIV_AD.find('form#add-addr').find('small.error-message').remove();
+				BSKT_DELIV_AD.find('form#add-addr').find('button').attr('disabled', true);
+			},
+			success: function(data) {
+				if (data.status == 200) {
+					BSKT_DELIV_AD.find('form#add-addr').get(0).reset();
+					$.notify({
+						message: data.message,
+					},BS_NOTIF_CONF);	
+					delay(function(){
+						try{
+							$(window).reloadPage(2000);
+						} catch(e) { /*pass*/ }
+					});
+				}
+				else {
+					BSKT_DELIV_AD.find('form#add-addr').find('button').removeAttr('disabled');
+					if (data.message) {
+						BSKT_DELIV_AD.find('form#add-addr').find('[data-form-field="{0}"]'.format(data.err_field)).scroll2(100,200).append($('<small>',{
+							text: data.message,
+							class: 'error-message animated flash'
+						}));
+					}
+				}
+			}
+		});
+
+		$(document).on('change', 'input[data-pick-delivaddr]', function(event) {
+			event.preventDefault();
+			var addrs_form = BSKT_DELIV_AD.find('form#change-deliv-addr');
+			var this_el    = $(this);
+			var list_item  = this_el.parents('li.addr-list-item');
+			var this_val   = $.trim(this_el.val());
+
+			if (this_el.prop('checked')) {
+				addrs_form.find('input[type="checkbox"]').not($(this_el)).prop('checked',false);
+				BSKT_DELIV_AD.find('form#change-deliv-addr').find('li.addr-list-item').each(function(index, el) {
+					$(el).find('div.controls').addClass('hide');
+				}).promise().done(function(){
+					list_item.find('div.controls').removeClass('hide');
+				});
+			}
+			else {
+				BSKT_DELIV_AD.find('form#change-deliv-addr').find('li.addr-list-item').each(function(index, el) {
+					$(el).find('div.controls').addClass('hide');
+					$(el).find('input').prop('checked',false);
+				});
+			}
+		});
+
+		BSKT_DELIV_AD.find('form#change-deliv-addr').ajaxForm({
+			url:"{{CONFIG url}}/req/main_settings/deliv_addr",
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function(){
+				if (AJAX_REQUESTED) {
+					$.notify({
+						message: 'Please wait until your previous request is complete!',
+					},BS_NOTIF_CONF);
+					return false;
+				}
+				else {
+					AJAX_REQUESTED = true;
+				}
+			},
+			success: function(data) {
+				if (data.status == 200 && data.code == 'set') {
+					$(window).reloadPage(1500);
+				}
+				else if(data.status == 200 && data.code == 'del') {
+					if (BSKT_DELIV_AD.find('form#change-deliv-addr').find('li[data-addr="{0}"]'.format(data.addr)).length > 1) {
+						BSKT_DELIV_AD.find('form#change-deliv-addr').find('li[data-addr="{0}"]'.format(data.addr)).slideUp(200,function(){
+							$(this).remove();
+						});
+					}
+					else {
+						BSKT_DELIV_AD.find('form#change-deliv-addr').find('li[data-addr="{0}"]'.format(data.addr)).css('opacity', '0.5');
+						$(window).reloadPage(500);
+					}
+				}
+
+				if (data.message) {
+					$.notify({
+						message: data.message,
+					},BS_NOTIF_CONF);
+				}
+			},
+			complete: function() {
+				AJAX_REQUESTED = false;
+			}
+		});	
+	});
+</script>

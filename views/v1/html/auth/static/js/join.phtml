@@ -1,0 +1,133 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var AUTH_PAGE_CONTAINER = $("div#auth-page-main-container");
+		var AUTH_PAGE_REG_FORM  = AUTH_PAGE_CONTAINER.find("form#user-registration-form");
+		var AUTH_PAGE_ITEMS_FLW = AUTH_PAGE_CONTAINER.find("div#prods-items-container");
+		var GRID_BLOCK_WIDTH    = (AUTH_PAGE_ITEMS_FLW.width() / 5);
+
+		if (AUTH_PAGE_ITEMS_FLW.width() >= 768 && AUTH_PAGE_ITEMS_FLW.width() <= 1024) {
+			GRID_BLOCK_WIDTH = (AUTH_PAGE_ITEMS_FLW.width() / 4);
+		}
+
+		else if(AUTH_PAGE_ITEMS_FLW.width() >= 481 && AUTH_PAGE_ITEMS_FLW.width() <= 820) {
+			GRID_BLOCK_WIDTH = (AUTH_PAGE_ITEMS_FLW.width() / 3);
+		}
+
+		else if(AUTH_PAGE_ITEMS_FLW.width() >= 320 && AUTH_PAGE_ITEMS_FLW.width() <= 480) {
+			GRID_BLOCK_WIDTH = (AUTH_PAGE_ITEMS_FLW.width() / 2);
+		}
+
+		else if(AUTH_PAGE_ITEMS_FLW.width() <= 320) {
+			GRID_BLOCK_WIDTH = AUTH_PAGE_ITEMS_FLW.width();
+		}
+
+		var AUTH_PAGE_GRID_CTRL = {
+			infinity_scroll:function (object = null) {
+				if (hs_empty(object)) {
+					return false;
+				}
+				else {
+					var scrolled = 20;
+					var inter    = setInterval(function(){
+						if ((object.scrollTop() + object.innerHeight() >= object.get(0).scrollHeight) === true) {
+							if (AUTH_PAGE_GRID_CTRL.getoffset()) {
+								$.ajax({
+									url: '{{CONFIG url}}/req/auth/get_prods',
+									type: 'GET',
+									dataType: 'json',
+									data: {offset: AUTH_PAGE_GRID_CTRL.getoffset()},
+								}).done(function(data) {
+									if (data.status == 200) {
+										AUTH_PAGE_ITEMS_FLW.gridalicious('append',$(data.html));
+										scrolled += 20;
+						    			object.animate({ scrollTop: scrolled }, (1000));
+									}
+
+									else {
+										clearInterval(inter);
+									}
+								}).fail(function(){
+									clearInterval(inter);
+								});
+							}
+							else {
+								clearInterval(inter);
+							}
+						}
+						else{
+							scrolled += 20;
+						    object.animate({ scrollTop: scrolled }, (1000));	
+						    if (scrolled > (1000 * 1000)) { scrolled = 20;}
+						}
+					    
+					},1100);
+				}
+			},
+			getoffset: function() {
+				var items_list = [];
+				AUTH_PAGE_ITEMS_FLW.find('div.prod-item').each(function(index, el) {
+					items_list.push(Number($(el).attr('data-product-li')));
+				});
+
+				var last_item = Math.min.apply(Math, items_list);
+
+				if (last_item && $.isNumeric(last_item)) {
+					return last_item;
+				}
+				else {
+					return 0;
+				}
+			},
+			ga_conf: {
+				selector: 'div.prod-item',
+				gutter: 0,
+				width: (GRID_BLOCK_WIDTH),
+				animate: true,
+				animationOptions: { 
+					speed: 100, 
+					duration: 200
+				}
+			}
+		}; 
+
+		AUTH_PAGE_REG_FORM.ajaxForm({
+			url: '{{CONFIG url}}/req/auth/register_user',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				AUTH_PAGE_REG_FORM.find('button[type="submit"]').attr('disabled', 'true');
+				AUTH_PAGE_REG_FORM.find('div[data-form-field]').each(function(index, el) {
+					$(this).find('input').removeClass('animated');
+					$(this).find('input').removeClass('flash');
+					$(this).find('input').removeClass('v-error');
+					$(this).find('small.error-message').remove();
+				});
+			},
+			success:function(data) {
+				if (data.status == 200) {
+					AUTH_PAGE_REG_FORM.find('button[type="submit"]').addClass('success');
+					AUTH_PAGE_REG_FORM.find('button[type="submit"]').text("{{TR Done! Please wait..}}");
+
+					delay(function(){
+						hs_redirect('{{CONFIG url}}');
+					},1000);
+				}
+
+				else {
+					if (data.message) {
+						AUTH_PAGE_REG_FORM.find('button[type="submit"]').removeAttr('disabled');
+						AUTH_PAGE_REG_FORM.find('div[data-form-field="{0}"]'.format(data.err_field)).find('input').addClass('v-error');
+						AUTH_PAGE_REG_FORM.find('div[data-form-field="{0}"]'.format(data.err_field)).append($('<small>',{
+							class: 'animated flash error-message',
+							text: data.message
+						}));
+					}
+				}
+			}
+		});
+
+		AUTH_PAGE_ITEMS_FLW.gridalicious(AUTH_PAGE_GRID_CTRL.ga_conf);
+		AUTH_PAGE_GRID_CTRL.infinity_scroll(AUTH_PAGE_ITEMS_FLW);
+	});
+</script>

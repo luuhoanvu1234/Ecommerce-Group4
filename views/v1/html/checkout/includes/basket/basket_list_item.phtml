@@ -1,0 +1,91 @@
+<div class="basket-list-item disabled" data-basket-list-item="<?php echo($hs['prod_data']['id']); ?>" data-pm="<?php echo($hs['prod_data']['payment_method']); ?>">
+	<div class="header">
+		<h5>
+			<span>
+				<input type="checkbox" id="bp-item-<?php echo($hs['prod_data']['id']); ?>" class="filled-in chk-col-red">
+				<label class="md-chbox" for="bp-item-<?php echo($hs['prod_data']['id']); ?>">
+	            	<span>
+						<a href="<?php echo($hs['prod_data']['url']); ?>">
+							<?php echo($hs['prod_data']['name']); ?>
+						</a>
+					</span>
+	            </label>
+			</span>	
+		</h5>
+		<span class="delete-bp-item" data-bitem="<?php echo($hs['prod_data']['id']); ?>">
+			<button>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M128 405.429C128 428.846 147.198 448 170.667 448h170.667C364.802 448 384 428.846 384 405.429V160H128v245.429zM416 96h-80l-26.785-32H202.786L176 96H96v32h320V96z"/></svg>
+			</button>
+		</span>
+	</div>
+	<div class="body">
+		<div class="item-photo">
+			<img src="<?php echo($hs['prod_data']['thumb']); ?>" alt="Product picture">
+		</div>
+		<div class="item-details">
+			<div class="flx-cr-inner">	
+				<ul>
+					<li>
+						<span class="label">{{TR Price}}:</span>
+						<span><?php echo hs_money($hs['prod_data']['sale_price']); ?></span>
+						<s><?php echo hs_money($hs['prod_data']['reg_price']); ?></s>
+						<?php if ($hs['prod_data']['payment_method'] == 'cod_payments'): ?>
+							<span class="payment-method" title="{{TR Payment on delivery}}">
+								<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><rect x='32' y='80' width='448' height='256' rx='16' ry='16' transform='translate(512 416) rotate(180)' style='fill:none;stroke:#9697a1;stroke-linejoin:round;stroke-width:32px'/><line x1='64' y1='384' x2='448' y2='384' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><line x1='96' y1='432' x2='416' y2='432' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><circle cx='256' cy='208' r='80' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M480,160a80,80,0,0,1-80-80' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M32,160a80,80,0,0,0,80-80' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M480,256a80,80,0,0,0-80,80' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><path d='M32,256a80,80,0,0,1,80,80' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/></svg>
+							</span>
+						<?php elseif($hs['prod_data']['payment_method'] == 'pre_payments'): ?>
+							<span class="payment-method" title="{{TR Prepayment}}">
+								<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><rect x='48' y='96' width='416' height='320' rx='56' ry='56' style='fill:none;stroke:#9697a1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px'/><line x1='48' y1='192' x2='464' y2='192' style='fill:none;stroke:#9697a1;stroke-linejoin:round;stroke-width:60px'/><rect x='128' y='300' width='48' height='20' style='fill:none;stroke:#9697a1;stroke-linejoin:round;stroke-width:60px'/></svg>
+							</span>
+						<?php endif; ?>
+					</li>	
+					<li>
+						<span class="label">{{TR Discount}}:</span>
+						<?php if (not_empty($hs['prod_data']['disc'])): ?>
+							<span class="discount">-<?php echo($hs['prod_data']['disc']); ?>%</span>
+						<?php else: ?>
+							<span class="no-discount">{{TR No}}</span>
+						<?php endif; ?>
+					</li>
+					<li>
+						<span class="label">{{TR Total}}:</span>
+						<span>
+							<?php echo hs_money($hs['prod_data']['total']); ?>
+						</span>
+					</li>
+				</ul>
+				<ul>
+					<li>
+						<span class="label">{{TR Color}}:</span>
+						<?php if (in_array($hs['prod_data']['var_vartype'], array('color','color_size'))): ?>
+							<span>
+								<?php echo $hs['prod_data']['col_name']; ?>
+								<?php if (in_array($hs['prod_data']['var_vartype'], array('size','color_size'))): ?>
+									&sbquo; <?php echo $hs['prod_data']['size']; ?>
+								<?php endif; ?>	
+							</span>
+						<?php else: ?>
+							<span>{{TR Like on a picture}}</span>
+						<?php endif; ?>
+					</li>	
+					<li>
+						<span class="label">{{TR Delivery}}:</span>
+						<span>
+							<?php if ($hs['prod_data']['shipping_cost'] == 'free'): ?>
+								{{TR Free}}
+							<?php else: ?>
+								<?php echo hs_money($hs['prod_data']['shipping_fee']); ?>
+							<?php endif; ?>
+						</span>
+					</li>
+					<li>
+						<span class="label">{{TR Quantity}}:</span>
+						<span>
+							(<?php echo intval($hs['prod_data']['qt']); ?>)
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

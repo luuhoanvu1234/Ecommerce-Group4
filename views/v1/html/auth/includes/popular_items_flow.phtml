@@ -1,0 +1,13 @@
+<div class="prods-items-container auth-page" id="prods-items-container">
+	<?php if (not_empty($hs['prods'])): ?>
+		<?php foreach ($hs['prods'] as $hs['prod_item']): ?>
+			<?php echo hs_loadpage('auth/includes/prod_item'); ?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
+	<?php if (not_empty($hs['ghosts'])): ?>
+		<?php foreach ($hs['ghosts'] as $ghost): ?>
+			<?php echo hs_loadpage('auth/includes/ghost_item'); ?>
+		<?php endforeach; ?>	
+	<?php endif; ?>
+</div>

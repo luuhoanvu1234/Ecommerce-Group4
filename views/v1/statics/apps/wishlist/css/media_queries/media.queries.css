@@ -1,0 +1,145 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  div.wishlist-page-container div.cont-section-1 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    padding-right: 15px !important; }
+    div.wishlist-page-container div.cont-section-1 div.footer-sm {
+      display: none !important; }
+  div.wishlist-page-container div.cont-section-2 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important; } }
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.wishlist-page-container nav.breadcrumbs-cust ol {
+    padding-bottom: 10px !important; }
+    div.wishlist-page-container nav.breadcrumbs-cust ol li {
+      color: #9697a1;
+      font-size: 12px !important; }
+      div.wishlist-page-container nav.breadcrumbs-cust ol li a {
+        font-size: 12px !important; }
+  div.wishlist-page-container div.content-container {
+    padding: 0px 20px !important; }
+  div.wishlist-page-container div.cont-section-1 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    padding-right: 15px !important; }
+    div.wishlist-page-container div.cont-section-1 div.footer-sm {
+      display: none !important; }
+  div.wishlist-page-container div.cont-section-2 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-img span.total-sales span {
+      font-size: 12px !important;
+      line-height: 20px !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 12px !important;
+      font-weight: normal !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc {
+      padding: 10px !important; }
+      div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 12px !important; }
+        div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 12px !important;
+          height: 12px !important; }
+        div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 12px !important; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.wishlist-page-container nav.breadcrumbs-cust ol {
+    padding-bottom: 10px !important; }
+    div.wishlist-page-container nav.breadcrumbs-cust ol li {
+      color: #9697a1;
+      font-size: 10px !important; }
+      div.wishlist-page-container nav.breadcrumbs-cust ol li a {
+        font-size: 10px !important; }
+  div.wishlist-page-container div.content-container {
+    padding: 0px 10px !important; }
+  div.wishlist-page-container div.cont-section-1 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    padding-right: 15px !important; }
+    div.wishlist-page-container div.cont-section-1 div.footer-sm {
+      display: none !important; }
+  div.wishlist-page-container div.cont-section-2 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-img span.total-sales span {
+      font-size: 10px !important;
+      line-height: 18px !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 11px !important;
+      font-weight: normal !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc {
+      padding: 7px !important; }
+      div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 11px !important; }
+        div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 10px !important;
+          height: 10px !important; }
+        div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 11px !important; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.wishlist-page-container nav.breadcrumbs-cust ol {
+    padding-bottom: 10px !important; }
+    div.wishlist-page-container nav.breadcrumbs-cust ol li {
+      color: #9697a1;
+      font-size: 10px !important; }
+      div.wishlist-page-container nav.breadcrumbs-cust ol li a {
+        font-size: 10px !important; }
+  div.wishlist-page-container div.content-container {
+    padding: 0px 10px !important; }
+  div.wishlist-page-container div.cont-section-1 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    padding-right: 15px !important; }
+    div.wishlist-page-container div.cont-section-1 div.footer-sm {
+      display: none !important; }
+  div.wishlist-page-container div.cont-section-2 {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-img span.total-sales span {
+      font-size: 8px !important;
+      line-height: 16px !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 11px !important;
+      font-weight: normal !important; }
+    div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc {
+      padding: 7px !important; }
+      div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 10px !important; }
+        div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 10px !important;
+          height: 10px !important; }
+        div.wishlist-page-container div.cont-section-2 div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 8px !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

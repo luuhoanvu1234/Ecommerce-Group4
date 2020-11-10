@@ -1,0 +1,112 @@
+<div class="sitemap-generation-page data-management-page" id="site-map-page">
+	<div class="block-header">
+	    <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/site_map}}">
+                        {{TR Site map settings}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Generate sitemap}}
+                </li>
+            </ol>
+        </nav>
+	</div>
+	<div class="clearfix">
+        <div class="card">
+            <div class="header">
+                <h2>{{TR Generate sitemap}}</h2>
+            </div>
+            <div class="body">
+                <form class="form" id="site-map-form">
+                	<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                    <div class="form-fieldset-title">
+                    	<div class="row clearfix">
+                            <div class="col-sm-12">
+                        		<p>
+                        			<a href="{{CONFIG url}}/sitemap/sitemap-index.xml">{{TR XML Sitemap - Last Updata was in}} (<time id="last-update">{{CONFIG last_sitemap_update}}</time>)</a>
+                        		</p>
+                        	</div>
+                        </div>
+                    </div>
+                    <div class="form-group form-field-box">
+                    	<div class="row clearfix">
+                            <div class="col-sm-6 no-mb" data-form-field="entries">
+                            	<label class="form-label">
+                        			{{TR Entries per sitemap}}
+                        		</label>
+                            	<div class="filed-box">
+                        			<input name="entries" min="100" max="3000" type="number" class="form-control" placeholder="100 - 3000">
+                        		</div>
+                        		<p class="info-message info">
+                        			<i class="material-icons">info</i>
+                        			{{TR Please enter the maximum number of entries per sitemap page (Default is 1000)}}
+                        		</p>
+                            </div>
+                            <div class="col-sm-6 no-mb" data-form-field="update">
+                            	<label class="form-label">
+                        			{{TR Change frequency}}
+                        		</label>
+                            	<div class="filed-box">
+									<select class="form-control" name="update"> 
+										<option value="daily" selected="true">{{TR Daily}}</option>
+										<option value="always">{{TR Always}}</option>
+										<option value="hourly">{{TR Hourly}}</option>
+										<option value="weekly">{{TR Weekly}}</option>
+										<option value="monthly">{{TR Monthly}}</option>
+										<option value="yearly">{{TR Yearly}}</option>
+										<option value="never">{{TR Never}}</option>
+									</select>
+                        		</div>
+                        		<p class="info-message info">
+                        			<i class="material-icons">info</i>
+                        			{{TR SiteMap updating rate. Default (daily)}}
+                        		</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-field-box">
+                    	<div class="row clearfix" id="sitemap_last_modification">
+                            <div class="col-sm-6 no-mb" data-form-field="lastmod">
+                            	<label class="form-label">
+                        			{{TR Last modification}}:
+                        		</label>
+                        		<div class="filed-box">
+									<select class="form-control" name="lastmod"> 
+										<option value="none">None</option>
+										<option value="server_time">{{TR Use server's response}}</option>
+										<option value="client_time">{{TR Use specific date / time}}</option>
+									</select>
+                        		</div>
+                            </div>
+                            <div class="col-sm-6 no-mb">
+                            	<label class="form-label">
+                        			{{TR Select Data/Time}}:
+                        		</label>
+                            	<div class="filed-box no-mb">
+                        			<input id="client-time-val" class="form-control" type="date" name="client_time" disabled="true">
+                        		</div>
+                            </div>
+                            <div class="col-sm-12 no-mb">
+                            	<p class="info-message info">
+                        			<i class="material-icons">info</i>
+                        			{{TR The date the sitemap was last modified (optional)}}.
+                        		</p>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="form-group form-field-box no-mb">
+                    	<button type="submit" class="btn bg-main-red btn-lg btn-custom">
+                			<i class="material-icons">update</i> <span>{{TR Update sitemap}}</span>
+                		</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('site_map/static/js/site_map_script'); ?>

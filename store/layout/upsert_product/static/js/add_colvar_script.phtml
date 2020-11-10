@@ -1,0 +1,166 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        
+        $.AdminBSB.init('controls');
+        var PROD_UPSERT_PAGE = $("div#product-upsert-page");
+        var PROD_CV_MODAL    = $("div#product-colvar-modal");
+		var PCV_UPSERT_F     = PROD_CV_MODAL.find("form#prod-colvar-upsert-form");
+		var UPLOAD_CVIMG_F   = PROD_CV_MODAL.find("form#upload-product-cvimg");
+		var P_UPSERT_FM      = PROD_UPSERT_PAGE.find("form#product-upsert-form");
+        
+        PROD_CV_MODAL.on('hidden.bs.modal', function () {  
+            PROD_CV_MODAL.remove();
+        });
+        
+        PCV_UPSERT_F.find('div#select-pcv-image').on('click',function(event) {
+        	UPLOAD_CVIMG_F.find('input').trigger('click');
+        });
+
+        PCV_UPSERT_F.ajaxForm({
+        	url: '{{CONFIG url}}/req/products/cvar_upsert',
+        	type: 'POST',
+        	dataType: 'json',
+        	beforeSend: function() {
+                PCV_UPSERT_F.find('small.error-message').remove();
+                PCV_UPSERT_F.find('button[data-section-node="main_submit_btn"]').find('span').text("{{TR Please wait}}!");
+                PCV_UPSERT_F.find('button[data-section-node="main_submit_btn"]').attr('disabled', 'true');
+                PCV_UPSERT_F.find('button[data-section-node="main_cancel_btn"]').attr('disabled', 'true');
+        	},
+        	success: function(data) {
+        		if (data.status == 200) {
+                    PROD_CV_MODAL.modal('hide');
+        			var total_vars = P_UPSERT_FM.find('button#show-prodvar-btn');
+					total_vars.find('b').text(data.total);
+
+					if (total_vars.hasAttr('disabled')) {
+						total_vars.removeAttr('disabled');
+					}
+
+                    delay(function() {
+                        $.notify({
+                            message:data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    },500);
+        		} 
+
+                else {
+                    if (data.status == 406) {
+                        PROD_CV_MODAL.modal('hide');
+                        delay(function() {
+                            $.notify({
+                                message:data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        },500);
+                    }
+                    else {
+                        var invalid_field = PCV_UPSERT_F.find('[data-form-field="{0}"]'.format(data.err_code));
+
+                        if (invalid_field.length) {
+                            PROD_CV_MODAL.scroll2inner(invalid_field,500);
+                            invalid_field.append($("<small>",{
+                                text: data.message,
+                                class: 'col-red animated flash error-message'
+                            }));
+                        }
+                        else {
+                            $.notify({
+                                message:data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    }
+
+                    PCV_UPSERT_F.find('button[data-section-node="main_submit_btn"]').find('span').text(
+                        PCV_UPSERT_F.find('button[data-section-node="main_submit_btn"]').attr('title')
+                    );
+
+                    PCV_UPSERT_F.find('button[data-section-node="main_submit_btn"]').removeAttr('disabled');
+                    PCV_UPSERT_F.find('button[data-section-node="main_cancel_btn"]').removeAttr('disabled');
+        		}
+        	}
+        });
+
+        UPLOAD_CVIMG_F.ajaxForm({
+        	url: '{{CONFIG url}}/req/products/upload_pcv_img',
+        	type: 'POST',
+        	dataType: 'json',
+        	beforeSend: function() {
+        		if (UPLOAD_CVIMG_F.hasClass('processing')) {
+                    var invalid_field = PCV_UPSERT_F.find('[data-form-field="1"]');
+                    if (invalid_field.length) {
+                        PROD_CV_MODAL.scroll2inner(invalid_field,500);
+                        invalid_field.find('div.form-line').addClass('error');
+                        invalid_field.append($("<small>",{
+                            text: "{{TR Please wait for the upload of the previous image to complete!}}",
+                            class: 'col-red animated flash error-message'
+                        }));
+                    }
+
+                    return false;
+                }
+                else {
+                    UPLOAD_CVIMG_F.addClass('processing');
+                }
+        	},
+        	success: function(data) {
+        		if (data.status == 200) {
+        			PCV_UPSERT_F.find('div#select-pcv-image').html($("<img>",{
+        				src: data.url,
+        				alt: "Picture"
+        			}));
+        		} 
+
+                else {
+                    if (data.status == 406) {
+                        PROD_CV_MODAL.modal('hide');
+                        delay(function() {
+                            $.notify({
+                                message:data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        },500);
+                    }
+                    else {
+                        var invalid_field = PCV_UPSERT_F.find('[data-form-field="1"]');
+                        if (invalid_field.length) {
+                            PROD_CV_MODAL.scroll2inner(invalid_field,500);
+                            invalid_field.find('div.form-line').addClass('error');
+                            invalid_field.append($("<small>",{
+                                text: data.message,
+                                class: 'col-red animated flash error-message'
+                            }));
+                        } 
+                    }     
+        		}
+        	},
+            complete: function() {
+                UPLOAD_CVIMG_F.removeClass('processing');
+
+                var invalid_field = PCV_UPSERT_F.find('[data-form-field="1"]');
+                if (invalid_field.length) {
+                    invalid_field.find('div.form-line').removeClass('error');
+                    invalid_field.find('small.error-message').remove();
+                }
+            }
+        });
+	});
+</script>

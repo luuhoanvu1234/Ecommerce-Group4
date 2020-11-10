@@ -1,0 +1,60 @@
+<div class="messages-content-container content-container">
+	<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{CONFIG url}}">{{TR Home}}</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{LINK messages}}">
+					{{TR Messages}}
+				</a>
+			</li>
+			<?php if (not_empty($hs['interloc_data'])): ?>
+				<li class="breadcrumb-item">
+					<a href="<?php echo($hs['interloc_data']['url']); ?>">
+						<?php echo($hs['interloc_data']['name']); ?>
+					</a>
+				</li>
+			<?php else: ?>
+				<li class="breadcrumb-item">
+					{{TR No chat selected}}
+				</li>
+			<?php endif; ?>
+		</ol>
+	</nav>
+	<div class="messages-page-container" id="messages-page-container">
+		<div class="left-part" id="contacts-list">
+			<nav class="navbar navbar-expand-lg">	
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<form action="#" class="form search-contacts">
+							<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+							<div class="input-wrapper">
+								<input type="text" class="form-control" placeholder="{{TR Search Contacts}}.. " id="search-chats">
+								<button>
+									<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M337.509 305.372h-17.501l-6.571-5.486c20.791-25.232 33.922-57.054 33.922-93.257C347.358 127.632 283.896 64 205.135 64 127.452 64 64 127.632 64 206.629s63.452 142.628 142.225 142.628c35.011 0 67.831-13.167 92.991-34.008l6.561 5.487v17.551L415.18 448 448 415.086 337.509 305.372zm-131.284 0c-54.702 0-98.463-43.887-98.463-98.743 0-54.858 43.761-98.742 98.463-98.742 54.7 0 98.462 43.884 98.462 98.742 0 54.856-43.762 98.743-98.462 98.743z"></path></svg>
+								</button>
+							</div>
+						</form>
+					</li>
+				</ul>
+			</nav>
+			<div class="contacts-list-wrapper" id="chats-history">
+				<?php echo hs_loadpage('messages/includes/chats_history'); ?>
+			</div>
+		</div>
+		<div class="right-part">
+			<div class="right-part-content">
+				<?php if (not_empty($hs['interloc_data'])): ?>
+					<?php echo hs_loadpage('messages/includes/chat'); ?> 
+				<?php else: ?>
+					<?php echo hs_loadpage('messages/includes/home'); ?> 
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>
+</footer>
+<?php echo hs_loadpage('messages/static/js/home_master_script'); ?>

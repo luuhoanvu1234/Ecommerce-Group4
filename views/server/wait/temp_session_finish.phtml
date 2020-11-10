@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title><?php echo hs_translate('Temporary session'); ?></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/bootstrap.min.css',$hs['config']['url'])); ?>">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/server.message.styles.css',$hs['config']['url'])); ?>">
+</head>
+<body>
+	<div class="message-container-block">
+		<div class="message-container-inner">
+			<div class="icon main-red">
+				<?php echo hs_svg('loading'); ?>
+			</div>
+			<h2>
+				<?php echo hs_translate('Processing please wait...'); ?>
+			</h2>
+			<p class="tex">
+				<?php echo hs_translate('Exiting the temporary session, please do not leave the page!'); ?>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

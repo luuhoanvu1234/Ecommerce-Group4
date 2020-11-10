@@ -1,0 +1,90 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        var ACC_REVIEWS_PAGE = $("div#account-reviews-page");
+        ACC_REVIEWS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = ACC_REVIEWS_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var revs_list   = ACC_REVIEWS_PAGE.find('table#reviews-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_req    = revs_list.find('tr[data-review-li]').last().data('review-li');
+                var first_req   = revs_list.find('tr[data-review-li]').first().data('review-li');
+                var preloader   = ACC_REVIEWS_PAGE.find('div#table-preloader').removeClass('hidden');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/profile/get_account_reviews',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_req, 
+                        first: first_req,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        revs_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var event_trigger = $(this).data('onclick');
+            var zis_el        = $(this);
+            if (event_trigger == 'account_review_data') {
+                if ($.isNumeric(zis_el.data('id')) && zis_el.data('id')) {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/profile/account_review_data',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {id: zis_el.data('id')},
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            $('body').find('div.modal.popup-ticket-modal.account-review-data').each(function(index, el) {
+                                $(this).remove();
+                            }).promise().done(function(){
+                                $('body').append($(data.html).modal('show'));
+                            });
+                        }
+                        else {
+                            if (data.message) {
+                                $.notify({
+                                    message: data.message,
+                                },{
+                                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                    placement: {from: "bottom",align: "left"},
+                                    offset: {x: 40,y: 30},
+                                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                                });
+                            }
+                        }
+                    });  
+                }
+            }
+        });
+	});
+</script>

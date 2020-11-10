@@ -1,0 +1,41 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var MAIN_HEADER = $("header#main-header-container");
+
+		MAIN_HEADER.find('[data-toggle-mobnavbar]').on('click',function(event) {
+			if ($(this).data('toggle-mobnavbar') == 'open') {
+				$('body').addClass('ov-hide');
+				MAIN_HEADER.find('div#mobile-navbar').removeClass('fadeOutLeft').addClass('fadeInLeft').addClass('open');
+				MAIN_HEADER.find('div#mobile-navbar').on("animationend", function(){
+				    $(this).addClass('open');
+				});
+			}
+			else if($(this).data('toggle-mobnavbar') == 'close') {
+				$('body').removeClass('ov-hide');
+				MAIN_HEADER.find('div#mobile-navbar').removeClass('fadeInLeft').addClass('fadeOutLeft');
+				MAIN_HEADER.find('div#mobile-navbar').on("animationend", function(){
+				    $(this).removeClass('open');
+				});
+			}
+		});
+
+		MAIN_HEADER.find('[data-toggle-searchbar]').on('click',function(event) {
+			if ($(this).data('toggle-searchbar') == 'open') {
+				$('body').removeClass('ov-hide');
+				MAIN_HEADER.find('div#search-bar-block').addClass('toggleable');
+				MAIN_HEADER.find('div#search-bar-block').find('input').focus();
+
+				
+				MAIN_HEADER.find('div#mobile-navbar').removeClass('fadeInLeft');
+				MAIN_HEADER.find('div#mobile-navbar').removeClass('fadeOutLeft');
+				MAIN_HEADER.find('div#mobile-navbar').removeClass('open');
+			}
+			else if($(this).data('toggle-searchbar') == 'close') {
+				MAIN_HEADER.find('div#search-bar-block').removeClass('toggleable');
+				MAIN_HEADER.find('div#search-bar-block').find('input').val('');
+				MAIN_HEADER.find('div#search-bar-block').find('div#result').removeClass('show')('').empty('');
+			}
+		});
+	});
+</script>

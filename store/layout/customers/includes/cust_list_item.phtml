@@ -1,0 +1,34 @@
+<tr class="users" data-customer-li="<?php echo($hs['cust_data']['id']); ?>">
+    <td>
+        <?php echo($hs['cust_data']['id']); ?>
+    </td>
+    <td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo($hs['cust_data']['cust_avatar']); ?>" alt="Avatar">
+        </div>
+    	<a href="<?php echo($hs['cust_data']['cust_profile']); ?>">
+            <?php echo($hs['cust_data']['cust_name']); ?>
+
+            <?php if ($hs['cust_data']['cust_verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+        </a>
+    </td>
+    <td class="email">
+        <?php echo($hs['cust_data']['email']); ?>
+    </td>
+    <td>
+        <?php echo($hs['cust_data']['phone']); ?>
+    </td>
+    <td class="banner">
+    	<div class="country-flag">
+    		<?php echo($hs['cust_data']['banner']); ?>
+    	</div>
+    </td>
+    <td>
+        <span class="badge bg-main-red"><?php echo($hs['cust_data']['total_orders']); ?> {{TR Items}}</span>
+    </td>
+    <td class="time">
+    	<?php echo($hs['cust_data']['last_order']); ?>
+    </td>
+</tr>

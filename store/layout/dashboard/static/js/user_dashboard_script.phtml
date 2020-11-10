@@ -1,0 +1,58 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+    	var USER_STORE_DBOARD   = $("div#user-store-dashboard");
+        var weekly_stats_canvas = document.getElementById('weekly_stats').getContext('2d');
+        var weekly_stats        = new Chart(weekly_stats_canvas, {
+            type: 'line',
+            data: {
+                labels: ["{{TR Sunday}}", "{{TR Monday}}", "{{TR Tuesday}}", "{{TR Wedesday}}", "{{TR Thusday}}", "{{TR Friday}}", "{{TR Saturday}}"],
+                datasets: [{
+                    label: "{{TR Profit}}",
+                    borderColor: '#ff9809',
+                    backgroundColor: '#ff9809',
+                    fill: false,
+                    data: <?php echo json($hs['weekly_stats']['sales'],true); ?>,
+                    pointRadius: 5,
+                    pointHoverRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                tooltips: { 
+                    mode: 'label',
+                    intersect: false,
+                    callbacks: {
+                        label: function(tooltipItem, data) { 
+                            let fnum = tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            let fval = "{0}: {1}";
+                            return fval.format(data.datasets[tooltipItem.datasetIndex].label,hs_format_currency(fnum));
+                        },
+                    }
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: true,
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: true,
+                        }
+                    }]
+                }
+            }
+        });
+    });
+</script>

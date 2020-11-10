@@ -1,0 +1,39 @@
+<div class="report-box-wrapper clearfix" id="report-box-wrapper">
+	<form class="clearfix" id="write-report-form">
+		<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+		<div class="title clearfix">
+			<div class="icon">
+				<?php echo hs_svg('info'); ?>
+			</div>
+			<div class="title-holder">
+				<h5>{{TR Report this product}}</h5>
+				<p>{{TR Report offence to the site Administration}}</p>
+			</div>
+		</div>
+		<div class="body clearfix">
+			<div class="user-info-holder clearfix">
+				<div class="avatar">
+					<img src="{{ME avatar}}" alt="User avatar">
+				</div>
+				<div class="uname">
+					<h5>{{ME name}}</h5>
+					<p id="alert-text" data-message="{{TR Attention! Your report is strictly confidential and not visible to other users}}">
+						{{TR Attention! Your report is strictly confidential and not visible to other users}}
+					</p>
+				</div>
+			</div>
+			<div class="report-text-holder">
+				<textarea name="report" rows="1" class="txt-autoresize" placeholder="{{TR Describe the reason of your report}} ..."></textarea>
+			</div>
+		</div>
+		<div class="footer">
+			<button class="btn submit" type="submit">
+				{{TR Send report}}
+			</button>
+			<button class="btn cancel " type="reset" id="cancel-reporting">
+				{{TR Cancel}}
+			</button>
+		</div>
+		<input type="hidden" name="prod_id" value="{{prod_id}}">
+	</form>	
+</div>

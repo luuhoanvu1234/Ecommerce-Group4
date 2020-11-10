@@ -1,0 +1,503 @@
+<div class="clearfix data-management-page" id="product-upsert-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/my_products}}">
+                        {{TR Trading items}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Add a new product}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="clearfix">
+        <div class="affixed-page-section">
+            <div class="affixed-page-part-1">
+            	<form data-prod-id="{{prod_id}}" class="clearfix form-horizontal product-upsert-form" id="product-upsert-form">
+                    <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                    <div class="card">
+                    	<div class="header">
+                            <h2>{{TR Add a new product}}</h2>
+                        </div>
+                        <div class="body">
+                            <div class="data-management-area">
+                                <div class="form-fieldset-title clearfix" data-affix-label="prod_basic_info">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>
+                                                {{TR Product Basic Information}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12" data-form-field="3">
+                                            <label class="form-label">
+                                                {{TR Name}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="name" type="text" class="form-control" placeholder="{{TR Product name. E.g. Men's t-shirt etc}}..">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 p-r-10" data-form-field="4">
+                                            <label class="form-label">
+                                                {{TR Condition}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <select name="condition" class="form-control">
+                                                    <option value="1">{{TR New}}</option>
+                                                    <option value="2">{{TR Used}}</option>
+                                                    <option value="3">{{TR Modified}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10" data-form-field="5">
+                                            <label class="form-label">
+                                                {{TR Category}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <select data-size="5" name="category" class="form-control">
+                                                    <?php foreach ($hs['categories'] as $id => $cat_name): ?>
+                                                        <option value="<?php echo $id; ?>">
+                                                            <?php echo hs_translate($cat_name); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12 no-mb" data-form-field="6">
+                                            <label class="form-label">
+                                                {{TR Description}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <textarea name="description" rows="5" class="form-control" id="product-description" placeholder="{{TR Enter product description}}..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-fieldset-title clearfix" data-affix-label="prod_price_and_shipping">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>
+                                                {{TR Product Pricing & Shipping}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 p-r-10" data-form-field="7">
+                                            <label class="form-label">
+                                                {{TR Regular price}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="reg_price" step="any" type="number" class="form-control" placeholder="{{TR Only numeric value is allowed. E.g. 149.99}} - {{CONFIG currency}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10" data-form-field="8">
+                                            <label class="form-label">
+                                                {{TR Sale price}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="sale_price" type="number" step="any" class="form-control" placeholder="{{TR Only numeric value is allowed. E.g. 149.99}} - {{CONFIG currency}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 p-r-10" data-form-field="9">
+                                            <label class="form-label">
+                                                {{TR Quantity}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="quantity" type="number" class="form-control" placeholder="Max 1200">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10" data-form-field="25">
+                                            <label class="form-label">
+                                                SKU
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="sku" type="text" class="form-control" placeholder="{{TR Enter SKU}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12" data-form-field="12">
+                                            <label class="form-label">
+                                                {{TR Shipping time}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <select name="shipping_time" class="form-control" title="{{TR Select shipping time estimate}}">
+                                                    <option value="1_bd">{{TR Ready to ship in 1 Business Day}}</option>
+                                                    <option value="2_3_bd">{{TR Ready to ship in 2-3 Business Days}}</option>
+                                                    <option value="4_7_bd">{{TR Ready to ship in 4-7 Business Days}}</option>
+                                                    <option value="8_15_bd">{{TR Ready to ship in 8-15 Business Days}}</option>
+                                                    <option value="within_1_month">{{TR Ready to ship within 1 month}}</option>
+                                                    <option value="within_2_months">{{TR Ready to ship within 2 months}}</option>
+                                                    <option value="within_3_months">{{TR Ready to ship within 3 months}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 p-r-10" data-form-field="10">
+                                            <label class="form-label">
+                                                {{TR Shipping cost}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <select name="shipping_cost" class="form-control" id="select-prod-shipcost">
+                                                    <option value="free">{{TR Free Shipping}}</option>
+                                                    <option value="paid">{{TR Buyer Pays}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10" data-form-field="11">
+                                            <label class="form-label">
+                                                {{TR Shipping fee}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input disabled="true" name="shipping_fee" id="shipping-fee-amount" type="text" class="form-control" placeholder="{{TR Enter the shipping fee amount. For Example}}: 10{{CONFIG currency}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12 no-mb" data-form-field="23">
+                                            <label class="form-label">
+                                                {{TR Payment method}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <select name="payment_method" class="form-control" title="{{TR Select payment method}}">
+                                                    <option value="all_payments">{{TR All methods}}</option>
+                                                    <option value="cod_payments">{{TR Cash on delivery}}</option>
+                                                    <option value="pre_payments" selected="true">{{TR Prepayment}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="form-fieldset-title clearfix" data-affix-label="prod_logistics_info">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>
+                                                {{TR Product Logistics Information}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 p-r-10" data-form-field="13">
+                                            <label class="form-label">
+                                                {{TR Origin}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="origin" type="text" class="form-control" placeholder="{{TR Enter product origin country name}}...">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10" data-form-field="14">
+                                            <label class="form-label">
+                                                {{TR Brand}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="brand" type="text" class="form-control" placeholder="{{TR Enter product brand name}}...">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 p-r-10" data-form-field="15">
+                                            <label class="form-label">
+                                                {{TR Model number}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="model_number" type="text" class="form-control" placeholder="{{TR Enter product model number}}...">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10" data-form-field="16">
+                                            <label class="form-label">
+                                                {{TR Weight}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="weight" type="text" class="form-control" placeholder="{{TR E.g. 5kg, 11lb, 176oz, 50g}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-6 p-r-10" data-form-field="17">
+                                            <label class="form-label">
+                                                {{TR Length}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="length" type="text" class="form-control" placeholder="{{TR E.g. 24in, 60.96cm, 5.5mm}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10" data-form-field="18">
+                                            <label class="form-label">
+                                                {{TR Width}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="width" type="text" class="form-control" placeholder="{{TR E.g. 2in, 5.08cm, 0.8mm}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>    
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12 no-mb" data-form-field="19">
+                                            <label class="form-label">
+                                                {{TR Height}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <input name="height" type="text" class="form-control" placeholder="{{TR E.g. 6in, 15.24cm, 12.5mm}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
+                                <hr>
+                                <div class="form-fieldset-title clearfix" data-affix-label="prod_images">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>
+                                                {{TR Product Poster & Photos}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12" data-form-field="20">
+                                            <label class="form-label">
+                                                {{TR Poster}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <div class="prod-pickzone-wrapper">
+                                                    <div class="left-part">
+                                                        <div class="pick-zone" id="select-prod-poster">
+                                                            <div class="pz-message">
+                                                                <div class="drag-icon-cph">
+                                                                    <i class="material-icons">touch_app</i>
+                                                                </div>
+                                                                <h3>{{TR Click to upload}}</h3>
+                                                                <small>Select poster image</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="right-part">
+                                                        <div class="image-requirements-list">
+                                                            <h4>{{TR Follow basic image requirements}}</h4>
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        {{TR Image size should be 800x800}}
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        {{TR Product image type must be a professional photo or cover}}
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        {{TR Product image format must be: JPEG, PNG, GIF, TIFF}}
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        {{TR Follow the frame and provide important information!}}
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        {{TR Respect copyrights to photos and images!}}
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box" id="prod-additional-images-holder">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12 no-mb" data-form-field="21">
+                                            <label class="form-label">
+                                                {{TR Images}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <div class="prod-images-dropzone" id="gallery-images-list">  
+                                                    <div class="product-images-item eq-height add-image" id="add-gallery-images">
+                                                        <div class="inner-cont">
+                                                            <i class="material-icons">add_to_photos</i>
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                                <small class="col-cyan sub-title">{{TR Add product gallery images}}. <i class="material-icons">info</i> {{TR Note: Products with good and clear photos are sold faster!}}</small>
+                                                <template id="product-images-item-temp">
+                                                    <div class="product-images-item eq-height image-preview filled">
+                                                        <div class="image">
+                                                            <img src="" alt="Image">
+                                                            <span class="delete-image">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path></svg>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr> 	
+                                <div class="form-fieldset-title clearfix" data-affix-label="prod_variations">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <p>
+                                                {{TR Product variations}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12 no-mb" data-form-field="22">
+                                            <label class="form-label">
+                                                {{TR Type of variation}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <select id="prodvar-types" name="variation_type" class="form-control">
+                                                    <option value="single">{{TR Single variant product}}</option>
+                                                    <option value="color">{{TR Color variant product}}</option>
+                                                    <option value="size">{{TR Size variant product}}</option>
+                                                    <option value="color_size">{{TR Color & Size variant product}}</option>
+                                                </select>
+                                            </div>
+                                            <small id="vartype-error" class="col-cyan">{{TR Leave [Single variant product] if the product has no options}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box prod-sizing-types hidden" id="prod-sizing-types">
+                                    <div class="row clearfix m-t-20">
+                                        <div class="col-sm-12 no-mb">
+                                            <label class="form-label">
+                                                {{TR Sizing}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <select data-size="5" id="sizing-types" class="form-control" title="{{TR Please select sizing type}}">
+                                                    <?php foreach ($hs['sizing_types'] as $id => $type_item): ?>
+                                                        <option value="<?php echo $id; ?>">
+                                                            <?php echo hs_translate($type_item['name']); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>      
+                                                </select>
+                                            </div>
+                                            <small id="vartype-error" class="col-cyan">
+                                                <?php echo hs_translate('{%bold%}Sizing{%bold_%}: Please select a measurement type for your product options',array('bold' => '<b>','bold_' => '</b>')); ?>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box hidden" id="add-prodvar">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12 no-mb">
+                                            <div class="filed-box">
+                                                <div class="add-prodvar">
+                                                    <div class="btn-wrapper">
+                                                        <button title="{{TR Add Product Option}}" id="add-prodvar-btn" type="button" class="btn bg-blue btn-custom btn-lg">
+                                                            <i class="material-icons">playlist_add</i> <span>{{TR Add Product Option}}</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="btn-wrapper">
+                                                        <button title="{{TR Product Options}}" disabled="true" id="show-prodvar-btn" type="button" class="btn bg-grey btn-custom btn-lg">
+                                                            <i class="material-icons">menu</i> <span>{{TR Product Options}}</span> (<b>0</b>)
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="clearfix" id="modal-templates-holder"></div>
+                <div id="modal-templates-holder"></div>
+
+                <form id="upload-product-poster" class="hidden">
+                    <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                    <input name="poster" type="file" class="hidden" onchange="$(this).parent('form').submit();" accept="image/*">
+                </form>
+
+                <form id="upload-gallery-images" class="hidden">
+                    <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                    <input name="image" type="file" class="hidden" onchange="$(this).parent('form').submit();" accept="image/*">
+                </form>
+            </div>
+            <div class="affixed-page-part-2" id="right-sidepart">
+                <div class="sidebar__inner">
+                    <div class="card">
+                        <div class="header">
+                            <h2>{{TR Product data}}</h2>
+                        </div>
+                        <div class="body">
+                            <ul class="list-group">
+                                <li class="list-group-item active" data-affix-scroll="prod_basic_info">
+                                    {{TR Product Basic Information}}
+                                </li>
+                                <li class="list-group-item" data-affix-scroll="prod_price_and_shipping">
+                                    {{TR Product Pricing & Shipping}}
+                                </li>
+                                <li class="list-group-item" data-affix-scroll="prod_logistics_info">
+                                    {{TR Product Logistics Information}}
+                                </li>
+                                <li class="list-group-item" data-affix-scroll="prod_images">
+                                    {{TR Product Poster & Photos}}
+                                </li>
+                                <li class="list-group-item" data-affix-scroll="prod_variations">
+                                    {{TR Product variations}}
+                                </li>
+                            </ul>
+                            <div class="ctrls">
+                                <button class="btn btn-lg bg-main-red" data-main-btn="submit" title="{{TR Add product}}">
+                                    <i class="material-icons">add_circle_outline</i> <span class="btn-text">{{TR Add product}}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('upsert_product/static/js/upsert_product_script');?>
+<?php echo hs_loadpage('upsert_product/includes/long_process_preloader');?>
+

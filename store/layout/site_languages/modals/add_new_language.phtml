@@ -1,0 +1,65 @@
+<div class="modal animated fadeIn vh-center addnew-language-modal" id="addnew-language-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form" id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Add new language}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                        <div class="notes">
+                            <p class="info-message warning">
+                                <i class="material-icons">av_timer</i>
+                                {{TR Note! This may take up to 5 minutes. Please do not leave the page until the process is complete.}}
+                            </p>
+                        </div>
+                    	<div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Language name}}:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="lang_name">
+                                <input name="lang_name" type="text" class="form-control" placeholder="{{TR Enter a new language name}}" pattern="[a-z]+">
+                            </div>
+                            <p class="info-message info">
+                                <i class="material-icons">info</i>
+                                {{TR Please note that when adding a new language, the name of the language should contain only lowercase English letters, that is, [a-z], without spaces or special characters.}}
+                            </p>
+                    	</div>
+                        <div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Country alpha-2 code}}:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="alpha2_code">
+                                <select data-size="5" data-live-search="true" name="alpha2_code" class="form-control">
+                                    <?php foreach ($hs['country_codes'] as $a2_code): ?>
+                                        <option value="<?php echo($a2_code); ?>">
+                                            <?php echo strtoupper($a2_code); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Status}}:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="status">
+                                <select name="status" class="form-control">
+                                    <option value="on">{{TR Enabled}}</option>
+                                    <option value="off">{{TR Disabled}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-grey waves-effect tt-up" data-dismiss="modal">{{TR Cancel}}</button>
+                    <button type="submit" class="btn bg-light-blue waves-effect tt-up">{{TR Add language}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

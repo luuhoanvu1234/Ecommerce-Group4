@@ -1,0 +1,20 @@
+<div class="modal animated vh-center fadeIn confirm-catg-disabling confirm-action-modal" id="confirm-catg-disabling-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{TR Please confirm your actions!}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{TR Are you sure you want to disable this product category? Please note that this action will result in all market products in this category being transferred from the catalog to drafts!}}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn bg-main-red waves-effect">{{TR Yes, disable it!}}</button>
+                    <button type="button" class="btn bg-grey waves-effect" data-dismiss="modal">{{TR No, cancel}}</button>
+                </div>
+                <input type="hidden" name="catg_id" value="">
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,360 @@
+<div class="admin-dashboard-panel-wrapper clearfix" id="admin-dashboard-panel">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ME url}}">
+                        {{ME name}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Admin panel}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-blue">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Total goods}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/market_products}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num">
+                                    <?php echo hs_number_count($hs['total_products']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">shopping_cart</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-green">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Merchants}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/market_merchants}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num">
+                                    <?php echo hs_number_count($hs['total_merchants']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">business_center</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-orange">
+                <div class="box-body"> 
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Total sales}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/market_transactions}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num">
+                                    <?php echo hs_number_count($hs['total_sales']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">monetization_on</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-red">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Total Users}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/market_users}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num">
+                                    <?php echo hs_number_count($hs['total_users']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">face</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="header">
+                    <div class="row clearfix">
+                        <div class="col-xs-12 col-sm-6">
+                            <h2>{{TR Annual sales and revenue analytics}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="body">
+                    <canvas id="yearly_markets_analytics"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="header">
+                    <div class="row clearfix">
+                        <div class="col-xs-12 col-sm-6">
+                            <h2>{{TR Annual earnings}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table annual-earnings-table common-table table-striped no-mb">
+                        <thead>
+                            <th>
+                                {{TR Month}}
+                            </th>
+                            <th>
+                                {{TR Item sales count}}
+                            </th>
+                            <th>
+                                {{TR Earnings}}
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR January}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][0],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][0],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR February}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][1],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][1],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR March}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][2],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][2],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR April}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][3],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][3],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR May}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][4],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][4],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR June}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][5],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][5],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR July}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][6],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][6],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR August}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][7],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][7],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR September}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][8],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][8],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR October}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][9],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][9],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR November}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][10],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][10],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR December}}, <?php echo date('Y'); ?>
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['main_stats']['sales'][11],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['main_stats']['profit'][11],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('dashboard/static/js/admin_dashboard_script'); ?>

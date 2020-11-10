@@ -1,0 +1,207 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        var ACC_VERIFS_PAGE   = $("div#account-verification-management-page");
+        var AV_REQUESTS_LIST  = ACC_VERIFS_PAGE.find('table#requests-list');
+
+        ACC_VERIFS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = ACC_VERIFS_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var reqs_list   = ACC_VERIFS_PAGE.find('table#requests-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_row    = reqs_list.find('tr[data-request-li]').last().data('request-li');
+                var first_row   = reqs_list.find('tr[data-request-li]').first().data('request-li');
+                var preloader   = ACC_VERIFS_PAGE.find('div#table-preloader').removeClass('hidden');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/admin/get_account_verifications',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_row, 
+                        first: first_row,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        reqs_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var event_trigger = $(this).data('onclick');
+            var zis_el        = $(this);
+            if (event_trigger == 'account_verification_request_data') {
+                if ($.isNumeric(zis_el.data('id')) && zis_el.data('id')) {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/account_verification_req_data',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {id: zis_el.data('id')},
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            $('body').find('div.modal.popup-ticket-modal').each(function(index, el) {
+                                $(this).remove();
+                            }).promise().done(function(){
+                                $('body').append($(data.html).modal('show'));
+                            });
+                        }
+                        else {
+                            if (data.message) {
+                                $.notify({
+                                    message: data.message,
+                                },{
+                                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                    placement: {from: "bottom",align: "left"},
+                                    offset: {x: 40,y: 30},
+                                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                                });
+                            }
+                        }
+                    });  
+                }
+            }
+
+            else if(event_trigger == 'delete_request') {
+                var request_id = zis_el.data('id');
+                if ($.isNumeric(request_id) && request_id) {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/delete_verification_request',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {id: request_id},
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            if (AV_REQUESTS_LIST.find('tr[data-request-li]').length > 1) {
+                                AV_REQUESTS_LIST.find('tr[data-request-li="{0}"]'.format(request_id)).slideUp(300,function() {
+                                    $(this).remove();
+                                });
+                            }
+
+                            else {
+                                AV_REQUESTS_LIST.css({
+                                    opacity: '0.5',
+                                    cursor: 'wait'
+                                }); $(window).reloadPage(1500);
+                            }
+                        }
+
+                        if (data.message) {
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    });
+                }
+            }
+
+            else if(event_trigger == 'reject_request') {
+                var request_id = zis_el.data('id');
+                if ($.isNumeric(request_id) && request_id) {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/reject_verification_request',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {id: request_id},
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            var curr_row = AV_REQUESTS_LIST.find('tr[data-request-li="{0}"]'.format(request_id));
+                            curr_row.find('span.req-status').replaceClass('bg-orange','bg-red').text("{{TR Rejected}}");
+                            curr_row.find('[data-onclick="accept_request"]').remove();
+                            curr_row.find('[data-onclick="reject_request"]').remove();
+                        }
+
+                        if (data.message) {
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    });
+                }
+            }
+
+            else if(event_trigger == 'accept_request') {
+                var request_id = zis_el.data('id');
+                if ($.isNumeric(request_id) && request_id) {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/accept_verification_request',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {id: request_id},
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            if (AV_REQUESTS_LIST.find('tr[data-request-li]').length > 1) {
+                                AV_REQUESTS_LIST.find('tr[data-request-li="{0}"]'.format(request_id)).slideUp(300,function() {
+                                    $(this).remove();
+                                });
+                            }
+
+                            else {
+                                AV_REQUESTS_LIST.css({
+                                    opacity: '0.5',
+                                    cursor: 'wait'
+                                }); $(window).reloadPage(1500);
+                            }  
+                        }
+
+                        if (data.message) {
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    });
+                }
+            }
+        });
+
+        $("a.popup-ticket-modal-media").fancybox({
+            arrows:true,
+            i18n: {
+                en: {
+                  ERROR: "The requested content could not be loaded. <br/> Please try again later.",
+                }
+            },
+        });
+	});
+</script>

@@ -1,0 +1,329 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+    
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) { 
+    div.messages-content-container  div.messages-page-container{
+        div.left-part{
+            width: 280px !important;
+
+            ul.contacts-list{
+                li{
+                    div.avatar{
+                        width: 35px !important;
+                        height: 35px !important;
+                    }
+
+                    div.contact-body{
+                        h6{
+                            span{
+                                font-size: 13px !important;
+                                line-height: 16px !important;
+                            }
+
+                            time{
+                                font-size: 10px !important;
+                                line-height: 16px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        div.right-part{
+            left: 280px !important;
+
+            div.messages-container{
+                ul.messages-list{
+                    li{
+                        padding-right: 30px !important;
+                        padding-left: 30px !important;
+
+                        div.message-image{
+                            width: 220px !important;
+                            height: 140px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 780px) {
+    div.messages-content-container {
+        nav.breadcrumbs-cust ol{
+            li{
+                font-size: 12px !important;
+                a{
+                    font-size: 12px !important;
+                }
+            }
+        }
+
+        div.messages-page-container{
+            div.left-part{
+                width: 0px !important;
+                overflow: hidden;
+                left: -999999 !important;
+                border-right: none !important;
+                ul.contacts-list{
+                    li{
+                        div.avatar{
+                            width: 35px !important;
+                            height: 35px !important;
+                        }
+
+                        div.contact-body{
+                            h6{
+                                span{
+                                    font-size: 13px !important;
+                                    line-height: 16px !important;
+                                }
+
+                                time{
+                                    font-size: 10px !important;
+                                    line-height: 16px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            div.right-part{
+                left: 0px !important;
+                div.messages-container{
+                    ul.messages-list{
+                        li{
+                            padding-right: 25px !important;
+                            padding-left: 25px !important;
+
+                            div.message-image{
+                                width: 220px !important;
+                                height: 140px !important;
+                            }
+                        }
+                    }
+
+                    &.home{
+                        button.select-chat{
+                            display: inherit !important;
+                        }
+                    }
+                }
+
+                nav.navbar{
+                    li.nav-item.go-back{
+                        display: inherit !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+    div.messages-content-container {
+        padding: 0px 10px !important;
+        nav.breadcrumbs-cust ol{
+            li{
+                font-size: 10px !important;
+                a{
+                    font-size: 10px !important;
+                }
+            }
+        }
+        div.messages-page-container{
+            div.left-part{
+                width: 0px !important;
+                overflow: hidden;
+                left: -999999 !important;
+                border-right: none !important;
+                ul.contacts-list{
+                    li{
+                        div.avatar{
+                            width: 35px !important;
+                            height: 35px !important;
+                        }
+
+                        div.contact-body{
+                            h6{
+                                span{
+                                    font-size: 13px !important;
+                                    line-height: 16px !important;
+                                }
+
+                                time{
+                                    font-size: 10px !important;
+                                    line-height: 16px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            div.right-part{
+                left: 0px !important;
+                div.messages-container{
+                    ul.messages-list{
+                        li{
+                            padding-right: 25px !important;
+                            padding-left: 25px !important;
+
+                            div.message-image{
+                                width: 220px !important;
+                                height: 140px !important;
+                            }
+                        }
+                    }
+
+                    &.home{
+                        button.select-chat{
+                            display: inherit !important;
+                        }
+                    }
+                }
+
+                nav.navbar{
+                    li.nav-item.go-back{
+                        display: inherit !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 240px) and (max-width: 320px) {
+    div.messages-content-container {
+        padding: 0px 10px !important;
+        nav.breadcrumbs-cust ol{
+            li{
+                font-size: 10px !important;
+                a{
+                    font-size: 10px !important;
+                }
+            }
+        }
+
+        div.messages-page-container{
+            div.left-part{
+                width: 0px !important;
+                overflow: hidden;
+                left: -999999 !important;
+                border-right: none !important;
+
+                ul.contacts-list{
+                    li{
+                        div.avatar{
+                            width: 35px !important;
+                            height: 35px !important;
+                        }
+
+                        div.contact-body{
+                            h6{
+                                span{
+                                    font-size: 13px !important;
+                                    line-height: 16px !important;
+                                }
+
+                                time{
+                                    font-size: 10px !important;
+                                    line-height: 16px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            div.right-part{
+                left: 100% !important;
+                div.messages-container{
+                    ul.messages-list{
+                        li{
+                            padding-right: 25px !important;
+                            padding-left: 25px !important;
+
+                            div.message-image{
+                                width: 220px !important;
+                                height: 140px !important;
+                            }
+                        }
+                    }
+
+                    &.home{
+                        button.select-chat{
+                            display: inherit !important;
+                        }
+                    }
+                }
+
+                nav.navbar{
+                    li.nav-item.go-back{
+                        display: inherit !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 10px) and (max-width: 240px) {
+
+}
+

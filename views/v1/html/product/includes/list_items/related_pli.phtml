@@ -1,0 +1,38 @@
+<div class="related-products-cr-item">
+	<div class="product-image">
+		<a href="<?php echo $hs['related_pli']['url']; ?>" class="prod-link">
+			<img class="prod-image" src="<?php echo $hs['related_pli']['poster']; ?>">
+		</a>
+		<?php if (not_empty($hs['related_pli']['discount'])): ?>
+			<span class="discount">
+				- <?php echo($hs['related_pli']['discount']);?>%
+			</span>
+		<?php endif; ?>
+	</div>
+	
+	<div class="caption">
+		<div class="price">
+			<span class="sale-price">
+				<?php echo $hs['related_pli']['fs_price']; ?>
+			</span>&nbsp;
+			<span class="reg-price">
+				<s><?php echo $hs['related_pli']['fr_price']; ?></s>
+			</span>
+		</div>
+		<div class="rating">
+			<?php foreach ($hs['related_pli']['stars'] as $star): ?>
+				<span>
+					<?php echo $star; ?>
+				</span>
+			<?php endforeach; ?>
+
+			<?php
+				$rating_num = floatval($hs['related_pli']['rating']);
+
+				if (not_empty($rating_num)) {
+					echo hs_html_el('span',$hs['related_pli']['rating'],array("class" => 'rating-num'));
+				}
+			?>
+		</div>
+	</div>
+</div>

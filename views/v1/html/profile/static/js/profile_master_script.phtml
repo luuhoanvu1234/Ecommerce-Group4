@@ -1,0 +1,9 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var USR_PROF_PAGE = $("div#user-profile-page-container");
+		USR_PROF_PAGE.find("li#user-portfolio-info").on('click',function(event) {
+			USR_PROF_PAGE.find("div#user-portfolio-modal").modal('show');
+		});
+	});
+</script>

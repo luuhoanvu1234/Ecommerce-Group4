@@ -1,0 +1,101 @@
+<div class="modal animated fadeIn table-filter-modal vh-center" id="table-filter-modal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form class="form" id="form">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        {{TR Filter transactions}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                        <div class="data-management-area">
+                            <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                            <div class="filter-body clearfix">
+                                <div class="form-group form-field-box no-mb">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10 mb-20">
+                                            <label class="form-label">
+                                                {{TR Order ID}}:
+                                            </label>
+                                            <div class="filed-box">   
+                                                <input type="number" name="order_id" class="form-control" placeholder="{{TR Enter order ID}}..">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10 mb-20">
+                                            <label class="form-label">
+                                                {{TR Customer name}}:
+                                            </label>
+                                            <div class="filed-box">  
+                                                <input type="text" name="customer" class="form-control" placeholder="{{TR Enter name}}..">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-field-box no-mb">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10 mb-20">
+                                            <label class="form-label">
+                                                {{TR Seller name}}:
+                                            </label>
+                                            <div class="filed-box"> 
+                                                <input type="text" name="seller" class="form-control" placeholder="{{TR Enter name}}..">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10 mb-20">
+                                            <label class="form-label">
+                                                {{TR Amount}}:
+                                            </label>
+                                            <div class="filed-box">
+                                                <input type="number" step="any" name="amount" class="form-control" placeholder="{{TR Enter amount}} - (0.00$)">
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="form-group form-field-box no-mb">
+                                    <div class="row">
+                                        <div class="col-sm-6 p-r-10 mb-20">
+                                            <label class="form-label">
+                                                {{TR Transaction status}}:
+                                            </label>
+                                            <div class="filed-box">
+                                                <select name="status" class="form-control">
+                                                    <option value="all">{{TR All}}</option>
+                                                    <option value="success">{{TR Success}}</option>
+                                                    <option value="failed">{{TR Failed}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 p-l-10">
+                                            <label class="form-label">
+                                                {{TR Payment method}}:
+                                            </label>
+                                            <div class="filed-box">
+                                                <select name="method" class="form-control">
+                                                    <option value="all">{{TR All}}</option>
+                                                    <option value="card">{{TR Card}}</option>
+                                                    <option value="paypal">{{TR Paypal}}</option>
+                                                    <option value="wallet">{{TR Wallet}}</option>
+                                                    <option value="cod">{{TR Cash on delivery}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div> 
+                            <div class="filter-footer text-right">
+                                <button type="reset" class="btn bg-grey btn-md btn-custom">
+                                    <i class="material-icons">update</i> <span>{{TR Reset all}}</span>
+                                </button>
+                                <button type="submit" class="btn bg-main-red btn-md btn-custom m-l-15">
+                                    <i class="material-icons">search</i> <span>{{TR Apply filter}}</span>
+                                </button>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

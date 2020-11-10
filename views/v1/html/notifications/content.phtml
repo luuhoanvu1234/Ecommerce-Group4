@@ -1,0 +1,66 @@
+<div class="notifications-page-container" id="notifications-page-cont">
+	<div class="content-container">
+		<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{CONFIG url}}">{{TR Home}}</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{ME url}}">
+						{{ME name}}
+					</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">
+					{{TR Notifications}}
+				</li>
+			</ol>
+		</nav>
+		<div class="top-panel">
+			<div class="top-line">
+				<div class="flex-cont">
+					<h5>
+						<b>{{TR Your notifications}}</b>
+					</h5>
+				</div>
+			</div>
+			<div class="btm-line">
+				<div class="flex-cont">
+					<div class="select-all">
+						<input type="checkbox" id="select-all-notifications" class="filled-in chk-col-red">
+						<label class="md-chbox" for="select-all-notifications">
+			            	{{TR Select all notifications}}
+			            </label>
+					</div>
+
+					<div class="ml-auto delete-selected disabled" id="delete-selected-notifs">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M128 405.429C128 428.846 147.198 448 170.667 448h170.667C364.802 448 384 428.846 384 405.429V160H128v245.429zM416 96h-80l-26.785-32H202.786L176 96H96v32h320V96z"/></svg>
+						<span>{{TR Delete selected}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="notifs-cont-panel">
+			<ul class="notifications-list" id="notifications-list">
+				<?php foreach ($hs['notifications'] as $hs['notif']): ?>
+					<?php echo hs_loadpage('notifications/includes/st_notifs_list'); ?>
+				<?php endforeach; ?>
+			</ul>
+			<div class="notifications-preloader hidden" id="notifs-preloader">
+				<?php echo hs_loadpage('components/data_preloader'); ?>
+			</div>
+			<?php if (count($hs['notifications']) > 0): ?>
+				<div class="load-more">
+					<button class="load-notifications" id="load-notifications">
+						{{TR Load more}}
+					</button>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>
+
+<?php echo hs_loadpage('notifications/static/js/notifications_master_script'); ?>	
+
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>

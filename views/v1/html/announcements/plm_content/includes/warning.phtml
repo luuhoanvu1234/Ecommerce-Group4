@@ -1,0 +1,26 @@
+<div class="announcement announc-warning" data-announcement-message="<?php echo $hs['anc_data']['id']; ?>">
+    <div class="icon">
+        <?php echo hs_svg('warning'); ?>
+    </div>
+    <div class="message">
+        <?php if (not_empty($hs['anc_data']['url'])): ?>
+            <a href="<?php echo($hs['anc_data']['url']); ?>" class="wrap-link">
+        <?php endif; ?>
+            <h6>
+                <?php echo $hs['anc_data']['title']; ?>
+            </h6>
+            <p>
+                <?php echo $hs['anc_data']['message']; ?>
+            </p>
+        <?php if (not_empty($hs['anc_data']['url'])): ?>
+            </a>
+        <?php endif; ?>
+    </div>
+    <?php if ($hs['anc_data']['static'] == 'Y'): ?>
+        <div class="got-it" data-delete-announcement="<?php echo $hs['anc_data']['id']; ?>">
+            <button>
+                {{TR Got it!}}
+            </button>     
+        </div>
+    <?php endif; ?>
+</div>

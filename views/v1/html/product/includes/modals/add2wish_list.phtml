@@ -1,0 +1,58 @@
+<div class="modal animated vh-center fadeIn add-prod2wishlist-modal" id="add-prod2wishlist-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form" id="add-prod-2wls">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <?php echo hs_svg('heart'); ?> {{TR Add this product to wish list}}
+                    </h4>
+                </div>
+                <div class="bs-def-alerts alert alert-danger hidden"></div>
+                <div class="bs-def-alerts alert alert-success hidden"></div>
+                <div class="modal-body">
+                    <div class="tabs-holder">
+                        <div class="tab-cont active" id="select-wls">
+                            <p class="tab-cont-subtitle">
+                                {{TR Please select the wish list you want to add this product or create new}}.
+                            </p>
+                            <ul class="wish-list">
+                                <?php foreach ($hs['wishlists'] as $list): ?>
+                                    <li>
+                                        <input data-onchange="wishlist_id" value="<?php echo($list['id']); ?>" type="radio" class="radio-col-red" name="list_id" id="list-id-<?php echo($list['hash_id']); ?>">
+                                        <label for="list-id-<?php echo($list['hash_id']); ?>">
+                                            <?php if ($list['type'] == 'static'): ?>
+                                                <?php echo hs_translate($list['list_name']); ?>
+                                            <?php else: ?>
+                                                <?php echo($list['list_name']); ?>
+                                            <?php endif; ?>
+                                        </label>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="tab-cont active" id="create-wls">
+                            <div class="create-new-list">
+                                <div class="fields-set">
+                                    <p>
+                                        {{TR Or come up with a new list name}}
+                                    </p>
+                                    <div class="form-group">
+                                        <input id="wishlist-name" name="list_name" type="text" class="form-control" placeholder="{{TR Wishlist name}}">
+                                        <small>
+                                           <?php echo(hs_svg('info')); ?> {{TR Maximum name length 20 characters}}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="modal-submit">
+                                    <button disabled="true" name="upsert" value="1" type="submit" class="btn btn-submit bg-blue">{{TR Select wishlist}}</button>
+                                </div> 
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <input type="hidden" name="prod_id" value="{{prod_id}}">
+            </form>
+        </div>
+    </div>
+</div>

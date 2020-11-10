@@ -1,0 +1,107 @@
+div.order-invoice-page div.block-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center; }
+  div.order-invoice-page div.block-header nav.breadcrumbs-cust {
+    flex: 1;
+    align-self: flex-end; }
+  div.order-invoice-page div.block-header button {
+    font-size: 13px; }
+    div.order-invoice-page div.block-header button i {
+      font-size: 18px;
+      top: 0 !important; }
+    div.order-invoice-page div.block-header button span {
+      top: 0px !important; }
+    div.order-invoice-page div.block-header button.btn-cancel-order {
+      margin-right: 15px; }
+    div.order-invoice-page div.block-header button:hover, div.order-invoice-page div.block-header button:active, div.order-invoice-page div.block-header button:focus {
+      color: #fff !important; }
+
+div.customer-order-details-page table.customer-address tbody tr ul {
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  div.customer-order-details-page table.customer-address tbody tr ul li {
+    flex-basis: 100%;
+    line-height: 25px; }
+    div.customer-order-details-page table.customer-address tbody tr ul li span.icon {
+      margin-right: 5px; }
+      div.customer-order-details-page table.customer-address tbody tr ul li span.icon svg {
+        width: 15px;
+        height: 15px;
+        fill: #72777c;
+        vertical-align: middle; }
+    div.customer-order-details-page table.customer-address tbody tr ul li span.addr {
+      font-size: 14px;
+      lighting-color: 14px;
+      color: #192a32; }
+div.customer-order-details-page table.customer-address tbody tr td.image img {
+  width: 40px;
+  height: 40px; }
+div.customer-order-details-page table.customer-address tbody tr td {
+  vertical-align: middle;
+  font-size: 13px;
+  color: #192a32; }
+  div.customer-order-details-page table.customer-address tbody tr td.time {
+    color: #9697a1; }
+div.customer-order-details-page table.history-timeline-table tr td.comment span {
+  max-width: 420px;
+  display: inline-block;
+  color: #2d2f43;
+  font-size: 13px; }
+
+div.update-order-status-modal {
+  min-width: 320px !important;
+  overflow-x: hidden; }
+  div.update-order-status-modal div.modal-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 20px; }
+    div.update-order-status-modal div.modal-header h4 {
+      font-size: 15px;
+      line-height: 20px;
+      text-transform: uppercase; }
+    div.update-order-status-modal div.modal-header a {
+      margin-left: auto; }
+      div.update-order-status-modal div.modal-header a i {
+        font-size: 20px; }
+  div.update-order-status-modal form textarea {
+    resize: vertical; }
+  div.update-order-status-modal form label.checkbox-label {
+    margin-bottom: 0px;
+    margin-top: 5px; }
+  div.update-order-status-modal form label.form-label {
+    margin-top: 0px !important;
+    margin-bottom: 10px !important; }
+  div.update-order-status-modal form button.form-ctrl-btns {
+    margin-right: 5px;
+    text-transform: uppercase; }
+    div.update-order-status-modal form button.form-ctrl-btns:last-child {
+      margin-right: 0px; }
+    div.update-order-status-modal form button.form-ctrl-btns:hover, div.update-order-status-modal form button.form-ctrl-btns:active, div.update-order-status-modal form button.form-ctrl-btns:focus {
+      color: #fff !important; }
+
+div.order-cancellation-alert-box div.alert {
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px; }
+  div.order-cancellation-alert-box div.alert p {
+    font-size: 13px; }
+    div.order-cancellation-alert-box div.alert p i {
+      font-size: 16px; }
+
+table.history-timeline-table tr td {
+  word-wrap: break-word;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: hidden; }
+
+/*# sourceMappingURL=store.orderdata.style.css.map */

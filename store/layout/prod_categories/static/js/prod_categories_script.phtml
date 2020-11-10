@@ -1,0 +1,316 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+
+        var SITE_CATGS_PAGE     = $("div#site-categories-page");
+        var CHANGE_CATG_MODAL   = $("div#change-catg-sortorder-modal");
+        var CONFIRM_C_DIS_MODAL = $("div#confirm-catg-disabling-modal");
+        var CONFIRM_C_DEL_MODAL = $("div#confirm-catg-deleting-modal");
+        var ADD_NEW_CATG_M      = $("div#addnew-category-modal");
+
+        SITE_CATGS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = SITE_CATGS_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var catgs_list  = SITE_CATGS_PAGE.find('table#categories-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_row    = catgs_list.find('tr[data-catg-li]').last().data('catg-li');
+                var first_row   = catgs_list.find('tr[data-catg-li]').first().data('catg-li');
+                var preloader   = SITE_CATGS_PAGE.find('div#table-preloader').removeClass('hidden');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/admin/get_categories',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_row, 
+                        first: first_row
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        catgs_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var this_el    = $(this);
+            var event_trig = this_el.data('onclick');
+
+            if (event_trig == 'change_catg_sortorder') {
+                var sin = this_el.data('sin');
+                var cid = this_el.data('cid');
+                CHANGE_CATG_MODAL.find('input[name="sort_order"]').val(sin);
+                CHANGE_CATG_MODAL.find('input[name="catg_id"]').val(cid);
+                CHANGE_CATG_MODAL.modal('show');
+            }
+
+            else if (event_trig == 'delete_category') {
+                var cid = this_el.data('cid');
+                CONFIRM_C_DEL_MODAL.find('input[name="catg_id"]').val(cid);
+                CONFIRM_C_DEL_MODAL.modal('show');
+            }
+        });
+
+        $(document).on('change', '[data-onchange]', function(event) {
+            event.preventDefault();
+            var this_el    = $(this);
+            var event_trig = this_el.data('onchange');
+
+            if (event_trig == 'toggle_catg_status') {
+                var status = (this_el.is(":checked") == true) ? 'on' : 'off';
+                var cid    = this_el.data('cid');
+
+                if (status == 'off') {
+                    CONFIRM_C_DIS_MODAL.find('input[name="catg_id"]').val(cid);
+                    CONFIRM_C_DIS_MODAL.find('button[type="button"]').data('cid',cid);
+                    CONFIRM_C_DIS_MODAL.modal('show');
+                }
+                else {
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/toggle_catg_status',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {cid: cid,status: status},
+                    }).done(function(data) {
+                        if (data.message) {
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    });
+                }
+            }
+        });
+
+        CONFIRM_C_DIS_MODAL.find('button[type="button"]').on('click', function(event) {
+            event.preventDefault();
+            var this_el    = $(this);
+            var cid        = this_el.data('cid');
+            var catgs_list = SITE_CATGS_PAGE.find('table#categories-list');
+            catgs_list.find('input[data-cid="{0}"]'.format(cid)).prop('checked', true);
+        });
+
+        CONFIRM_C_DIS_MODAL.find('form#form').on('submit',function(event) {
+            event.preventDefault();
+            var cid = CONFIRM_C_DIS_MODAL.find('input[name="catg_id"]').val();
+            $.ajax({
+                url: '{{CONFIG url}}/req/admin/toggle_catg_status',
+                type: 'POST',
+                dataType: 'json',
+                data: {cid: cid,status: 'off'},
+            }).done(function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+            }).always(function(){
+                CONFIRM_C_DIS_MODAL.modal('hide');
+            })
+        });
+
+        CHANGE_CATG_MODAL.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/change_catg_sortorder',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                CHANGE_CATG_MODAL.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {   
+                if (data.status == 200) {
+                    CHANGE_CATG_MODAL.modal('hide');
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    }); $(window).reloadPage(1500);
+                }  
+                else {
+                    CHANGE_CATG_MODAL.find('button').removeAttr('disabled');
+                    CHANGE_CATG_MODAL.modal('hide');
+                    if (data.message) {
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                    else {
+                        $.notify({
+                            message: 'Error found while processing your request. Please try again later!',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }
+            },
+            error: function() {
+                CHANGE_CATG_MODAL.find('button').removeAttr('disabled');
+                CHANGE_CATG_MODAL.modal('hide');
+                $.notify({
+                    message: 'Error found while processing your request. Please try again later!',
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            }
+        });
+
+        ADD_NEW_CATG_M.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/add_new_category',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                ADD_NEW_CATG_M.find('button').attr('disabled', 'true');
+                ADD_NEW_CATG_M.find('small.error-message').remove();
+            },
+            success: function(data) {   
+                if (data.status == 200) {
+                    ADD_NEW_CATG_M.modal('hide');
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    }); $(window).reloadPage(1500);
+                }  
+                else {
+                    ADD_NEW_CATG_M.find('button').removeAttr('disabled');
+                    
+                    if (data.message) {
+                        if (ADD_NEW_CATG_M.find('[data-form-field="{0}"]'.format(data.err_field)).length) {
+                            ADD_NEW_CATG_M.find('[data-form-field="{0}"]'.format(data.err_field)).append($("<small>",{
+                                text: data.message,
+                                class: 'col-red error-message animated flash'
+                            }));
+                        }
+                        else {
+                            ADD_NEW_CATG_M.modal('hide');
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    }
+                    else {
+                        ADD_NEW_CATG_M.modal('hide');
+                        $.notify({
+                            message: 'Error found while processing your request. Please try again later!',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }
+            },
+            error: function() {
+                ADD_NEW_CATG_M.find('button').removeAttr('disabled');
+                ADD_NEW_CATG_M.modal('hide');
+                $.notify({
+                    message: 'Error found while processing your request. Please try again later!',
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            }
+        });
+
+        CONFIRM_C_DEL_MODAL.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/delete_category',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                CONFIRM_C_DEL_MODAL.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (data.status == 200) {
+                    $(window).reloadPage(1500);
+                }  
+            },
+            error: function() {
+                CONFIRM_C_DEL_MODAL.find('button').removeAttr('disabled');
+                CONFIRM_C_DEL_MODAL.modal('hide');
+                $.notify({
+                    message: 'Error found while processing your request. Please try again later!',
+                },{
+                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                    placement: {from: "bottom",align: "left"},
+                    offset: {x: 40,y: 30},
+                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                });
+            },
+            complete: function() {
+                CONFIRM_C_DEL_MODAL.find('button').removeAttr('disabled');
+                CONFIRM_C_DEL_MODAL.modal('hide');
+            }
+        });
+    });
+</script>

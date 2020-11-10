@@ -1,0 +1,12 @@
+<url>
+	<loc>
+		{{prod_url}}
+	</loc>
+    <priority>0.5</priority>
+    <changefreq>
+    	{{changefreq}}
+    </changefreq>
+    <lastmod>
+    	{{sm_lastmod}}
+    </lastmod>
+</url>

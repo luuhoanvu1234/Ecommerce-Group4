@@ -1,0 +1,109 @@
+<div class="announcement-management-page data-management-page" id="announcement-management-page">
+	<div class="block-header">
+	    <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/create_announcement}}">
+                        {{TR Announcements}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Create announcement}}
+                </li>
+            </ol>
+        </nav>
+	</div>
+	<div class="clearfix">
+        <div class="card">
+            <div class="header">
+                <h2>{{TR Create announcement}}</h2>
+            </div>
+            <div class="body">
+                <form class="form" id="announcement-form">
+                    <div class="data-management-area">
+                        <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                        <div class="form-fieldset-title">
+                        	<div class="row clearfix">
+	                            <div class="col-sm-12">
+	                        		<p>
+	                        			{{TR Announcement information}}
+	                        		</p>
+	                        	</div>
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box">
+                        	<div class="row clearfix">
+	                            <div class="col-sm-6 no-mb" data-form-field="title">
+                                    <label class="form-label">
+                                        {{TR Announcement title}}
+                                    </label>
+	                            	<div class="filed-box">
+                            			<input name="title" type="text" class="form-control" placeholder="{{TR Enter an announcement title}}">
+                            		</div>
+	                            </div>
+                                <div class="col-sm-6 no-mb" data-form-field="url">
+                                    <label class="form-label">
+                                        {{TR Announcement url}}
+                                    </label>
+                                    <div class="filed-box">
+                                        <input name="url" type="text" class="form-control" placeholder="{{TR Enter an announcement redirect URL}}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 no-mb">
+                                    <p class="info-message info">
+                                        <i class="material-icons">link</i>
+                                        {{TR Enter the URL if you want to redirect users to some source or leave it blank}}
+                                    </p> 
+                                </div>
+                            </div>
+                        </div>              
+                        <div class="form-group form-field-box">
+                            <div class="row clearfix">
+                                <div class="col-sm-12 no-mb"  data-form-field="type">
+                                    <label class="form-label">
+                                        {{TR Select announcement type}}
+                                    </label>
+                                    <div class="filed-box">
+                                        <select name="type" class="form-control" title="{{TR Select announcement type}}">
+                                            <option value="info">{{TR Information (Blue)}}</option>
+                                            <option value="warning">{{TR Warning (Orange)}}</option>
+                                            <option value="error">{{TR Important (Red)}}</option>
+                                            <option value="success">{{TR Success (Green)}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 no-mb">
+                                    <p class="info-message info">
+                                        <i class="material-icons">info</i>
+                                        {{TR This option determines the priority of events (message severity level). For example, the "Important (red)" option determines the critical importance of the message, etc.}}
+                                    </p> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box">
+                        	<div class="row clearfix">
+	                            <div class="col-sm-12 no-mb" data-form-field="body">
+                                    <label class="form-label">
+                                        {{TR Announcement message}}
+                                    </label>
+	                            	<div class="filed-box">
+                            			<textarea class="form-control" name="body" rows="5" placeholder="{{TR Enter an announcement message}}..."></textarea>
+                            		</div>
+	                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box no-mb">
+                            <button type="submit" class="btn bg-main-red btn-lg btn-custom">
+                                <i class="material-icons">announcement</i> <span>{{TR Announce}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo hs_loadpage('create_announcement/static/js/announcements_management_script'); ?>

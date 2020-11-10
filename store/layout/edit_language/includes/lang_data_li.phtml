@@ -1,0 +1,24 @@
+<tr data-lang-li="<?php echo($hs['lang_data_li']['id']); ?>">
+    <td>
+    	<?php echo($hs['lang_data_li']['id']); ?>
+    </td>
+    <td colspan="2">
+    	<p class="lang-text-holder" data-lang-text="<?php echo($hs['lang_data_li']['id']); ?>">
+    		<?php echo($hs['lang_data_li'][$hs['el_name']]); ?>
+    	</p>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li data-onclick="edit_language_text" data-id="<?php echo($hs['lang_data_li']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Edit}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

@@ -1,0 +1,195 @@
+<div class="modal animated vh-center fadeIn popup-ticket-modal customer-refund-request payment-refund" id="customer-refund-request-info-modal" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="ticket-content">
+                <div class="ticket-time">
+                    <time>
+                        <i class="material-icons">info_outline</i> {{TR Requested at}}: <?php echo($hs['req_data']['time']); ?>
+                    </time>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                        <ul class="dropdown-menu bs-dropdown-menu pull-right">
+                            <li>
+                                <a href="<?php echo($hs['req_data']['prod_url']); ?>" class="waves-effect waves-block">
+                                    {{TR Product page}}
+                                </a>
+                            </li>
+                            <li data-onclick="cancel_order" data-id="<?php echo($hs['req_data']['id']); ?>" data-src="modal">
+                                <a href="javascript:void(0);" class="waves-effect waves-block">
+                                    <?php if (in_array($hs['req_data']['payment_method'], array('card','paypal'))): ?>
+                                        {{TR Mark as paid}}
+                                    <?php elseif($hs['req_data']['payment_method'] == 'wallet'): ?>
+                                        {{TR Refund money}}
+                                    <?php else: ?>
+                                        {{TR Cancel order}}
+                                    <?php endif; ?>   
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo($hs['req_data']['buyer_contact']); ?>" class="waves-effect waves-block">
+                                    {{TR Contact customer}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <?php if ($hs['req_data']['status'] == 'canceled'): ?>
+                    <div class="user-info">
+                        <div class="avatar">
+                            <img src="<?php echo($hs['req_data']['cust_avatar']); ?>" alt="Avatar">
+                        </div>
+                        <div class="uname">
+                            <h6>
+                                <a href="#">
+                                    <?php echo($hs['req_data']['cust_name']); ?>
+
+                                    <?php if ($hs['req_data']['cust_verified'] == '1'): ?>
+                                        <?php echo hs_svg('verified-icon'); ?>
+                                    <?php endif; ?>
+                                </a>
+                            </h6>
+                            <p>
+                                <span>
+                                    <?php echo($hs['req_data']['cust_email']); ?>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="user-info">
+                        <div class="avatar">
+                            <img src="<?php echo($hs['req_data']['seller_avatar']); ?>" alt="Avatar">
+                        </div>
+                        <div class="uname">
+                            <h6>
+                                <a href="#">
+                                    <?php echo($hs['req_data']['seller_name']); ?>
+                                </a>
+                            </h6>
+                            <p>
+                                <span>
+                                    <?php echo($hs['req_data']['seller_email']); ?>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <div class="ticket-message">
+                    <div class="ticket-message-header">
+                        <h5>
+                            <span>
+                                {{TR Payment info}}:
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="table-info">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Product}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <a href="<?php echo($hs['req_data']['prod_url']); ?>">
+                                            <?php echo($hs['req_data']['prod_name']); ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Payment method}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <?php if ($hs['req_data']['payment_method'] == 'card'): ?>
+                                            {{TR Bank card}}
+                                        <?php elseif($hs['req_data']['payment_method'] == 'paypal'): ?>
+                                            PayPal
+                                        <?php elseif($hs['req_data']['payment_method'] == 'wallet'): ?>
+                                            {{TR Account wallet}}
+                                        <?php elseif($hs['req_data']['payment_method'] == 'cod'): ?>
+                                            {{TR Cash on delivery}}
+                                        <?php else: ?>
+                                            {{TR Undefined}}
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <?php if ($hs['req_data']['payment_method'] != 'wallet'): ?>
+                                    <tr>
+                                        <td class="lable-text">
+                                            {{TR Payment ID}}:
+                                        </td>
+                                        <td class="label-val">
+                                            <?php if ($hs['req_data']['payment_method'] == 'card'): ?>
+                                                <span class="badge bg-grey"><?php echo($hs['req_data']['stripe_pid']); ?></span>
+                                            <?php elseif($hs['req_data']['payment_method'] == 'paypal'): ?>
+                                                <span class="badge bg-grey"><?php echo($hs['req_data']['paypal_pid']); ?></span>
+                                            <?php else: ?>
+                                                {{TR Undefined}}
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Requested date}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <time><?php echo $hs['req_data']['time']; ?> <i class="material-icons">access_time</i></time>
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Purchase amount}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <span class="col-green">
+                                            <?php echo hs_money($hs['req_data']['payment_amount']); ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Cancellation fee}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <span class="col-green">
+                                            <?php echo hs_money($hs['config']['order_cancellation_fee']); ?>      
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lable-text">
+                                        {{TR Status}}:
+                                    </td>
+                                    <td class="label-val">
+                                        <?php if($hs['req_data']['status'] == 'canceled'): ?>
+                                            <span class="badge bg-red">{{TR Canceled}}</span>
+                                        <?php elseif($hs['req_data']['status'] == 'declined'): ?>
+                                            <span class="badge bg-red">{{TR Declined}}</span>
+                                        <?php elseif($hs['req_data']['status'] == 'expired'): ?>
+                                            <span class="badge bg-red">{{TR Expired}}</span>
+                                        <?php elseif($hs['req_data']['status'] == 'returned'): ?>
+                                            <span class="badge bg-red">{{TR Returned}}</span>
+                                        <?php elseif($hs['req_data']['status'] == 'failed'): ?>
+                                            <span class="badge bg-red">{{TR Failed}}</span>
+                                        <?php else: ?>
+                                            <span class="badge bg-red">{{TR Undefined}}</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="ticket-ctrls">
+                    <button type="button" data-dismiss="modal" class="btn bg-main-red btn-block btn-sm waves-effect">
+                        {{TR Close request message}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="modal animated vh-center fadeIn popup-ticket-modal account-review-data" id="account-review-data-modal" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="ticket-content">
+                <div class="ticket-time">
+                    <time>
+                        <i class="material-icons">access_time</i> {{TR Reviwed at}}: <?php echo $hs['rev_data']['time']; ?>
+                    </time>
+                    <div class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">keyboard_arrow_down</i>
+                        </a>
+                        <ul class="dropdown-menu bs-dropdown-menu pull-right">
+                            <li>
+                                <a href="<?php echo($hs['rev_data']['plink']); ?>" class="waves-effect waves-block">
+                                    {{TR Product page}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="avatar">
+                        <img src="<?php echo($hs['rev_data']['avatar']); ?>" alt="Avatar">
+                    </div>
+                    <div class="uname">
+                        <h6>
+                            <a href="#">
+                                <?php echo($hs['rev_data']['uname']); ?>
+
+                                <?php if ($hs['rev_data']['verified'] == '1'): ?>
+                                    <?php echo hs_svg('verified-icon'); ?>
+                                <?php endif; ?>
+                            </a>
+                        </h6>
+                        <p>
+                            <span>
+                                <?php echo($hs['rev_data']['email']); ?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div class="ticket-message">
+                    <div class="ticket-message-header">
+                        <h5>
+                            <span>
+                                {{TR Review rating}}:
+                            </span>
+                            <span class="rating-stars">
+                                <?php foreach ($hs['rev_data']['stars'] as $star): ?>
+                                    <?php echo($star); ?> 
+                                <?php endforeach; ?>
+                            </span>
+                        </h5>
+                    </div>
+                    
+                    <?php if (not_empty($hs['rev_data']['review'])): ?>
+                        <p class="message2reviwer">
+                            <?php echo($hs['rev_data']['review']); ?>
+                        </p>
+                    <?php else: ?>
+                        <p class="message2reviwer">
+                            {{TR This customer did not write a message under his review.}}
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <?php if (not_empty($hs['rev_data']['media'])): ?>
+                    <div class="attached-media">
+                        <?php foreach ($hs['rev_data']['media'] as $med_data): ?>
+                            <div class="img-holder">
+                                <img src="<?php echo($med_data['file_path']); ?>" alt="Image">
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <div class="ticket-ctrls">
+                    <button type="button" data-dismiss="modal" class="btn bg-main-red btn-block btn-sm waves-effect">
+                        {{TR Hide review details!}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

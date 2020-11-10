@@ -1,0 +1,36 @@
+<tr data-payout-request-li="<?php echo($hs['req_data']['id']); ?>">
+	<td>
+		<?php echo($hs['req_data']['id']); ?>
+	</td>
+	<td class="time">
+        <time>
+        	<?php echo($hs['req_data']['time']); ?>
+        </time>
+    </td>
+	<td>
+		<a target="_blank" href="<?php echo($hs['req_data']['pp_link']); ?>">
+            <?php echo($hs['req_data']['pp_link']); ?>
+        </a>
+	</td>
+	<td>
+		<b class="col-green">
+    		<?php echo($hs['req_data']['amount']); ?> 
+    		<?php echo hs_currency($hs['req_data']['currency']); ?> 
+    	</b>
+	</td> 
+    <td>
+    	<?php if ($hs['req_data']['status'] == 'paid'): ?>
+    		<span class="badge bg-green">
+    			{{TR Paid}}
+        	</span>
+    	<?php elseif($hs['req_data']['status'] == 'pending'): ?>
+    		<span class="badge bg-orange">
+    			{{TR Pending}}
+        	</span>
+    	<?php elseif($hs['req_data']['status'] == 'declined'): ?>
+    		<span class="badge bg-main-red">
+    			{{TR Declined}}
+        	</span>
+    	<?php endif; ?>
+    </td>
+</tr>

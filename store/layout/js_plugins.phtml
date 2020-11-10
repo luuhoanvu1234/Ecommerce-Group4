@@ -1,0 +1,39 @@
+<!-- Jquery Auto-Resize plugin -->
+<script src="{{CONFIG url}}/views/v1/statics/javascript/txt.autoresize.min.js"></script>
+
+<!-- Jquery Core Js -->
+<script src="{{CONFIG url}}/store/statics/plugins/jquery/jquery.min.js"></script>
+<script src="{{CONFIG url}}/store/statics/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+<!-- Bootstrap Core Js -->
+<script src="{{CONFIG url}}/store/statics/plugins/bootstrap/js/bootstrap.js"></script>
+
+<script src="{{CONFIG url}}/store/statics/js/jquery.equalheights.min.js"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script src="{{CONFIG url}}/store/statics/plugins/node-waves/waves.js"></script>
+
+<?php if (in_array($hs['pn'], array('dashboard','wallet','market_payouts','withdrawals'))): ?>
+	<script src="{{CONFIG url}}/store/statics/plugins/chartjs/Chart.min.js"></script>
+<?php endif ?>
+
+<!-- Custom Js -->
+<script src="{{CONFIG url}}/store/statics/js/admin.js"></script>
+
+<script src="{{CONFIG url}}/views/v1/statics/javascript/master.tools.js"></script>
+<script src="{{CONFIG url}}/views/v1/statics/javascript/master.script.js"></script>
+<script src="{{CONFIG url}}/store/statics/plugins/jquery-form/jquery.form.min.js"></script>
+<script src="{{CONFIG url}}/store/statics/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="{{CONFIG url}}/views/v1/statics/javascript/libs/bootstrap-notify.js"></script>
+<script src="{{CONFIG url}}/views/v1/statics/javascript/libs/sticky-sidebar/source/jquery.sticky-sidebar.js"></script>
+<?php if ($hs['pn'] == 'wallet'): ?>
+	<script src="{{CONFIG url}}/store/statics/plugins/ion-rangeslider/js/ion.rangeSlider.js"></script>	
+<?php endif; ?>
+
+<?php if (in_array($hs['pn'], array('add_product','edit_product','doc_about_us','doc_privacy_policy','doc_terms','doc_merchant_terms'))): ?>
+	<script src="{{CONFIG url}}/store/statics/plugins/tinymce/tinymce.min.js"></script>
+<?php endif; ?>
+
+<?php if (in_array($hs['pn'], array('account_verification'))): ?>
+	<script src="{{CONFIG url}}/views/v1/statics/javascript/libs/jquery.fancybox.min.js"></script>
+<?php endif ?>

@@ -1,0 +1,127 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var CUST_REFUNDS_PAGE = $("div#customer-refunds-management-page");
+		var REQUESTS_LIST     = CUST_REFUNDS_PAGE.find('table#requests-list');
+
+		CUST_REFUNDS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			if ($(this).hasClass('disabled') != true) {	
+				var pager_ctrls = CUST_REFUNDS_PAGE.find('a.pagination-ctrls').removeClass('disabled');
+				var this_ctrl   = $(this);
+				var req_list    = CUST_REFUNDS_PAGE.find('table#requests-list');
+				var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+				var last_req    = req_list.find('tr[data-request-li]').last().data('request-li');
+				var first_req   = req_list.find('tr[data-request-li]').first().data('request-li');
+				var preloader   = CUST_REFUNDS_PAGE.find('div#table-preloader').removeClass('hidden');
+
+				$.ajax({
+					url: '{{CONFIG url}}/req/admin/get_customer_refunds',
+					type: 'GET',
+					dataType: 'json',
+					data: {
+						dir: pager_dir, 
+						last: last_req, 
+						first: first_req
+					},
+				}).done(function(data) {
+					if (data.status == 200) {
+						req_list.find('tbody').html(data.html);
+						pager_ctrls.removeClass('disabled');
+					}
+					else{
+						this_ctrl.addClass('disabled');
+					}
+				}).fail(function() {
+					$.notify({
+						message: 'Error: Failed to connect to the server. Please check your internet connection',
+					},{
+					    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+					    placement: {from: "bottom",align: "left"},
+					    offset: {x: 40,y: 30},
+					    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+					});
+				}).always(function() {
+					delay(function(){
+						preloader.addClass('hidden');
+					},500);
+				});
+			}
+			else {
+				return false;
+			}
+		});
+
+		$(document).on('click', '[data-onclick]', function(event) {
+			event.preventDefault();
+			var this_el       = $(this);
+			var event_trigger = this_el.data('onclick');
+			if (event_trigger == 'show_req_details') {
+				var request_id = this_el.data('id');
+				if ($.isNumeric(request_id)) {
+					$.ajax({
+						url: '{{CONFIG url}}/req/admin/get_customer_refund_details',
+						type: 'GET',
+						dataType: 'json',
+						data: {request_id: request_id},
+					}).done(function(data) {
+						if (data.status == 200) {
+							$('body').append($(data.html).modal('show'));
+						}
+						else {
+							if (data.message) {
+								$.notify({
+									message: data.message,
+								},{
+								    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+								    placement: {from: "bottom",align: "left"},
+								    offset: {x: 40,y: 30},
+								    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+								});
+							}
+						}
+					});
+				}
+				else {
+					return false;
+				}
+			}
+
+			else if(event_trigger == 'cancel_order') {
+				var request_id = this_el.data('id');
+				if ($.isNumeric(request_id)) {
+					$.ajax({
+						url: '{{CONFIG url}}/req/admin/delete_customer_refund_request',
+						type: 'GET',
+						dataType: 'json',
+						data: {request_id: request_id},
+					}).done(function(data) {
+						if (data.status == 200) {
+							delay(function() {
+								$(document).reloadPage();
+							},300);
+						}
+						else {
+							if (data.message) {
+								$.notify({
+									message: data.message,
+								},{
+								    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+								    placement: {from: "bottom",align: "left"},
+								    offset: {x: 40,y: 30},
+								    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+								});
+							}
+						}
+					}).always(function(){
+						$("div#customer-refund-request-info-modal").modal('hide');
+					});
+				}
+				else {
+					return false;
+				}
+			}
+		});
+	});
+</script>

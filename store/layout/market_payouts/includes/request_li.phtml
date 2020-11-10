@@ -1,0 +1,66 @@
+<tr data-payout-request-li="<?php echo($hs['req_data']['id']); ?>">
+	<td>
+		<?php echo($hs['req_data']['id']); ?>
+	</td>
+	<td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo($hs['req_data']['avatar']); ?>" alt="Avatar">
+        </div>
+        <a href="<?php echo($hs['req_data']['seller_url']); ?>">
+        	<?php echo($hs['req_data']['full_name']); ?>
+
+            <?php if ($hs['req_data']['verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+        </a>
+    </td> 
+    <td>
+        <span class="col-green">
+            <?php echo($hs['req_data']['balance']); ?>
+        </span>
+    </td>
+	<td class="link">
+		<a href="<?php echo($hs['req_data']['pp_link']); ?>">
+            <?php echo($hs['req_data']['pp_link']); ?>      
+        </a>
+	</td>
+	<td>
+		<span class="col-teal">
+    		<?php echo($hs['req_data']['amount']); ?> 
+    	</span>
+	</td> 
+    <td>
+		<span class="badge bg-orange">
+        	{{TR Pending}}
+        </span>
+    </td>  
+    <td class="time">
+        <time>
+            <?php echo($hs['req_data']['time']); ?>
+        </time>
+    </td>
+    <td>
+    	<div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+            	<li>
+                    <a target="_blank" href="<?php echo($hs['req_data']['pp_link_src']); ?>" class="waves-effect waves-block">
+                        {{TR Pay}}
+                    </a>
+                </li> 
+                <li data-onclick="mark_as_paid" data-id="<?php echo($hs['req_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Mark as paid}}
+                    </a>
+                </li>
+                <li data-onclick="decline_po_req" data-id="<?php echo($hs['req_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Decline}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

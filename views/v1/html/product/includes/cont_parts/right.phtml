@@ -1,0 +1,387 @@
+<div class="page-part-container">
+	<div id="right-sidepart" class="right-sidepart">
+		<div class="right-part clearfix">
+			<div class="rating-info clearfix">
+				<?php if (not_empty($hs['rating_stars'])): ?>
+					<?php foreach ($hs['rating_stars'] as $star): ?>
+						<span>
+							<?php echo($star); ?>
+						</span>
+					<?php endforeach; ?>
+				<?php endif; ?>
+				<span class="sales">
+					<?php echo($hs['prod_data']['sold']); ?> {{TR Sales}}
+				</span>
+				<?php if ($hs['prod_data']['status'] == 'active'): ?>
+					<span class="share-post ml-auto" id="share-product-item">
+						<?php echo hs_svg('share'); ?>
+					</span>
+				<?php endif; ?>
+			</div>
+			
+			<?php if ($hs['prod_data']['status'] == 'active'): ?>
+				<?php if (not_empty($hs['prod_data']['price_disc'])): ?>
+					<div class="product-price-disc" id="product-price-disc">
+						<span class="badge">-<span class="num"><?php echo($hs['prod_data']['price_disc']); ?></span>%</span>
+					</div>
+				<?php else: ?>
+					<div class="product-price-disc hidden" id="product-price-disc">
+						<span class="badge">-<span class="num">0</span>%</span>
+					</div>
+				<?php endif; ?>
+			<?php endif; ?>
+			
+			<div class="product-title">
+				<h4>
+					{{prod_name}}
+				</h4>
+			</div>
+			
+			<?php if ($hs['prod_data']['status'] == 'deleted'): ?>
+				<div class="deleted-product-info">
+					<div class="inner-info-panel">
+						<h4>
+							{{TR Information is not available}}
+						</h4>
+						<p>
+							{{TR This product has been removed by the seller and there is no other information available about this product. If you have a complaint with this seller, contact the seller or contact us in the support center}}
+						</p>
+					</div>
+					<div class="actions">
+						<a href="<?php echo hs_link(sprintf('messages/%s',$hs['prod_owner']['username'])); ?>">
+							<button class="btn contact-seller">
+								{{TR Contact the seller}}
+							</button>
+						</a>
+						<a href="{{LINK contact_us}}">
+							<button class="btn contact-us">
+								{{TR Contact us}}
+							</button>
+						</a>
+					</div>
+				</div>
+			<?php elseif (intval($hs['prod_data']['quantity']) < 1): ?>
+				<div class="product-outofstock">
+					<div class="inner-info-panel">
+						<h4>
+							{{TR Out of stock}}
+						</h4>
+						<p>
+							{{TR Sorry, this item is temporary out of stock and can not be ordered. For more information about this product, we advise you to contact its seller.}}
+						</p>
+					</div>
+					<div class="actions">
+						<a href="<?php echo hs_link(sprintf('messages/%s',$hs['prod_owner']['username'])); ?>">
+							<button class="btn contact-seller">
+								{{TR Contact the seller}}
+							</button>
+						</a>
+						<a href="{{CONFIG url}}">
+							<button class="btn go-shopping">
+								{{TR Continue shopping}}
+							</button>
+						</a>
+					</div>
+				</div>
+			<?php else: ?>
+				<div class="prod-variable-data clearfix">
+					<?php if ($hs['prod_data']['variation_type'] == 'single'): ?>
+						<?php echo hs_loadpage('product/includes/var_single'); ?>
+					<?php elseif ($hs['prod_data']['variation_type'] == 'color'): ?>
+						<?php echo hs_loadpage('product/includes/var_color'); ?>
+					<?php elseif ($hs['prod_data']['variation_type'] == 'size'): ?>
+						<?php echo hs_loadpage('product/includes/var_size'); ?>
+					<?php elseif ($hs['prod_data']['variation_type'] == 'color_size'): ?>
+						<?php echo hs_loadpage('product/includes/var_both'); ?>
+					<?php endif; ?>
+				</div>
+				<?php if (empty($hs['prod_data']['owner'])): ?>
+					<div class="actions">
+						<button class="btn btn-info add-to-cart" id="add-p2-cart">
+							{{TR Add to cart}}
+						</button>
+						<button  class="btn btn-info added-to-cart hidden" id="added-p2-cart">
+							{{TR Added}}
+						</button>
+						<button class="btn btn-info buy-now" id="buy-prod-now">
+							{{TR Buy now}}
+						</button>
+
+						<?php if (not_empty($hs['prod_data']['liked'])): ?>
+							<button class="like-product" id="add-p2-wls" data-action="off">
+								<span>
+									<?php echo hs_svg("heart-inline"); ?>
+								</span>
+								<span class="hidden">
+									<?php echo hs_svg("heart"); ?>
+								</span>
+							</button>
+						<?php else: ?>
+							<button class="like-product" id="add-p2-wls" data-action="on">
+								<span class="hidden">
+									<?php echo hs_svg("heart-inline"); ?>
+								</span>
+								<span>
+									<?php echo hs_svg("heart"); ?>
+								</span>
+							</button>
+						<?php endif; ?>	
+					</div>
+				<?php else:?>
+					<div class="actions">
+						<a href="<?php echo($hs['prod_data']['edit']); ?>">
+							<button class="btn btn-info edit-prod">
+								{{TR Edit}}
+							</button>
+						</a>
+						<button class="btn btn-info delete-prod" id="delete-product">
+							{{TR Delete}}
+						</button>
+					</div>
+				<?php endif;?>
+			<?php endif; ?>
+
+			<div class="owner-info">	
+				<div class="body">
+					<div class="avatar">
+						<img src="<?php echo($hs['prod_owner']['avatar']); ?>" alt="User avatar">
+					</div>
+					<div class="info">
+						<a href="<?php echo($hs['prod_owner']['url']); ?>">
+							<h6>
+								<span class="seller--name">
+									<?php echo($hs['prod_owner']['name']); ?>
+								</span>
+								
+								<?php if ($hs['prod_owner']['verified'] == '1'): ?>
+									<?php echo hs_svg('verified-icon'); ?>
+								<?php endif; ?>
+							</h6>
+						</a>
+						<div class="seller-rating">
+							<?php if (not_empty($hs['seller_rating'])): ?>
+								<?php foreach ($hs['seller_rating'] as $star): ?>
+									<span>
+										<?php echo($star); ?>
+									</span>
+								<?php endforeach; ?>
+							<?php else: ?>	
+								<?php echo hs_svg('star-outline'); ?>
+							<?php endif; ?>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<?php if (empty($hs['prod_data']['owner'])): ?>
+		<?php if ($hs['prod_data']['payment_method'] == 'cod_payments'): ?>
+			<div class="content-panel">
+				<div class="payment-method">
+					<h2>
+						<?php echo hs_svg("cash"); ?> <b>{{TR Payment on delivery}}</b>
+					</h2>
+					<p>{{TR Please note that the seller of this product requires payment in cash upon delivery of this product in order to place an order for this product.}}</p>
+				</div>
+			</div>
+		<?php elseif($hs['prod_data']['payment_method'] == 'pre_payments'): ?>
+			<div class="content-panel">
+				<div class="payment-method">
+					<h2>
+						<?php echo hs_svg("card"); ?> <b>{{TR Prepayment}}</b>
+					</h2>
+					<p>{{TR Please note that the seller of this item requires an advance payment through the payment systems of the site, in order to place an order for this product.}}</p>
+				</div>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
+
+	<?php if (not_empty($hs['prod_data']['owner'])): ?>
+		<?php if ($hs['prod_data']['status'] == 'inactive'): ?>
+			<div class="content-panel">
+				<div class="disabled-product">
+					<h2>
+						<?php echo hs_svg("info"); ?> <b>{{TR Inactive product}}</b>
+					</h2>
+					<p>
+						{{TR This product is not active, so customers cannot order it, you need to activate it so that it appears in the product catalog}}
+					</p>
+				</div>
+			</div>
+		<?php elseif ($hs['prod_data']['status'] == 'blocked'): ?>
+			<div class="content-panel">
+				<div class="blocked-product">
+					<h2>
+						<?php echo hs_svg("lock-inline"); ?> <b>{{TR Blocked product}}</b>
+					</h2>
+					<p>
+						{{TR This product is blocked, so customers cannot order it, you need to replenish the balance of your account so that all your blocked products appear in the product catalog}}
+					</p>
+				</div>
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
+
+	<div class="right-part-description clearfix">
+		<div class="title clearfix">
+			<h5>{{TR Description}}</h5>
+		</div>
+		<div class="derc-body clearfix">
+			<article>
+				<?php echo $hs['prod_data']['desc']; ?>
+			</article>
+			<div class="logistics-info">
+				<h6>
+					{{TR Logistic Information}}
+				</h6>
+				<ul>
+					<li>
+						<span>
+							{{TR Product category}}:
+						</span>
+						<span>
+							<?php echo $hs['categories'][$hs['prod_data']['category']]; ?>
+						</span>
+					</li>
+					<li>
+						<span>
+							{{TR Product condition}}:
+						</span>
+						<span>
+							<?php 
+								if ($hs['prod_data']['condition'] == '1') {
+									echo hs_translate('New');
+								} 
+								elseif ($hs['prod_data']['condition'] == '2') {
+									echo hs_translate('Used');
+								}
+								else {
+									echo hs_translate('Modified');
+								}
+							?>
+						</span>
+					</li>
+
+					<?php if (not_empty($hs['prod_data']['brand'])): ?>
+						<li>
+							<span>
+								{{TR Product brand}}:
+							</span>
+							<span>
+								<?php echo $hs['prod_data']['brand']; ?>
+							</span>
+						</li>
+					<?php endif; ?>
+
+					<?php if (not_empty($hs['prod_data']['origin'])): ?>
+						<li>
+							<span>
+								{{TR Product origin}}:
+							</span>
+							<span>
+								<?php echo $hs['prod_data']['origin']; ?>
+							</span>
+						</li>
+					<?php endif; ?>
+
+					<?php if (not_empty($hs['prod_data']['model_number'])): ?>
+						<li>
+							<span>
+								{{TR Product model number}}:
+							</span>
+							<span>
+								<?php echo $hs['prod_data']['model_number']; ?>
+							</span>
+						</li>	
+					<?php endif; ?>
+
+					<?php if (not_empty($hs['prod_data']['weight'])): ?>
+						<li>
+							<span>
+								{{TR Weight of packing}}:
+							</span>
+							<span>
+								<?php echo $hs['prod_data']['weight']; ?>
+							</span>
+						</li>
+					<?php endif; ?>
+
+					<?php if (not_empty($hs['prod_data']['width']) && not_empty($hs['prod_data']['length']) && not_empty($hs['prod_data']['height'])): ?>
+						<li>
+							<span>
+								{{TR Package size}}:
+							</span>
+							<span>
+								<?php echo $hs['prod_data']['width']; ?> x <?php echo $hs['prod_data']['length']; ?> x <?php echo $hs['prod_data']['height']; ?>
+							</span>
+						</li>
+					<?php else: ?>
+						<?php if (not_empty($hs['prod_data']['width'])): ?>
+							<li>
+								<span>
+									{{TR Package width}}:
+								</span>
+								<span>
+									<?php echo $hs['prod_data']['width']; ?>
+								</span>
+							</li>
+						<?php endif; ?>
+
+						<?php if (not_empty($hs['prod_data']['length'])): ?>
+							<li>
+								<span>
+									{{TR Package length}}:
+								</span>
+								<span>
+									<?php echo $hs['prod_data']['length']; ?>
+								</span>
+							</li>
+						<?php endif; ?>
+
+						<?php if (not_empty($hs['prod_data']['height'])): ?>
+							<li>
+								<span>
+									{{TR Package height}}:
+								</span>
+								<span>
+									<?php echo $hs['prod_data']['height']; ?>
+								</span>
+							</li>
+						<?php endif; ?>
+					<?php endif; ?>
+				</ul> 
+			</div>
+		</div>
+	</div>
+
+	<?php if (not_empty($hs['related_prods'])): ?>
+		<div class="related-products-wrapper clearfix">
+			<div class="related-products-header clearfix">
+				<h5>{{TR Similar products}}</h5>
+			</div>
+			<div class="related-products-body clearfix">
+				<div class="related-products-cr">
+					<?php foreach ($hs['related_prods'] as $hs['related_pli']): ?>
+						<?php echo hs_loadpage('product/includes/list_items/related_pli'); ?>
+					<?php endforeach; ?>	
+				</div>
+				<span id="rp-cr-scroll-prev">
+					<?php echo hs_svg('prev-arrow');?>
+				</span>
+				<span id="rp-cr-scroll-next">
+					<?php echo hs_svg('next-arrow');?>
+				</span>
+			</div>		
+		</div>
+	<?php endif; ?>
+	<div class="content-panel">
+		<div class="customer-care">
+			<h2><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512" xml:space="preserve"><polygon points="234.53,285.912 169.76,224.259 142.172,253.242 236.775,343.294 380.923,182.799 351.154,156.061"/><path d="M420.499,65.192c-48.502-8.692-93.168-35.18-115.476-50.195C290.447,5.186,273.496,0,256.001,0     s-34.447,5.186-49.022,14.996C184.671,30.011,140.005,56.5,91.503,65.192c-28.726,5.148-49.576,30.002-49.576,59.097v120.71     c0,39.877,11.157,78.749,33.159,115.539c17.214,28.781,41.064,56.288,70.888,81.757c50.147,42.825,99.804,65.156,101.892,66.086     L256,512l8.134-3.619c2.089-0.929,51.745-23.261,101.892-66.086c29.823-25.469,53.675-52.976,70.888-81.757     c22.004-36.789,33.159-75.662,33.159-115.539V124.29C470.075,95.194,449.225,70.34,420.499,65.192z M430.061,245     c0,59.45-30.033,115.375-89.267,166.224c-34.432,29.558-69.39,48.824-84.791,56.643C220.601,449.879,81.941,371.328,81.941,245     V124.29c0-9.695,6.99-17.985,16.621-19.711c55.718-9.985,105.843-39.616,130.761-56.388c7.947-5.35,17.172-8.178,26.678-8.178     c9.506,0,18.732,2.828,26.678,8.177c24.919,16.773,75.043,46.402,130.761,56.387c9.63,1.726,16.621,10.016,16.621,19.711V245z"/></svg><b>{{TR Customer service}}</b></h2>
+			<p>{{TR We will refund if the order is not received or does not match the description.}}</p>
+		</div>
+	</div>
+	<div class="footer-sm">
+		<?php echo hs_loadpage('footer/small'); ?>
+	</div>
+</div>

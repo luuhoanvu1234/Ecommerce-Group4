@@ -1,0 +1,354 @@
+<div class="payment-settings-page data-management-page" id="payment-settings-page">
+	<div class="block-header">
+	    <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/payment_settings}}">
+                        {{TR Payment settings}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Market Payments & Payouts Settings}}
+                </li>
+            </ol>
+        </nav>
+	</div>
+	<div class="clearfix">
+		<div class="affixed-page-section">
+	        <div class="affixed-page-part-1">
+			    <div class="card">
+			        <div class="header">
+			            <h2>{{TR Market Payments & Payouts Settings}}</h2>
+			        </div>
+			        <div class="body">
+			            <form class="form" id="payment-settings-form">
+			            	<div class="data-management-area">
+				            	<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+				                <div class="form-fieldset-title" data-affix-label="paypal_api_settings">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12">
+				                    		<p>
+				                    			{{TR PayPal API Settings}}
+				                    		</p>
+				                    	</div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-6 no-mb p-r-10" data-form-field="paypal_api_key">
+				                        	<label class="form-label">
+				                    			{{TR PayPal API public key}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="paypal_api_key" type="text" class="form-control" value="{{CONFIG paypal_api_key}}" placeholder="{{TR Enter payPal API public key}}">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-6 no-mb p-l-10" data-form-field="paypal_api_pass">
+				                        	<label class="form-label">
+				                    			{{TR PayPal API secret key}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="paypal_api_pass" type="password" class="form-control" value="{{CONFIG paypal_api_pass}}" placeholder="{{TR Enter PayPal API secret key}}">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-12 no-mb">
+				                        	<p class="info-message info">
+				                    			<i class="material-icons">lock_outline</i>
+				                    			{{TR This is your personal secret key to accsess the PayPal Payments API. Please do not publish or share this private token}}
+				                    		</p>
+				                        </div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-6 p-r-10 no-mb" data-form-field="paypal_mode">
+				                        	<label class="form-label">
+				                    			{{TR PayPal Payment mode}}
+				                    			<a href="https://developer.paypal.com/docs/api/quickstart/environment" class="help-label">
+					                            	<i class="material-icons">help</i>
+					                            </a>
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<select name="paypal_mode" class="form-control">
+				                    				<option value="live" <?php if($hs['config']['paypal_mode'] == 'live'){ echo "selected";}?>>Live</option>
+				                    				<option value="sandbox" <?php if($hs['config']['paypal_mode'] == 'sandbox'){ echo "selected";}?>>Sandbox</option>
+				                    			</select>
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-6 p-l-10 no-mb" data-form-field="paypal_gateway_status">
+				                        	<label class="form-label">
+				                    			{{TR PayPal gateway status}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<select name="paypal_gateway_status" class="form-control">
+				                    				<option value="on" <?php if($hs['config']['paypal_gateway_status'] == 'on'){ echo "selected";}?>>{{TR Enabled}}</option>
+				                    				<option value="off" <?php if($hs['config']['paypal_gateway_status'] == 'off'){ echo "selected";}?>>{{TR Disabled}}</option>
+				                    			</select>
+				                    		</div>
+				                        </div>
+				                    </div>
+				                </div>
+								<hr>
+				                <div class="form-fieldset-title" data-affix-label="stripe_api_settings">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12">
+				                    		<p>
+				                    			{{TR Stripe API settings}}
+				                    		</p>
+				                    	</div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-6 p-r-10 no-mb" data-form-field="stripe_api_key">
+				                        	<label class="form-label">
+				                    			{{TR Stripe API public key}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="stripe_api_key" type="text" class="form-control" value="{{CONFIG stripe_api_key}}" placeholder="{{TR Enter stripe API public key}}">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-6 p-l-10 no-mb" data-form-field="stripe_api_pass">
+				                        	<label class="form-label">
+				                    			{{TR Stripe API secret key}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="stripe_api_pass" type="password" class="form-control" value="{{CONFIG stripe_api_pass}}" placeholder="{{TR Enter stripe API secret key}}">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-12 no-mb">
+				                        	<p class="info-message info">
+				                    			<i class="material-icons">lock_outline</i>
+				                    			{{TR This is your personal secret key to accsess the Stripe Payments API. Please do not publish or share this private token}}
+				                    		</p>
+				                        </div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12 no-mb" data-form-field="stripe_gateway_status">
+				                        	<label class="form-label">
+				                    			{{TR Stripe gateway status}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<select name="stripe_gateway_status" class="form-control">
+				                    				<option value="on" <?php if($hs['config']['stripe_gateway_status'] == 'on'){ echo "selected";}?>>{{TR Enabled}}</option>
+				                    				<option value="off" <?php if($hs['config']['stripe_gateway_status'] == 'off'){ echo "selected";}?>>{{TR Disabled}}</option>
+				                    			</select>
+				                    		</div>
+				                        </div>
+				                    </div>
+				                </div>
+				                <hr>
+				                <div class="form-fieldset-title" data-affix-label="other_pm_gateways">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12">
+				                    		<p>
+				                    			{{TR Other payment gateways}}
+				                    		</p>
+				                    	</div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-6 p-r-10 no-mb" data-form-field="wallet_gateway_status">
+				                        	<label class="form-label">
+				                    			{{TR Wallet gateway status}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<select name="wallet_gateway_status" class="form-control">
+				                    				<option value="on" <?php if($hs['config']['wallet_gateway_status'] == 'on'){ echo "selected";}?>>{{TR Enabled}}</option>
+				                    				<option value="off" <?php if($hs['config']['wallet_gateway_status'] == 'off'){ echo "selected";}?>>{{TR Disabled}}</option>
+				                    			</select>
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-6 p-l-10 no-mb" data-form-field="cod_gateway_status">
+				                        	<label class="form-label">
+				                    			{{TR COD gateway status}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<select name="cod_gateway_status" class="form-control">
+				                    				<option value="on" <?php if($hs['config']['cod_gateway_status'] == 'on'){ echo "selected";}?>>{{TR Enabled}}</option>
+				                    				<option value="off" <?php if($hs['config']['cod_gateway_status'] == 'off'){ echo "selected";}?>>{{TR Disabled}}</option>
+				                    			</select>
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-12 no-mb">
+				                        	<p class="info-message info">
+				                    			<i class="material-icons">info</i>
+				                    			{{TR Allows you to enable or disable the product payment gateway}}
+				                    		</p>
+				                        </div>
+				                    </div>
+				                </div>
+				                <hr>
+				                <div class="form-fieldset-title" data-affix-label="prod_price_settings">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12">
+				                    		<p>
+				                    			{{TR Product pricing settings}}
+				                    		</p>
+				                    	</div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-6 p-r-10 no-mb" data-form-field="min_sale_price">
+				                        	<label class="form-label">
+				                    			{{TR Product min price}} ({{CONFIG currency}})
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="min_sale_price" type="number" step="any" class="form-control" value="{{CONFIG min_sale_price}}" placeholder="{{TR Min price}} (0.00{{CONFIG currency}})">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-6 p-l-10 no-mb" data-form-field="max_sale_price">
+				                        	<label class="form-label">
+				                    			{{TR Product max price}} ({{CONFIG currency}})
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="max_sale_price" type="number" step="any" class="form-control" value="{{CONFIG max_sale_price}}" placeholder="{{TR Max price}} (0.00{{CONFIG currency}})">
+				                    		</div>
+				                        </div>
+				                    </div>
+				                </div>
+				                <hr>
+				                <div class="form-fieldset-title" data-affix-label="market_payout_settings">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12">
+				                    		<p>
+				                    			{{TR Market payout settings}}
+				                    		</p>
+				                    	</div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12 no-mb" data-form-field="payout_period">
+				                        	<label class="form-label">
+				                    			{{TR Payout period}}
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<select name="payout_period" class="form-control">
+				                    				<option value="7" <?php if($hs['config']['payout_period'] == '7'){ echo "selected";}?>>{{TR Payout each 7 days}}</option>
+				                    				<option value="10" <?php if($hs['config']['payout_period'] == '10'){ echo "selected";}?>>{{TR Payout each 10 days}}</option>
+				                    				<option value="15" <?php if($hs['config']['payout_period'] == '15'){ echo "selected";}?>>{{TR Payout each 15 days}}</option>
+				                    				<option value="30" <?php if($hs['config']['payout_period'] == '30'){ echo "selected";}?>>{{TR Payout each 1 month}}</option>
+				                    				<option value="60" <?php if($hs['config']['payout_period'] == '60'){ echo "selected";}?>>{{TR Payout each 2 months}}</option>
+				                    				<option value="90" <?php if($hs['config']['payout_period'] == '90'){ echo "selected";}?>>{{TR Payout each 3 months}}</option>
+				                    			</select>
+				                    		</div>
+				                        </div>  
+				                        <?php if (intval($hs['config']['payout_period']) < 30): ?>               	                       
+				                            <div class="col-sm-12 no-mb">
+					                        	<p class="info-message warning">
+					                    			<i class="material-icons">info</i>
+					                    			{{TR We strongly recommend that you do not pay funds to sellers of your market for a period of less than 30 days, to prevent fraudulent actions by sellers and protect the rights of your customers.}}
+					                    		</p>
+					                        </div>
+				                        <?php endif; ?>
+				                    </div>
+				                </div>
+				                <hr>
+				                <div class="form-fieldset-title" data-affix-label="other_settings">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-12">
+				                    		<p>
+				                    			{{TR Other settings}}
+				                    		</p>
+				                    	</div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-6 p-r-10 no-mb"  data-form-field="min_topup">
+				                        	<label class="form-label">
+				                    			{{TR Min balance top up amount}} ({{CONFIG currency}})
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="min_topup" type="number" step="any" class="form-control" value="{{CONFIG min_topup}}" placeholder="{{TR Min user account balance top up amount}} (0.00{{CONFIG currency}})">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-6 p-l-10 no-mb"  data-form-field="min_payout">
+				                        	<label class="form-label">
+				                    			{{TR Min payout request amount}} ({{CONFIG currency}})
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="min_payout" type="number" step="any" class="form-control" value="{{CONFIG min_payout}}" placeholder="{{TR Min payout request amount}} (0.00{{CONFIG currency}})">
+				                    		</div>
+				                        </div>
+				                    </div>
+				                </div>
+				                <div class="form-group form-field-box no-mb">
+				                	<div class="row clearfix">
+				                        <div class="col-sm-6 p-r-10 no-mb"  data-form-field="order_cancellation_fee">
+				                        	<label class="form-label">
+				                    			{{TR Order cancellation fee}} ({{CONFIG currency}})
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="order_cancellation_fee" type="number" step="any" class="form-control" value="{{CONFIG order_cancellation_fee}}" placeholder="{{TR Order cancellation fee}} (0.00{{CONFIG currency}})">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-6 p-l-10 no-mb"  data-form-field="market_sale_rate">
+				                        	<label class="form-label">
+				                    			{{TR Market sale rate}} (%)
+				                    		</label>
+				                        	<div class="filed-box">
+				                    			<input name="market_sale_rate" type="number" step="any" class="form-control" value="{{CONFIG market_sale_rate}}" placeholder="{{TR Market commission rate for each sale}}. I.e. 5%">
+				                    		</div>
+				                        </div>
+				                        <div class="col-sm-12 no-mb">
+				                        	<p class="info-message info">
+				                    			<i class="material-icons">info</i>
+				                    			{{TR The value of this field determines the fixed value of the commission charged as a percentage of sellers for each sale in your market.}}
+				                    		</p>
+				                        </div>
+				                    </div>
+				                </div>
+			                </div>
+			            </form>
+			        </div>
+			    </div>
+			</div>
+		    <div class="affixed-page-part-2" id="right-sidepart">
+	        	<div class="sidebar__inner">
+	        		<div class="card">
+	        			<div class="header">
+				            <h2>{{TR Payment settings}}</h2>
+				        </div>
+				        <div class="body">
+			            	<ul class="list-group">
+			            		<li class="list-group-item active" data-affix-scroll="paypal_api_settings">
+			            			{{TR PayPal API Settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="stripe_api_settings">
+			            			{{TR Stripe API settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="other_pm_gateways">
+			            			{{TR Other payment gateways}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="prod_price_settings">
+			            			{{TR Product pricing settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="market_payout_settings">
+			            			{{TR Market payout settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="other_settings">
+			            			{{TR Other settings}}
+			            		</li>
+			            	</ul>
+			            	<div class="ctrls">
+			            		<button class="btn btn-lg bg-main-red" data-main-btn="submit">
+			            			<i class="material-icons">save</i> <span class="btn-text">{{TR Save changes}}</span>
+			            		</button>
+			            	</div>
+		            	</div>
+		            </div>
+	        	</div>
+		    </div>
+	    </div>
+    </div>
+</div>
+<?php echo hs_loadpage('payment_settings/static/js/payment_settings_script'); ?>

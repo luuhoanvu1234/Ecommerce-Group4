@@ -1,0 +1,555 @@
+<script>
+    $(window).load(function(){
+        "use strict";
+        
+        var P_UPSERT_FM = $("form#product-upsert-form");
+        var P_AI_H = P_UPSERT_FM.find('div#prod-additional-images-holder');
+        eqheight(".eq-height");
+    });
+
+	jQuery(document).ready(function($) {
+        "use strict";
+
+        var PROD_UPSERT_PAGE = $("div#product-upsert-page");
+        var P_UPSERT_FM      = PROD_UPSERT_PAGE.find("form#product-upsert-form");
+
+        P_UPSERT_FM.find('div#select-prod-poster').on('click',function(event) {
+        	event.preventDefault();
+        	PROD_UPSERT_PAGE.find("form#upload-product-poster").find('input[type="file"]').trigger('click');
+        });
+
+        PROD_UPSERT_PAGE.find("form#upload-product-poster").ajaxForm({
+        	url: '{{CONFIG url}}/req/products/upload_poster',
+        	type: 'POST',
+        	dataType: 'json',
+        	data:{prod_id: '{{prod_id}}'},
+            beforeSend: function() {
+                $('div[data-dom-node="long_proc_preloader"]').removeClass('hidden'); 
+            },
+        	success: function(data) {
+        		if (data.status == 200) {
+        			P_UPSERT_FM.find('div#select-prod-poster').html($("<img>",{
+        				src: data.url,
+        				alt: 'Image'
+        			}));
+        		} 
+                else {
+                    if (data.message) {
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+        		}
+        	},
+            complete: function() {
+                delay(function() {
+                    $('div[data-dom-node="long_proc_preloader"]').addClass('hidden');
+                },300);
+            }
+        });
+
+        P_UPSERT_FM.find('select#select-prod-shipcost').on('change',function(event) {
+            event.preventDefault();
+            var this_el   = $(this);
+            var ship_cost = $(this).val();
+
+            if (hs_in_array(ship_cost,['free','paid'])) {
+                if (ship_cost == 'paid') {
+                    P_UPSERT_FM.find('input#shipping-fee-amount').removeAttr('disabled');    
+                }
+
+                else {
+                    P_UPSERT_FM.find('input#shipping-fee-amount').attr('disabled', 'true'); 
+                    P_UPSERT_FM.find('input#shipping-fee-amount').val(''); 
+                }
+            }
+            else{
+                $(window).reloadPage(100);
+                return false;
+            }  
+        });
+
+        P_UPSERT_FM.find('div#add-gallery-images').on('click',function(event) {
+        	event.preventDefault();
+        	PROD_UPSERT_PAGE.find("form#upload-gallery-images").find('input[type="file"]').trigger('click');
+        });
+
+        PROD_UPSERT_PAGE.find("form#upload-gallery-images").ajaxForm({
+        	url: '{{CONFIG url}}/req/products/additional_image',
+        	type: 'POST',
+        	dataType: 'json',
+            beforeSend: function() {
+                P_UPSERT_FM.find('[data-form-field="21"]').find('small.sub-title-error').remove();
+                $('div[data-dom-node="long_proc_preloader"]').removeClass('hidden'); 
+            },
+        	success: function(data) {
+        		if (data.status == 200) {
+        			var filled_images   = P_UPSERT_FM.find('div.filled.image-preview');
+        			var image_item_temp = P_UPSERT_FM.find('template#product-images-item-temp').html();
+        			var image_item      = $(image_item_temp);
+    				image_item.find('img').attr('src', data.url);
+    				image_item.attr('data-gallery-media-id', data.id);
+                    image_item.find('span').attr('data-delete-data', 'gallery_image');
+    				P_UPSERT_FM.find('div#gallery-images-list').prepend(image_item);
+        		} 
+
+                else {
+        			if (data.message) {
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+        		}
+        	},
+            complete: function() {
+                delay(function() {
+                    $('div[data-dom-node="long_proc_preloader"]').addClass('hidden');
+                },300);
+            }
+        });
+
+        PROD_UPSERT_PAGE.find('button[data-main-btn="submit"]').on('click', function(event) {
+            event.preventDefault();
+            P_UPSERT_FM.submit();
+        });
+
+        P_UPSERT_FM.ajaxForm({
+        	url: '{{CONFIG url}}/req/products/prod_upsert',
+        	type: 'POST',
+        	dataType: 'json',
+        	beforeSend: function() {
+                P_UPSERT_FM.find('div.filed-box').each(function(index, el) {
+                    $(el).removeClass('error');                  
+                }); P_UPSERT_FM.find('small.error-message').remove();
+
+                PROD_UPSERT_PAGE.find('button[data-main-btn="submit"]').attr('disabled',true);
+                PROD_UPSERT_PAGE.find('button[data-main-btn="submit"]').find('span').text("{{TR Please wait}}");
+        	},
+        	success: function(data) {
+        		if (data.status == 200) {
+        			$.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+
+					delay(function(){
+						hs_redirect(data.url);
+					},2000);
+        		} 
+
+                else {
+                    delay(function() {
+                        PROD_UPSERT_PAGE.find('button[data-main-btn="submit"]').removeAttr('disabled');
+                        PROD_UPSERT_PAGE.find('button[data-main-btn="submit"]').find('span').text(
+                            PROD_UPSERT_PAGE.find('button[data-main-btn="submit"]').attr('title')
+                        );
+                    },500);
+
+                    if (data.err_code == 20) {
+                        var invalid_field = P_UPSERT_FM.find('[data-form-field="20"]');
+                        invalid_field.scroll2();
+                        invalid_field.find('div.left-part').addClass('error');
+
+                        if (invalid_field.find('small').length) {
+                            invalid_field.find('small').text(data.message);
+                            invalid_field.find('small').addClass('animated flash'); 
+                        }
+                        else {
+                            $.notify({
+                                message:data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    }
+
+                    else if(data.err_code == 21) {
+                        var invalid_field = P_UPSERT_FM.find('[data-form-field="21"]');
+                        invalid_field.scroll2();
+                        $('<small>',{
+                            text: data.message,
+                            class: 'col-red animated flash sub-title-error'
+                        }).insertBefore(invalid_field.find('small.sub-title'));
+                    }
+
+                    else if(data.err_code == 22) {
+                        var invalid_field = P_UPSERT_FM.find('[data-form-field="22"]').scroll2();
+                        $.notify({
+                            message:data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+
+                    else {
+            			var invalid_field = P_UPSERT_FM.find('[data-form-field="{0}"]'.format(data.err_code));
+                        if (invalid_field.length) {
+                            invalid_field.scroll2();
+                            if (invalid_field.find('div.filed-box').length) {
+                                invalid_field.find('div.filed-box').addClass('error');
+                                invalid_field.append($("<small>",{
+                                    text: data.message,
+                                    class: 'col-red animated flash error-message'
+                                }));
+                            }
+                            else {
+                                $.notify({
+                                    message:data.message,
+                                },{
+                                    allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                    placement: {from: "bottom",align: "left"},
+                                    offset: {x: 40,y: 30},
+                                    animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                                });
+                            } 
+                        }
+                        else {
+                            $.notify({
+                                message:data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    }
+        		}
+        	}
+        });
+
+        P_UPSERT_FM.find('select#prodvar-types').on('change',function(event) {
+        	event.preventDefault();
+        	var var_type = $(this).val();
+        	var zis_elem = $(this);
+            $('div[data-dom-node="long_proc_preloader"]').removeClass('hidden');
+        	$.ajax({
+        		url: '{{CONFIG url}}/req/products/set_vartype',
+        		type: 'POST',
+        		dataType: 'json',
+        		data: {prod_id: '{{prod_id}}',var_type:var_type},
+        	}).done(function(data) {
+        		if (data.status == 200) {
+        			if(hs_in_array(var_type,['color','size','color_size'])){
+		        		P_UPSERT_FM.find('div#add-prodvar').removeClass('hidden');
+
+		        		if (hs_in_array(var_type,['size','color_size'])) {	
+		        			P_UPSERT_FM.find('div#prod-sizing-types').removeClass('hidden');
+		        		} 
+
+                        else {
+                           P_UPSERT_FM.find('div#prod-sizing-types').addClass('hidden'); 
+                        }
+		        	}
+
+		        	else {
+
+		        		if (hs_in_array(var_type,['size','color_size']) != true) {	
+		        			P_UPSERT_FM.find('div#prod-sizing-types').addClass('hidden');
+		        		}
+
+		        		P_UPSERT_FM.find('div#add-prodvar').addClass('hidden');
+		        	}	
+        		} 
+                else {
+                    if (data.message) {
+                        zis_elem.val(data.pvt);
+                        zis_elem.selectpicker('refresh');
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+        		}
+        	}).always(function() {
+                delay(function() {
+                    $('div[data-dom-node="long_proc_preloader"]').addClass('hidden');
+                },300);
+            });
+        });
+
+        P_UPSERT_FM.find('div#prod-sizing-types').find('select').on('change',function(event) {
+        	event.preventDefault();
+        	var sizing_type = $(this).val();
+        	var zis_elem    = $(this);
+            
+            $('div[data-dom-node="long_proc_preloader"]').removeClass('hidden');
+        	$.ajax({
+        		url: '{{CONFIG url}}/req/products/set_sizing_type',
+        		type: 'POST',
+        		dataType: 'json',
+        		data: {prod_id: '{{prod_id}}',type: sizing_type},
+        	}).done(function(data) {
+        		if (data.status != 200) {
+                    zis_elem.val(data.pst);
+                    zis_elem.selectpicker('refresh');
+        			$.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+        		} 
+        	}).always(function() {
+                delay(function(){
+                    $('div[data-dom-node="long_proc_preloader"]').addClass('hidden');
+                },300);
+            });
+        });
+
+        P_UPSERT_FM.find('button#add-prodvar-btn').on('click',function(event) {
+        	event.preventDefault();
+        	var var_type = P_UPSERT_FM.find('select#prodvar-types').val();
+            var zis_elem = $(this);
+        	if(hs_in_array(var_type,['color','size','color_size'])) {
+        		if (hs_in_array(var_type,['size','color_size'])) {
+        			var prod_sizing_type = P_UPSERT_FM.find('select#sizing-types').val();
+        			if (hs_empty(prod_sizing_type)) {
+                        $.notify({
+                            message: "{{TR Please select a product sizing type before adding the product variation!}}",
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                        return false;
+        			}
+        		}
+
+        		$.ajax({
+        			url: '{{CONFIG url}}/req/products/lp',
+        			type: 'GET',
+        			dataType: 'json',
+        			data: {
+        				page: 'var_addon_form',
+        				type: var_type,
+        			},
+                    beforeSend: function () {
+                        zis_elem.find('span').text("{{TR Please wait}}");
+                        zis_elem.attr('disabled',true);
+                    }
+        		}).done(function(data) {
+        			if (data.status == 200) {
+        				$(data.html).appendTo('body');
+        				$('body').find('div.product-upsertvar-modal').modal('show');
+        			} 
+
+                    else {
+                        if (data.message) {
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+        			}
+        		}).always(function function_name(argument) {
+                    zis_elem.find('span').text(zis_elem.attr('title'));
+                    zis_elem.removeAttr('disabled');
+                });
+        	}
+        });
+
+        P_UPSERT_FM.find('button#show-prodvar-btn').on('click',function(event) {
+        	event.preventDefault();
+            var this_el = $(this);
+    		$.ajax({
+    			url: '{{CONFIG url}}/req/products/lp',
+    			type: 'GET',
+    			dataType: 'json',
+    			data: {
+    				page: 'product_variations_list',
+    			},
+                beforeSend: function () {
+                    this_el.find('span').text("{{TR Please wait}}");
+                    this_el.attr('disabled',true);
+                }
+    		}).done(function(data) {
+    			if (data.status == 200) {
+    				$(data.html).appendTo('body');
+    				$('body').find('div.modal.product-vars-list-modal').modal('show');
+    			} 
+                else {
+    				if (data.error) {
+                       $.notify({
+                            message: data.error,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        }); 
+                    }
+    			}
+    		}).always(function() {
+                this_el.find('span').text(this_el.attr('title'));
+                this_el.removeAttr('disabled');
+            });
+        });
+
+        $(document).on('click', '[data-delete-data]', function(event) {
+            event.preventDefault();
+            var deleted_data = $(this).data('delete-data');
+            var this_el      = $(this);
+
+            if (deleted_data == 'gallery_image') {
+                if (this_el.hasClass('deleted') != true) {
+                    var id = $(this).closest('div.image-preview').data('gallery-media-id');
+                    this_el.addClass('deleted');
+                    if ($.isNumeric(id)) {
+                        $.ajax({
+                            url: '{{CONFIG url}}/req/products/remove_gallery_image',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {image_id: id,prod_id:'{{prod_id}}'},
+                        }).done(function(data) {
+                            if (data.status == 200) {
+                                P_UPSERT_FM.find('[data-gallery-media-id="{0}"]'.format(id)).fadeOut(150, function() {
+                                    $(this).remove();
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+
+            else if(deleted_data == 'product_variant_item') {
+                var PD_VARLIST_M = $("div#product-varslist-modal");
+                var var_id       = this_el.data('id');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/products/delete_prod_var',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {id: var_id},
+                    beforeSend: function() {
+                        PD_VARLIST_M.find('button').attr('disabled', 'true');
+                    }
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        PD_VARLIST_M.find('span#vars-total').text(data.total);
+                        P_UPSERT_FM.find('button#show-prodvar-btn').find('b').text(data.total);
+
+                        PD_VARLIST_M.find('tr[data-var-row="{0}"]'.format(var_id)).slideUp(150,function(){
+                            $(this).remove();
+                        }); 
+                        
+                        if (hs_empty(data.total)) {
+                            PD_VARLIST_M.modal('hide');
+                            P_UPSERT_FM.find('button#show-prodvar-btn').attr('disabled',true);
+                        }
+                    } 
+                    else {
+                        PD_VARLIST_M.modal('hide');
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }).always(function(){
+                    PD_VARLIST_M.find('button').removeAttr('disabled');
+                });
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();  
+            var this_el       = $(this);
+            var event_trigger = this_el.data('onclick');
+
+            if (event_trigger == 'edit_var_item') {
+                if (this_el.hasClass('deleted') != true) {
+                    var id = this_el.data('id');
+                    if ($.isNumeric(id)) {
+                        $.ajax({
+                            url: '{{CONFIG url}}/req/products/lp',
+                            type: 'GET',
+                            dataType: 'json',
+                            data: {
+                                prod_id: '{{prod_id}}',
+                                var_id: id,
+                                page: 'edit_var_item',
+                            },
+                        }).done(function(data) {
+                            if (data.status == 200) {
+                                delay(function(){
+                                    $('body').append($(data.html).modal('show')).addClass('modal-open');
+                                },300);
+                            } 
+
+                            else {
+                                if (data.message) {
+                                    $.notify({
+                                        message: data.message,
+                                    },{
+                                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                        placement: {from: "bottom",align: "left"},
+                                        offset: {x: 40,y: 30},
+                                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                                    });
+                                }
+                            }
+                        }).always(function() {
+                            $('div#product-varslist-modal').modal('hide');
+                        });
+                    }
+
+                    else {
+                        return false;
+                    }
+                }
+            }
+        });
+
+        PROD_UPSERT_PAGE.find('div#right-sidepart').stickySidebar({
+            topSpacing: 130,
+            bottomSpacing: 20,
+            stickyClass: 'is-affixed'
+        });
+
+        PROD_UPSERT_PAGE.find('[data-affix-scroll]').on('click', function(event) {
+            event.preventDefault();
+            var this_el = $(this);
+            var label   = this_el.data('affix-scroll');
+            if (label && PROD_UPSERT_PAGE.find('[data-affix-label="{0}"]'.format(label)).length) {
+                PROD_UPSERT_PAGE.find('[data-affix-label="{0}"]'.format(label)).scroll2(200,125);
+                this_el.addClass('active');
+                this_el.siblings('li.list-group-item').removeClass('active');
+            }
+        });
+	});
+</script>

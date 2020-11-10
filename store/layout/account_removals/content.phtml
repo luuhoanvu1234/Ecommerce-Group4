@@ -1,0 +1,66 @@
+<div class="clearfix" id="account-removals-management-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/account_removals}}">
+                        {{TR Account deleting}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Account removal requests management}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header">
+                    <h2>{{TR List of all account deletion requests}} (<?php echo($hs['req_total']); ?>)</h2>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table table-hover no-mb" id="requests-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Account}}</th>
+                                <th>{{TR Reason}}</th> 
+                                <th>{{TR E-mail}}</th>
+                                <th>{{TR Requested date}}</th>
+                                <th>{{TR Status}}</th>
+                                <th>{{TR Action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['requests'])): ?>
+                                <?php foreach ($hs['requests'] as $hs['req_data']): ?>
+                                    <?php echo hs_loadpage('account_removals/includes/request_li'); ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php echo hs_loadpage('account_removals/includes/empty_table'); ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['requests'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php echo hs_loadpage('account_removals/modals/confirmations/confirm_removal'); ?>
+<?php echo hs_loadpage('account_removals/static/js/account_removals_script'); ?>

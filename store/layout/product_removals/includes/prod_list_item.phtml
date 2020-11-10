@@ -1,0 +1,53 @@
+<tr class="products" data-prod-list-item="<?php echo($hs['prod_item']['id']); ?>">
+    <td>
+        <?php echo($hs['prod_item']['id']); ?>
+    </td>
+    <td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo($hs['prod_item']['seller_avatar']); ?>" alt="Image">
+        </div>
+        <a href="#">
+            <?php echo($hs['prod_item']['seller_name']); ?>
+        </a>
+    </td>
+    <td class="link">
+        <a href="<?php echo($hs['prod_item']['url']); ?>">
+            <?php echo($hs['prod_item']['prod_name']); ?>
+        </a>
+    </td>
+    <td>
+        <span class="col-green">  
+            <?php echo hs_money($hs['prod_item']['sale_price']); ?>
+        </span>
+    </td>
+    <td>
+        <span class="badge bg-orange">{{TR Deleted}}</span>
+    </td>
+    <td>
+        <b class="col-grey">(<?php echo($hs['prod_item']['total_orders']); ?>)</b>
+    </td>
+    <td>
+        <span class="badge bg-blue">
+            <?php echo($hs['prod_item']['sales']); ?> {{TR Items}}
+        </span>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo($hs['prod_item']['url']); ?>" class="waves-effect waves-block">
+                        {{TR Product page}}
+                    </a>
+                </li>
+                <li data-onclick="delete_product" data-id="<?php echo($hs['prod_item']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

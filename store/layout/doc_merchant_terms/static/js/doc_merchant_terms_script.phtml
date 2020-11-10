@@ -1,0 +1,49 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+		var DOC_MERCHANTERMS   = $("div#documentation-merchant-terms-page");
+		var DOC_MERCHANTERMS_F = DOC_MERCHANTERMS.find('form#form');
+
+        try{tinymce.remove();} catch(e) {/*pass*/}
+        tinymce.init({
+        	selector: 'textarea#documentation-merchanterms-content',
+        	plugins: "autoresize",
+        	force_br_newlines : false,
+	        force_p_newlines : false,
+	        forced_root_block : false
+        });
+        
+        DOC_MERCHANTERMS_F.on('submit',function(event) {
+            DOC_MERCHANTERMS_F.find('textarea').val(tinyMCE.activeEditor.getContent());
+        });
+
+        DOC_MERCHANTERMS_F.ajaxForm({
+            url: '{{CONFIG url}}/req/admin/static_page',
+            type: 'POST',
+            dataType: 'json',
+            data: {page: 'doc_merchant_terms'},
+            beforeSend: function() {
+                DOC_MERCHANTERMS_F.find('button[type="submit"]').attr('disabled', 'true');
+                DOC_MERCHANTERMS_F.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (data.status == 200) {
+                	delay(function(){
+                		hs_redirect('{{LINK merchant_terms}}');
+                	},2000);
+                }
+            }
+        });
+	});
+</script>

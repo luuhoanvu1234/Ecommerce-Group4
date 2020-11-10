@@ -1,0 +1,368 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+div.notifications-page-container{
+	width: 100%;
+	display: block;
+	background: transparent;
+	min-height: calc(100vh - 140px);
+
+	.content-container{
+		width: 70vw;
+		min-width: 320px;
+		padding: 0px !important;
+		margin: 0px auto;
+	}
+
+	.top-panel{
+		width: 100%;
+		overflow:hidden;
+		box-shadow: none;
+		border: none;
+		border-radius: 5px;
+		margin-bottom: 20px;
+		background: #fff;
+	
+		.top-line,.btm-line{
+			.flex-cont{
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+			}
+		}
+
+		.top-line{
+			width: 100%;
+			overflow: hidden;
+			padding: 20px;
+			border-bottom: 1px solid #eee;
+			.flex-cont{	
+				h5{
+				    overflow: hidden;
+				    padding: 0px;
+				    margin: 0;
+				    font-size: 16px;
+				    line-height: 15px 20px;
+				    color: $black2;
+				}
+			}
+		}
+
+		.btm-line{
+			width: 100%;
+			overflow: hidden;
+			padding: 20px;
+			div.flex-cont{
+				align-items: center;
+				div.select-all{
+					label{
+						font-size: 14px;
+						line-height: 20px;
+						color: $black;
+						margin: 0px;
+						font-weight: normal;
+						vertical-align: middle;
+						cursor: pointer;
+					}
+				}
+
+				div.delete-selected{
+					cursor: pointer;
+					line-height: 0px;
+					&.disabled{
+						opacity: 0.3;
+						cursor: not-allowed;
+					}
+					
+					span{
+						color: $red;
+						font-size: 14px;
+						line-height: 20px;
+					}
+
+					svg{
+						width: 15px;
+						height: 15px;
+						margin-top: -3px;
+						fill:$red;
+					}
+				}
+			}
+		}
+	}
+
+	.notifs-cont-panel{
+		width: 100%;
+		overflow: hidden;
+		background: #fff;
+		border: none;
+		border-radius: 5px;
+		box-shadow: none;
+		padding: 20px;
+		margin-bottom: 20px;
+
+		ul.notifications-list{
+			width: 100%;
+			padding: 0;
+			margin: 0;
+			overflow: hidden;
+			list-style-type: none;
+			li.notifications-list-item{
+				width: 100%;
+				display: flex;
+				overflow: hidden;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				border-bottom: 1px solid #eee;
+				padding-bottom:20px;
+				margin-bottom:20px;
+				align-items: center;
+
+				&:last-child{
+					border-bottom: none;
+					padding-bottom:0px;
+					margin-bottom:0px;
+				}
+
+				.select-item-box{
+					line-height: 0px;
+					label{
+						padding-bottom: 0px;
+						margin-bottom: 20px;
+						line-height: 20px;
+						height: 0px;
+						vertical-align: middle;
+					}
+				}
+				.notif-body{
+					flex: 1;
+					flex-direction: row;
+					flex-wrap: nowrap;
+					line-height: 0px;
+					.notif-body-inner{
+						display: flex;
+						width: 100%;
+						flex-direction: row;
+						flex-wrap: wrap;
+						line-height: 0px;
+						.avatar{
+							width: 40px;
+							height: 40px;
+							min-width: 40px;
+							min-height: 40px;
+							border-radius: 10em;
+							line-height: 0px;
+							overflow: hidden;
+							img{
+								width: 100%;
+								height: 100%;
+								object-fit: cover;
+							}
+						}
+
+						.notification-info{
+							flex: 1;
+							padding-left: 10px;
+							line-height: 0;
+
+							.top-line{
+								width: 100%;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: space-between;
+								align-items: center;
+								margin-bottom: 5px;
+								.notif-type{
+									line-height: 15px;
+									span{
+										font-size: 10px;
+										line-height: 12px;
+										color: $black;
+									}
+								}
+
+								div.delete-notification{
+									width: 18px;
+									height: 18px;
+									cursor: pointer;
+									margin-left: auto;
+									line-height: 15px;
+									opacity: 0.1;
+									transition: all 0.30s ease-in-out;
+									svg{
+										width: 100%;
+										height: 100%;
+										fill:$red;
+									}
+								}
+							}
+
+							.bottom-line{
+								width: 100%;
+								overflow: hidden;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: nowrap;
+								align-items: center;
+								a{
+									text-decoration: none;
+									color: inherit;
+									line-height: 0px;
+									display: block;
+									flex-basis: 1;
+									b{
+										font-size: 13px;
+										line-height: 15px;
+										color: $black;
+										cursor: pointer;
+
+										span.verified{
+											svg{
+												fill: $main;
+												width: 15px;
+												height: 15px;
+												vertical-align: middle;
+												path{
+													fill: $main;
+												}
+											}
+										}
+									}
+
+									span{
+										font-size: 13px;
+										line-height: 13px;
+										color: $black2;
+									}
+								}
+
+								.notif-time{
+									margin-left: auto;
+									time{
+										font-size: 13px;
+										line-height: 15px;
+										color: #9697a1;
+									}
+								}
+							}
+
+							&:hover{
+								.top-line{
+									div.delete-notification{
+										opacity: 1;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.notifications-preloader{
+			width: 100%;
+			overflow: hidden;
+			margin-top: 15px;
+			&.hidden{
+				display: none;
+				opacity: 0;
+				visibility: hidden;
+			}
+		}
+
+		div.load-more{
+			width: 100%;
+			overflow: hidden;
+			padding: 0;
+			margin-top: 15px;
+			text-align: center;
+			button{
+				border:2px solid $red;
+				color: $red;
+				box-shadow:none;
+				outline: 0;
+				font-size: 14px;
+				line-height: 16px;
+				padding: 7px 50px;
+				background: #fff;
+				border-radius: 3px;
+			}
+		}
+	}
+
+	div.no-notifications{
+		width: 100%;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+		height: calc(100vh - 140px);
+		
+		div.icon{
+			width: 60px;
+			height: 60px;
+			svg{
+				width: 100%;
+				height: 100%;
+				fill:$red;
+			}
+		}
+
+		h5{
+			font-size: 22px;
+		    line-height: 35px;
+		    color: #192a32;
+		    padding: 0;
+		    margin: 0;
+		    width: 100%;
+		    text-align: center;
+		}
+
+		p{
+			padding: 0;
+		    margin: 0 0 20px 0;
+		    font-size: 13px;
+		    line-height: 16px;
+		    color: #2d2f43;
+		    width: 100%;
+		    text-align: center;
+		}
+
+		button{
+			border: 1px solid #ff7676;
+		    outline: 0;
+		    padding: 12px 40px;
+		    box-shadow: none;
+		    background: $red;
+		    color: #fff;
+		    font-size: 14px;
+		    line-height: 16px;
+		    text-decoration: none;
+		    border-radius: 3px;
+		}
+	}
+}

@@ -1,0 +1,28 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var MAIN_HEADER       = $("header#main-header-container");
+		var RT_MESSAGES       = MAIN_HEADER.find("li#rt-messages");
+		var RT_MSGS_HANDLER   = Object({
+			interval: (1000 * 60),
+			get_unseen_messages: function() {
+				$.ajax({
+					url: "{{CONFIG url}}/req/messages/get_unseen",
+					type: 'GET',
+					dataType: 'json',
+				}).done(function(data) {
+					if (data.status == 200) {
+						RT_MESSAGES.find('span.new-messages').text(data.count);
+					}
+					else {
+						RT_MESSAGES.find('span.new-messages').text('');
+					}
+				});
+			}
+		});
+		
+		setInterval(function(){
+			RT_MSGS_HANDLER.get_unseen_messages();
+		},RT_MSGS_HANDLER.interval);
+	});
+</script>

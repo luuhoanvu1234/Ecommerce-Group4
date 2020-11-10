@@ -1,0 +1,65 @@
+<tr data-report-li="<?php echo($hs['report_data']['id']); ?>">
+	<td>
+		<?php echo($hs['report_data']['id']); ?>
+	</td>
+	<td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo($hs['report_data']['avatar']); ?>" alt="Avatar">
+        </div>
+    	<a href="#">
+            <?php echo($hs['report_data']['full_name']); ?>
+
+            <?php if ($hs['report_data']['verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+        </a>
+    </td>
+    <td class="link">
+		<a href="<?php echo($hs['report_data']['prod_url']); ?>">
+			<?php echo($hs['report_data']['prod_name']); ?>
+		</a>
+    </td>
+    <td>
+    	<?php if ($hs['report_data']['seen'] == '1'): ?>
+    		<span class="badge bg-orange" id="report-status">
+    			{{TR Viewed}}
+    		</span>
+    	<?php else: ?>
+    		<span class="badge bg-main-red" id="report-status">
+    			{{TR Unviewed}}
+    		</span>
+    	<?php endif; ?>
+    </td>   
+    <td class="time">
+    	<?php echo($hs['report_data']['time']); ?>
+    </td>
+    <td>
+    	<div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu bs-dropdown-menu pull-right">
+                <li data-onclick="view_report" data-id="<?php echo($hs['report_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Show Details}} 
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo($hs['report_data']['prod_url']); ?>" class="waves-effect waves-block">
+                        {{TR Product page}}
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo($hs['report_data']['seller_url']); ?>" class="waves-effect waves-block">
+                        {{TR Seller profile}}
+                    </a>
+                </li>
+                <li data-onclick="delete_report" data-id="<?php echo($hs['report_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

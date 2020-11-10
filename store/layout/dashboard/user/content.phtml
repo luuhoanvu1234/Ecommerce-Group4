@@ -1,0 +1,300 @@
+<div class="store-dashboard-container user clearfix" id="user-store-dashboard">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ME url}}">
+                        {{ME name}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Dashboard}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-blue">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Products}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/my_products}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo($hs['total_products']); ?>">
+                                    <?php echo($hs['total_products']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">shop</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-green">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Balance}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/wallet}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo($me['wallet_all']); ?>">
+                                    {{ME wallet_all}}
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">attach_money</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-orange">
+                <div class="box-body"> 
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR New orders}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/customer_orders}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo($hs['total_new_ords']); ?>">
+                                    <?php echo($hs['total_new_ords']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">shopping_basket</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-red">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Customers}}
+                                </span>
+                                <span class="text">
+                                    <a href="{{LINK merchant_panel/customers}}">
+                                        {{TR More information}}
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo($hs['total_customers']); ?>">
+                                    <?php echo($hs['total_customers']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">face</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="header">
+                    <div class="row clearfix">
+                        <div class="col-xs-12 col-sm-6">
+                            <h2>{{TR Weekly Monetization Statistics}}</h2>
+                        </div>
+                    </div>
+                    <ul class="header-dropdown">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                                <li>
+                                    <a href="{{LINK merchant_panel/wallet}}">
+                                        {{TR More information}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <canvas id="weekly_stats"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="header">
+                    <div class="row clearfix">
+                        <div class="col-xs-12 col-sm-6">
+                            <h2>{{TR Weekly earnings}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table weekly-earnings-table common-table table-striped no-mb">
+                        <thead>
+                            <th>
+                                {{TR Week day}}
+                            </th>
+                            <th>
+                                {{TR Item sales count}}
+                            </th>
+                            <th>
+                                {{TR Earnings}}
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR Sunday}}
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['weekly_stats']['orders'][0],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['weekly_stats']['sales'][0],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR Monday}}
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['weekly_stats']['orders'][1],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['weekly_stats']['sales'][1],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR Tuesday}}
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['weekly_stats']['orders'][2],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['weekly_stats']['sales'][2],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR Wedesday}}
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['weekly_stats']['orders'][3],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['weekly_stats']['sales'][3],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR Thusday}}
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['weekly_stats']['orders'][4],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['weekly_stats']['sales'][4],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR Friday}}
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['weekly_stats']['orders'][5],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['weekly_stats']['sales'][5],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="time">
+                                    <time>
+                                       {{TR Saturday}}
+                                    </time>
+                                </td>
+                                <td>
+                                    <b>(<?php echo fetch_or_get($hs['weekly_stats']['orders'][6],0); ?>)</b>
+                                </td>
+                                <td>
+                                    <span class="col-green">
+                                        <?php $stat_val = fetch_or_get($hs['weekly_stats']['sales'][6],'0.00'); echo hs_money($stat_val); ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php echo hs_loadpage('dashboard/static/js/user_dashboard_script'); ?>

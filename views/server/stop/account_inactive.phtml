@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		Configm account
+	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/bootstrap.min.css',$hs['config']['url'])); ?>">
+	<link rel="stylesheet" href="<?php echo(sprintf('%s/views/v1/statics/css/server.message.styles.css',$hs['config']['url'])); ?>">
+	<script src="<?php echo(sprintf('%s/views/v1/statics/javascript/jquery-v3-3-1.js',$hs['config']['url'])); ?>"></script>
+
+	<script>
+		jQuery(document).ready(function($) {
+			var sblock = $('div[data-section-block="main"]');
+
+			sblock.find('a[data-section-node="resend_btn"]').on('click', function(event) {
+				$(this).text('<?php echo hs_translate('Please wait!'); ?>');
+			});
+		});
+	</script>
+</head>
+<body>
+	<div class="message-container-block" data-section-block="main">
+		<div class="message-container-inner">
+			<div class="icon main-red">
+				<?php echo hs_svg('check'); ?>
+			</div>
+			<h2>
+				<?php echo hs_translate('Thank you for you signing up!'); ?>
+			</h2>
+			<p class="tex">
+				<?php echo hs_translate('An email has been sent to {%email%}. You need  now to confirm your email address before you can login. Please check your email and click on the provided link.',array(
+					'email' => sprintf('<b>%s</b>',$hs['me']['email'])
+				)); ?>
+			</p>
+
+			<?php if (not_empty($hs['resend_ace_status'])): ?>
+				<small class="info-message">
+					<?php echo hs_translate('An email has been resent to {%email%}. Please check your inbox!',array(
+						'email' => sprintf('<b>%s</b>',$hs['me']['email'])
+					)); ?>
+				</small>
+			<?php endif; ?>
+
+			<div class="btns">
+				<a class="btn inline" data-section-node="resend_btn" href="<?php echo hs_link('home?resend_ace=1'); ?>">
+					<?php echo hs_translate('Resend E-mail!'); ?>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

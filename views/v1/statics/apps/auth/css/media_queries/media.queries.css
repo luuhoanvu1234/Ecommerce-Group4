@@ -1,0 +1,129 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+@media (min-width: 1025px) and (max-width: 1280px) {
+  div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.body div.prod-name h6 {
+    font-size: 13px !important; }
+  div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.body div.prices span {
+    font-size: 13px !important; } }
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  div.user-auth-modal-container div.prods-items-container {
+    padding: 30px !important; }
+    div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 10px; }
+      div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.body div.prod-name h6 {
+        font-size: 12px !important; }
+      div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.body div.prices span {
+        font-size: 12px !important; } }
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.user-auth-modal-container div.prods-items-container {
+    padding: 20px !important; }
+    div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 12px !important;
+      font-weight: normal !important; }
+    div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 10px !important; }
+      div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 12px !important; }
+        div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 12px !important;
+          height: 12px !important; }
+        div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 12px !important; }
+  div.user-auth-modal-container .user-auth-modal-wrapper {
+    padding: 50px 30px; }
+    div.user-auth-modal-container .user-auth-modal-wrapper::-webkit-scrollbar {
+      display: none; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.left-part {
+      width: 100% !important; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.right-part {
+      width: 100% !important;
+      padding: 30px 0 0 0; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-join-modal-inner div.left-part {
+      width: 100% !important; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-join-modal-inner div.right-part {
+      width: 100% !important;
+      padding: 30px 0 0 0; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.user-auth-modal-container div.prods-items-container {
+    padding: 20px !important; }
+    div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 11px !important;
+      font-weight: normal !important; }
+    div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 7px !important; }
+      div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 11px !important; }
+        div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 10px !important;
+          height: 10px !important; }
+        div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 11px !important; }
+  div.user-auth-modal-container .user-auth-modal-wrapper {
+    padding: 50px 20px; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.left-part {
+      width: 100% !important; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.right-part {
+      width: 100% !important;
+      padding: 30px 0 0 0; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-join-modal-inner div.left-part {
+      width: 100% !important; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-join-modal-inner div.right-part {
+      width: 100% !important;
+      padding: 30px 0 0 0; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.user-auth-modal-container div.prods-items-container {
+    padding: 15px !important; }
+    div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 11px !important;
+      font-weight: normal !important; }
+    div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 7px !important; }
+      div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 10px !important; }
+        div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 10px !important;
+          height: 10px !important; }
+        div.user-auth-modal-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 8px !important; }
+  div.user-auth-modal-container .user-auth-modal-wrapper {
+    padding: 50px 20px; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.left-part {
+      width: 100% !important; }
+      div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.left-part div.prod-price span {
+        font-size: 16px !important; }
+      div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.left-part div.price span {
+        font-size: 18px !important; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-auth-modal.login div.user-auth-modal-inner div.right-part {
+      width: 100% !important;
+      padding: 25px 0 0 0; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-join-modal-inner div.left-part {
+      width: 100% !important; }
+    div.user-auth-modal-container .user-auth-modal-wrapper div.user-join-modal-inner div.right-part {
+      width: 100% !important;
+      padding: 30px 0 0 0; } }
+@media (min-width: 10px) and (max-width: 240px) {
+  body {
+    display: none !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

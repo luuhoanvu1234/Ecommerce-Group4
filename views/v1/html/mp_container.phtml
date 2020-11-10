@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>
+		<?php echo fetch_or_get($hs['page_title'],'');?>
+	</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="title" content="<?php echo fetch_or_get($hs['page_title'],'');?>">
+    <meta name="description" content="<?php echo fetch_or_get($hs['page_desc'],'');?>">
+    <meta name="keywords" content="<?php echo fetch_or_get($hs['page_kw'],'');?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo hs_get_media($hs['config']['site_favicon']); ?>">
+	<link rel="stylesheet" href="{{site_url}}/views/v1/statics/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{site_url}}/views/v1/statics/css/preloader.min.css">
+	<link rel="stylesheet" href="{{site_url}}/views/v1/statics/css/anim.master.css">
+
+	<!-- Common media queries & styles -->
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/common/css/common.master.style.css">
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/common/css/media_queries/media.queries.css">
+	<!-- Common media queries END -->
+
+	<?php if ($hs['pn'] == 'product'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/xzoom.style.min.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/slick.css"/>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/product/css/product.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/product/css/media_queries/media.queries.css">
+	<?php endif; ?>
+
+	<?php if ($hs['pn'] == ('checkout')): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/checkout/css/checkout.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/checkout/css/media_queries/media.queries.css">
+	<?php endif; ?>
+
+	<?php if ($hs['pn'] == 'paid'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/paid/css/paid.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/paid/css/media_queries/media.queries.css">
+	<?php endif; ?>
+	
+	<?php if ($hs['pn'] == 'profile'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/profile/css/media_queries/media.queries.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/profile/css/profile.master.style.css">
+	<?php endif; ?>	
+
+	<?php if ($hs['pn'] == 'messages'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/messages/css/messages.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/messages/css/media_queries/media.queries.css">
+	<?php endif; ?>	
+	
+	<?php if ($hs['pn'] == 'catalog'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/catalog/css/catalog.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/catalog/css/media_queries/media.queries.css">
+	<?php endif; ?>		
+	
+	<?php if ($hs['pn'] == 'wishlist'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/wishlist/css/wishlist.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/wishlist/css/media_queries/media.queries.css">
+	<?php endif; ?>	
+
+	<?php if ($hs['pn'] == 'notifications'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/notifications/css/notifications.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/notifications/css/media_queries/media.queries.css">
+	<?php endif; ?>
+
+	<?php if ($hs['pn'] == 'contact_us'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/contact_us/css/contactus.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/contact_us/css/media_queries/media.queries.css">
+	<?php endif; ?>
+
+	<?php if ($hs['pn'] == 'help'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/help/css/help.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/help/css/media_queries/media.queries.css">
+	<?php endif; ?>
+
+	<?php if (in_array($hs['pn'],array('privacy_policy','terms','merchant_terms','about_us'))): ?>	
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/statpage/css/statpage.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/statpage/css/media_queries/media.queries.css">
+	<?php endif; ?>
+	
+	<?php if ($hs['pn'] == 'home'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/home/css/home.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/home/css/media_queries/media.queries.css">
+	<?php endif; ?>	
+	
+	<?php if ($hs['pn'] == 'auth'): ?>
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/auth/css/auth.master.style.css">
+		<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/apps/auth/css/media_queries/media.queries.css">
+	<?php endif; ?>
+	
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/bootstrap-select.css">
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/jquery.fancybox.css">
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/circle.css">
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/md-checkbox.css">
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="{{site_url}}/views/v1/statics/css/bootstrap.notify.css">
+
+	<script src="{{site_url}}/views/v1/statics/javascript/jquery-v3-3-1.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/popper.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/bootstrap.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/jquery.form.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/xzoom.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/gridAlicious/jquery.grid-a-licious.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/libs/bootstrap-select.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/libs/sticky-sidebar/source/jquery.sticky-sidebar.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/txt.autoresize.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/libs/jquery.fancybox.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/libs/jquery.equalheights.min.js"></script>
+
+	<script src="{{site_url}}/views/v1/statics/javascript/slick/slick.min.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/master.script.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/master.tools.js"></script>
+	<script src="{{site_url}}/views/v1/statics/javascript/libs/bootstrap-notify.js"></script>
+
+	<?php if ($hs['pn'] == 'checkout'): ?>
+		<script src="https://js.stripe.com/v3/"></script>
+	<?php endif;?>
+
+	{{CONFIG google_analytics}}
+
+	<?php echo hs_loadpage('commonjs/frontend_jstools/script_master'); ?>
+</head>
+<body>
+	<input type="hidden" class="hidden d-none csrf-token" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+	<div class="main-preloader-holder">
+		<div class="main-preloader">
+			<div class="loading">
+				<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+			</div>
+		</div>
+	</div>
+	<?php if (in_array($hs['pn'], array('auth')) != true): ?>
+		<?php echo hs_loadpage('header/customer'); ?>
+
+		<?php if (not_empty($hs['announcements'])): ?>
+	        <div class="announcements-container">
+	        	<?php echo hs_loadpage('announcements/plm_content/content'); ?>
+	        	<?php echo hs_loadpage('commonjs/announcements/script_master'); ?>
+	        </div>
+	    <?php endif; ?>
+	<?php endif; ?>
+
+	<div class="main-container main-cont-page-<?php echo fetch_or_get($hs['pn'],'none'); ?>">
+		<?php echo $hs['site_content']; ?>	
+	</div>
+
+	<div class="scrollpage2-top">
+		<button data-dom-node="scroll_page_to_top">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" /></svg>
+		</button>
+	</div>
+</body>
+</html>

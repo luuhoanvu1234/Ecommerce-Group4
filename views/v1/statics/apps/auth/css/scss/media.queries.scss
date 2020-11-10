@@ -1,0 +1,318 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  
+  //CSS
+  
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	div.user-auth-modal-container{
+		div.prods-items-container{
+			div.prod-item{
+				div.prod-desc{
+					div.body {
+						div.prod-name{
+							h6{
+								font-size: 13px !important;
+							}
+						}
+
+						div.prices{
+							span{
+								font-size: 13px !important;
+							}
+						}
+					}
+				}	
+			}
+		}
+	}
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) { 
+	div.user-auth-modal-container{
+		div.prods-items-container{
+			padding: 30px !important;
+			div.prod-item{
+				div.prod-desc{
+					padding: 10px;
+					div.body {
+						div.prod-name{
+							h6{
+								font-size: 12px !important;
+							}
+						}
+
+						div.prices{
+							span{
+								font-size: 12px !important;
+							}
+						}
+					}
+				}	
+			}
+		}
+	}
+}
+
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 780px) {
+	div.user-auth-modal-container{
+		div.prods-items-container{
+			padding: 20px !important;
+			div.prod-item{
+                div.prod-name{
+                    h6{
+                        margin-bottom: 0px !important;
+                        font-size: 12px !important;
+                        font-weight: normal !important;
+                    }
+                }
+
+                div.prod-desc{
+                    padding: 10px !important;
+                    div.prices{
+                        span{
+                            font-size: 12px !important;
+
+                            &.star-icon{
+                                svg{
+                                    width: 12px !important;
+                                    height: 12px !important;
+                                }
+
+                                span.rating-num{
+                                    font-size: 12px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+		}
+
+		.user-auth-modal-wrapper{
+			padding: 50px 30px;
+			&::-webkit-scrollbar { 
+                display: none; 
+            }
+
+			div.user-auth-modal.login {
+				div.user-auth-modal-inner{
+					div.left-part{
+						width: 100% !important;
+					}
+
+					div.right-part{
+						width: 100% !important;
+						padding: 30px 0 0 0;
+					}
+				}
+			}
+
+			div.user-join-modal-inner{
+				div.left-part{
+					width: 100% !important;
+				}
+
+				div.right-part{
+					width: 100% !important;
+					padding: 30px 0 0 0;
+				}
+			}
+		}
+	}
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+	div.user-auth-modal-container{
+		div.prods-items-container{
+			padding: 20px !important;
+			div.prod-item{
+                div.prod-name{
+                    h6{
+                        margin-bottom: 0px !important;
+                        font-size: 11px !important;
+                        font-weight: normal !important;
+                    }
+                }
+
+                div.prod-desc{
+                    padding: 7px !important;
+                    div.prices{
+                        span{
+                            font-size: 11px !important;
+
+                            &.star-icon{
+                                svg{
+                                    width: 10px !important;
+                                    height: 10px !important;
+                                }
+
+                                span.rating-num{
+                                    font-size: 11px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+		}
+
+		.user-auth-modal-wrapper{
+			padding: 50px 20px;
+			div.user-auth-modal.login {
+				div.user-auth-modal-inner{
+					div.left-part{
+						width: 100% !important;
+					}
+
+					div.right-part{
+						width: 100% !important;
+						padding: 30px 0 0 0;
+					}
+				}
+			}
+
+			div.user-join-modal-inner{
+				div.left-part{
+					width: 100% !important;
+				}
+
+				div.right-part{
+					width: 100% !important;
+					padding: 30px 0 0 0;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: 240px) and (max-width: 320px) {
+	div.user-auth-modal-container{
+		div.prods-items-container{
+			padding: 15px !important;
+			div.prod-item{
+                div.prod-name{
+                    h6{
+                        margin-bottom: 0px !important;
+                        font-size: 11px !important;
+                        font-weight: normal !important;
+                    }
+                }
+
+                div.prod-desc{
+                    padding: 7px !important;
+                    div.prices{
+                        span{
+                            font-size: 10px !important;
+
+                            &.star-icon{
+                                svg{
+                                    width: 10px !important;
+                                    height: 10px !important;
+                                }
+
+                                span.rating-num{
+                                    font-size: 8px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+		}
+
+		.user-auth-modal-wrapper{
+			padding: 50px 20px;
+			div.user-auth-modal.login {
+				div.user-auth-modal-inner{
+					div.left-part{
+						width: 100% !important;
+
+						div.prod-price{
+							span{
+								font-size: 16px !important;
+							}
+						}
+
+						div.price{
+							span{
+								font-size: 18px !important;
+							}
+						}
+					}
+
+					div.right-part{
+						width: 100% !important;
+						padding: 25px 0 0 0;
+					}
+				}
+			}
+
+			div.user-join-modal-inner{
+				div.left-part{
+					width: 100% !important;
+				}
+
+				div.right-part{
+					width: 100% !important;
+					padding: 30px 0 0 0;
+				}
+			}
+			
+		}
+	}
+}
+
+@media (min-width: 10px) and (max-width: 240px) {
+	body{
+		display: none !important;
+	}
+}
+

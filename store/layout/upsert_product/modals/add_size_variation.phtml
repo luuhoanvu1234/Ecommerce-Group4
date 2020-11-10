@@ -1,0 +1,151 @@
+<div class="modal animated fadeIn product-upsertvar-modal" id="product-sizevar-modal" data-keyboard="false" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form class="form clearfix" id="prod-sizevar-upsert-form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Product size variation}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                        <div class="data-management-area">
+                            <div class="form-fieldset-title clearfix">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <p>
+                                            {{TR Enter a basic variant info}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box">
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">
+                                            {{TR Size}}
+                                        </label>
+                                        <div class="filed-box" data-form-field="2">
+                                            <div class="sizing">
+                                                <div class="sizes-defining">
+                                                    <?php foreach ($hs['ps_type']['size_units'] as $id => $val): ?>
+                                                        <?php if (hs_prod_type_exists(array('prod_id' => $hs['prod_id'],'var_type' => 'size','size' => $val),true)): ?>
+                                                            <div class="size-unit disabled">
+                                                                <input disabled="true" type="checkbox" class="size-var-control chk-col-blue"/>
+                                                                <label class="col-blue">
+                                                                    <?php echo $val; ?>
+                                                                </label>
+                                                            </div>
+                                                        <?php else: ?>
+                                                            <div class="size-unit">
+                                                                <input name="size" value="<?php echo $val; ?>" type="checkbox" id="cbox-<?php echo $id; ?>" class="size-var-control filled-in chk-col-blue"/>
+                                                                <label for="cbox-<?php echo $id; ?>" class="col-blue">
+                                                                    <?php echo $val; ?>
+                                                                </label>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php if (isset($hs['ps_type']['expandable'])): ?>
+                                <div class="form-group form-field-box">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-12">
+                                            <label class="form-label">
+                                                {{TR Additional}}
+                                            </label>
+                                            <div class="filed-box">
+                                                <div class="sizing-addon clearfix size-var">
+                                                    <div class="input-group no-mb">
+                                                        <div class="input-control">
+                                                            <input id="add_su" type="text" class="form-control" placeholder="{{TR Add extra size}}">
+                                                        </div>
+                                                        <div class="button-control">
+                                                            <button disabled type="button" class="btn add-size bg-blue btn-sm">
+                                                                <i class="material-icons">exposure_plus_1</i>
+                                                            </button> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p class="info-message info">
+                                                <i class="material-icons">info</i>
+                                                {{TR Add custom size unit}}. <strong><?php echo($hs['ps_type']['label']); ?></strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row clearfix">
+                                    <div class="col-sm-6 p-r-10 mb-20" data-form-field="3">
+                                        <label class="form-label">
+                                            {{TR Regular price}}
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="reg_price" type="number" step="any" class="form-control" placeholder="{{TR Enter the product regular price}}.">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20" data-form-field="4">
+                                        <label class="form-label">
+                                            {{TR Sale price}}
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="sale_price" type="numver" class="form-control" placeholder="{{TR Enter the product sale price}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row clearfix">
+                                    <div class="col-sm-6 p-r-10 mb-20" data-form-field="5">
+                                        <label class="form-label">
+                                            {{TR Quantity}}
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="quantity" type="text" class="form-control" placeholder="{{TR Maximum is 1200}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 p-l-10 mb-20" data-form-field="6">
+                                        <label class="form-label">
+                                            SKU
+                                        </label>
+                                        <div class="filed-box">
+                                            <input name="sku" type="text" class="form-control" placeholder="{{TR Enter SKU}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group form-field-box no-mb">
+                                <div class="row clearfix">
+                                    <div class="col-sm-12">
+                                        <div class="filed-box">
+                                            <div class="btns">
+                                                <button data-section-node="main_cancel_btn" type="button" class="btn bg-grey btn-lg btn-custom" data-dismiss="modal" title="{{TR Cancel}}">
+                                                    <i class="material-icons">close</i> <span>{{TR Cancel}}</span>
+                                                </button>
+                                                <button data-section-node="main_submit_btn" type="submit" class="btn bg-light-blue btn-lg btn-custom m-l-15" title="{{TR Add variant}}">
+                                                    <i class="material-icons">add</i> <span>{{TR Add variant}}</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php echo hs_loadpage('upsert_product/static/js/add_sizevar_script');?>
+</div>
+

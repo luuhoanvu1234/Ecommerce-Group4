@@ -1,0 +1,90 @@
+<tr data-transaction-li="<?php echo($hs['trans_data']['id']); ?>">
+	<td>
+		<?php echo($hs['trans_data']['id']); ?>
+	</td>
+	<td class="link">
+		<div class="avatar-holder">
+            <img src="<?php echo($hs['trans_data']['buyer_avatar']); ?>" alt="Avatar">
+        </div>
+		<a href="<?php echo($hs['trans_data']['buyer_url']); ?>">
+			<?php echo($hs['trans_data']['buyer_name']); ?>
+
+			<?php if ($hs['trans_data']['buyer_verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+		</a>
+	</td>
+	<td>
+		<span class="col-green">
+			<?php echo($hs['trans_data']['amount']); ?>
+		</span>
+	</td>
+	<td class="link">
+		<div class="avatar-holder">
+            <img src="<?php echo($hs['trans_data']['seller_avatar']); ?>" alt="Avatar">
+        </div>
+		<a href="<?php echo($hs['trans_data']['seller_url']); ?>">
+			<?php echo($hs['trans_data']['seller_name']); ?>
+
+			<?php if ($hs['trans_data']['seller_verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+		</a>
+	</td>
+	<td>
+		<?php if ($hs['trans_data']['status'] == 'success'): ?>
+			<span class="badge bg-green">
+				{{TR Success}}
+			</span>
+		<?php else: ?>
+			<span class="badge bg-red">
+				{{TR Failed}}
+			</span>
+		<?php endif; ?>
+	</td>
+	<td>
+		<b>
+			<small><?php echo($hs['trans_data']['market_rate']); ?>%</small>
+		</b>
+	</td>
+	<td class="time">
+		<?php echo($hs['trans_data']['time']); ?>
+	</td>
+	<td>
+		<?php if ($hs['trans_data']['method'] == 'card'): ?>
+			<span>
+				<small>{{TR Bank card}}</small>
+			</span>
+		<?php elseif($hs['trans_data']['method'] == 'paypal'): ?>
+			<span>
+				<small>PayPal</small>
+			</span>
+		<?php elseif($hs['trans_data']['method'] == 'wallet'): ?>
+			<span>
+				<small>{{TR Account wallet}}</small>
+			</span>
+		<?php elseif($hs['trans_data']['method'] == 'cod'): ?>
+			<span>
+				<small>{{TR Cash on delivery}}</small>
+			</span>
+		<?php else: ?>
+			<span>
+				<small>{{TR Undefined}}</small>
+			</span>
+		<?php endif; ?>
+	</td>
+	<td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li data-onclick="show_trans_details" data-id="<?php echo $hs['trans_data']['id']; ?>">
+                    <a href="#"  class=" waves-effect waves-block">
+                        {{TR Show Details}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

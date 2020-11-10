@@ -1,0 +1,50 @@
+<div class="modal animated fadeIn vh-center addnew-currency-modal" id="addnew-currency-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form" id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Add new currency}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                    	<div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Currency name}}:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="curr_name">
+                                <input name="curr_name" type="text" class="form-control" placeholder="{{TR Enter a new currency name}}">
+                            </div>
+                    	</div>
+                        <div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Currency code}}:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="curr_code">
+                                <input name="curr_code" type="text" class="form-control" placeholder="{{TR Enter a new currency code}}" pattern="[a-z]+">
+                            </div>
+                            <p class="info-message info">
+                                <i class="material-icons">info</i>
+                                {{TR Please note that when adding a new currency, the code of the currency should contain only lowercase English letters, that is, [a-z], without spaces or special characters.}}
+                            </p>
+                        </div>
+                        <div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Currency symbol}} (UTF-8):
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="curr_symbol">
+                                <input name="curr_symbol" type="text" class="form-control" placeholder="{{TR Enter a new currency symbol}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-grey waves-effect tt-up" data-dismiss="modal">{{TR Cancel}}</button>
+                    <button type="submit" class="btn bg-light-blue waves-effect tt-up">{{TR Add currency}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

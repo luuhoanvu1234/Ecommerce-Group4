@@ -1,0 +1,351 @@
+<div class="site-settings-page data-management-page" data-sblock="site_settings_page">
+	<div class="block-header">
+	    <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/site_settings}}">
+                        {{TR Site settings}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Market general settings}}
+                </li>
+            </ol>
+        </nav>
+	</div>
+	<div class="clearfix">
+		<div class="affixed-page-section">
+			<div class="affixed-page-part-1">
+	            <div class="card">
+	                <div class="header">
+	                    <h2>{{TR Market general settings}}</h2>
+	                </div>
+	                <div class="body">
+	                    <form class="form" data-snode="site_settings_form">
+	                    	<div class="data-management-area">
+		                    	<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+		                        <div class="form-fieldset-title" data-affix-label="market_info_settings">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12">
+			                        		<p>
+			                        			{{TR Market info settings}}
+			                        		</p>
+			                        	</div>
+		                            </div>
+		                        </div>
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="title">
+			                            	<label class="form-label">
+			                        			{{TR Market title}}:
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<input name="title" type="text" class="form-control" value="{{CONFIG title}}" placeholder="{{TR Enter your web site title}}">
+		                            		</div>
+			                            </div>
+			                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="name">
+			                            	<label class="form-label">
+			                        			{{TR Market name}}
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<input name="name" type="text" class="form-control" value="{{CONFIG name}}" placeholder="{{TR Enter your web site name}}">
+		                            		</div>
+			                            </div>
+		                            </div>
+		                        </div>
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="description">
+			                            	<label class="form-label">
+			                        			{{TR Market description}}:
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<textarea class="form-control" name="description" rows="5" placeholder="{{TR Enter your web site description}}">{{CONFIG description}}</textarea>
+		                            		</div>
+			                            </div>
+		                            </div>
+		                        </div>    
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="keywords">
+			                            	<label class="form-label">
+			                        			{{TR Market keywords}}:
+			                        		</label>
+			                            	<div class="filed-box">
+			                            		<textarea class="form-control" name="keywords" rows="5" placeholder="{{TR Enter your web site keywords}}">{{CONFIG keywords}}</textarea>
+		                            		</div>
+			                            </div>
+			                            <div class="col-sm-12 no-mb">
+			                            	<p class="info-message info">
+		                            			<i class="material-icons">info</i>
+			                        			{{TR Enter a popular ecommerce keywords. Please note that keywords must be separated by a comma.}}
+		                            		</p>
+			                            </div>
+		                            </div>
+		                        </div>
+		                        <hr>
+		                        <div class="form-fieldset-title" data-affix-label="google_analytics">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12">
+			                        		<p>
+			                        			{{TR Google analytics}}
+			                        		</p>
+			                        	</div>
+		                            </div>
+		                        </div> 
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="google_analytics">
+			                            	<label class="form-label">
+			                        			{{TR Google analytics JS code}}:
+			                        		</label>
+			                            	<div class="filed-box">
+			                            		<textarea class="form-control" name="google_analytics" rows="8" placeholder="JavaScript code">{{CONFIG google_analytics}}</textarea>
+		                            		</div>
+			                            </div>
+			                            <div class="col-sm-12 no-mb">
+			                            	<p class="info-message info">
+		                            			<i class="material-icons">info</i>
+			                        			{{TR Put here google analytics (JavaScript) code. More about this read here}}:
+			                        			<a href="https://analytics.google.com/analytics/web">Google Analytics</a>
+		                            		</p>
+			                            </div>
+		                            </div>
+		                        </div>
+		                        <hr>
+		                        <div class="form-fieldset-title" data-affix-label="google_maps_api">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12">
+			                        		<p>
+			                        			{{TR Google maps API}}
+			                        		</p>
+			                        	</div>
+		                            </div>
+		                        </div> 
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="google_maps_api">
+			                            	<label class="form-label">
+			                        			{{TR Google maps API application key}}:
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<input name="google_maps_api" type="text" class="form-control" value="{{CONFIG google_maps_api}}" placeholder="{{TR Enter your google maps API key}}">
+		                            		</div>
+			                            </div>
+		                            </div>
+		                        </div>
+		                        <hr>
+		                        <div class="form-fieldset-title" data-affix-label="market_address">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12">
+			                        		<p>
+			                        			{{TR Address}}
+			                        		</p>
+			                        	</div>
+		                            </div>
+		                        </div>
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="company_address">
+			                            	<label class="form-label">
+			                        			{{TR Company location address}}:
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<input name="company_address" type="text" class="form-control" value="{{CONFIG company_address}}" placeholder="{{TR Enter your company location address}}">
+		                            		</div>
+			                            </div>
+			                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="email">
+			                            	<label class="form-label">
+			                        			{{TR Market e-mail address}}:
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<input name="email" type="email" class="form-control" value="{{CONFIG email}}" placeholder="{{TR Enter your web site email}}">
+		                            		</div>
+			                            </div>
+		                            </div>
+		                        </div> 
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="contacts_info">
+			                            	<label class="form-label">
+			                        			{{TR Company contacts info}}(trên 15 ký tự): 
+			                        		</label>
+			                            	<div class="filed-box">
+			                            		<textarea class="form-control" name="contacts_info" rows="7" placeholder="{{TR Enter your company contacts informations}}"><?php echo hs_br2nl($hs['config']['contacts_info']); ?></textarea>
+		                            		</div>
+			                            </div>
+		                            </div>
+		                        </div>
+		                        <hr> 
+		                        <div class="form-fieldset-title" data-affix-label="market_currency">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12">
+			                        		<p>
+			                        			{{TR Currency}}
+			                        		</p>
+			                        	</div>
+		                            </div>
+		                        </div>  
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="market_currency">
+			                            	<label class="form-label">
+			                        			{{TR Market currency}}:
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<select data-size="5" name="market_currency" class="form-control">
+		                            				<?php foreach ($hs['site_currencies'] as $curr_data): ?>
+		                            					<?php if ($hs['config']['market_currency'] == $curr_data['curr_code']): ?>
+		                            						<option value="<?php echo($curr_data['curr_code']); ?>" selected="true">
+			                            						<?php echo strtoupper($curr_data['curr_code']); ?>
+			                            					</option>
+		                            					<?php else: ?>
+		                            						<option value="<?php echo($curr_data['curr_code']); ?>">
+			                            						<?php echo strtoupper($curr_data['curr_code']); ?>
+			                            					</option>
+		                            					<?php endif; ?>
+		                            				<?php endforeach; ?>
+		                            			</select>
+		                            		</div>
+			                            </div>
+			                            <div class="col-sm-12 no-mb">
+			                            	<p class="info-message warning">
+		                            			<i class="material-icons">warning</i>
+			                        			{{TR Please note that a change in market currency will affect all product prices globally in the market, and this will force all sellers to change prices for their goods in accordance with the new currency}}
+		                            		</p>
+			                            </div>
+		                            </div>
+		                        </div>
+		                        <div class="form-fieldset-title" data-affix-label="market_language">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12">
+			                        		<p>
+			                        			{{TR Language}}
+			                        		</p>
+			                        	</div>
+		                            </div>
+		                        </div> 
+		                        <div class="form-group form-field-box">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="language">
+			                            	<label class="form-label">
+			                        			{{TR Market default language}}:
+			                        		</label>
+			                            	<div class="filed-box">
+		                            			<select name="language" class="form-control">
+		                            				<?php foreach ($hs['lang_array'] as $lang_data): ?>
+		                            					<?php if ($hs['config']['language'] == $lang_data['lang_name']): ?>
+		                            						<option value="<?php echo($lang_data['lang_name']); ?>" selected="true">
+			                            						<?php echo hs_translate(ucfirst($lang_data['lang_name'])); ?>
+			                            					</option>
+		                            					<?php else: ?>
+		                            						<option value="<?php echo($lang_data['lang_name']); ?>">
+			                            						<?php echo hs_translate(ucfirst($lang_data['lang_name'])); ?>
+			                            					</option>
+		                            					<?php endif; ?>
+		                            				<?php endforeach; ?>
+		                            			</select>
+		                            		</div>
+			                            </div>
+		                            </div>
+		                        </div>
+		                        <hr>
+		                        <div class="form-fieldset-title" data-affix-label="market_logo_favicon">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12">
+			                        		<p>
+			                        			{{TR Logo & Favicon}}
+			                        		</p>
+			                        	</div>
+		                            </div>
+		                        </div> 
+								<div class="form-group form-field-box site-logo-favicon-upload no-mb">
+		                        	<div class="row clearfix">
+			                            <div class="col-sm-12 no-mb" data-form-field="site_logo_favicon">
+			                            	<label class="form-label">
+			                        			{{TR Logo & Favicon of Market}}:
+			                        		</label>
+			                            	<div class="files-attach-area">
+				                            	<div class="file-filed-box">
+			                            			<input type="file" name="site_logo" class="hidden">
+			                            			<div class="filed-box-inner" data-snode="select_site_logo">
+			                            				<span class="icon">
+			                            					<i class="material-icons">attach_file</i>
+			                            				</span>
+			                            				<span class="c2a selected-file-name" data-snode="file_name">
+			                            					{{TR Select logo file}}
+			                            				</span>
+			                            			</div>
+			                            		</div>
+				                            	<div class="file-filed-box">
+			                            			<input type="file" name="site_favicon" class="hidden">
+			                            			<div class="filed-box-inner" data-snode="select_site_favicon">
+			                            				<span class="icon">
+			                            					<i class="material-icons">attach_file</i>
+			                            				</span>
+			                            				<span class="c2a selected-file-name" data-snode="file_name">
+			                            					{{TR Select favicon file}}
+			                            				</span>
+			                            			</div>
+			                            		</div>
+		                            		</div>
+			                            </div>
+			                            <div class="col-sm-12 no-mb">
+			                            	<p class="info-message info">
+		                            			<i class="material-icons">info</i>
+		                            			{{TR In order to change the logo (90x90) and favicon (30x30) of your site, click on the corresponding area above, and then click on the Save changes button}}
+		                            		</p>
+			                            </div>
+		                            </div>
+		                        </div>
+		                    </div>
+	                    </form>
+	                </div>
+	            </div>
+            </div>
+            <div class="affixed-page-part-2" id="right-sidepart">
+	        	<div class="sidebar__inner">
+	        		<div class="card">
+	        			<div class="header">
+				            <h2>{{TR Site settings}}</h2>
+				        </div>
+				        <div class="body">
+			            	<ul class="list-group">
+			            		<li class="list-group-item" data-affix-scroll="market_info_settings">
+			            			{{TR Market info settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="google_analytics">
+			            			{{TR Google analytics}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="google_maps_api">
+			            			{{TR Google maps API}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="market_address">
+			            			{{TR Address}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="market_currency">
+			            			{{TR Currency}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="market_language">
+			            			{{TR Language}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="market_logo_favicon">
+			            			{{TR Logo & Favicon}}
+			            		</li>
+			            	</ul>
+			            	<div class="ctrls">
+			            		<button class="btn btn-lg bg-main-red" data-main-btn="submit">
+			            			<i class="material-icons">save</i> <span class="btn-text">{{TR Save changes}}</span>
+			            		</button>
+			            	</div>
+		            	</div>
+		            </div>
+	        	</div>
+		    </div>
+		</div>
+    </div>
+</div>
+<?php echo hs_loadpage('site_settings/static/js/site_settings_script'); ?>

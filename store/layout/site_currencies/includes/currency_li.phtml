@@ -1,0 +1,39 @@
+<tr class="currencies">
+	<td>
+		<?php echo $hs['curr_data']['curr_name']; ?>
+	</td>
+    <td>
+        <b><?php echo strtoupper($hs['curr_data']['curr_code']); ?></b>
+    </td>
+    <td>
+        <b><?php echo $hs['curr_data']['curr_symbol']; ?></b>
+    </td>
+    <td>
+    	<?php if ($hs['curr_data']['curr_code'] == $hs['config']['market_currency']): ?>
+            <span class="badge bg-green">{{TR Active}}</span>
+        <?php else: ?>
+            <span class="badge bg-main-red">{{TR Inactive}}</span>
+        <?php endif; ?>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li data-onclick="delete_currency" data-curr-id="<?php echo($hs['curr_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+                <?php if ($hs['curr_data']['curr_code'] != $hs['config']['market_currency']): ?>
+                    <li data-onclick="set_default_currency" data-curr-id="<?php echo($hs['curr_data']['id']); ?>">
+                        <a href="javascript:void(0);" class="waves-effect waves-block">
+                            {{TR Set default}}
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </td>
+</tr>

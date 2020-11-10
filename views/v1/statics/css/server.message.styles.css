@@ -1,0 +1,63 @@
+div.message-container-block {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  justify-content: center;
+  align-items: center; }
+  div.message-container-block div.message-container-inner {
+    text-align: center;
+    max-width: 650px; }
+    div.message-container-block div.message-container-inner h2 {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      font-size: 24px;
+      line-height: 36px;
+      color: #212121;
+      margin-top: 10px;
+      margin-bottom: 5px; }
+    div.message-container-block div.message-container-inner p {
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      font-size: 14px;
+      line-height: 24px;
+      color: #616161; }
+    div.message-container-block div.message-container-inner div.icon {
+      display: inline-block;
+      width: 50px;
+      height: 50px; }
+      div.message-container-block div.message-container-inner div.icon.main-red {
+        fill: #ff7676; }
+    div.message-container-block div.message-container-inner div.btns {
+      width: 100%;
+      text-align: center;
+      margin-top: 20px; }
+      div.message-container-block div.message-container-inner div.btns button.btn, div.message-container-block div.message-container-inner div.btns a.btn {
+        display: inline-block;
+        outline: 0px;
+        box-shadow: none;
+        border: 1px solid #ff7676;
+        border-radius: 5px;
+        color: #ff7676;
+        font-size: 14px;
+        padding: 10px 40px;
+        text-transform: uppercase; }
+        div.message-container-block div.message-container-inner div.btns button.btn.inline, div.message-container-block div.message-container-inner div.btns a.btn.inline {
+          background: #ff7676;
+          color: #fff; }
+    div.message-container-block div.message-container-inner small.info-message {
+      font-size: 12px;
+      line-height: 18px;
+      display: block;
+      text-align: center;
+      padding: 0;
+      margin: 15px 0 0 0;
+      color: #1fb4ef;
+      opacity: 0.9; }
+
+/*# sourceMappingURL=server.message.styles.css.map */

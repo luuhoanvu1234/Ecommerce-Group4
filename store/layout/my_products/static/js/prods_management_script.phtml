@@ -1,0 +1,213 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        
+        var PRODS_MNG_PAGE       = $("div#products-management-page");
+		var USER_PROD_LIST       = PRODS_MNG_PAGE.find("table#prods-list");
+		var PROD_REMOVAL_M       = $("div#confirm-prod-removal-modal");
+        var PRODS_FILTER         = $('div#table-filter-modal');
+        var PRODS_FILTER_OPTIONS = Object({});
+
+        PRODS_MNG_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = PRODS_MNG_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var prods_list  = PRODS_MNG_PAGE.find('table#prods-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_row    = prods_list.find('tr[data-prod-list-item]').last().data('prod-list-item');
+                var first_row   = prods_list.find('tr[data-prod-list-item]').first().data('prod-list-item');
+                var preloader   = PRODS_MNG_PAGE.find('div#table-preloader').removeClass('hidden');
+                var filter_data = (($.isEmptyObject(PRODS_FILTER_OPTIONS)) ? Object({}) : PRODS_FILTER_OPTIONS);
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+                var payload     = Object({dir: pager_dir,first: first_row, last: last_row});
+
+                if ($.isEmptyObject(filter_data) != true) {
+                    payload = $.extend(payload,filter_data);
+                }
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/profile/get_my_products',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: payload,
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        prods_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        PRODS_FILTER.find('form#form').on('submit',function(event) {
+            event.preventDefault();
+            var filter_data = $(this).serializeObject();
+            var this_form   = $(this);
+            if ($.isEmptyObject(filter_data)) {
+                return false;
+            }
+            else{
+                PRODS_FILTER_OPTIONS = filter_data;
+                var pager_ctrls      = PRODS_MNG_PAGE.find('a.pagination-ctrls');
+                var prods_list       = PRODS_MNG_PAGE.find('table#prods-list');
+                var preloader        = PRODS_MNG_PAGE.find('div#table-preloader').removeClass('hidden');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/profile/get_my_products',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: filter_data,
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        prods_list.find('tbody').html(data.html);
+                        pager_ctrls.removeClass('disabled');
+                    }
+                    else {
+                        prods_list.find('tbody').html(data.html);
+                        pager_ctrls.addClass('disabled');
+
+                        if (data.message) {
+                            $.notify({
+                                message: data.message,
+                            },{
+                                allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                                placement: {from: "bottom",align: "left"},
+                                offset: {x: 40,y: 30},
+                                animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                            });
+                        }
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    PRODS_FILTER.modal('hide');
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+        });
+
+        PRODS_FILTER.find('form#form').on('reset',function(event) {
+            PRODS_FILTER_OPTIONS = Object({});
+            PRODS_FILTER.modal('hide');
+            PRODS_FILTER.find('select').each(function(index, el) {
+                $(el).selectpicker('val','all');
+            });
+
+            if (window.prods_table_rows) {
+                PRODS_MNG_PAGE.find('table#prods-list').html(window.prods_table_rows);
+            }
+        });
+
+        if (PRODS_MNG_PAGE.find('table#prods-list').find('tr[data-prod-list-item]').length) {
+            if (PRODS_MNG_PAGE.find('table#prods-list').find('tr.empty-table.no-data').length == 0) {
+                window.prods_table_rows = PRODS_MNG_PAGE.find('table#prods-list').html();
+            }
+        }
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var event_trigger = $(this).data('onclick');
+            var zis_el        = $(this);
+            if(event_trigger == 'delete_product') {
+                var prod_id = zis_el.data('id');
+                PROD_REMOVAL_M.find('input[name="prod_id"]').val(prod_id);
+                PROD_REMOVAL_M.modal('show');
+            }
+        });
+
+        $(document).on('change', '[data-onchange]', function(event) {
+            event.preventDefault();
+            var event_trigger = $(this).data('onchange');
+            var zis_el        = $(this);
+            if(event_trigger == 'toggle_prod_status') {
+                var prod_id = zis_el.data('id');
+                var status  = ((zis_el.is(':checked')) ? 'on' : 'off');
+                $.ajax({
+                    url: '{{CONFIG url}}/req/products/toggle_prod_status',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {id: prod_id,status: status},
+                }).done(function(data) {
+                    if (data.message) {
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                });
+            }
+        });
+
+        PROD_REMOVAL_M.find('form#remove-prod-form').ajaxForm({
+            url: '{{CONFIG url}}/req/products/delete_product',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                PROD_REMOVAL_M.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (USER_PROD_LIST.find('tr[data-prod-list-item]').length > 1) {
+                    if (data.status == 200) {
+                        var prod_id = PROD_REMOVAL_M.find('input[name="prod_id"]').val();
+                        USER_PROD_LIST.find('tr[data-prod-list-item="{0}"]'.format(prod_id)).slideUp(150,function(){
+                            $(this).remove();
+                        });
+                    }
+                }
+                else {
+                    USER_PROD_LIST.css('opacity', '0.3');
+                    $(window).reloadPage(1200);
+                }
+            },
+            complete: function() {
+                PROD_REMOVAL_M.find('button').removeAttr('disabled');
+                PROD_REMOVAL_M.find('input[name="prod_id"]').val('');
+                PROD_REMOVAL_M.modal('hide');
+            }
+        });
+	});
+</script>

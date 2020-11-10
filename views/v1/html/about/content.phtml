@@ -1,0 +1,23 @@
+<div class="stat-page-container">
+	<div class="content-panel">
+		<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{CONFIG url}}">{{TR Home}}</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="{{LINK about}}">
+						{{TR About us}}
+					</a>
+				</li>
+			</ol>
+		</nav>
+		
+		<div class="data-holder">
+			<?php echo($hs['doc_page_content']); ?>
+		</div>
+	</div>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>

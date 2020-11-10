@@ -1,0 +1,133 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  div.notifications-page-container div.content-container {
+    width: 100% !important;
+    padding: 0px 40px !important; } }
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.notifications-page-container div.content-container {
+    width: 100% !important;
+    padding: 0px 40px !important; }
+    div.notifications-page-container div.content-container nav.breadcrumbs-cust ol {
+      padding-bottom: 10px !important; }
+    div.notifications-page-container div.content-container div.top-panel div.btm-line .delete-selected span {
+      display: none; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.select-item-box {
+      align-self: flex-start !important;
+      margin-top: 5px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.avatar {
+      width: 30px !important;
+      min-width: 30px !important;
+      height: 30px !important;
+      min-height: 30px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line {
+      flex-wrap: wrap !important; }
+      div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a {
+        flex-basis: 100% !important;
+        width: 100% !important;
+        margin-left: 0px !important; }
+        div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a span, div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a b {
+          font-size: 12px !important; }
+      div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line div.notif-time {
+        flex-basis: 100% !important;
+        width: 100% !important;
+        margin-left: 0px !important;
+        margin-top: 5px !important; }
+        div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line div.notif-time time {
+          font-size: 10px !important; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.notifications-page-container div.content-container {
+    width: 100% !important;
+    padding: 0px 20px !important; }
+    div.notifications-page-container div.content-container nav.breadcrumbs-cust ol {
+      padding-bottom: 10px !important; }
+      div.notifications-page-container div.content-container nav.breadcrumbs-cust ol li {
+        font-size: 10px !important; }
+        div.notifications-page-container div.content-container nav.breadcrumbs-cust ol li a {
+          font-size: 10px !important; }
+    div.notifications-page-container div.content-container div.top-panel div.btm-line .delete-selected span {
+      display: none; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.select-item-box {
+      align-self: flex-start !important;
+      margin-top: 5px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.avatar {
+      width: 30px !important;
+      min-width: 30px !important;
+      height: 30px !important;
+      min-height: 30px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line {
+      flex-wrap: wrap !important; }
+      div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a {
+        flex-basis: 100% !important;
+        width: 100% !important;
+        margin-left: 0px !important; }
+        div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a span, div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a b {
+          font-size: 12px !important; }
+      div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line div.notif-time {
+        flex-basis: 100% !important;
+        width: 100% !important;
+        margin-left: 0px !important;
+        margin-top: 5px !important; }
+        div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line div.notif-time time {
+          font-size: 10px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel div.load-more button {
+      padding: 5px 10px !important;
+      font-size: 10px !important; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.notifications-page-container div.content-container {
+    width: 100% !important;
+    padding: 0px 10px !important; }
+    div.notifications-page-container div.content-container nav.breadcrumbs-cust ol {
+      padding-bottom: 10px !important; }
+      div.notifications-page-container div.content-container nav.breadcrumbs-cust ol li {
+        font-size: 10px !important; }
+        div.notifications-page-container div.content-container nav.breadcrumbs-cust ol li a {
+          font-size: 10px !important; }
+    div.notifications-page-container div.content-container div.top-panel div.btm-line .delete-selected span {
+      display: none; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.select-item-box {
+      align-self: flex-start !important;
+      margin-top: 5px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.avatar {
+      width: 30px !important;
+      min-width: 30px !important;
+      height: 30px !important;
+      min-height: 30px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line {
+      flex-wrap: wrap !important; }
+      div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a {
+        flex-basis: 100% !important;
+        width: 100% !important;
+        margin-left: 0px !important; }
+        div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a span, div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line a b {
+          font-size: 12px !important; }
+      div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line div.notif-time {
+        flex-basis: 100% !important;
+        width: 100% !important;
+        margin-left: 0px !important;
+        margin-top: 5px !important; }
+        div.notifications-page-container div.content-container div.notifs-cont-panel ul.notifications-list li.notifications-list-item div.notification-info div.bottom-line div.notif-time time {
+          font-size: 10px !important; }
+    div.notifications-page-container div.content-container div.notifs-cont-panel div.load-more button {
+      padding: 5px 10px !important;
+      font-size: 10px !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

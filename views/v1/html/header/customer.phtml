@@ -1,0 +1,387 @@
+<header id="main-header-container">
+	<div class="header-top-line">
+		<div class="header-top-line-wrapper">
+			<div class="content-container">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light nav-bar-top-line">
+					<div class="mobile-navbar-toggle">
+						<a href="javascript:void(0);" data-toggle-mobnavbar="open">
+							<?php echo hs_svg('more'); ?>
+						</a>
+					</div>
+					<div class="logo-block">
+						<ul class="navbar-nav left-side">
+							<li class="nav-item logo">
+								<a href="{{CONFIG url}}">
+									<img src="<?php echo hs_get_media($hs['config']['site_logo']); ?>" alt="Logo">
+								</a>
+							</li>
+						</ul>
+					</div>
+									
+					<div class="search-form-wrapper" id="search-bar-block">
+						<form action="#" class="form search-form" id="search-form">
+							<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+							<div class="search-input">
+								<input type="text" class="form-control" id="search-keyword" placeholder="{{TR Search products}}">
+								<button class="search">
+									<?php echo hs_svg('search'); ?>
+								</button>
+								<button class="close-bar" data-toggle-searchbar="close">
+									<?php echo hs_svg('close'); ?>
+								</button>
+							</div>
+							<div class="dropdown" id="search-result">
+								<div class="dropdown-menu" id="result"></div>
+							</div>
+						</form>
+					</div>
+					<div class="right-drop-down">
+						<ul class="navbar-nav right-side">
+							<li class="nav-item search-bar" data-toggle-searchbar="open">
+								<a class="nav-link">
+									<?php echo hs_svg('search'); ?>
+								</a>
+							</li>
+							<li class="nav-item user-wishlist">
+								<a class="nav-link" href="{{LINK wishlist}}">
+									<span class="new-messages"></span>
+									<?php echo hs_svg('heart-inline'); ?>
+								</a>
+							</li>		
+							<li class="nav-item user-messages" id="rt-messages">
+								<a class="nav-link" href="{{LINK messages}}">
+									<span class="new-messages"></span>
+									<?php echo hs_svg('message'); ?>
+								</a>
+							</li>
+							<li class="nav-item user-notifications-dd" id="rt-notifications">
+								<a class="nav-link dropdown-toggle"  id="load-notifications" data-toggle="dropdown">
+									<span class="new-messages"></span>
+									<?php echo hs_svg('notifications'); ?>
+								</a>
+						        <div class="dropdown-menu anim scale-up-tr">
+						        	<div class="header">
+						        		<span class="text-left">
+						        			<?php echo hs_svg('notifications'); ?>
+						        		</span>
+						        		<span class="notifs">
+						        			{{TR Notifications}}
+						        		</span>
+						        	</div>
+						        	<div class="body">
+						        		<div class="notifs-preloader hidden" id="notif-preloader">
+						        			<div class="loader">
+						        				<?php echo hs_svg('loading'); ?>
+						        			</div>
+						        		</div>
+						        		<ul class="notifs-list" id="notifications-list"></ul>
+						        	</div>
+						        	<div class="footer hidden" id="view-all-notifications">
+						        		<p>
+						        			<a href="{{LINK notifications}}">{{TR Show all}}</a>
+						        		</p>
+						        	</div>
+						        </div>
+							</li>
+							<li class="nav-item profile-nav-dd">
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+									<img src="{{ME avatar}}" alt="User avatar">
+									<span class="user-name">
+										{{ME name}}
+									</span>
+								</a>
+						        <div class="dropdown-menu">
+									<a class="dropdown-item" href="{{LINK merchant_panel/dashboard}}">
+										<span>{{TR Control panel}}</span>
+									</a>
+									<a class="dropdown-item" href="{{ME url}}">
+										<span>{{TR Profile}}</span>
+									</a>
+									<a class="dropdown-item" href="{{LINK merchant_panel/my_orders}}">
+										<span>{{TR My orders}}</span>
+									</a>
+									<a class="dropdown-item" href="{{LINK merchant_panel/main_settings}}">
+										<span>{{TR Settings}}</span>
+									</a>
+									<hr>
+									<a class="dropdown-item" href="{{LINK help}}">
+										<span>{{TR Help}}</span>
+									</a>
+									<a class="dropdown-item" href="{{LINK wishlist}}">
+										<span>{{TR Wishlist}}</span>
+									</a>
+									<hr>
+									<a class="dropdown-item" href="{{LINK logout}}">
+										<span>{{TR Logout}}</span>
+									</a>
+						        </div>
+							</li>
+							<li class="nav-item user-basket">
+								<a class="nav-link" href="{{LINK checkout}}">
+									<span class="icon">
+										<?php echo hs_svg('cart'); ?>
+										<span id="hb-items-total-fixed" class="new-messages">{{ME basket}}</span>
+									</span>
+								</a>
+							</li>
+							<li class="nav-item user-language-dd">
+								<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+									<?php echo hs_svg('globe'); ?>
+								</a>
+						        <div class="dropdown-menu">
+						        	<?php if (not_empty($hs['lang_array'])): ?>
+							        	<?php foreach ($hs['lang_array'] as $lang_data): ?>
+											<?php if ($hs['me']['language'] == $lang_data['lang_name']): ?>
+												<a class="dropdown-item" href="javascript:void(0);">
+													<span class="selected"><?php echo hs_translate(ucfirst($lang_data['lang_name'])); ?></span>
+													<span class="lang-banner ml-auto">
+														<?php echo hs_banner($lang_data['a2_code']); ?>
+													</span>
+												</a>
+											<?php else: ?>
+												<a class="dropdown-item" href="<?php echo hs_link(sprintf('language/%s',$lang_data['lang_name'])); ?>">
+													<span><?php echo hs_translate(ucfirst($lang_data['lang_name'])); ?></span>
+													<span class="lang-banner ml-auto">
+														<?php echo hs_banner($lang_data['a2_code']); ?>
+													</span>
+												</a>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									<?php endif; ?>
+						        </div>
+							</li>
+						</ul>
+					</div>	
+				</nav>
+			</div>	
+		</div>
+	</div>
+	<div class="header-bottom-line">
+		<div class="header-bottom-line-wrapper">
+			<div class="content-container">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light nav-bar-bottom-line">	
+					<ul class="navbar-nav">		
+						<li class="nav-item categories">
+							<a class="nav-link dropdown-toggle" href="#" id="cat-dd-menu" data-toggle="dropdown">
+								<?php echo hs_svg('grid'); ?>
+								<span class="all--catgs">{{TR All categories}}</span>
+								<span class="arrow-down">
+									<?php echo hs_svg('arrow-down'); ?>
+								</span>
+							</a>
+					        <div class="dropdown-menu rs-dropdmenu" aria-labelledby="cat-dd-menu">
+					        	<?php foreach ($hs['categories'] as $id => $name): ?>
+									<a class="dropdown-item" href='<?php echo hs_link("catalog/$id"); ?>'>
+										<?php echo hs_translate($name); ?>
+									</a>
+								<?php endforeach; ?>
+					        </div>
+						</li>
+						<?php if (not_empty($hs['featured_catgs'])): ?>
+							<?php foreach ($hs['featured_catgs'] as $id => $name): ?>
+								<li class="nav-item">
+									<a class="nav-link" href='<?php echo hs_link("catalog/$id"); ?>'>
+										<span>
+											<?php echo hs_translate($name); ?>
+										</span>
+									</a>
+								</li>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</ul>
+				</nav>
+			</div>
+			<div class="clear"></div>
+		</div>	
+	</div>
+	<div class="mobile-navbar animated" id="mobile-navbar">	
+		<div class="header-block">
+			<div class="logo">
+				<ul>
+					<li class="logo">
+						<a href="{{CONFIG url}}">
+							<img src="<?php echo hs_get_media($hs['config']['site_logo']); ?>" alt="Logo">
+						</a>
+					</li>
+					<li class="ml-auto">
+						<a href="javascript:void(0);" data-toggle-searchbar="open">
+							<span class="icon">
+								<?php echo hs_svg('search'); ?>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="{{LINK checkout}}">
+							<span class="icon">
+								<?php echo hs_svg('cart'); ?>
+								<span id="hb-items-total-fixed-2" class="new-messages"></span>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="user-info">
+				<div class="avatar">
+					<img src="{{ME avatar}}" alt="avatar">
+				</div>
+				<div class="uname">
+					<div>
+						<span class="user-name">
+							{{ME name}}
+						</span> 
+						<span class="close-navbar" data-toggle-mobnavbar="close">
+							<?php echo hs_svg('close'); ?>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<ul class="v-nav-bar">
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+					<?php echo hs_svg('home'); ?>
+					</span>
+					<a href="{{CONFIG url}}">
+						{{TR Homepage}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+					<?php echo hs_svg('user'); ?>
+					</span>
+					<a href="{{ME url}}">
+						{{TR Profile}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('grid'); ?>
+					</span>
+					<a href="{{LINK merchant_panel/dashboard}}">
+						{{TR Control panel}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('heart-inline'); ?>
+					</span>
+					<a href="{{LINK wishlist}}">
+						{{TR Wishlist}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('basket'); ?>
+					</span>
+					<a href="{{LINK checkout}}">
+						{{TR Basket}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('notifications'); ?>
+					</span>
+					<a href="{{LINK notifications}}">
+						{{TR Notifications}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('message'); ?>
+					</span>
+					<a href="{{LINK messages}}">
+						{{TR Messages}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('cart'); ?>
+					</span>
+					<a href="{{LINK merchant_panel/my_orders}}">
+						{{TR My orders}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('settings'); ?>
+					</span>
+					<a href="{{LINK merchant_panel/main_settings}}">
+						{{TR Account settings}}
+					</a>
+				</div>
+			</li>
+			<li class="v-nav-bar-li catalog-nav">
+				<div class="v-nav-bar-li-inner" onclick="$(this).parent('li.catalog-nav').toggleClass('open');">
+					<span class="icon">
+						<?php echo hs_svg('clipboard'); ?>
+					</span>
+					<a href="javascript:void(0);">
+						{{TR Catalog}}
+					</a>
+				</div>
+				<div class="catalog-navlist">
+					<ul>
+						<?php foreach ($hs['categories'] as $id => $row): ?>
+							<li>
+								<a href='<?php echo hs_link("catalog/$id"); ?>'>
+									<?php echo hs_translate($row); ?>
+								</a>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+			</li>
+
+			<li class="v-nav-bar-li">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('logout'); ?>
+					</span>
+					<a href="{{LINK logout}}">
+						{{TR Logout}}
+					</a>
+				</div>
+			</li>
+
+			<li class="v-nav-bar-li help-faq">
+				<div class="v-nav-bar-li-inner">
+					<span class="icon">
+						<?php echo hs_svg('help'); ?>
+					</span>
+					<a href="{{LINK help}}">
+						{{TR Help}}
+					</a>
+				</div>
+			</li>
+
+			<li class="v-nav-bar-li footer-nav-block">
+				<div class="footer-sm">
+					<?php echo hs_loadpage('footer/small'); ?>
+				</div>
+			</li>
+
+			
+		</ul>
+	</div>
+</header> 
+<?php echo hs_loadpage('commonjs/notifications/script_master'); ?>
+<?php echo hs_loadpage('commonjs/messages/script_master'); ?>
+<?php echo hs_loadpage('commonjs/search/script_master'); ?>
+<?php echo hs_loadpage('header/static/js/header_script'); ?>

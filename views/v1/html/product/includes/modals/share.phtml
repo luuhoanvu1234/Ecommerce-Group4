@@ -1,0 +1,41 @@
+<div class="modal animated vh-center fadeIn share-product-item-modal" id="share-product-item-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <?php echo hs_svg('share'); ?> {{TR Share this item}}
+                    <span class="close-modal" data-dismiss="modal">
+                        <?php echo hs_svg('close'); ?>
+                    </span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="social-links">
+                    <a target="_blank" href="https://twitter.com/intent/tweet?text=<?php echo($hs['prod_data']['name']); ?>&url=<?php echo urlencode($hs['prod_data']['share_link']); ?>" class="twitter">
+                        <?php echo(hs_svg('twitter')); ?>
+                    </a>
+                    <a target="_blank" href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($hs['prod_data']['share_link']); ?>" class="facebook">
+                        <?php echo(hs_svg('facebook')); ?>
+                    </a>
+                    <a target="_blank" href="https://plus.google.com/share?url=<?php echo urlencode($hs['prod_data']['share_link']); ?>" class="google-plus">
+                        <?php echo(hs_svg('google-plus')); ?>
+                    </a>
+                    <a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php echo urlencode($hs['prod_data']['share_link']); ?>" class="pinterest">
+                        <?php echo(hs_svg('pinterest')); ?>
+                    </a>
+                    <a target="_blank" href="http://www.reddit.com/submit?url=<?php echo urlencode($hs['prod_data']['share_link']); ?>" class="reddit">
+                        <?php echo(hs_svg('reddit')); ?>
+                    </a>
+                </div>
+                <div class="raw-link">
+                    <p>
+                        {{TR Or copy the link below}}
+                    </p>
+                    <div class="link-input">
+                        <input id="prod-pres-url" type="text" value="<?php echo($hs['prod_data']['share_link']); ?>">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

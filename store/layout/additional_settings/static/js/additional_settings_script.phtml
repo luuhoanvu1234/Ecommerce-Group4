@@ -1,0 +1,106 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+    	var ADDIT_SET_PAGE = $('div[data-sblock="additional_settings_page"]');
+    	var ADDIT_SET_FORM = ADDIT_SET_PAGE.find('form[data-snode="settings_form"]');
+
+        ADDIT_SET_PAGE.find('[data-main-btn="submit"]').on('click', function(event) {
+            event.preventDefault();
+            ADDIT_SET_FORM.submit();
+        });
+        
+        ADDIT_SET_FORM.ajaxForm({
+            url: '{{CONFIG url}}/req/admin/save_configs',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                ADDIT_SET_PAGE.find('[data-main-btn="submit"]').attr('disabled', 'true');
+                ADDIT_SET_PAGE.find('[data-main-btn="submit"]').find('span').text("{{TR Please wait}}!");
+                ADDIT_SET_FORM.find('small.error-message').remove();
+            },
+            success: function(data) {
+                if (data.status == 200) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+
+                    ADDIT_SET_PAGE.find('[data-main-btn="submit"]').removeClass('bg-main-red').addClass("bg-green").find('span').text("{{TR Changes saved}}!");
+                } 
+                else {
+                    var invalid_field = ADDIT_SET_FORM.find('[data-form-field="{0}"]'.format(data.err_field));
+                    if (invalid_field.length) {
+                        invalid_field.scroll2().append($("<small>",{
+                            text: data.message,
+                            class: 'col-red error-message animated flash'
+                        }));
+                    }
+                    else {
+                        $.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }
+            },
+            complete: function() {
+            	delay(function() {
+                    ADDIT_SET_PAGE.find('[data-main-btn="submit"]').removeAttr('disabled');
+            		ADDIT_SET_PAGE.find('[data-main-btn="submit"]').removeClass('bg-green').addClass('bg-main-red').find('span').text("{{TR Save changes}}");
+            	},3000);
+            }
+        });
+
+        ADDIT_SET_PAGE.find('#right-sidepart').stickySidebar({
+            topSpacing: 130,
+            bottomSpacing: 20,
+            stickyClass: 'is-affixed'
+        });
+
+        ADDIT_SET_PAGE.find('[data-affix-scroll]').on('click', function(event) {
+            event.preventDefault();
+            var this_el = $(this);
+            var label   = this_el.data('affix-scroll');
+            if (label && ADDIT_SET_PAGE.find('[data-affix-label="{0}"]'.format(label)).length) {
+                ADDIT_SET_PAGE.find('[data-affix-label="{0}"]'.format(label)).scroll2(200,125);
+
+                this_el.addClass('active');
+                this_el.siblings('li.list-group-item').removeClass('active');
+            }
+        });
+
+        ADDIT_SET_FORM.find('button[data-snode="api_test_btn"]').on('click', function(event) {
+            event.preventDefault();
+            var this_el = $(this);
+            this_el.attr('disabled', 'true');
+            this_el.find('span').text("{{TR Please wait}}...");
+            $.ajax({
+                url: '{{CONFIG url}}/req/admin/as3_api_contest',
+                type: 'GET',
+                dataType: 'json',
+            }).done(function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+            }).always(function() {
+                this_el.removeAttr('disabled');
+                this_el.find('span').text("{{TR Test AS3 API Connection}}");
+            });
+        });
+    });
+</script>

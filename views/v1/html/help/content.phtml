@@ -1,0 +1,730 @@
+<div class="clearfix">
+	<div class="help-page-container">	
+		<div class="panel-groupset">
+			<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="{{CONFIG url}}">{{TR Home}}</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="{{LINK contact_us}}">
+							{{TR Support}} (F.A.Q.)
+						</a>
+					</li>
+				</ol>
+			</nav>
+			<div class="panel-title">
+				<h1>
+					F.A.Q.
+				</h1>
+			</div>
+			<div class="panel-group-title">
+				<h4>
+					{{TR Profile - User Account}} ({{CONFIG name}})
+				</h4>
+			</div>
+			<div class="panel-group-panelset">
+				<div class="accordion" id="accordion-profile-1">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR Why do I need registration and authorization?}}
+								</button>
+								<button class="collapse-toggle open"  type="button" data-toggle="collapse" data-target="#collapse-profile-1" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-profile-1" class="collapse show collapse-content"  data-parent="#accordion-profile-1">
+							<div class="card-body">
+								{{TR Registration and authorization are needed to save the data of your orders and account settings. After registration, you can log into your account from any device,  and also get full access to account's control panel.}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-profile-2">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR Problems logging into your profile?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-profile-2" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-profile-2" class="collapse collapse-content"  data-parent="#accordion-profile-2">
+							<div class="card-body">
+								<?php echo hs_translate('If you have forgotten your password, then use the (Restore password) form. Enter your email address and click restore password, after that you will be sent a message to the email address you specified, with a link to the password recovery page, follow the link and enter a new password for your account, then click the "Restore" button.  If this is not the problem, {%link%}',array(
+									'link' => sprintf('<a href="%s">%s</a>',hs_link('contact_us'),hs_translate('Contact us')))
+								);?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-profile-3">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR What is account's (Control Panel)?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-profile-3" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-profile-3" class="collapse collapse-content"  data-parent="#accordion-profile-3">
+							<div class="card-body">
+								<?php echo hs_translate('{%market_name%} is a marketplace (online store) of goods from around the world, where you can buy as well as sell your products. Through (Control Panel) you can change your account settings, track your orders and create your own store on - {%market_name%}, and manage other contents of your account, etc.',array(
+									'market_name' => sprintf('<b>%s</b>',$hs['config']['name'])
+								));?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-profile-4">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR Why fill out the profile data?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-profile-4" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-profile-4" class="collapse collapse-content"  data-parent="#accordion-profile-4">
+							<div class="card-body">
+								{{TR Correct filling of your profile data will allow you to go through a moderation of your actions more simply. For example, adding a product, or ordering a product, canceling an order, etc.}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-profile-5">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR How to delete a profile?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-profile-5" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-profile-5" class="collapse collapse-content"  data-parent="#accordion-profile-5">
+							<div class="card-body">
+								<p class="text-block">
+									{{TR Highexpress - does not allow users to delete accounts on their own, as important data for other users could be associated with them. For example, orders, unpaid funds of sellers, etc.}}
+								</p>
+								<p class="text-block">
+									{{TR In the case of a user submits a deletion request, the moderator has the right to fully check the status of your account at the time of sending the application to delete your account}}
+								</p>
+								<p class="text-block">
+									{{TR To send an account deletion request, go to "Account Settings" and in the "Account deletion request" section, enter your password in the form and click the send deletion request button}}
+								</p>
+								<p class="text-block">
+									{{TR Please note that after deleting the profile, all information associated with it will also be deleted, and it will not be possible to restore the account.}}
+								</p>
+								<p class="text-block">
+									{{TR Reauthorization with the same data will create a new, empty profile.}}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-profile-6">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR How to logout a profile?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-profile-6" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-profile-6" class="collapse collapse-content"  data-parent="#accordion-profile-6">
+							<div class="card-body">
+								{{TR In the upper right corner, click on the avatar and then click "Logout".}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-group-title">
+				<h4>
+					{{TR Purchases & Shopping}}
+				</h4>
+			</div>
+			<div class="panel-group-panelset">
+				<div class="accordion" id="accordion-shopping-1">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR What payment methods are there?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-shopping-1" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-1" class="collapse collapse-content"  data-parent="#accordion-shopping-1">
+							<div class="card-body">
+								<?php echo hs_translate('To pay for your products at - {%market_name%}, you can use credit cards, Mastercard, Discover, American Express, and Visa.',array(
+									'market_name' => sprintf('<b>%s</b>',$hs['config']['name'])
+								));?>
+
+								<?php echo hs_translate('You can also use the Paypal payment system, or pay for goods from the wallet of your current account.');?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-2">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									<?php echo hs_translate('How to pay for goods on - {%market_name%}',array(
+										'market_name' => sprintf('<b>%s</b>',$hs['config']['name'])
+									));?>
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-shopping-2" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-2" class="collapse collapse-content"  data-parent="#accordion-shopping-2">
+							<div class="card-body">
+								<p class="text-block">
+									{{TR In order to pay for goods, open the page with a description of a product you want to purchase and click "Buy now". On the checkout page, tick off the goods you want to pay, select the payment method in the sidebar and click the "Pay order" button}}
+								</p>
+
+								<p>
+									{{TR Please note that you need to provide your delivery address to place an order. Enter the full delivery address (including zip code and apartment number), personal data, phone number, your email address.}}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-3">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR How to cancel the order?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-shopping-3" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-3" class="collapse collapse-content"  data-parent="#accordion-shopping-3">
+							<div class="card-body">
+								<p class="text-block">
+									<?php echo hs_translate('You can cancel an order you placed on the {%market_name%} Store if it is still pending.',array(
+										'market_name' => sprintf('<b>%s</b>',$hs['config']['name'])
+									));?>
+								</p>
+								<ol class="action-steps-list">
+									<li>
+										<?php echo hs_translate('Open your {%market_name%} order history - {%link%} ',array(
+											'market_name' => sprintf('<b>%s</b>',$hs['config']['name']),
+											'link' => sprintf('<a href="%s">%s</a>',hs_link('merchant_panel/my_orders'),hs_translate('My orders')),
+										));?>
+									</li>
+									<li>
+										{{TR Search your list of orders and find the one you want to cancel.}}
+									</li>
+									<li>
+										{{TR Check the order status to make sure it's Pending.}} 
+									</li>
+									<li>
+										{{TR Select Order Details.}}
+									</li>
+									<li>
+										{{TR If you don't see "Cancel order" button, that means your order has been prepared for shipment or sent and can't be canceled}}
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-4">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR When will my order be shipped?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-shopping-4" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-4" class="collapse collapse-content"  data-parent="#accordion-shopping-4">
+							<div class="card-body">
+								<p class="text-block">
+									{{TR Estimated delivery times for each product are indicated on the order details card and depend on the transport company with which the seller works.}}
+								</p>
+								<p class="text-block">
+									{{TR On average, orders come from 7 to 40 days. Sometimes orders may be delayed, usually this occurs on holidays and pre-holiday days, that is, on peak days of logistics companies, in which case the delivery time may increase to 90 days.}}
+								</p>
+								
+								<p class="text-block">
+									{{TR Please note that the delivery time is calculated from the moment of sending the order.}}
+								</p>
+								<p class="text-block">
+									{{TR If the goods have not arrived (the maximum delivery time on our service is 90 days), we recommend that you contact a customer support center}}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-5">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR How to track an order?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-shopping-5" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-5" class="collapse collapse-content"  data-parent="#accordion-shopping-5">
+							<div class="card-body">
+								<ol class="action-steps-list">
+									<li>
+										<?php echo hs_translate('Open your {%market_name%} order history - {%link%} ',array(
+											'market_name' => sprintf('<b>%s</b>',$hs['config']['name']),
+											'link' => sprintf('<a href="%s">%s</a>',hs_link('merchant_panel/my_orders'),hs_translate('My orders')),
+										));?>
+									</li>
+									<li>
+										{{TR Search your list of orders and find the one you want to track.}}
+									</li>
+									<li>
+										{{TR Select Order Details.}}
+									</li>
+									<li>
+										{{TR Find the ID of departure (Track number)}}
+									</li>
+									<li>
+										{{TR And use the online services for tracking mail. For example:}} 
+										<a href="https://1track.ru/">1track</a>,
+										<a href="http://parcelsapp.com/en">Parcels.com</a>
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-6">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR Error in the name, or delivery address?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-shopping-6" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-6" class="collapse collapse-content"  data-parent="#accordion-shopping-6">
+							<div class="card-body">
+								{{TR According to the postal rules, for identification and delivery of a parcel, it is necessary that the name on the parcel coincides with the name in the document presented by the recipient. If you enter the wrong name, the parcel cannot be received.}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-7">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR My order is canceled. When will the money come back?}}
+								</button>
+								<button class="collapse-toggle" type="button" data-toggle="collapse" data-target="#collapse-shopping-7" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-7" class="collapse collapse-content"  data-parent="#accordion-shopping-7">
+							<div class="card-body">
+								{{TR Money after cancellation of the order is returned within a few days. Sometimes the process may take longer, the maximum return period is up to 30 days. The speed of crediting depends on the bank that you used when placing your order.}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-8">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR I canceled the order but the funds still have not returned.}}
+								</button>
+								<button class="collapse-toggle" type="button" data-toggle="collapse" data-target="#collapse-shopping-8" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-8" class="collapse collapse-content"  data-parent="#accordion-shopping-8">
+							<div class="card-body">
+								<p>
+									{{TR Money after cancellation of the order is returned within a few days. Sometimes the process may take longer, the maximum return period is up to 30 days. The speed of crediting depends on the bank that you used when placing your order.}}
+								</p>
+								<p class="text-block">
+									<b>{{TR Why so long?}}</b>
+								</p>
+								<p class="text-block">
+									{{TR We are used to the fact that card payments are instantaneous, but this is not always the case. When you buy goods in a store using a credit card, the bank immediately blocks the amount of the purchase in your account and sends an SMS notification about debiting, however, in fact, the money is transferred to the seller in a few hours or even days.}} 
+								</p>
+								<p>
+									{{TR Therefore, the reverse process of returning money to the client also takes some time.}}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-9">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR I receive the wrong product that I ordered! What to do?}}
+								</button>
+								<button class="collapse-toggle" type="button" data-toggle="collapse" data-target="#collapse-shopping-9" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-9" class="collapse collapse-content"  data-parent="#accordion-shopping-9">
+							<div class="card-body">
+								<?php echo hs_translate('Sometimes sellers are mistaken and send out goods of the wrong color or a different size or a completely different category of goods. If this happened to your order, contact {%name%} support center! We will review your application and decide on a partial or full refund.',array('name' => sprintf('<a href="%s">%s</a>',hs_link('contact_us'),$hs['config']['name']))); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-10">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR I received a bad quality product! What to do?}}
+								</button>
+								<button class="collapse-toggle" type="button" data-toggle="collapse" data-target="#collapse-shopping-10" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-10" class="collapse collapse-content"  data-parent="#accordion-shopping-10">
+							<div class="card-body">
+								<?php echo hs_translate('If you received defective goods (torn, broken, broken) or not in accordance with the description, contact {%name%} support center! We will review your application and decide on a partial or full refund.',array('name' => sprintf('<a href="%s">%s</a>',hs_link('contact_us'),$hs['config']['name']))); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-11">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR Why is the price in the catalog and the price on the payment form different?}}
+								</button>
+								<button class="collapse-toggle" type="button" data-toggle="collapse" data-target="#collapse-shopping-11" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-11" class="collapse collapse-content"  data-parent="#accordion-shopping-11">
+							<div class="card-body">
+								{{TR The price may vary depending on the selected characteristics of the product. E.g. Color, Size}} ...
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-shopping-12">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR How to change the order?}}
+								</button>
+								<button class="collapse-toggle" type="button" data-toggle="collapse" data-target="#collapse-shopping-12" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-shopping-12" class="collapse collapse-content"  data-parent="#accordion-shopping-12">
+							<div class="card-body">
+								<p class="text-block">
+									{{TR The composition of the order cannot be changed after payment, however it can be done before you place your order}}
+								</p>
+								<ol class="action-steps-list">
+									<li>
+										<?php echo hs_translate('Go to your basket page: ({%link%})',array(
+											'link' => sprintf('<a href="%s">%s</a>',hs_link('checkout'),hs_translate('Checkout products'))
+										)); ?>
+									</li>
+									<li>
+										{{TR Find in the basket the product for which you want to change the order}}
+									</li>
+									<li>
+										{{TR Go to the product description page by clicking on its name}}
+									</li>
+									<li>
+										{{TR Then select the options you want to order.}}
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-group-title">
+				<h4>
+					{{TR Ratings & Reviews}}
+				</h4>
+			</div>
+			<div class="panel-group-panelset">
+				<div class="accordion" id="accordion-reviews-1">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR How to leave a review?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-reviews-1" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-reviews-1" class="collapse collapse-content"  data-parent="#accordion-reviews-1">
+							<div class="card-body">
+								<p class="text-block">
+									<b>The ability to write a review appears only after payment</b>
+								</p>
+								<ol class="action-steps-list">
+									<li>
+										{{TR Open the product page}}
+									</li>
+									<li>
+										{{TR Scroll down to (Product Reviews)}}
+									</li>
+									<li>
+										Click on the dropdown menu and select "Leave a review"
+									</li>
+									<li>
+										{{TR Rate the order, write a review and upload a photo, then click on "Submit".}}
+									</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-reviews-2">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									{{TR Why don't I have a «Leave a review» button?}}
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-reviews-2" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-reviews-2" class="collapse collapse-content"  data-parent="#accordion-reviews-2">
+							<div class="card-body">
+								{{TR Leave their reviews about a product, can only those who ordered a specific product}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-group-title">
+				<h4>
+					<?php echo hs_translate('About - {%name%}',array('name' => $hs['config']['name'])); ?>
+				</h4>
+			</div>
+			<div class="panel-group-panelset">
+				<div class="accordion" id="accordion-aboutus-1">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									<?php echo hs_translate('What is - {%name%}',array('name' => $hs['config']['name'])); ?>
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-aboutus-1" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-aboutus-1" class="collapse collapse-content"  data-parent="#accordion-aboutus-1">
+							<div class="card-body">
+								<p class="text-block">
+									<?php echo hs_translate('{%name%} - is a convenient service for searching various goods for purchase without leaving your home, and also a convenient platform for selling your goods.',array(
+										'name' => sprintf('<b>%s</b>',$hs['config']['name'])
+									)); ?>
+								</p>
+								<p class="text-block">
+									<?php echo hs_translate('The {%name%} service makes the process of buying or selling for its users easy, fast and enjoyable!',array(
+										'name' => sprintf('<b>%s</b>',$hs['config']['name'])
+									)); ?>
+								</p>
+								<p class="text-block">
+									{{TR For more information read this article.}} <a href="{{LINK about}}">{{TR About us}}</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion" id="accordion-aboutus-2">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="mb-0">
+								<button class="btn btn-link">
+									<?php echo hs_translate('How to sell on - {%name%}',array('name' => $hs['config']['name'])); ?>
+								</button>
+								<button class="collapse-toggle"  type="button" data-toggle="collapse" data-target="#collapse-aboutus-2" onclick="$(this).toggleClass('open');">
+									<span class="minus">
+										<?php echo hs_svg('minus'); ?>
+									</span>
+									<span class="plus">
+										<?php echo hs_svg('plus'); ?>
+									</span>
+								</button>
+							</h5>
+						</div>
+						<div id="collapse-aboutus-2" class="collapse collapse-content"  data-parent="#accordion-aboutus-2">
+							<div class="card-body">
+								<?php echo hs_translate('Before you start selling on {%name%}, please carefully read the terms and conditions of sale on this page {%link%}',array(
+									'name' => sprintf('<b>%s</b>',$hs['config']['name']),
+									'link' => sprintf('<a href="%s">%s</a>',hs_link('merchant_terms'),hs_translate('Merchant terms')),
+								)); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<footer class="footer-fluid">
+	<?php echo hs_loadpage('footer/fluid'); ?>	
+</footer>
+

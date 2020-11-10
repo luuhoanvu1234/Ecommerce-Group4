@@ -1,0 +1,35 @@
+<div class="modal animated fadeIn vh-center edit-language-text-modal" id="edit-language-text-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form" id="form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <input type="hidden" class="hidden d-none" name="lang_id" value="0">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Edit language text}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="data-management-page">
+                    	<div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                <?php echo hs_translate(ucfirst($hs['el_name'])); ?>:
+                            </label>
+                            <div class="filed-box p-t-5" data-form-field="lang_text">
+                                <textarea name="lang_text" class="form-control" placeholder="{{TR Enter a custom language text here}}"></textarea>
+                            </div>
+                            <p class="info-message warning">
+                                <i class="material-icons">info</i>
+                                {{TR Please note that some lines may contain special code expressions that look like this: {%something%} that cannot be deleted or edited, otherwise the text in the language will not display correctly}}
+                            </p>
+                    	</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-grey waves-effect tt-up" data-dismiss="modal">{{TR Cancel}}</button>
+                    <button type="submit" class="btn bg-light-blue waves-effect tt-up">{{TR Save changes}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

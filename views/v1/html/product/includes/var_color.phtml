@@ -1,0 +1,83 @@
+<div class="data-container clearfix" id="prod-var-info">
+	<div class="product-price">	
+		<h4 id="sale-price">
+			<span class="price">
+				{{prod_sale_price}}
+			</span>
+		</h4>
+		<h4 class="old-price" id="reg-price">
+			<span class="price">{{prod_reg_price}}</span>
+		</h4>
+	</div>
+	<?php if (empty($hs['prod_data']['owner'])): ?>
+		<div class="delivery">
+			<span class="icon">
+				<?php echo hs_svg("calendar"); ?>
+			</span>
+			<span>
+				<?php if ($hs['prod_data']['shipping_cost'] == 'free'): ?>
+					{{TR Free shipping}}
+				<?php else: ?>
+					{{TR Shipping cost}} <?php echo($hs['prod_data']['ship_fee']); ?>
+				<?php endif; ?>
+				&sbquo;
+				<?php if ($hs['prod_data']['shipping_time'] == '1_bd'): ?>
+					{{TR in one business day}}
+				<?php elseif($hs['prod_data']['shipping_time'] == '2_3_bd'): ?>
+					{{TR in 2 - 3 business days}}
+				<?php elseif($hs['prod_data']['shipping_time'] == '4_7_bd'): ?>
+					{{TR in 4 - 7 business days}}
+				<?php elseif($hs['prod_data']['shipping_time'] == '8_15_bd'): ?>
+					{{TR in 5 - 15 business days}}
+				<?php elseif($hs['prod_data']['shipping_time'] == 'within_1_month'): ?>
+					{{TR in within 1 month}}
+				<?php elseif($hs['prod_data']['shipping_time'] == 'within_2_months'): ?>
+					{{TR in within 2 months}}
+				<?php elseif($hs['prod_data']['shipping_time'] == 'within_3_months'): ?>
+					{{TR in within 3 months}}
+				<?php endif; ?>
+			</span>
+		</div>
+		<form id="add-p2-cart" class="add-prod-to-cart">
+			<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+			<div class="colors">
+				<div class="color-name-holder" id="col-name-holder">
+					<span class="label">{{TR Color}}:</span>
+					<span class="color-name" id="selected-color"></span>
+				</div>
+				<div class="color-types-list-wrapper">	
+					<div class="color-types-list" id="prod-color-vars-list">
+						<!-- Using inline styles here, necessary for dynamically displaying background images -->
+						<?php if (not_empty($hs['prod_data']['vars'])): ?>
+							<?php foreach ($hs['prod_data']['vars'] as $cs_var): ?>
+								<input data-hex="<?php echo($cs_var['col_hex']); ?>" data-name="<?php echo($cs_var['col_name']); ?>" value="<?php echo($cs_var['id']); ?>" required type="radio" name="var_color" class="hidden" id="cvar-id-<?php echo($cs_var['id']); ?>">
+								<label class="vc-img-holder" for="cvar-id-<?php echo($cs_var['id']); ?>" style="background-image: url('<?php echo($cs_var['thumb']); ?>');">	
+								</label>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+			<div class="quantity">
+				<span class="label">
+					{{TR Qantity}}:
+				</span>
+				<span class="quantity-total-ctrl" data-val="down">
+					<?php echo hs_svg('minus'); ?>
+				</span>
+				<span class="quantity-total" id="selected-quantity">1</span>
+				<span class="quantity-total-ctrl" data-val="up">
+					<?php echo hs_svg('plus'); ?>
+				</span>
+			</div>
+			<input type="hidden" class="hidden d-none" value="<?php echo($hs['prod_data']['id']); ?>" name="prod_id">
+			<input type="hidden" value="1" id="quantity" name="quantity">
+		</form>
+	<?php endif;?>
+</div>
+<?php echo hs_loadpage('product/static/js/var_color',array(
+	'prod_id' => $hs['prod_data']['id'],
+	'prod_sp' => $hs['prod_data']['sale_price'],
+	'prod_rp' => $hs['prod_data']['reg_price'],
+	'prod_pd' => $hs['prod_data']['price_disc'],
+)); ?>

@@ -1,0 +1,46 @@
+<tr class="users" data-trans-id="<?php echo($hs['trans_data']['id']); ?>">
+    <td>
+        <?php echo($hs['trans_data']['id']); ?>
+    </td>
+    <td class="link">
+    	<div class="flex-cont">
+    		<div class="avatar-holder">
+        		<img src="<?php echo($hs['trans_data']['buyer_avatar']); ?>" alt="Avatar">
+        	</div>
+        	<a href="#">
+                <?php echo($hs['trans_data']['buyer_name']); ?>
+
+                <?php if ($hs['trans_data']['buyer_verified'] == '1'): ?>
+                    <?php echo hs_svg('verified-icon'); ?>
+                <?php endif; ?>
+            </a>
+    	</div>
+    </td>
+    <td class="trans-amount">
+        <span class="col-green">
+            <?php echo hs_money($hs['trans_data']['amount']); ?>
+        </span>
+    </td>
+    <td class="link">
+		<div class="avatar-holder">
+    		<img src="<?php echo($hs['trans_data']['seller_avatar']); ?>" alt="Avatar">
+    	</div>
+        <a href="#">
+            <?php echo($hs['trans_data']['seller_name']); ?>
+
+            <?php if ($hs['trans_data']['seller_verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+        </a>
+    </td>
+    <td class="time">
+        <time>
+            <?php echo($hs['trans_data']['date']); ?>
+        </time>
+    </td>
+    <td>
+        <span class="badge bg-main-red">
+        	<?php echo($hs['trans_data']['status']); ?>
+        </span>
+    </td>
+</tr>

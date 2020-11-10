@@ -1,0 +1,98 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        
+        var ORDER_INVOICE_PAGE = $("div#order-invoice-page");
+        
+        ORDER_INVOICE_PAGE.find('li#print').on('click',function(event) {
+            $("div#long-proc-preloader").removeClass('hidden');
+            $.ajax({
+                url: '{{CONFIG url}}/req/orders/get_print_template',
+                type: 'GET',
+                dataType: 'json',
+                data: {order_id: <?php echo($hs['order_data']['id']); ?>},
+            })
+            .done(function(data) {
+                if (data.status == 200) {
+                    try{
+                        var print_window = window.open(false,'Print order invoice details','left=0,top=0,toolbar=0,scrollbars=0,status=0');
+                        print_window.document.write(data.html);
+                        print_window.document.close();
+                        print_window.focus();
+                        print_window.print();
+                        print_window.close();
+                    } catch(e) { 
+                        $.notify({
+                            message: 'An unknown error has occurred, or your browser does not support this funtion.',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }  
+                }
+                else {
+                    if(data.message) {
+                        $.notify({
+                            message: 'Error: Failed to connect to the server. Please check your internet connection',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }
+                }
+                $("div#long-proc-preloader").addClass('hidden');
+            });
+        });
+
+        <?php if ($hs['order_data']['status'] == 'pending'): ?>
+    		var ORD_CANC_M = $("div#confirm-order-cancelation-modal").ajaxForm({
+    			url: '{{CONFIG url}}/req/orders/cancel_order',
+    			type: 'POST',
+    			dataType: 'json',
+    			success: function(data) {
+    				if (data.message) {
+    					$.notify({
+                            message: data.message,
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+
+                        if (data.status == 200) {
+                        	hs_redirect('{{LINK merchant_panel/my_orders}}');
+                        }
+    				}
+    				else {
+    					$.notify({
+                            message: 'Error: Failed to connect to the server. Please check your internet connection',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+    				}
+    			},
+    			error: function() {
+    				$.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+    			},
+                complete: function() {
+                    $("div#confirm-order-cancelation-modal").modal('hide');
+                }
+    		});
+        <?php endif; ?>
+	});
+</script>

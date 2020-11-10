@@ -1,0 +1,120 @@
+<script>
+	jQuery(document).ready(function($) {
+		"use strict";
+		var PROD_DET_PAGE = $("div#product-details-page");
+		var PROD_VAR_INFO = PROD_DET_PAGE.find("div#prod-var-info");
+		var ADD_2CART_FRM = PROD_DET_PAGE.find('form#add-p2-cart');
+		var BS_NOTIF_CONF = Object({allow_dismiss: false,icon_type: "class",type: 'default',timer: 500, placement: {from: "bottom",align: "left"}, offset: {x: 40,y: 40}, animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}});
+		var VAR_SNGL_CTRL = Object({
+			buy_prod_now: false,
+			get_var_info: function(){
+				var form_data = ADD_2CART_FRM.serializeObject();
+				var var_id    = form_data.var_id;
+				var quantity  = form_data.quantity;
+				var prod_sp   = (Number('{{prod_sp}}') * quantity);
+				var prod_rp   = (Number('{{prod_rp}}') * quantity);
+
+				PROD_VAR_INFO.find('h4#sale-price').find('span.price').text(hs_format_currency(prod_sp.toFixed(2)));
+				PROD_VAR_INFO.find('h4#reg-price').find('span.price').text(hs_format_currency(prod_rp.toFixed(2)));
+
+				if (data.disc >= 1) {
+					PROD_DET_PAGE.find('div#product-price-disc').removeClass('hidden');
+					PROD_DET_PAGE.find('div#product-price-disc').find('span.num').text(data.disc);
+				}
+				else {
+					PROD_DET_PAGE.find('div#product-price-disc').addClass('hidden');
+					PROD_DET_PAGE.find('div#product-price-disc').find('span.num').text('0');
+				}
+			}
+		});
+
+		PROD_DET_PAGE.find('button#add-p2-cart').on('click',function(event) {
+			PROD_DET_PAGE.find('form#add-p2-cart').submit();
+		});
+
+		PROD_DET_PAGE.find('button#buy-prod-now').on('click',function(event) {
+			VAR_SNGL_CTRL.buy_prod_now = true;
+			ADD_2CART_FRM.submit();
+		});
+
+		ADD_2CART_FRM.ajaxForm({
+			url: '{{CONFIG url}}/req/products/add_p2_basket',
+			type: 'POST',
+			dataType: 'json',
+			beforeSend: function() {
+				var form_data = ADD_2CART_FRM.serializeObject();
+				if(hs_empty(form_data.quantity) || $.isNumeric(form_data.quantity) != true) {
+					$(window).reloadPage(300);
+					return false;
+				} 
+				else if ((form_data.quantity < 1) || (form_data.quantity > 20)) {
+					$(window).reloadPage(300);
+					return false;
+				}
+
+				if (VAR_SNGL_CTRL.buy_prod_now){
+					PROD_DET_PAGE.find('button#add-p2-cart').attr('disabled', 'true');
+					PROD_DET_PAGE.find('button#buy-prod-now').attr('disabled', 'true');
+				}
+			},
+			success: function (data) {
+				if (data.status == 200) {
+					$("span#hb-items-total-fixed").text(data.total);
+					$("span#hb-items-total-fixed-2").text(data.total);
+					
+					$.notify({
+						message: data.message
+					},BS_NOTIF_CONF);
+
+					if (VAR_SNGL_CTRL.buy_prod_now) {
+						delay(function() {
+							hs_redirect('{{LINK checkout}}');
+						},1500);
+					}
+					else {
+						PROD_DET_PAGE.find('button#added-p2-cart').removeClass('hidden');
+						PROD_DET_PAGE.find('button#add-p2-cart').addClass('hidden');
+					}
+				} 
+				else {
+					if (data.message) {
+						$.notify({
+							message: data.message
+						},BS_NOTIF_CONF);
+					}
+
+					PROD_DET_PAGE.find('button#add-p2-cart').removeAttr('disabled');
+					PROD_DET_PAGE.find('button#buy-prod-now').removeAttr('disabled');
+				}
+			}
+		});
+
+		ADD_2CART_FRM.find('span.quantity-total-ctrl').on('click',function(event) {
+			var action    = $(this).data('val');
+			var form_data = ADD_2CART_FRM.serializeObject();
+			var quantity  = form_data.quantity;
+
+			if ($.isNumeric(quantity) != true) {
+				$(window).reloadPage(300);
+				return false;
+			}
+			else if ((quantity <= 1 && action == 'down') || (quantity >= 20 && action == 'up')) {
+				$(window).reloadPage(300);
+				return false;
+			} 
+			else {
+				quantity = Number(quantity);
+				quantity = ((action == 'up') ? quantity += 1 : quantity -= 1);
+				ADD_2CART_FRM.find('span#selected-quantity').text(quantity);
+				ADD_2CART_FRM.find('input#quantity').val(quantity);
+				
+				delay(function(){
+					VAR_SNGL_CTRL.get_var_info();
+				},500);
+
+				PROD_DET_PAGE.find('button#added-p2-cart').addClass('hidden');
+				PROD_DET_PAGE.find('button#add-p2-cart').removeClass('hidden');
+			}
+		});
+	});
+</script>

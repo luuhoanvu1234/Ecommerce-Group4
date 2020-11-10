@@ -1,0 +1,73 @@
+<tr data-request-li="<?php echo($hs['req_data']['id']); ?>" data-accid="<?php echo($hs['req_data']['user_id']); ?>">
+    <td>
+        <?php echo($hs['req_data']['id']); ?>
+    </td>
+    <td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo($hs['req_data']['avatar']); ?>" alt="Image">
+        </div>
+        <a href="<?php echo($hs['req_data']['url']); ?>">
+            <?php echo($hs['req_data']['full_name']); ?>
+        </a>
+    </td>
+    <td>
+        <?php if ($hs['req_data']['is_seller'] == 'Y'): ?>
+            <span class="badge bg-main-red">
+                {{TR Seller account}}
+            </span>
+        <?php else: ?>
+            <span class="badge bg-grey">
+                {{TR Regular account}}
+            </span>
+        <?php endif; ?>
+    </td>
+    <td class="email">
+        <?php echo($hs['req_data']['email']); ?>
+    </td>
+    <td class="time">
+        <?php echo($hs['req_data']['time']); ?>
+    </td>
+    <td>
+        <?php if ($hs['req_data']['status'] == 'pending'): ?>
+            <span class="badge bg-orange req-status">{{TR Pending}}</span>
+        <?php elseif($hs['req_data']['status'] == 'rejected'): ?>
+            <span class="badge bg-red req-status">{{TR Rejected}}</span>
+        <?php endif; ?>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo($hs['req_data']['url']); ?>" class="waves-effect waves-block">
+                        {{TR User Info}}
+                    </a>
+                </li>
+                <li data-onclick="account_verification_request_data" data-id="<?php echo($hs['req_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Show Details}}
+                    </a>
+                </li>
+                <?php if ($hs['req_data']['status'] == 'pending'): ?>
+                    <li data-onclick="accept_request" data-id="<?php echo($hs['req_data']['id']); ?>">
+                        <a href="javascript:void(0);" class="waves-effect waves-block">
+                            {{TR Verify}}
+                        </a>
+                    </li>
+                    <li data-onclick="reject_request" data-id="<?php echo($hs['req_data']['id']); ?>">
+                        <a href="javascript:void(0);" class="waves-effect waves-block">
+                            {{TR Reject}}
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <li data-onclick="delete_request" data-id="<?php echo($hs['req_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

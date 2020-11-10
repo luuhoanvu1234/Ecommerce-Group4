@@ -1,0 +1,44 @@
+<div class="prod-item" data-product-li="<?php echo $hs['prod_item']['id']; ?>">
+	<a href="<?php echo $hs['prod_item']['url']; ?>">
+		<div class="prod-img">
+			<img src="<?php echo $hs['prod_item']['poster']; ?>" alt="Product picture">
+			<?php if (not_empty($hs['prod_item']['discount'])): ?>
+				<span class="discount">
+					-<?php echo($hs['prod_item']['discount']); ?>%
+				</span>
+			<?php endif; ?>
+			
+			<span class="total-sales">
+				<span class="inline-label">{{TR Sales}}:</span>
+				<span class="num">
+					<?php echo($hs['prod_item']['sales']); ?>
+				</span>
+			</span>
+		</div>
+		<div class="prod-desc">
+			<div class="body">
+				<div class="prod-name">
+					<h6>
+						<?php echo $hs['prod_item']['name']; ?>
+					</h6>
+				</div>
+				<div class="prices">
+					<span class="price">
+						<?php echo $hs['prod_item']['fs_price']; ?>
+					</span>
+					<span class="old-price">
+						<?php echo $hs['prod_item']['fr_price']; ?>
+					</span>
+					<?php if (floatval($hs['prod_item']['rating'])): ?>
+						<span class="star-icon ml-auto">
+							<?php echo hs_svg('star'); ?>
+						</span>
+						<span class="rating-num">
+							<?php echo $hs['prod_item']['rating']; ?>
+						</span>
+					<?php endif; ?>
+				</div>
+			</div>
+		</div>
+	</a>
+</div>

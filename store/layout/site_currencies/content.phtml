@@ -1,0 +1,74 @@
+<div class="announcements-list-cont pm-content">
+    <div class="announcement announc-warning">
+        <div class="icon">
+            <?php echo hs_svg('warning'); ?>
+        </div>
+        <div class="message">
+            <h6>
+                {{TR Please pay attention!}}
+            </h6>
+            <p>
+                <?php echo hs_translate("Please note when adding a new currency that not all currencies are supported by payment systems: {%payment_systems%}, so make sure that the currency you use is supported by all payment systems integrated into your website!",array(
+                    'payment_systems' => implode(', ', array('PayPal','Stripe'))
+                )); ?>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix" id="site-currencies-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    {{TR Localization}}
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Currencies}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>{{TR Manage market currencies}}</h2>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table common-table table-striped no-mb" id="currencies-list">
+                        <thead>
+                            <tr>
+                                <th>{{TR Currency code}}</th>
+                                <th>
+                                    {{TR Currency symbol}}
+                                </th>
+                                <th>
+                                    {{TR Status}}
+                                </th>
+                                <th>
+                                    {{TR Action}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($hs['site_currencies'] as $hs['curr_data']): ?>
+                                <?php echo hs_loadpage('site_currencies/includes/currency_li'); ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button title="{{TR Add new currency}}" type="button" class="fixed-right-bottom btn bg-main-red btn-circle waves-effect waves-circle waves-float" data-toggle="modal" data-target="#addnew-currency-modal">
+    <i class="material-icons">add</i>
+</button>
+<?php echo hs_loadpage('site_currencies/static/js/site_currencies_script'); ?>
+<?php echo hs_loadpage('site_currencies/modals/add_new_currency'); ?>
+<?php echo hs_loadpage('site_currencies/modals/confirmations/change_market_currency'); ?>
+<?php echo hs_loadpage('site_currencies/modals/confirmations/delete_currency'); ?>

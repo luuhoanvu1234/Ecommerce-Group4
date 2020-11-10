@@ -1,0 +1,78 @@
+<tr data-request-li="<?php echo($hs['req_data']['id']); ?>" data-accid="<?php echo($hs['req_data']['user_id']); ?>">
+    <td>
+        <?php echo($hs['req_data']['id']); ?>
+    </td>
+    <td class="link">
+        <div class="avatar-holder">
+            <img src="<?php echo($hs['req_data']['avatar']); ?>" alt="Image">
+        </div>
+        <a href="<?php echo($hs['req_data']['url']); ?>">
+            <?php echo($hs['req_data']['full_name']); ?>
+
+            <?php if ($hs['req_data']['verified'] == '1'): ?>
+                <?php echo hs_svg('verified-icon'); ?>
+            <?php endif; ?>
+        </a>
+    </td>
+    <td>
+        <?php if ($hs['req_data']['reason'] == '1'): ?>
+            <span class="badge bg-red">
+                {{TR Troubles in getting started}}
+            </span>
+        <?php elseif($hs['req_data']['reason'] == '2'): ?>
+            <span class="badge bg-green">
+                {{TR I have a duplicate account}}
+            </span>
+        <?php elseif($hs['req_data']['reason'] == '3'): ?>
+            <span class="badge bg-blue">
+                {{TR Can not find buyers}}
+            </span>
+        <?php elseif($hs['req_data']['reason'] == '4'): ?>
+            <span class="badge bg-orange">
+                {{TR I don't find it useful}}
+            </span>
+        <?php else: ?>
+            <span class="badge bg-pink">
+                {{TR Other reasons}}
+            </span>
+        <?php endif; ?>
+    </td>
+    <td class="email">
+        <?php echo($hs['req_data']['email']); ?>
+    </td>
+    <td class="time">
+        <?php echo($hs['req_data']['time']); ?>
+    </td>
+    <td>
+        <span class="badge bg-orange">{{TR Pending}}</span>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo($hs['req_data']['url']); ?>" class="waves-effect waves-block">
+                        {{TR User Info}}
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo($hs['req_data']['ts_url']); ?>" class="waves-effect waves-block">
+                        {{TR Temporary session}}
+                    </a>
+                </li>
+                <li data-onclick="account_removal_request_data" data-id="<?php echo($hs['req_data']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Show Details}}
+                    </a>
+                </li>
+                <li data-onclick="delete_account" data-id="<?php echo($hs['req_data']['user_id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete account}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

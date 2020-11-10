@@ -1,0 +1,157 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#eee;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+div.payment-paid-page-container{
+	width: 100%;
+	overflow: hidden;
+	margin-bottom: 20px;
+	.success{
+		width: 100%;
+		height: calc(100vh - 200px);
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+		background: transparent;
+		margin-bottom: 25px;
+		padding: 20px 0px;
+
+		div.icon{
+			width: 150px;
+			height: 150px;
+			overflow: hidden;
+			svg{
+				width: 100%;
+				height: 100%;
+			}
+
+			img{
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		h5{
+			font-size: 22px;
+			line-height: 35px;
+			color: $black;
+			padding: 0;
+			margin: 0;
+			text-align: center;
+		}
+
+		p{
+			padding: 0;
+			margin: 0 0 20px 0;
+			font-size: 14px;
+			line-height: 16px;
+			color: $black2;
+			text-align: center;
+		}
+
+		button{
+			border: 1px solid $red;
+			outline: 0;			
+			padding: 12px 25px;
+			box-shadow: none;
+			background: $red;
+			color: #fff;
+			font-size: 16px;
+			line-height: 16px;
+			text-decoration: none;
+			border-radius: 3px;
+			&:active,&:hover,&:focus{
+				background: $red;
+				border-color:$red;
+				outline: 0;
+				box-shadow:none;
+			}
+		}
+	}
+
+	.error{
+		width: 100%;
+		height: calc(100vh - 200px);
+		display: flex;
+		flex-direction: column;
+		flex-wrap: nowrap;
+		justify-content: center;
+		align-items: center;
+		background: transparent;
+		margin-bottom: 25px;
+		padding: 20px 0px;
+
+		div.icon{
+			width: 150px;
+			height: 150px;
+			overflow: hidden;
+			svg{
+				width: 100%;
+				height: 100%;
+			}
+
+			img{
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+
+		h5{
+			font-size: 22px;
+			line-height: 35px;
+			color: $black;
+			padding: 0;
+			margin: 0;
+			text-align: center;
+		}
+
+		p{
+			padding: 0;
+			margin: 0 0 20px 0;
+			font-size: 14px;
+			line-height: 16px;
+			color: $black2;
+			text-align: center;
+		}
+
+		button{
+			border: 1px solid $red;
+			outline: 0;			
+			padding: 12px 25px;
+			box-shadow: none;
+			background: $red;
+			color: #fff;
+			font-size: 16px;
+			line-height: 16px;
+			text-decoration: none;
+			border-radius: 3px;
+			&:active,&:hover,&:focus{
+				background: $red;
+				border-color:$red;
+				outline: 0;
+				box-shadow:none;
+			}
+		}	
+	}
+}

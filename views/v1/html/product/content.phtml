@@ -1,0 +1,62 @@
+<div class="product-details-page-wrapper clearfix" id="product-details-page">
+	<div class="content-container clearfix">
+		<nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{CONFIG url}}">{{TR Home}}</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="<?php echo hs_link(sprintf('catalog/%s',$hs['prod_data']['category'])); ?>">
+						<?php echo hs_translate($hs['categories'][$hs['prod_data']['category']]); ?>
+					</a>
+				</li>
+				<li class="breadcrumb-item">
+					<a href="#">
+						<?php echo hs_croptxt($hs['prod_data']['name'],32,'..'); ?>
+					</a>
+				</li>
+			</ol>
+		</nav>
+		<div class="page-parts-holder">
+			<?php echo hs_loadpage('product/includes/cont_parts/left',array(
+				'prod_id' => $hs['prod_data']['id'],
+				'prod_poster' => $hs['prod_data']['poster'],
+			)); ?>
+
+			<?php echo hs_loadpage('product/includes/cont_parts/right',array(
+				'prod_id' => $hs['prod_data']['id'],
+				'prod_poster' => $hs['prod_data']['poster'],
+				'prod_name' => $hs['prod_data']['name'],
+				'prod_reg_price' => $hs['prod_data']['fr_price'],
+				'prod_sale_price' => $hs['prod_data']['fs_price'],
+				'prod_description' => hs_br_text($hs['prod_data']['description']),
+			)); ?>	
+		</div>
+	</div>
+</div>
+
+<?php if ($hs['prod_data']['status'] == 'active'): ?>
+	<?php echo hs_loadpage('product/includes/modals/share',array(
+		'prod_id' => $hs['prod_data']['id']
+	)); ?>
+<?php endif; ?>
+
+<?php echo hs_loadpage('product/static/js/master_script',array(
+	'prod_id' => $hs['prod_data']['id']
+)); ?>
+
+<?php if ($hs['prod_data']['status'] == 'active'): ?>
+	<?php if (empty($hs['prod_data']['owner'])): ?>
+		<?php echo hs_loadpage('product/includes/modals/add2wish_list',array(
+			'prod_id' => $hs['prod_data']['id']
+		)); ?>
+	<?php endif; ?>
+<?php endif; ?>
+
+<?php if (in_array($hs['prod_data']['status'], array('active','inactive','blocked'))): ?>
+	<?php if (not_empty($hs['prod_data']['owner'])): ?>
+		<?php echo hs_loadpage('product/includes/modals/confirmations/prod_removal',array(
+			'prod_id' => $hs['prod_data']['id']
+		)); ?>
+	<?php endif; ?>
+<?php endif; ?>

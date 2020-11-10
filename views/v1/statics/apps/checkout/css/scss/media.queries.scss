@@ -1,0 +1,530 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  //CSS
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+	div.checkout-page-content-wrapper {
+
+	}
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) { 
+	div.checkout-page-content-wrapper {
+		div.left-part{
+			div.basket{
+				margin-bottom: 20px;
+			}
+		}
+		
+		div.right-part{
+			div.customer-care{
+				p{
+					margin-bottom: 0px !important;
+				}
+			}
+		}
+	}
+
+	div.deliv-addr-map-modal{
+		div.preview-address-wrapper{
+			div.left-part{
+
+			}
+
+			div.right-part{
+				display: none;
+			}
+
+			div.left-part{
+				width: 100% !important;
+				flex-basis: 100% !important;
+			}
+		}
+	}
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 780px) {
+	div.checkout-page-content-wrapper {
+		nav.breadcrumbs-cust ol{
+			li{
+				font-size: 12px;
+				a{
+					font-size: 12px !important
+				}
+			}
+		}
+
+		div.page-parts-holder{
+			div.page-right-part{
+				padding-left: 15px !important;
+			}
+		}
+
+		div.left-part{
+			div.basket{
+				margin-bottom: 20px;
+
+				div.basket-list-wrapper{
+					div.basket-list-item{
+						div.header{
+							h5{
+								max-width: 70%;
+								overflow: hidden;
+							}
+						}
+					}
+				}
+			}
+
+			div.delivery-address {
+				div.tabs-wrapper {
+					div.tabs-holder{
+						div.tab-content{
+							div.address-form-wrapper{
+								div.flex-group-item{
+									width: 100% !important;
+									flex-basis: 100% !important;
+									margin-bottom: 20px;
+
+									&:last-child{
+										margin-bottom: 0px !important;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+		}
+		
+		div.right-part{
+			div.customer-care{
+				p{
+					margin-bottom: 0px !important;
+				}
+			}
+		}
+
+		div.content-container{
+			padding-left: 20px !important;
+			padding-right: 20px !important;
+		}
+	}
+
+	div.deliv-addr-map-modal{
+		div.preview-address-wrapper{
+			div.left-part{
+
+			}
+
+			div.right-part{
+				display: none;
+			}
+
+			div.left-part{
+				width: 100% !important;
+				flex-basis: 100% !important;
+				div.preview-address{
+					height: 280px !important;
+				}
+			}
+		}
+	}
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+	div.checkout-page-content-wrapper {
+		nav.breadcrumbs-cust ol{
+			li{
+				font-size: 10px;
+				a{
+					font-size: 10px !important
+				}
+			}
+		}
+
+		div.page-parts-holder{
+			div.page-right-part{
+				padding-left: 15px !important;
+			}
+		}
+
+		div.left-part{
+			div.delivery-address {
+				div.tabs-wrapper {
+					div.tabs-switcher{
+						div.switch-control{
+							font-size: 10px !important;
+							padding: 5px 10px !important;
+						}
+					}
+
+					div.tabs-holder{
+						div.tab-content{
+							h5.tab-content-title{
+								font-size: 10px !important;
+							}
+
+							div.address-display-wrapper{
+								ul{
+									width: 100% !important;
+									flex-basis: 100% !important;
+									li{
+										font-size: 12px !important;
+										span.icon{
+											margin-right: 0px !important;
+											svg{
+												width: 12px !important;
+												height: 12px !important;
+											}
+										}
+									}
+								}
+							}
+
+							div.address-form-wrapper{
+								div.flex-group-item{
+									width: 100% !important;
+									flex-basis: 100% !important;
+									margin-bottom: 20px;
+
+									&:last-child{
+										margin-bottom: 0px !important;
+									}
+								}
+
+								div.fluid.form-footer{
+									button{
+										width: 100%;
+										margin: 0px 0px 15px 0;
+										&:last-child{
+											margin: 0;
+										}
+									}
+								}
+							}
+
+							div.user-addrs-list-wrapper{
+								ul{
+									li.addr-list-item{
+										display: block !important;
+										div.input-radio{
+											width: 100% !important;
+											label{
+												width: 100% !important;
+												display: block !important;
+												span{
+													font-size: 12px !important;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			div.basket{
+				margin-bottom: 20px !important;
+				div.basket-list-wrapper{
+					div.basket-list-item{
+						div.header{
+							h5{
+								max-width: 70%;
+								overflow: hidden;
+							}
+						}
+						div.body{
+							div.item-photo{
+								flex-basis: 60px !important;
+								width:60px !important;
+								min-width: 60px !important;
+								height: 60px !important;
+							}
+							div.item-details{
+								padding: 0px !important;
+								div.flx-cr-inner {
+									padding-left: 10px !important;
+									ul {
+										flex-basis: 100% !important;
+										width: 100% !important;
+
+										li{
+											span{
+												font-size: 10px !important;
+												line-height: 18px !important;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				div.top-panel-wrapper{
+					span.delete-selected{
+						span{
+							display: none;
+						}
+					}
+				}
+			}
+		}
+		div.content-container{
+			padding-left: 20px !important;
+			padding-right: 20px !important;
+		}
+
+		div.right-part{
+			div.customer-care{
+				p{
+					margin-bottom: 0px !important;
+				}
+			}
+		}
+	}
+
+	div.deliv-addr-map-modal{
+		div.preview-address-wrapper{
+			div.left-part{
+
+			}
+
+			div.right-part{
+				display: none;
+			}
+
+			div.left-part{
+				width: 100% !important;
+				flex-basis: 100% !important;
+
+				div.preview-address{
+					height: 220px !important;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: 240px) and (max-width: 320px) {
+	div.checkout-page-content-wrapper {
+		nav.breadcrumbs-cust ol{
+			li{
+				font-size: 10px;
+				a{
+					font-size: 10px !important
+				}
+			}
+		}
+
+		div.page-parts-holder{
+			div.page-right-part{
+				padding-left: 15px !important;
+			}
+		}
+
+		div.left-part{
+			div.delivery-address {
+				div.tabs-wrapper {
+					div.tabs-switcher{
+						div.switch-control{
+							font-size: 10px !important;
+							padding: 5px 10px !important;
+						}
+					}
+
+					div.tabs-holder{
+						div.tab-content{
+							h5.tab-content-title{
+								font-size: 10px !important;
+							}
+
+							div.address-display-wrapper{
+								ul{
+									width: 100% !important;
+									flex-basis: 100% !important;
+									li{
+										font-size: 12px !important;
+										span.icon{
+											margin-right: 0px !important;
+											svg{
+												width: 12px !important;
+												height: 12px !important;
+											}
+										}
+									}
+								}
+							}
+
+							div.address-form-wrapper{
+								div.flex-group-item{
+									width: 100% !important;
+									flex-basis: 100% !important;
+									margin-bottom: 20px;
+
+									&:last-child{
+										margin-bottom: 0px !important;
+									}
+								}
+							}
+
+							div.user-addrs-list-wrapper{
+								ul{
+									li.addr-list-item{
+										display: block !important;
+										div.input-radio{
+											width: 100% !important;
+											label{
+												width: 100% !important;
+												display: block !important;
+												span{
+													font-size: 12px !important;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			div.basket{
+				margin-bottom: 20px  !important;
+				div.basket-list-wrapper{
+					div.basket-list-item{
+						div.header{
+							h5{
+								max-width: 70%;
+								overflow: hidden;
+							}
+						}
+
+						div.body{
+							div.item-photo{
+								flex-basis: 60px !important;
+								width:60px !important;
+								min-width: 60px !important;
+								height: 60px !important;
+							}
+							div.item-details{
+								padding: 0px !important;
+								div.flx-cr-inner {
+									padding-left: 10px !important;
+									ul{
+										flex-basis: 100% !important;
+										width: 100% !important;
+										li{
+											span{
+												font-size: 10px !important;
+												line-height: 18px !important;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				div.top-panel-wrapper{
+					span.delete-selected{
+						span{
+							display: none;
+						}
+					}
+				}
+			}
+		}
+		div.content-container{
+			padding-left: 20px !important;
+			padding-right: 20px !important;
+		}
+
+		div.right-part{
+			div.customer-care{
+				p{
+					margin-bottom: 0px !important;
+				}
+			}
+		}
+	}
+
+	div.deliv-addr-map-modal{
+		div.preview-address-wrapper{
+			div.left-part{
+
+			}
+
+			div.right-part{
+				display: none;
+			}
+
+			div.left-part{
+				width: 100% !important;
+				flex-basis: 100% !important;
+				div.preview-address{
+					height: 180px !important;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: 10px) and (max-width: 240px) {
+	body{
+		display: none !important;
+	}
+}
+

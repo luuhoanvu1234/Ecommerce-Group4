@@ -1,0 +1,11 @@
+<div id="auth-page-main-container">
+	<?php if ($hs['auth_page'] == 'login'): ?>
+		<?php echo hs_loadpage('auth/includes/login'); ?>
+	<?php elseif($hs['auth_page'] == 'signup'): ?>
+		<?php echo hs_loadpage('auth/includes/join'); ?>
+	<?php elseif($hs['auth_page'] == 'reset_password'): ?>
+		<?php echo hs_loadpage('auth/includes/reset_password'); ?>
+	<?php elseif($hs['auth_page'] == 'new_password' && not_empty($hs['em_code'])): ?>
+		<?php echo hs_loadpage('auth/includes/new_password',array("em_code" => $hs['em_code'])); ?>
+	<?php endif; ?>
+</div>

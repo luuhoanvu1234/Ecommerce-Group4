@@ -1,0 +1,15 @@
+<script>
+	"use strict";
+
+	function hs_format_currency(money = "0.00") {
+		var curr_symbol_position = $.trim('{{CONFIG curr_symbol_position}}');
+		var curr_symbol_char     = $.trim('{{CONFIG currency}}');
+
+		if (curr_symbol_position == 'before') {
+			return "{0}{1}".format(curr_symbol_char,money);
+		}
+		else {
+			return "{0}{1}".format(money,curr_symbol_char);
+		}
+	}
+</script>

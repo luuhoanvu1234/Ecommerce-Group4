@@ -1,0 +1,122 @@
+<script>
+    jQuery(document).ready(function($) {
+        "use strict";
+        
+        var MY_ORDS_PAGE = $("div#my-orders-page");
+
+        MY_ORDS_PAGE.find('i#clear-searching-terms').on('click',function(event) {
+            $(this).addClass('hidden');
+            MY_ORDS_PAGE.find('input#search-orders').trigger('keyup').val('');
+        });
+
+        MY_ORDS_PAGE.find('input#search-orders').keyup(function(event) {
+            delay(function(){
+                var orders_list = MY_ORDS_PAGE.find('table#orders-list');
+                var preloader   = MY_ORDS_PAGE.find('div#table-preloader');
+                var keyword_val = MY_ORDS_PAGE.find('input#search-orders').val();
+                var keyword     = ((keyword_val.length >= 1) ? keyword_val : 0);
+
+                if (keyword && orders_list.find('tr.empty-table.no-data').length == 0) {
+                    MY_ORDS_PAGE.find('i#clear-searching-terms').removeClass('hidden');
+                    preloader.removeClass('hidden');
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/profile/search_my_orders',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {keyword: keyword}
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            orders_list.find('tbody').html(data.html);
+                        }
+                        else {
+                            MY_ORDS_PAGE.find('a.pagination-ctrls').addClass('hidden');
+                            orders_list.find('tbody').html(data.html);
+                        }
+                    }).fail(function() {
+                        $.notify({
+                            message: 'Error: Failed to connect to the server. Please check your internet connection',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }).always(function() {
+                        setTimeout(function(){
+                            preloader.addClass('hidden');
+                        },500);
+                    });
+                }
+
+                else {
+                    if (hs_empty(keyword_val)) {
+                        MY_ORDS_PAGE.find('i#clear-searching-terms').addClass('hidden');
+                        MY_ORDS_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                    }
+
+                    if (window.orders_table_rows) {
+                        orders_list.html(window.orders_table_rows);
+                    }
+                } 
+            },1000);
+        });
+
+        if (MY_ORDS_PAGE.find('table#orders-list').find('tr[data-order-li]').length) {
+            if (MY_ORDS_PAGE.find('table#orders-list').find('tr.empty-table.no-data').length == 0) {
+                window.orders_table_rows = MY_ORDS_PAGE.find('table#orders-list').html();
+            }
+        }
+
+        MY_ORDS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = MY_ORDS_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var orders_list = MY_ORDS_PAGE.find('table#orders-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_req    = orders_list.find('tr[data-order-li]').last().data('order-li');
+                var first_req   = orders_list.find('tr[data-order-li]').first().data('order-li');
+                var preloader   = MY_ORDS_PAGE.find('div#table-preloader').removeClass('hidden');
+                var keyword     = MY_ORDS_PAGE.find('input#search-orders').val();
+                var keyword     = ((keyword.length >= 1) ? keyword : '');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/profile/get_my_orders',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_req, 
+                        first: first_req,
+                        keyword: keyword,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        orders_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+    });
+</script>

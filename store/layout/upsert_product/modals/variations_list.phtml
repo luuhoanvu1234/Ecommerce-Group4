@@ -1,0 +1,292 @@
+<div class="modal animated fadeIn product-vars-list-modal" id="product-varslist-modal" data-keyboard="false" data-backdrop="static" data-onclose="remove">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                	{{TR Product variations list}} (<span id="vars-total"><?php echo count($hs['prod_vars']); ?></span>)
+                </h4>
+            </div>
+            <div class="modal-body table-responsive ajax-ctrl-table">
+                <?php if ($hs['prod_item']['variation_type'] == 'color'): ?>
+                    <table class="table common-table no-mb">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Image}}</th>
+                                <th>{{TR Color}}</th>
+                                <th>{{TR Regular price}}</th>
+                                <th>{{TR Quantity}}</th>
+                                <th>SKU</th>
+                                <th>{{TR Sale price}}</th>
+                                <th>{{TR Action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['prod_vars'])): ?>
+                                <?php foreach ($hs['prod_vars'] as $pdv_id => $pd_var): ?>
+                                    <tr data-var-row="<?php echo $pd_var['id']; ?>">
+                                        <th>
+                                            <?php echo ($pdv_id + 1); ?>
+                                        </th>
+                                        <td class="img">
+                                            <img src="<?php echo($pd_var['col_img']); ?>" alt="Image">  
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-red">
+                                                <?php echo($pd_var['col_name']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="col-green">
+                                                <?php echo($pd_var['reg_price']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-blue">
+                                                <?php echo($pd_var['quantity']); ?> {{TR Items}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <?php if (not_empty($pd_var['sku'])): ?>
+                                                <span>
+                                                    <?php echo($pd_var['sku']); ?>
+                                                </span>
+                                            <?php else: ?>
+                                                <span>{{TR No}}</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <span class="col-green">
+                                                <?php echo($pd_var['sale_price']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="material-icons">more_horiz</i>
+                                                </a>
+                                                <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="waves-effect waves-block" data-onclick="edit_var_item" data-id="<?php echo($pd_var['id']); ?>">
+                                                            {{TR Edit}}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="waves-effect waves-block" data-delete-data="product_variant_item" data-id="<?php echo($pd_var['id']); ?>">
+                                                            {{TR Delete}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr class="empty-table">
+                                    <td colspan="7">
+                                        <div>
+                                            <h5>
+                                                Nothing found
+                                            </h5>
+                                            <p>
+                                                This product has no options, to add a product variant, select the variant type and click the "Add Product Variant" button
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                <?php elseif ($hs['prod_item']['variation_type'] == 'size'): ?>
+                    <table class="table common-table no-mb">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Size}}</th>
+                                <th>{{TR Regular price}}</th>
+                                <th>{{TR Quantity}}</th>
+                                <th>SKU</th>
+                                <th>{{TR Sale price}}</th>
+                                <th>{{TR Action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['prod_vars'])): ?> 
+                                <?php foreach ($hs['prod_vars'] as $pdv_id => $pd_var): ?>
+                                    <tr data-var-row="<?php echo  $pd_var['id']; ?>">
+                                        <th>
+                                            <?php echo ($pdv_id + 1); ?>
+                                        </th>
+                                        <td>
+                                            <span class="badge bg-red">
+                                                <?php echo($pd_var['size']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="col-green">
+                                                <?php echo($pd_var['reg_price']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-blue">
+                                                <?php echo($pd_var['quantity']); ?> {{TR Items}}
+                                            </span>
+                                        </td>    
+                                        <td>
+                                            <?php if (not_empty($pd_var['sku'])): ?>
+                                                <span>
+                                                    <?php echo($pd_var['sku']); ?>
+                                                </span>
+                                            <?php else: ?>
+                                                <span>{{TR No}}</span>
+                                            <?php endif; ?> 
+                                        </td>
+                                        <td>
+                                            <span class="col-green">
+                                                <?php echo($pd_var['sale_price']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="material-icons">more_horiz</i>
+                                                </a>
+                                                <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="waves-effect waves-block" data-onclick="edit_var_item" data-id="<?php echo($pd_var['id']); ?>">
+                                                            {{TR Edit}}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="waves-effect waves-block" data-delete-data="product_variant_item" data-id="<?php echo($pd_var['id']); ?>">
+                                                            {{TR Delete}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr class="empty-table">
+                                    <td colspan="6">
+                                        <div>
+                                            <h5>
+                                                Nothing found
+                                            </h5>
+                                            <p>
+                                                This product has no options, to add a product variant, select the variant type and click the "Add Product Variant" button
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                <?php elseif ($hs['prod_item']['variation_type'] == 'color_size'): ?>
+                    <table class="table common-table no-mb">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Image}}</th>
+                                <th>{{TR Color}}</th>
+                                <th>{{TR Size}}</th>
+                                <th>{{TR Regular price}}</th>
+                                <th>{{TR Quantity}}</th>
+                                <th>SKU</th>
+                                <th>{{TR Sale price}}</th>
+                                <th>{{TR Action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['prod_vars'])): ?>
+                                <?php foreach ($hs['prod_vars'] as $pdv_id => $pd_var): ?>
+                                    <tr data-var-row="<?php echo  $pd_var['id']; ?>">
+                                        <th>
+                                            <?php echo ($pdv_id + 1); ?>
+                                        </th>
+                                        <td class="img">
+                                            <img src="<?php echo($pd_var['col_img']); ?>" alt="Image">
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-main-red">
+                                                <?php echo($pd_var['col_name']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-blue">
+                                                <?php echo($pd_var['size']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="col-green">
+                                                <?php echo($pd_var['reg_price']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-blue">
+                                                <?php echo($pd_var['quantity']); ?> {{TR Items}}
+                                            </span>
+                                        </td>                                      
+                                        <td>
+                                            <?php if (not_empty($pd_var['sku'])): ?>
+                                                <span>
+                                                    <?php echo($pd_var['sku']); ?>
+                                                </span>
+                                            <?php else: ?>
+                                                <span>{{TR No}}</span>
+                                            <?php endif; ?> 
+                                        </td>
+                                        <td>
+                                            <span class="col-green">
+                                                <?php echo($pd_var['sale_price']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                                    <i class="material-icons">more_horiz</i>
+                                                </a>
+                                                <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="waves-effect waves-block" data-onclick="edit_var_item" data-id="<?php echo($pd_var['id']); ?>">
+                                                            {{TR Edit}}
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="waves-effect waves-block" data-delete-data="product_variant_item" data-id="<?php echo($pd_var['id']); ?>">
+                                                            {{TR Delete}}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr class="empty-table">
+                                    <td colspan="8">
+                                        <div>
+                                            <h5>
+                                                Nothing found
+                                            </h5>
+                                            <p>
+                                                This product has no options, to add a product variant, select the variant type and click the "Add Product Variant" button
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-light-blue btn-lg btn-custom" data-dismiss="modal">
+                    <i class="material-icons">close</i> <span>{{TR Close and Continue}}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

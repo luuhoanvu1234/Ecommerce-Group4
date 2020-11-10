@@ -1,0 +1,6 @@
+<sitemap>
+	<loc>
+		{{map_url}}
+	</loc>
+	<lastmod>{{sm_lastmod}}</lastmod>
+</sitemap>

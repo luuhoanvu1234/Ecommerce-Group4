@@ -1,0 +1,178 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        
+        var MERCHANTS_LS_PAGE  = $("div#market-merchants-page");
+		var MERCHANT_REMOVAL_M = $("div#confirm-merchant-removal-modal");
+        var MERCHANTS_LIST     = MERCHANTS_LS_PAGE.find('table#users-list');
+
+        MERCHANTS_LS_PAGE.find('i#clear-searching-terms').on('click',function(event) {
+            $(this).addClass('hidden');
+            MERCHANTS_LS_PAGE.find('input#search-users').trigger('keyup').val('');
+        });
+
+        MERCHANTS_LS_PAGE.find('input#search-users').keyup(function(event) {
+            delay(function(){
+                var users_list  = MERCHANTS_LS_PAGE.find('table#users-list');
+                var preloader   = MERCHANTS_LS_PAGE.find('div#table-preloader');
+                var keyword_val = MERCHANTS_LS_PAGE.find('input#search-users').val();
+                var keyword     = ((keyword_val.length >= 4) ? keyword_val : 0);
+
+                if (keyword && users_list.find('tr.empty-table.no-data').length == 0) {
+                    MERCHANTS_LS_PAGE.find('i#clear-searching-terms').removeClass('hidden');
+                    preloader.removeClass('hidden');
+                    $.ajax({
+                        url: '{{CONFIG url}}/req/admin/search_market_merchants',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {keyword: keyword}
+                    }).done(function(data) {
+                        if (data.status == 200) {
+                            MERCHANTS_LS_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                            users_list.find('tbody').html(data.html);
+                        }
+                        else if(data.status == 404) {
+                            MERCHANTS_LS_PAGE.find('a.pagination-ctrls').addClass('hidden');
+                            users_list.find('tbody').html(data.html);
+                        }
+                    }).fail(function() {
+                        $.notify({
+                            message: 'Error: Failed to connect to the server. Please check your internet connection',
+                        },{
+                            allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                            placement: {from: "bottom",align: "left"},
+                            offset: {x: 40,y: 30},
+                            animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                        });
+                    }).always(function() {
+                        setTimeout(function(){
+                            preloader.addClass('hidden');
+                        },500);
+                    });
+                }
+
+                else {
+                    if (hs_empty(keyword_val)) {
+                        MERCHANTS_LS_PAGE.find('i#clear-searching-terms').addClass('hidden');
+                    }
+
+                    if (window.users_table_rows) {
+                        users_list.html(window.users_table_rows);
+                        MERCHANTS_LS_PAGE.find('a.pagination-ctrls').removeClass('hidden');
+                    }
+                } 
+            },1000);
+        });
+
+        if (MERCHANTS_LS_PAGE.find('table#users-list').find('tr[data-user-li]').length) {
+            if (MERCHANTS_LS_PAGE.find('table#users-list').find('tr.empty-table.no-data').length == 0) {
+                window.users_table_rows = MERCHANTS_LS_PAGE.find('table#users-list').html();
+            }
+        }
+
+        MERCHANTS_LS_PAGE.find('a.pagination-ctrls').on('click',function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            if ($(this).hasClass('disabled') != true) { 
+                var pager_ctrls = MERCHANTS_LS_PAGE.find('a.pagination-ctrls');
+                var this_ctrl   = $(this);
+                var users_list  = MERCHANTS_LS_PAGE.find('table#users-list');
+                var pager_dir   = (($(this).hasClass('prev')) ? 'up' : 'down');
+                var last_req    = users_list.find('tr[data-user-li]').last().data('user-li');
+                var first_req   = users_list.find('tr[data-user-li]').first().data('user-li');
+                var preloader   = MERCHANTS_LS_PAGE.find('div#table-preloader').removeClass('hidden');
+                var keyword     = MERCHANTS_LS_PAGE.find('input#search-users').val();
+                var keyword     = ((keyword.length >= 4) ? keyword : '');
+                var pager_ctrls = pager_ctrls.removeClass('disabled');
+
+                $.ajax({
+                    url: '{{CONFIG url}}/req/admin/get_market_merchants',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        dir: pager_dir, 
+                        last: last_req, 
+                        first: first_req,
+                        keyword: keyword,
+                    },
+                }).done(function(data) {
+                    if (data.status == 200) {
+                        users_list.find('tbody').html(data.html);
+                    }
+                    else{
+                        this_ctrl.addClass('disabled');
+                    }
+                }).fail(function() {
+                    $.notify({
+                        message: 'Error: Failed to connect to the server. Please check your internet connection',
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }).always(function() {
+                    delay(function(){
+                        preloader.addClass('hidden');
+                    },500);
+                });
+            }
+            else {
+                return false;
+            }
+        });
+
+        $(document).on('click', '[data-onclick]', function(event) {
+            event.preventDefault();
+            var event_trigger = $(this).data('onclick');
+            var zis_el        = $(this);
+            if(event_trigger == 'delete_merchant') {
+                var account_id = zis_el.data('id');
+                MERCHANT_REMOVAL_M.find('input[name="user_id"]').val(account_id);
+                MERCHANT_REMOVAL_M.modal('show');
+            }
+        });
+
+        MERCHANT_REMOVAL_M.find('form#form').ajaxForm({
+            url: '{{CONFIG url}}/req/admin/delete_account',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function() {
+                MERCHANT_REMOVAL_M.find('button').attr('disabled', 'true');
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (MERCHANTS_LIST.find('tr[data-user-li]').length > 1) {
+                    if (data.status == 200) {
+                        var account_id = MERCHANT_REMOVAL_M.find('input[name="user_id"]').val();
+                        MERCHANTS_LIST.find('tr[data-user-li="{0}"]'.format(account_id)).slideUp(150,function(){
+                            $(this).remove();
+                        });
+
+                        MERCHANT_REMOVAL_M.find('button').removeAttr('disabled');
+                        MERCHANT_REMOVAL_M.find('input[name="user_id"]').val('');
+                    }
+                }
+
+                else {
+                    MERCHANTS_LIST.css('opacity', '0.3');
+                    $(window).reloadPage(1500);
+                } 
+            },
+            complete: function() {
+                MERCHANT_REMOVAL_M.modal('hide');
+                MERCHANT_REMOVAL_M.find('button').removeAttr('disabled');
+            }
+        });
+	});
+</script>

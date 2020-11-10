@@ -1,0 +1,66 @@
+<div class="data-container clearfix" id="prod-var-info">
+	<div class="product-price">	
+		<h4 id="sale-price">
+			<span class="price">
+				{{prod_sale_price}}
+			</span>
+		</h4>
+		<h4 class="old-price" id="reg-price">
+			<span class="price">{{prod_reg_price}}</span>
+		</h4>
+	</div>
+
+	<?php if (empty($hs['prod_data']['owner'])): ?>
+		<div class="delivery">
+			<span class="icon">
+				<?php echo hs_svg("calendar"); ?>
+			</span>
+			<span>
+				<?php if ($hs['prod_data']['shipping_cost'] == 'free'): ?>
+					{{TR Free shipping}}
+				<?php else: ?>
+					{{TR Shipping cost}} <?php echo($hs['prod_data']['ship_fee']); ?>
+				<?php endif; ?>
+				&sbquo;
+				<?php if ($hs['prod_data']['shipping_time'] == '1_bd'): ?>
+					{{TR in 1 business day}}
+				<?php elseif($hs['prod_data']['shipping_time'] == '2_3_bd'): ?>
+					{{TR in 2 - 3 business days}}
+				<?php elseif($hs['prod_data']['shipping_time'] == '4_7_bd'): ?>
+					{{TR in 4 - 7 business days}}
+				<?php elseif($hs['prod_data']['shipping_time'] == '8_15_bd'): ?>
+					{{TR in 5 - 15 business days}}
+				<?php elseif($hs['prod_data']['shipping_time'] == 'within_1_month'): ?>
+					{{TR in within 1 month}}
+				<?php elseif($hs['prod_data']['shipping_time'] == 'within_2_months'): ?>
+					{{TR in within 2 months}}
+				<?php elseif($hs['prod_data']['shipping_time'] == 'within_3_months'): ?>
+					{{TR in within 3 months}}
+				<?php endif ?>
+			</span>
+		</div>
+		<form id="add-p2-cart" class="add-prod-to-cart">
+			<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+			<div class="quantity">
+				<span class="label">
+					{{TR Quantity}}:
+				</span>
+				<span class="quantity-total-ctrl" data-val="down">
+					<?php echo hs_svg('minus'); ?>
+				</span>
+				<span class="quantity-total" id="selected-quantity">1</span>
+				<span class="quantity-total-ctrl" data-val="up">
+					<?php echo hs_svg('plus'); ?>
+				</span>
+			</div>
+			<input type="hidden" class="hidden d-none" value="<?php echo($hs['prod_data']['id']); ?>" name="prod_id">
+			<input type="hidden" value="1" id="quantity" name="quantity">
+		</form>
+	<?php endif; ?>
+</div>
+<?php echo hs_loadpage('product/static/js/var_single',array(
+	'prod_id' => $hs['prod_data']['id'],
+	'prod_sp' => $hs['prod_data']['sale_price'],
+	'prod_rp' => $hs['prod_data']['reg_price'],
+	'prod_pd' => $hs['prod_data']['price_disc'],
+)); ?>

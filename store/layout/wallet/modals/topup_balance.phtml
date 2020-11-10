@@ -1,0 +1,60 @@
+<div class="modal animated fadeIn topup-balance-modal" id="topup-balance-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form class="form" id="tup-form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Top up balance}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="inline-alertbox-wrapper">
+                        <div class="inline-alertbox info">
+                            <div class="icon">
+                                <i class="material-icons">info</i>
+                            </div>
+                            <div class="alert-message">
+                                <h6>{{TR Please note}}:</h6>
+                                <ol>
+                                    <li>{{TR The amount you intend to pay will replenish the balance of your account and can only be used in this account.}}</li> 
+                                    <li>{{TR Balance replenishment is carried out using the PayPal payment system}}</li> 
+                                    <li>{{TR Transferring funds from this account to a bank account is carried out only through the administration of the market}}</li> 
+                                    <li>
+                                        <?php echo hs_translate('The minimum amount of replenishment of the user balance is: {%min_topup_amount%}',array(
+                                            'min_topup_amount' => hs_html_el('b',hs_money($hs['config']['min_topup']),array(
+                                                'class' => 'col-green'
+                                            ))
+                                        )); ?>    
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" data-management-page">
+                    	<div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Top up amount}}:
+                            </label>
+                            <div class="filed-box" data-form-field="amount">
+                                <input name="amount" type="number" class="form-control" id="topup-amount-value" placeholder="{{TR Enter the top up amount. E.g. 150}}{{CONFIG currency}}">
+                            </div>
+                            <p class="info-message info">
+                                <i class="material-icons">info</i>
+                                {{TR Please enter the amount you want to replenish your account wallet}}
+                            </p>
+                    	</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-grey btn-md btn-custom" data-dismiss="modal">
+                        <span>{{TR Cancel}}</span>
+                    </button>
+                    <button type="submit" class="btn bg-main-red btn-md btn-custom">
+                        <span>{{TR Continue}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

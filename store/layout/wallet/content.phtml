@@ -1,0 +1,194 @@
+<div class="wallet-management-page-container clearfix" id="wallet-management-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/wallet}}">
+                        {{TR Account wallet}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Wallet management dashboard}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-blue">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Balance}}
+                                </span>
+                                <span class="text">
+                                    {{TR Your current balance}}
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo($me['wallet_all']); ?>">
+                                    <?php echo($me['wallet_all']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">attach_money</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-green">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Today's income}}
+                                </span>
+                                <span class="text">
+                                    {{TR Your income for today}}
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo hs_money($hs['daily_revenue']); ?>">
+                                    <?php echo hs_money($hs['daily_revenue']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">pie_chart</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-orange">
+                <div class="box-body"> 
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Monthly income}}
+                                </span>
+                                <span class="text">
+                                    {{TR Current month income}}
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo hs_money($hs['monthly_revenue']); ?>">
+                                    <?php echo hs_money($hs['monthly_revenue']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">equalizer</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="info-box info-box-lg bg-red">
+                <div class="box-body">  
+                    <div class="content">
+                        <div class="flex-cont">      
+                            <div class="part-1">
+                                <span class="title">
+                                    {{TR Total revenue}}
+                                </span>
+                                <span class="text">
+                                    {{TR All time earnings}}
+                                </span>
+                            </div>
+                            <div class="part-2">
+                                <span class="num" title="<?php echo hs_money($hs['total_revenue']); ?>">
+                                    <?php echo hs_money($hs['total_revenue']); ?>
+                                </span>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">account_balance</i>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card wallet-page-card clearfix">
+            	<div class="header">
+                    <h2>{{TR Weekly earnings statistics of your account}}</h2>
+                </div>
+                <div class="body">
+                    <div class="weekly-stat-chart-wrapper">
+                    	<canvas id="weekly_stats"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header">
+                    <h2>{{TR Account transactions history}}</h2>
+                    <div class="rows-filter">
+                        <input type="text" placeholder="{{TR Search for transactions by username}}" id="search-transactions">
+                        <i class="material-icons search">search</i>
+                        <i class="material-icons clear hidden" id="clear-searching-terms">clear</i>
+                    </div>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table common-table no-mb" id="transactions-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Customer}}</th>
+                                <th>{{TR Amount}}</th>
+                                <th>{{TR Seller}}</th>
+                                <th>{{TR Date}}</th>
+                                <th>{{TR Status}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>   
+                            <?php if (not_empty($hs['transactions'])): ?>
+                                <?php foreach ($hs['transactions'] as $hs['trans_data']): ?>
+                                    <?php echo hs_loadpage('wallet/includes/trans_list_item'); ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php echo hs_loadpage('wallet/includes/empty_table'); ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['transactions'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button data-toggle="modal" data-target="div#topup-balance-modal" title="{{TR Top up balance}}" class="fixed-right-bottom btn bg-main-red btn-circle waves-effect waves-circle waves-float">
+        <i class="material-icons">attach_money</i>
+    </button>
+</div>
+<?php echo hs_loadpage('wallet/modals/topup_balance'); ?>
+<?php echo hs_loadpage('wallet/static/js/wallet_management_script'); ?>
+<?php echo hs_loadpage('commonjs/announcements/script_master'); ?>

@@ -1,0 +1,213 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+@media (min-width: 1025px) and (max-width: 1280px) {
+  div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.body div.prod-name h6 {
+    font-size: 13px !important; }
+  div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.body div.prices span {
+    font-size: 13px !important; } }
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  div.share-page-main-container div.prods-items-container {
+    padding: 30px !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 10px; }
+      div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.body div.prod-name h6 {
+        font-size: 12px !important; }
+      div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.body div.prices span {
+        font-size: 12px !important; } }
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 780px) {
+  div.share-page-main-container div.prods-items-container {
+    padding: 20px !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 12px !important;
+      font-weight: normal !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 10px !important; }
+      div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 12px !important; }
+        div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 12px !important;
+          height: 12px !important; }
+        div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 12px !important; }
+  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.header h5 {
+    font-size: 13px !important;
+    line-height: 18px !important; }
+  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices {
+    margin-top: 10px; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.sale-price {
+      font-size: 22px !important;
+      line-height: 22px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.reg-price {
+      font-size: 16px !important;
+      line-height: 22px !important; }
+  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer {
+    margin-top: 10px !important;
+    padding-top: 10px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer p.message-label {
+      font-size: 11px !important;
+      line-height: 14px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls {
+      margin-top: 10px !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls a button {
+        padding: 10px !important;
+        font-size: 12px !important;
+        line-height: 12px !important; } }
+@media (min-width: 481px) and (max-width: 660px) {
+  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner {
+    padding-right: 100px !important;
+    padding-left: 100px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part {
+      width: 100% !important;
+      flex-basis: 100% !important;
+      max-width: 100% !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.header h5 {
+        font-size: 13px !important;
+        line-height: 18px !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices {
+        margin-top: 10px; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.sale-price {
+          font-size: 22px !important;
+          line-height: 22px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.reg-price {
+          font-size: 16px !important;
+          line-height: 22px !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer {
+        margin-top: 10px !important;
+        padding-top: 10px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer p.message-label {
+          font-size: 11px !important;
+          line-height: 14px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls {
+          margin-top: 10px !important; }
+          div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls a button {
+            padding: 10px !important;
+            font-size: 12px !important;
+            line-height: 12px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.left-part {
+      width: 100% !important;
+      flex-basis: 100% !important;
+      max-width: 100% !important; } }
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+  div.share-page-main-container div.prods-items-container {
+    padding: 20px !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 11px !important;
+      font-weight: normal !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 7px !important; }
+      div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 11px !important; }
+        div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 10px !important;
+          height: 10px !important; }
+        div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 11px !important; }
+  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner {
+    padding-right: 50px !important;
+    padding-left: 50px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part {
+      width: 100% !important;
+      flex-basis: 100% !important;
+      max-width: 100% !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.header h5 {
+        font-size: 13px !important;
+        line-height: 18px !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices {
+        margin-top: 10px; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.sale-price {
+          font-size: 22px !important;
+          line-height: 22px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.reg-price {
+          font-size: 16px !important;
+          line-height: 22px !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer {
+        margin-top: 10px !important;
+        padding-top: 10px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer p.message-label {
+          font-size: 11px !important;
+          line-height: 14px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls {
+          margin-top: 10px !important; }
+          div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls a button {
+            padding: 10px !important;
+            font-size: 12px !important;
+            line-height: 12px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.left-part {
+      width: 100% !important;
+      flex-basis: 100% !important;
+      max-width: 100% !important; } }
+@media (min-width: 240px) and (max-width: 320px) {
+  div.share-page-main-container div.prods-items-container {
+    padding: 15px !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item div.prod-name h6 {
+      margin-bottom: 0px !important;
+      font-size: 11px !important;
+      font-weight: normal !important; }
+    div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc {
+      padding: 7px !important; }
+      div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span {
+        font-size: 10px !important; }
+        div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon svg {
+          width: 10px !important;
+          height: 10px !important; }
+        div.share-page-main-container div.prods-items-container div.prod-item div.prod-desc div.prices span.star-icon span.rating-num {
+          font-size: 8px !important; }
+  div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner {
+    padding-right: 30px !important;
+    padding-left: 30px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part {
+      width: 100% !important;
+      flex-basis: 100% !important;
+      max-width: 100% !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.header h5 {
+        font-size: 13px !important;
+        line-height: 18px !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices {
+        margin-top: 10px; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.sale-price {
+          font-size: 22px !important;
+          line-height: 22px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.body div.product-prices h4.reg-price {
+          font-size: 16px !important;
+          line-height: 22px !important; }
+      div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer {
+        margin-top: 10px !important;
+        padding-top: 10px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer p.message-label {
+          font-size: 11px !important;
+          line-height: 14px !important; }
+        div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls {
+          margin-top: 10px !important; }
+          div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.right-part div.footer div.ctrls a button {
+            padding: 10px !important;
+            font-size: 12px !important;
+            line-height: 12px !important; }
+    div.share-page-main-container div.product-info-lightbox-wrapper div.product-info-lightbox-inner div.block-body-container div.left-part {
+      width: 100% !important;
+      flex-basis: 100% !important;
+      max-width: 100% !important; } }
+@media (min-width: 10px) and (max-width: 240px) {
+  body {
+    display: none !important; } }
+
+/*# sourceMappingURL=media.queries.css.map */

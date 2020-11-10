@@ -1,0 +1,76 @@
+<tr class="products" data-prod-list-item="<?php echo($hs['prod_item']['id']); ?>">
+    <td>
+        <?php echo($hs['prod_item']['id']); ?>
+    </td>
+    <td class="poster">
+        <a href="<?php echo($hs['prod_item']['url']); ?>" class="poster-holder">
+            <img src="<?php echo($hs['prod_item']['thumb']); ?>" alt="Image">
+        </a>
+    </td>
+    <td class="link">
+        <a href="<?php echo($hs['prod_item']['url']); ?>">
+            <?php echo($hs['prod_item']['name']); ?>
+        </a>
+    </td>
+    <td>
+        <span class="col-green"><?php echo hs_money($hs['prod_item']['sale_price']); ?></span>
+    </td>
+    <td>
+        <?php if (not_empty($hs['prod_item']['sku'])): ?>
+            <b><?php echo($hs['prod_item']['sku']); ?></b>
+        <?php else: ?>
+            <span>{{TR No}}</span>
+        <?php endif; ?>
+    </td>
+    <td>
+        <?php echo($hs['prod_item']['quantity']); ?>
+    </td>
+    <td class="switch">    
+        <?php if ($hs['prod_item']['editing_stage'] == 'unsaved'): ?>
+            <span class="badge bg-red">{{TR Unsaved}}</span>
+        <?php else: ?>
+            <?php if ($hs['prod_item']['approved'] == 'Y'): ?>
+                <?php if ($hs['prod_item']['status'] == 'active'): ?>
+                    <label>
+                        <input data-onchange="toggle_prod_status" data-id="<?php echo($hs['prod_item']['id']); ?>" type="checkbox" checked="true"><span class="lever switch-col-blue"></span>
+                    </label>
+                <?php elseif($hs['prod_item']['status'] == 'inactive'): ?>
+                    <label>
+                        <input data-onchange="toggle_prod_status" data-id="<?php echo($hs['prod_item']['id']); ?>" type="checkbox"><span class="lever switch-col-blue"></span>
+                    </label>
+                <?php else: ?>
+                    <span class="badge bg-red">{{TR Blocked}}</span>
+                <?php endif; ?>
+            <?php else: ?>
+                <span class="badge bg-orange">{{TR Not approved}}</span>
+            <?php endif; ?>
+        <?php endif; ?>
+    </td>
+    <td>
+        <span class="col-green"><?php echo hs_money($hs['prod_item']['profit']); ?></span>
+    </td>
+    <td>
+        <div class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="dropdown-menu pull-right bs-dropdown-menu">
+                <li>
+                    <a href="<?php echo($hs['prod_item']['url']); ?>" class="waves-effect waves-block">
+                        {{TR View}}
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo($hs['prod_item']['edit']); ?>" class="waves-effect waves-block">
+                        {{TR Edit}}
+                    </a>
+                </li>
+                <li class="delete-product" data-onclick="delete_product" data-id="<?php echo($hs['prod_item']['id']); ?>">
+                    <a href="javascript:void(0);" class="waves-effect waves-block">
+                        {{TR Delete}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </td>
+</tr>

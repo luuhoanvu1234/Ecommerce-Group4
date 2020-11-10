@@ -1,0 +1,705 @@
+<div class="account-setting-page data-management-page" id="account-setting-page">
+	<div class="block-header">
+	    <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/main_settings}}">
+                        {{TR Account settings}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                	{{TR Manage account settings}}
+                </li>
+            </ol>
+        </nav>
+	</div>
+	<div class="clearfix">
+	    <div class="affixed-page-section">
+	    	<div class="affixed-page-part-1">
+				<div class="card account-setting-management">
+				    <div class="header">
+				        <h2>
+				            {{TR Manage account settings}}
+				        </h2>
+				    </div>
+				    <div class="body">
+				    	<form class="hidden" id="user-avatar-form">
+				    		<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+				            <input type="file" accept="image/*" name="avatar" onchange="$(this).parent('form').trigger('submit');">
+				        </form>
+		            	<form class="clearfix form" id="general">
+		            		<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">		
+		            		<div class="form-fieldset-title" data-affix-label="avatar_settings">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Account avatar settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="avatar">
+		                            	<label class="form-label">
+		                        			{{TR Avatar}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<div class="avatar-settings">
+	                            				<div class="avatar">
+			                                    	<img src="{{ME avatar}}" alt="Avatar" data-user-avatar-image="{{ME id}}">
+			                                    	<button type="button" id="select-avatar-image">
+			                                    		<i class="material-icons">camera_alt</i>
+			                                    	</button>
+			                                    </div>
+				                            </div>
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+		                        			{{TR We recommend using an image for your avatar with a 1: 1 aspect ratio, such as 150x150, 300x300, etc.}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-fieldset-title" data-affix-label="general_settings">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Account general settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="fname">
+		                            	<label class="form-label">
+		                        			{{TR Name}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="fname" type="text" class="form-control" placeholder="{{TR Enter your first name}}" value="{{ME fname}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="lname">
+		                            	<label class="form-label">
+		                        			{{TR Surname}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="lname" type="text" class="form-control" placeholder="{{TR Enter your last name}}" value="{{ME lname}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="bio">
+		                            	<label class="form-label">
+		                        			Bio:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<textarea class="form-control" name="bio" rows="5" placeholder="{{TR Enter about your business}}">{{ME bio}}</textarea>
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+		                        			{{TR This information will be published on your profile, and visible to the all your visitors}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div> 
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+	                        		<div class="col-sm-6 p-r-10 no-mb" data-form-field="phone">
+		                            	<label class="form-label">
+		                        			{{TR Phone}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="phone" type="tel" class="form-control" placeholder="{{TR Enter your mobile phone number}}" value="{{ME phone}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="email">
+		                            	<label class="form-label">
+		                        			{{TR E-mail}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="email" type="email" class="form-control" placeholder="{{TR Enter your E-mail address}}" value="{{ME email}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="whatsapp">
+		                            	<label class="form-label">
+		                        			Whatsapp:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="whatsapp" type="tel" class="form-control" placeholder="{{TR Enter your whatsapp number}}" value="{{ME whatsapp}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <hr>
+	                        <div class="form-fieldset-title" data-affix-label="social_links">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Account social media links}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="facebook">
+		                            	<label class="form-label">
+		                        			Facebook:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="facebook" type="url" class="form-control" placeholder="{{TR Enter your facebook profile page url}}" value="{{ME facebook}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="instagram">
+		                            	<label class="form-label">
+		                        			Instagram:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="instagram" type="url" class="form-control" placeholder="{{TR Enter your instagram profile page url}}" value="{{ME instagram}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="google_plus">
+		                            	<label class="form-label">
+		                        			Google plus:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="google_plus" type="url" class="form-control" placeholder="{{TR Enter your google plus profile page url}}" value="{{ME google_plus}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="twitter">
+		                            	<label class="form-label">
+		                        			Twitter:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="twitter" type="url" class="form-control" placeholder="{{TR Enter your twitter profile page url}}" value="{{ME twitter}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="youtube">
+		                            	<label class="form-label">
+		                        			Youtube:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="youtube" type="url" class="form-control" placeholder="{{TR Enter your youtube channel url}}" value="{{ME youtube}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+	                            			<i class="material-icons">info</i>
+		                        			{{TR Please provide us with your most current contact information so that we and your customers can quickly contact you at any time.}}
+	                            		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <hr>
+	                        <div class="form-fieldset-title" data-affix-label="account_default_language">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Account default language}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="language">
+		                            	<label class="form-label">
+		                        			{{TR Language}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<select data-size="5" name="language" class="form-control">
+		                                    	<?php foreach ($hs['lang_array'] as $language): ?>
+		                                    		<option value="<?php echo($language['lang_name']); ?>" <?php if($hs['me']['language'] == $language['lang_name']){echo "selected";} ?>>
+		                                    			<?php echo hs_translate($language['lang_name']); ?>
+		                                    		</option>
+		                                    	<?php endforeach; ?>
+		                                    </select>
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <hr>
+	                        <div class="form-fieldset-title" data-affix-label="account_address">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Account address settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="country_id">
+		                            	<label class="form-label">
+		                        			{{TR Country}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<select data-size="5" data-live-search="true" name="country_id" class="form-control">
+		                                    	<?php foreach ($hs['countries'] as $id => $country_name): ?>
+		                                    		<option value="<?php echo($id); ?>" <?php if($hs['me']['country_id'] == $id){echo "selected";} ?>>
+		                                    			<?php echo hs_translate($country_name); ?>
+		                                    		</option>
+		                                    	<?php endforeach; ?>
+		                                    </select>
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="state">
+		                            	<label class="form-label">
+		                        			{{TR State}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="state" type="text" class="form-control" placeholder="{{TR Enter your state name.}}" value="{{ME state}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="city">
+		                            	<label class="form-label">
+		                        			{{TR City}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="city" type="text" class="form-control" placeholder="{{TR Enter your city name.}}" value="{{ME city}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="street">
+		                            	<label class="form-label">
+		                        			{{TR Street name}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="street" type="text" class="form-control" placeholder="{{TR Enter your street name}}" value="{{ME street}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+			                <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="off_apt">
+		                            	<label class="form-label">
+		                        			Off/Apt:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="off_apt" type="text" class="form-control" placeholder="{{TR Enter your office or apartment or suite number}}" value="{{ME off_apt}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="zip_postal">
+		                            	<label class="form-label">
+		                        			{{TR Postal}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="zip_postal" type="number" class="form-control" placeholder="{{TR Enter your Zip/Postal code number}}" value="{{ME zip_postal}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-12 no-mb">
+		                            	<p class="info-message info">
+		                        			<i class="material-icons">info</i>
+		                        			<b>{{TR Important}}:</b> {{TR please provide your actual address of residence}}
+		                        		</p>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box no-mb">
+	                        	<div class="row clearfix" >
+		                            <div class="col-sm-12 no-mb">
+		                        		<button type="submit" class="btn bg-blue btn-lg btn-custom">
+		                        			<i class="material-icons">save</i> <span class="btn-text">{{TR Save changes}}</span>
+		                        		</button>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                    </form>
+	                    <hr>
+	                    <form class="clearfix form" id="password">
+	                    	<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+							<div class="form-fieldset-title" data-affix-label="account_password">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			{{TR Account password settings}}
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box no-mb">
+	                        	<div class="row clearfix">
+	                        		<div class="col-sm-12 no-mb">
+		                            	<div class="inline-alertbox-wrapper">
+				                            <div class="inline-alertbox info">
+				                                <div class="icon">
+				                                    <i class="material-icons">info</i>
+				                                </div>
+				                                <div class="alert-message">
+				                                    <h6>
+				                                        {{TR Important}}!
+				                                    </h6>
+				                                    <p>
+				                                        <?php echo hs_translate('Please follow these guidelines: Indicate the minimum length (5 characters).{%br%} Use uppercase and lowercase letters.{%br%} Use numbers and special characters (&% $)',array('br' => '<br/>')); ?>
+				                                    </p>
+				                                </div>
+				                            </div>
+				                        </div>
+			                        </div>
+	                        	</div>
+	                        </div>
+				            <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12 no-mb" data-form-field="password">
+		                            	<label class="form-label">
+		                        			{{TR Old password}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="password" type="password" class="form-control" placeholder="{{TR Enter your current password}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+				            <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="new_password">
+		                            	<label class="form-label">
+		                        			{{TR New password}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="new_password" type="password" class="form-control" placeholder="{{TR Create a new password}}">
+	                            		</div>
+		                            </div>
+		                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="conf_new_password">
+		                            	<label class="form-label">
+		                        			{{TR Confirm}}:
+		                        		</label>
+		                            	<div class="filed-box">
+	                            			<input name="conf_new_password" type="password" class="form-control" placeholder="{{TR Confirm your new password}}">
+	                            		</div>
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box no-mb">
+	                        	<div class="row clearfix" >
+		                            <div class="col-sm-12 no-mb">
+		                        		<button type="submit" class="btn bg-blue btn-lg btn-custom">
+		                        			<i class="material-icons">vpn_key</i> <span>{{TR Change my password}}</span>
+		                        		</button>
+		                        	</div>
+	                            </div>
+	                        </div> 
+	                    </form>
+	                    <hr>
+                    	<form class="clearfix form" id="verification">
+                    		<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                    		<div class="form-fieldset-title" data-affix-label="account_verification">
+	                        	<div class="row clearfix">
+		                            <div class="col-sm-12">
+		                        		<p>
+		                        			<?php echo hs_translate("{%market_name%} Account verification",array(
+		                        				'market_name' => $hs['config']['name']
+		                        			)); ?>
+		                        		</p>
+		                        	</div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group form-field-box">
+	                        	<div class="row clearfix">
+	                        		<div class="col-sm-12 no-mb">
+		                            	<p class="info-message">
+		                            		{{TR An account authentication icon is displayed next to the username. Account verification is desirable for market sellers to increase customer confidence}}
+	                            		</p>
+			                        </div>
+	                        	</div>
+	                        </div>
+
+	                        <?php if ($me['verified'] == '1'): ?>
+	                        	<div class="form-group form-field-box no-mb">
+		                        	<div class="row clearfix">
+		                        		<div class="col-sm-12 no-mb">
+			                            	<div class="inline-alertbox-wrapper">
+					                            <div class="inline-alertbox success no-mb">
+					                                <div class="icon">
+					                                    <i class="material-icons">verified_user</i>
+					                                </div>
+					                                <div class="alert-message">
+					                                    <h6>
+					                                        {{TR Verified account}}!
+					                                    </h6>
+					                                    <p>
+					                                    	{{TR Your account has been verified. Thank you for verifying your identity.}}
+					                                    </p>
+					                                </div>
+					                            </div>
+					                        </div>
+				                        </div>
+		                        	</div>
+		                        </div> 
+							<?php else: ?>
+								<?php if ($me['verif_status'] == 'pending'): ?>
+									<div class="form-group form-field-box no-mb">
+			                        	<div class="row clearfix">
+			                        		<div class="col-sm-12 no-mb">
+				                            	<div class="inline-alertbox-wrapper">
+						                            <div class="inline-alertbox warning no-mb">
+						                                <div class="icon">
+						                                    <i class="material-icons">access_time</i>
+						                                </div>
+						                                <div class="alert-message">
+						                                    <p>
+						                                    	{{TR Your request for verification of your account has been sent and is awaiting review by the administrator, however this can take several business days.}}
+						                                    </p>
+						                                </div>
+						                            </div>
+						                        </div>
+					                        </div>
+			                        	</div>
+			                        </div>
+								<?php elseif ($me['verif_status'] == 'rejected'): ?>
+									<div class="form-group form-field-box no-mb">
+			                        	<div class="row clearfix">
+			                        		<div class="col-sm-12 no-mb">
+				                            	<div class="inline-alertbox-wrapper">
+						                            <div class="inline-alertbox error no-mb">
+						                                <div class="icon">
+						                                    <i class="material-icons">block</i>
+						                                </div>
+						                                <div class="alert-message">
+						                                    <p>
+						                                    	{{TR Your request for verification of your account has been rejected by the market administrator. The administrator may have sent you a message to your email address with detailed information about the reason for the refusal. Please contact us if you have any questions.}}
+						                                    </p>
+						                                </div>
+						                            </div>
+						                        </div>
+					                        </div>
+			                        	</div>
+			                        </div>
+								<?php else: ?>
+			                        <div class="form-group form-field-box">
+			                        	<div class="row clearfix">
+					                        <div class="col-sm-12 no-mb" data-form-field="full_name">
+				                            	<label class="form-label">
+				                        			{{TR Full name}}
+				                        		</label>
+				                            	<div class="filed-box">
+				                        			<input name="full_name" type="text" class="form-control" placeholder="{{TR Enter your full name}}">
+				                        		</div>
+				                            </div>
+				                        </div>
+				                    </div>
+			                        <div class="form-group form-field-box">
+			                        	<div class="row clearfix">
+					                        <div class="col-sm-12 no-mb" data-form-field="message2rev">
+				                            	<label class="form-label">
+				                        			{{TR Message to reviewer}}
+				                        		</label>
+				                            	<div class="filed-box">
+				                            		<textarea name="message2rev" class="form-control" rows="4" placeholder="{{TR Enter message for reviewer}}...."></textarea>
+				                        		</div>
+				                            </div>
+				                        </div>
+				                    </div>
+			                        <div class="form-group form-field-box">
+			                        	<div class="row clearfix">
+					                        <div class="col-sm-12 no-mb">
+				                            	<label class="form-label">
+				                        			{{TR Images}}
+				                        		</label>
+				                            	<div class="filed-box">
+				                            		<div class="verif-files-attachment">
+				                            			<div class="attachment-area"  data-form-field="identity">
+				                            				<input type="file" name="identity" class="hidden" accept="image/*">
+				                            				<div class="filed-box-inner" data-snode="select_user_id">
+					                            				<span class="icon">
+					                            					<i class="material-icons">picture_in_picture</i>
+					                            				</span>
+					                            				<span class="c2a selected-file-name" data-snode="file_name">
+					                            					{{TR Your passport/ID photo}} 
+					                            				</span>
+					                            			</div>
+				                            			</div>
+				                            			<div class="attachment-area"  data-form-field="photo">
+				                            				<input type="file" name="photo" class="hidden" accept="image/*">
+				                            				<div class="filed-box-inner" data-snode="select_user_photo">
+					                            				<span class="icon">
+					                            					<i class="material-icons">camera_alt</i>
+					                            				</span>
+					                            				<span class="c2a selected-file-name" data-snode="file_name">
+					                            					{{TR Your personal photo}}
+					                            				</span>
+					                            			</div>
+				                            			</div>
+				                            		</div>
+				                        		</div>
+				                            </div>
+				                        </div>
+				                    </div>
+			                        <div class="form-group form-field-box no-mb">
+			                        	<div class="row clearfix" >
+				                            <div class="col-sm-12 no-mb">
+				                        		<button type="submit" class="btn bg-blue btn-lg btn-custom">
+				                        			<i class="material-icons">send</i> <span>{{TR Submit request}}</span>
+				                        		</button>
+				                        	</div>
+			                            </div>
+			                        </div>
+			                    <?php endif; ?>
+							<?php endif; ?>
+	                    </form>
+
+	                    <?php if (empty($me['is_root'])): ?>
+		                    <hr>
+		                    <?php if (empty($hs['del_req_exists'])): ?>
+								<form class="clearfix form" id="delete">
+									<input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+									<div class="form-fieldset-title" data-affix-label="account_deleting">
+			                        	<div class="row clearfix">
+				                            <div class="col-sm-12">
+				                        		<p>
+				                        			{{TR Account deletion request}}
+				                        		</p>
+				                        	</div>
+			                            </div>
+			                        </div>
+						            <div class="form-group form-field-box">
+			                        	<div class="row clearfix">
+				                            <div class="col-sm-6 p-r-10 no-mb" data-form-field="password">
+				                            	<label class="form-label">
+				                        			{{TR Password}}:
+				                        		</label>
+				                            	<div class="filed-box">
+			                            			<input type="text" name="password" class="form-control" placeholder="{{TR Enter your password}}">
+			                            		</div>
+				                            </div>
+				                            <div class="col-sm-6 p-l-10 no-mb" data-form-field="deletion_reason">
+				                            	<label class="form-label">
+				                        			{{TR Reason}}:
+				                        		</label>
+				                            	<div class="filed-box">
+			                            			<select name="deletion_reason" class="form-control">
+				                                    	<option value="1">{{TR Troubles in getting started}}</option>
+				                                    	<option value="2">{{TR I have a duplicate account}}</option>
+				                                    	<option value="3">{{TR Can not find buyers}}</option>
+				                                    	<option value="4">{{TR I don't find it useful}}</option>
+				                                    	<option value="5">{{TR Other reasons}}</option>
+				                                    </select>
+			                            		</div>
+				                            </div>
+			                            </div>
+			                        </div>
+			                        <div class="form-group form-field-box">
+			                        	<div class="row clearfix">
+				                            <div class="col-sm-12 no-mb" data-form-field="reason_desc">
+				                            	<label class="form-label">
+				                        			{{TR Message}}:
+				                        		</label>
+				                            	<div class="filed-box">
+				                            		<textarea name="reason_desc" rows="4" class="form-control" placeholder="{{TR Tell us more about your reason for leaving (Optional)}}"></textarea>
+			                            		</div>
+				                            </div>
+				                            <div class="col-sm-12 no-mb">
+				                            	<p class="info-message warning">
+			                            			<i class="material-icons">warning</i>
+			                            			{{TR To delete your account, you need to send a deletion request, as a result, the site administrator will consider your request and respond to it, but before you do it Please note that everything in your account will be permanently deleted. This includes all of your products, transaction information, orders, etc.}}
+			                            		</p>
+				                            </div>
+			                            </div>
+			                        </div>
+			                        <div class="form-group form-field-box no-mb">
+			                        	<div class="row clearfix" >
+				                            <div class="col-sm-12 no-mb">
+				                        		<button type="submit" class="btn bg-main-red btn-lg btn-custom">
+				                        			<i class="material-icons">delete_forever</i> <span>{{TR Send account deletion request}}</span>
+				                        		</button>
+				                        	</div>
+			                            </div>
+			                        </div> 
+			                    </form>
+		                    <?php else: ?>
+			                    <form class="clearfix form">
+			                    	<div class="form-fieldset-title" data-affix-label="account_deleting">
+			                        	<div class="row clearfix">
+				                            <div class="col-sm-12">
+				                        		<p>
+				                        			{{TR Account deletion request}}
+				                        		</p>
+				                        	</div>
+			                            </div>
+			                        </div>
+			                    	<div class="row clearfix form-field-box no-mb"> 
+			                            <div class="col-sm-12 no-mb">
+			                            	<p class="info-message info">
+		                            			<i class="material-icons">info</i>
+		                            			{{TR Your request to delete your account has been received and is waiting, you will receive a notification by e-mail or our moderator will contact you!}}
+		                            		</p>
+			                            </div>
+			                        </div>
+			                    </form>
+		                    <?php endif; ?>
+	                    <?php endif; ?>
+				    </div>
+				</div>
+			</div>
+			<div class="affixed-page-part-2" id="right-sidepart">
+	        	<div class="sidebar__inner">
+	        		<div class="card">
+	        			<div class="header">
+				            <h2>{{TR Account settings}}</h2>
+				        </div>
+				        <div class="body">
+			            	<ul class="list-group no-ctrls">
+			            		<li class="list-group-item active" data-affix-scroll="avatar_settings">
+			            			{{TR Avatar}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="general_settings">
+			            			{{TR General settings}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="social_links">
+			            			{{TR Social links}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="account_default_language">
+			            			{{TR Language}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="account_address">
+			            			{{TR Address}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="account_password">
+			            			{{TR Password}}
+			            		</li>
+			            		<li class="list-group-item" data-affix-scroll="account_verification">
+			            			{{TR Verification}}
+			            		</li>
+
+			            		<?php if (empty($me['is_root'])): ?>
+				            		<li class="list-group-item" data-affix-scroll="account_deleting">
+				            			{{TR Delete}}
+				            		</li>
+			            		<?php endif; ?>
+			            	</ul>
+		            	</div>
+		            </div>
+	        	</div>
+		    </div>
+		</div>
+	</div>
+</div>
+<?php echo hs_loadpage('main_settings/static/js/main_settings_script'); ?>

@@ -1,0 +1,32 @@
+<li class="addr-list-item" data-addr="<?php echo($hs['addr']['id']); ?>">
+	<div class="input-radio">
+		<input data-pick-delivaddr="<?php echo($hs['addr']['id']); ?>" name="addr_id" value="<?php echo($hs['addr']['id']); ?>" type="checkbox" id="user-addr-<?php echo($hs['addr']['id']); ?>" class="filled-in chk-col-red">
+		<label for="user-addr-<?php echo($hs['addr']['id']); ?>">
+			<span class="name fluid">
+				<?php echo($hs['addr']['full_name']); ?>, 
+				<?php echo($hs['addr']['email']); ?>
+			</span>
+
+			<span class="fluid">
+				<?php echo($hs['addr']['phone']); ?>
+			</span>
+			<span class="fluid">
+				<?php echo($hs['addr']['street']); ?>, <?php echo($hs['addr']['off_apt']); ?>
+			</span>
+			<span class="fluid">
+				<?php echo($hs['addr']['country']); ?>,
+				<?php echo($hs['addr']['state']); ?>,
+				<?php echo($hs['addr']['city']); ?>,
+				<?php echo($hs['addr']['zip_postal']); ?>,
+			</span>
+		</label>
+	</div>
+	<div class="controls hide animated fadeIn">
+		<button type="submit" name="act" value="set">
+			{{TR Select}}
+		</button>
+		<button type="submit" name="act" value="del">
+			{{TR Delete}}
+		</button>
+	</div>
+</li>

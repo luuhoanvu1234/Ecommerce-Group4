@@ -1,0 +1,113 @@
+<div class="modal animated fadeIn user-portfolio-container" id="user-portfolio-modal">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="header">
+				<div class="avatar">
+					<img src="{{avatar}}" alt="Avatar">
+				</div>
+				<div class="info">
+					<h3>{{name}}</h3>
+					<p>{{email}}</p>
+				</div>
+			</div>
+			<div class="body">
+				<div class="user-info-list">
+					<?php if (not_empty($hs['prof_data']['acc_addr'])): ?>
+						<div class="list-item">
+							<div class="icon">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32c-88.004 0-160 70.557-160 156.801C96 306.4 256 480 256 480s160-173.6 160-291.199C416 102.557 344.004 32 256 32zm0 212.801c-31.996 0-57.144-24.645-57.144-56 0-31.357 25.147-56 57.144-56s57.144 24.643 57.144 56c0 31.355-25.148 56-57.144 56z"/></svg>
+							</div>
+							<div class="label">
+								<span>
+									{{country}}, {{state}}, {{city}}, {{street}}, {{off_apt}}
+								</span>
+							</div>
+						</div>
+					<?php endif; ?>
+					
+					<div class="list-item">
+						<div class="icon">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 256c52.805 0 96-43.201 96-96s-43.195-96-96-96-96 43.201-96 96 43.195 96 96 96zm0 48c-63.598 0-192 32.402-192 96v48h384v-48c0-63.598-128.402-96-192-96z"/></svg>
+						</div>
+						<div class="label">
+							<span>
+								{{TR Member since}} {{joined}}
+							</span>
+						</div>
+					</div>
+
+					<?php if ($hs['prof_data']['verified'] || not_empty($hs['prof_data']['is_root'])): ?>
+						<div class="list-item">
+							<div class="icon">
+								<svg  fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path></svg>
+							</div>
+							<div class="label">
+								<span>
+									{{TR Verified User}}
+								</span>
+							</div>
+						</div>
+					<?php endif; ?>
+
+					<div class="list-item">
+						<div class="icon">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M169.6 377.6c-22.882 0-41.6 18.718-41.6 41.601 0 22.882 18.718 41.6 41.6 41.6s41.601-18.718 41.601-41.6c-.001-22.884-18.72-41.601-41.601-41.601zM48 51.2v41.6h41.6l74.883 151.682-31.308 50.954c-3.118 5.2-5.2 12.482-5.2 19.765 0 27.85 19.025 41.6 44.825 41.6H416v-40H177.893c-3.118 0-5.2-2.082-5.2-5.2 0-1.036 2.207-5.2 2.207-5.2l20.782-32.8h154.954c15.601 0 29.128-8.317 36.4-21.836l74.882-128.8c1.237-2.461 2.082-6.246 2.082-10.399 0-11.446-9.364-19.765-20.8-19.765H135.364L115.6 51.2H48zm326.399 326.4c-22.882 0-41.6 18.718-41.6 41.601 0 22.882 18.718 41.6 41.6 41.6S416 442.082 416 419.2c0-22.883-18.719-41.6-41.601-41.6z"/></svg>
+						</div>
+						<div class="label">
+							<span>
+								{{TR Trading items}} ({{items_total}})
+							</span>
+						</div>
+					</div>
+
+					<div class="list-item">
+						<div class="icon">
+							<?php echo hs_svg('money'); ?>
+						</div>
+						<div class="label">
+							<span>
+								{{TR Sales}} ( <?php echo($hs['prof_data']['sales']); ?>)
+							</span>
+						</div>
+					</div>
+
+					<div class="list-item">
+						<div class="icon">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 105c-101.8 0-188.4 62.4-224 151 35.6 88.6 122.2 151 224 151s188.4-62.4 224-151c-35.6-88.6-122.2-151-224-151zm0 251.7c-56 0-101.8-45.3-101.8-100.7S200 155.3 256 155.3 357.8 200.6 357.8 256 312 356.7 256 356.7zm0-161.1c-33.6 0-61.1 27.2-61.1 60.4s27.5 60.4 61.1 60.4 61.1-27.2 61.1-60.4-27.5-60.4-61.1-60.4z"/></svg>
+						</div>
+						<div class="label">
+							<span>
+								{{TR Last seen}} {{last_active}}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="contacts">
+					<a class="contact-link-item contact-me" href="<?php echo $hs['prof_data']['url']; ?>">
+						<?php echo hs_svg('message'); ?>
+					</a>
+					<a class="contact-link-item facebook" href="<?php echo $hs['prof_data']['facebook']; ?>">
+						<?php echo hs_svg('facebook'); ?>
+					</a>
+					<a class="contact-link-item google-plus" href="<?php echo $hs['prof_data']['google_plus']; ?>">
+						<?php echo hs_svg('google-plus'); ?>
+					</a>
+					<a class="contact-link-item twitter" href="<?php echo $hs['prof_data']['twitter']; ?>">
+						<?php echo hs_svg('twitter'); ?>
+					</a>
+					<a class="contact-link-item instagram" href="<?php echo $hs['prof_data']['instagram']; ?>">
+						<?php echo hs_svg('instagram'); ?>
+					</a>
+					<a class="contact-link-item whatsapp" href="https://wa.me/<?php echo $hs['prof_data']['whatsapp']; ?>">
+						<?php echo hs_svg('whatsapp'); ?>
+					</a>
+					<a class="contact-link-item youtube" href="<?php echo $hs['prof_data']['youtube']; ?>">
+						<?php echo hs_svg('youtube'); ?>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<div class="review" data-review-li="<?php echo($hs['review_data']['id']); ?>">
+	<div class="user-info">
+		<div class="avatar">
+			<img src="<?php echo($hs['review_data']['avatar']); ?>" alt="Avatar">
+		</div>
+		<div class="user-name">
+			<h6 class="user-name-holder">
+				<a href="<?php echo($hs['review_data']['ulink']); ?>">
+					<?php echo($hs['review_data']['uname']); ?>
+					
+					<?php if ($hs['review_data']['verified'] == '1'): ?>
+						<?php echo hs_svg('verified-icon'); ?>
+					<?php endif; ?>
+				</a>
+				<span class="pull-right">
+					<?php echo($hs['review_data']['time']); ?>
+				</span>
+			</h6>
+			<div class="rating clearfix">
+				<?php foreach ($hs['review_data']['stars'] as $star): ?>
+					<span>
+						<?php echo($star); ?>
+					</span>
+				<?php endforeach; ?>
+			</div>
+			<div class="review-body">
+				<?php if (not_empty($hs['review_data']['review'])): ?>
+					<div class="review-text">
+						<article>
+							<?php echo($hs['review_data']['review']); ?>
+						</article>
+					</div>
+				<?php endif; ?>
+				<?php if (not_empty($hs['review_data']['media'])): ?>
+					<div class="review-product-photos">
+						<?php foreach ($hs['review_data']['media'] as $rev_med): ?>
+							<div class="item-info">
+								<div class="prod-picture">
+									<img src="<?php echo($rev_med['file_path']); ?>" alt="Product picture">
+								</div>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endif; ?>
+			</div>
+		</div>
+	</div>
+</div>

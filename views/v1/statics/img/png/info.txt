@@ -1,0 +1,1 @@
+Icon size: 145x90 px;

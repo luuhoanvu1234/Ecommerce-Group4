@@ -1,0 +1,1234 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+div.user-auth-modal-container{
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 5000;
+	background-color: rgba(0,0,0,0.4);
+
+	.user-auth-modal-wrapper{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		overflow-x:hidden;
+		overflow-y: scroll;
+		padding:  100px 0px;
+
+		&::-webkit-scrollbar { 
+            display: none !important; 
+        }
+
+		&::scrollbar { 
+            display: none !important; 
+        }
+
+		.user-auth-modal{
+			width: auto;
+			overflow: hidden;
+			position: relative;
+			z-index: 10;
+			
+			div.block-titling{
+				width: 100%;
+				overflow: hidden;
+				line-height: 0;
+
+				h1.header{
+					color: #fff;
+					font-size: 23px;
+					line-height: 23px;
+					padding: 0;
+					margin: 0 0 5px 0;
+					font-weight: 500;
+					text-align: center;
+					opacity: 0.9;
+				}
+
+				p.text{
+					color: #fff;
+					font-size: 14px;
+					line-height: 14px;
+					padding: 0;
+					margin: 0 0 15px 0;
+					font-weight: 400;
+					text-align: center;
+					opacity: 0.9;
+				}
+			}
+
+			div.market-copyright{
+				width: 100%;
+				line-height: 0px;
+				text-align: center;
+				span{
+					font-size: 13px;
+					line-height: 20px;
+					color: #fff;
+					opacity: 0.9;
+				}
+			}
+
+			.user-auth-modal-inner{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				padding: 50px 0px 40px 0px;
+				background: #fff;
+				border-radius: 5px;
+				box-shadow:$btn_shadow;
+
+				.left-part{
+					width: 370px;
+					position: relative;
+					.carousel{
+						width: 100%;
+						height: 100%;
+						overflow: hidden;
+						line-height: 0;
+
+						.carousel-inner{
+							height: 100%;
+
+							div.carousel-item{
+								width: 100%;
+								height: 100%;
+								overflow: hidden;
+
+								div.carousel-item-data{
+									width: 100%;
+									height: 100%;
+									overflow: hidden;
+									position: relative;
+									img{
+										width: 100%;
+										height: 100%;
+										object-fit: cover;
+									}
+								}
+							}
+						}
+					}
+
+					div.prod-price{
+						position: absolute;
+						z-index: 10;
+						left: 0;
+						top: -25px;
+						background: $red;
+						color: #fff;
+						display: flex;
+						flex-direction: row;
+						flex-wrap: nowrap;
+						.prod-info{
+							padding: 0px 20px;
+							span.price{
+								line-height: 50px;
+								font-size: 24px;
+								margin: 0px 5px;
+								font-weight: bold;
+							}
+
+							span.old-price{
+								line-height: 50px;
+								font-size: 20px;
+								text-decoration: line-through;
+								margin: 0px 5px;
+								opacity: 0.7;
+								color: #fff;
+							}
+						}
+
+						
+
+						div.corner{
+							margin-right: -30px;
+							width: 0px;
+						    height: 0px;
+						    display: inline-block;
+						    vertical-align: top;
+						    border-style: solid;
+						    border-width: 50px 30px 0px 0px;
+						    border-color: $red transparent transparent;
+						}
+					}
+				}
+
+				.right-part{
+					width: 350px;
+					position: relative;
+
+					span.ad-dismiss{
+						position: absolute;
+						right: 10px;
+						top: 10px;
+						width: 25px;
+						height: 25px;
+						cursor: pointer;
+
+						svg{
+							width: 25px;
+							height: 25px;
+							fill: $pl_holder;
+						}
+
+						&:hover{
+							svg{
+								fill:$red;
+							} 
+						}
+					}
+
+					.auth-form-container{
+						width: 100%;
+						height: 100%;
+						padding: 0px 30px;
+						.header{
+							width: 100%;
+							overflow: hidden;
+							margin: 0px;
+							h2{
+								padding: 0;
+								margin: 0;
+								font-size: 22px;
+								line-height: 30px;
+								color: #212121;
+								font-weight: 600;
+								text-align: center;
+								a{
+									font-size: inherit;
+									line-height: inherit;
+									color: inherit;
+									padding: 0;
+									margin: 0;
+									text-decoration: none;
+								}
+							}
+						}
+
+						.body{
+							width: 100%;
+							overflow: hidden;
+							article{
+								font-size: 13px;
+								line-height: 1.6;
+								color: #7e9aa6;
+								margin-bottom: 20px;
+								text-align: center;
+								opacity: 0.9;
+							}
+
+							div.auth-form-body{
+								width: 100%;
+								overflow: hidden;
+								padding: 0;
+								margin: 0;
+
+								form{
+									width: 100%;
+									overflow: hidden;
+
+									div.form-group{
+										small.error-message{
+											display: block;
+											width: 100%;
+											margin-top: 3px;
+										}
+									}
+
+									input.form-control{
+										border-radius: 10em;
+										border:1px solid $border;
+										outline: 0;
+										padding-left:25px;
+										padding-right: 25px;
+
+										&::placeholder{
+											color: $pl_holder;
+											font-size: 14px;
+											line-height: 16px;
+										}
+
+										&:active,&:focus{
+											box-shadow:none;
+											border: 2px solid $red;
+											&::placeholder{
+												color: $red;
+											}
+										}
+									}
+
+									button.btn-submit-form{
+										width: 100%;
+										background: $red;
+										border: 1px solid $red;
+										color: #fff;
+										padding: 0px 0px;
+										line-height: 38px;
+										border-radius: 10em;
+										font-size: 16px;
+										box-shadow:$btn_shadow;
+										outline: 0;
+
+										&:hover,&:active{
+											background: $red2;
+											box-shadow:$btn_shadow;
+										}
+
+										&.success{
+											background: $green;
+											border: 1px solid $green;
+											cursor: wait;
+											&:hover,&:active{
+												background: $green;
+												box-shadow:$btn_shadow;
+											}
+										}
+									}
+
+									.forgot-pass{
+										width: 100%;
+										text-align: center;
+										padding: 0px;
+										margin: 15px 0px;
+										line-height: 0;
+										span{
+											cursor: pointer;
+											font-size: 12px;
+											margin: 0px 3px;
+											color: $red;
+											line-height: 16px;
+											text-decoration: underline;
+										}
+									}
+								}
+							}
+						}
+
+						.footer{
+							width: 100%;
+							margin-bottom: 15px;
+							line-height: 0px;
+							.social-btns{
+								width: 100%;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: center;
+								margin-bottom: 15px;
+								div.oauth-login{
+									width: 40px;
+									height: 40px;
+									position: relative;
+									border-radius: 10em;
+									border:1px solid $border;
+									margin-left: 10px;
+									box-shadow:$btn_shadow;
+									svg{
+										position: absolute;
+										margin: auto;
+										left: 0;
+										top: 0;
+										bottom: 0;
+										right: 0;
+										width: 20px;
+										height: 20px;
+										fill:#fff;
+									}
+
+									&.facebook{
+										background: #3b5998;
+									}
+
+									&.google-plus{
+										background: #df4a32;
+									}
+
+									&.twitter{
+										background: #1ca1f4;
+									}
+								}
+							}
+
+							.join-us{
+								width: 100%;
+								overflow: hidden;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: center;
+								span{
+									font-size: 12px;
+									line-height: 16px;
+									color: #7e9aa6;
+									margin: 0px 3px;
+									opacity: 0.9;
+									a{
+										color: $red;
+										text-decoration: none;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.user-join-modal-inner{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				background: #fff;
+				border-radius: 5px;
+				box-shadow:$btn_shadow;
+
+				.left-part{
+					width: 300px;
+					position: relative;
+					background: $red;
+					padding: 40px 30px;
+
+					.member-icon{
+						width: 100%;
+						overflow: hidden;
+						text-align: center;
+						margin-bottom: 30px;
+						svg{
+							width: 120px;
+							height: 120px;
+						}
+					}
+
+					p.login-with{
+						color: #fff;
+						font-size: 14px;
+						line-height: 16px;
+						padding: 0;
+						margin: 0 0 20px 0;
+						text-align: center;
+					}
+
+					article{
+						font-size: 14px;
+						line-height: 1.6;
+						color: #fff;
+						margin-bottom: 20px;
+						text-align: center;
+						h5{
+							padding: 0;
+							margin: 0 0 10px 0;
+							font-size: 24px;
+							line-height: 34px;
+							font-weight: 600;
+						}
+
+						small{
+							display: block;
+							font-size: 12px;
+							line-height: 14px;
+						}
+					}
+
+					.social-btns{
+						width: 100%;
+						display: flex;
+						flex-direction: row;
+						flex-wrap: wrap;
+						justify-content: center;
+						margin-bottom: 15px;
+						div.oauth-login{
+							width: 40px;
+							height: 40px;
+							position: relative;
+							border-radius: 10em;
+							border:1px solid $red2;
+							margin-left: 10px;
+							box-shadow:$btn_shadow;
+							svg{
+								position: absolute;
+								margin: auto;
+								left: 0;
+								top: 0;
+								bottom: 0;
+								right: 0;
+								width: 20px;
+								height: 20px;
+								fill:#fff;
+							}
+
+							&.facebook{
+								background: #3b5998;
+							}
+
+							&.google-plus{
+								background: #df4a32;
+							}
+
+							&.twitter{
+								background: #1ca1f4;
+							}
+						}
+					}
+				}
+
+				.right-part{
+					width: 400px;
+					position: relative;
+					padding: 40px 0px;
+
+					span.ad-dismiss{
+						position: absolute;
+						right: 10px;
+						top: 10px;
+						width: 25px;
+						height: 25px;
+						cursor: pointer;
+
+						svg{
+							width: 25px;
+							height: 25px;
+							fill: $pl_holder;
+						}
+
+						&:hover{
+							svg{
+								fill:$red;
+							}
+						}
+					}
+
+					.auth-form-container{
+						width: 100%;
+						height: 100%;
+						padding: 0px 30px;
+
+						.header{
+							width: 100%;
+							overflow: hidden;
+							margin-bottom: 20px;
+							h2{
+								padding: 0;
+								margin: 0;
+								font-size: 25px;
+								line-height: 32px;
+								color: $black;
+								font-weight: 600;
+								text-align: center;
+								a{
+									font-size: inherit;
+									line-height: inherit;
+									color: inherit;
+									padding: 0;
+									margin: 0;
+									text-decoration: none;
+								}
+							}
+
+						}
+
+						.body{
+							width: 100%;
+							overflow: hidden;
+							article{
+								font-size: 14px;
+								line-height: 1.6;
+								color: #67919c;
+								margin-bottom: 20px;
+								text-align: center;
+							}
+
+							div.auth-form-body{
+								width: 100%;
+								overflow: hidden;
+								padding: 0;
+								margin: 0;
+
+								form{
+									width: 100%;
+									overflow: hidden;
+									
+									div.form-group{
+										small.error-message{
+											display: block;
+											width: 100%;
+											margin-top: 3px;
+										}
+									}
+
+									input.form-control{
+										border-radius: 10em;
+										border:1px solid #eee;
+										outline: 0;
+										padding-left:25px;
+										padding-right: 25px;
+
+										&.v-error{
+											border:2px solid $red !important;
+											color: $red !important;
+											&::placeholder{
+												color: $red !important;
+											}
+										}
+
+										&::placeholder{
+											color: $pl_holder;
+											font-size: 14px;
+											line-height: 16px;
+										}
+
+										&:active,&:focus{
+											box-shadow:none;
+											border: 2px solid $red;
+											&::placeholder{
+												color: $red;
+											}
+										}
+									}
+
+									button.btn-submit-form{
+										width: 100%;
+										background: $red;
+										border: 1px solid $red;
+										color: #fff;
+										padding: 0px 0px;
+										line-height: 38px;
+										border-radius: 10em;
+										font-size: 16px;
+										box-shadow:$btn_shadow;
+										outline: 0;
+
+										&:hover,&:active{
+											background: $red2;
+											box-shadow:$btn_shadow;
+										}
+
+										&.success{
+											background: $green;
+											border: 1px solid $green;
+											cursor: wait;
+											&:hover,&:active{
+												background: $green;
+												box-shadow:$btn_shadow;
+											}
+										}
+									}
+
+									.login{
+										width: 100%;
+										text-align: center;
+										padding: 5px 0px;
+										span{
+											cursor: pointer;
+											font-size: 12px;
+											margin: 0px 3px;
+											line-height: 16px;
+											color: $black;
+											a{
+												color: $red;
+												text-decoration: underline;
+											}
+										}
+									}
+								}
+							}
+						}
+
+						.footer{
+							width: 100%;
+							margin-bottom: 20px;
+							.social-btns{
+								width: 100%;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: center;
+								margin-bottom: 15px;
+								div.oauth-login{
+									width: 40px;
+									height: 40px;
+									position: relative;
+									border-radius: 10em;
+									border:1px solid $border;
+									margin-left: 10px;
+									box-shadow:$btn_shadow;
+									svg{
+										position: absolute;
+										margin: auto;
+										left: 0;
+										top: 0;
+										bottom: 0;
+										right: 0;
+										width: 20px;
+										height: 20px;
+										fill:#fff;
+									}
+
+									&.facebook{
+										background: #3b5998;
+									}
+
+									&.google-plus{
+										background: #df4a32;
+									}
+
+									&.twitter{
+										background: #1ca1f4;
+									}
+								}
+							}
+						}
+					}
+
+				}
+			}
+
+			.user-reset-passwd-modal-inner{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				background: #fff;
+				border-radius: 5px;
+				box-shadow:$btn_shadow;
+
+
+				.main-part{
+					width: 400px;
+					position: relative;
+					padding: 40px 0px;
+
+					.auth-form-container{
+						width: 100%;
+						height: 100%;
+						padding: 0px 30px;
+
+						.header{
+							width: 100%;
+							overflow: hidden;
+							margin-bottom: 20px;
+							h2{
+								padding: 0;
+								margin: 0;
+								font-size: 25px;
+								line-height: 32px;
+								color: $black;
+								font-weight: 600;
+								text-align: center;
+								a{
+									font-size: inherit;
+									line-height: inherit;
+									color: inherit;
+									padding: 0;
+									margin: 0;
+									text-decoration: none;
+								}
+							}
+
+							div.icon{
+								width: 100%;
+								overflow: hidden;
+								text-align: center;
+								padding: 10px 0;
+								svg{
+									width: 100px;
+									height: 100px;
+								}
+							}
+
+							div.sub-title{
+								width: 100%;
+								text-align: center;
+								small{
+									display: block;
+									width: 100%;
+									font-size: 13px;
+									line-height: 20px;
+									color: $black;
+
+									&.error-message{
+										color: $red;
+									}
+								}
+							}
+						}
+
+						.body{
+							width: 100%;
+							overflow: hidden;
+							article{
+								font-size: 14px;
+								line-height: 1.6;
+								color: #67919c;
+								margin-bottom: 20px;
+								text-align: center;
+							}
+
+							div.auth-form-body{
+								width: 100%;
+								overflow: hidden;
+								padding: 0;
+								margin: 0;
+
+								form{
+									width: 100%;
+									overflow: hidden;
+
+									div.form-group{
+										small.error-message{
+											display: block;
+											width: 100%;
+											margin-top: 3px;
+										}
+									}
+									
+									input.form-control{
+										border-radius: 10em;
+										border:1px solid $border;
+										outline: 0;
+										padding-left:25px;
+										padding-right: 25px;
+
+										&::placeholder{
+											color: $pl_holder;
+											font-size: 14px;
+											line-height: 16px;
+										}
+
+										&:active,&:focus{
+											box-shadow:none;
+											border: 2px solid $red;
+											&::placeholder{
+												color: $red;
+											}
+										}
+
+										&.v-error{
+											border: 2px solid $red;
+											color: $red;
+
+											&::placeholder{
+												color: $red;
+											}
+										}
+									}
+
+									button.btn-submit-form{
+										width: 100%;
+										background: $red;
+										border: 1px solid $red;
+										color: #fff;
+										padding: 0px 0px;
+										line-height: 38px;
+										border-radius: 10em;
+										font-size: 16px;
+										box-shadow:$btn_shadow;
+										outline: 0;
+
+										&:hover,&:active{
+											background: $red2;
+											box-shadow:$btn_shadow;
+										}
+
+										&.success{
+											border: 1px solid $green;
+											background: $green;
+											&:hover,&:active{
+												background: $green;
+												box-shadow:$btn_shadow;
+											}
+										}
+									}
+
+									.login{
+										width: 100%;
+										text-align: center;
+										padding: 5px 0px;
+										span{
+											cursor: pointer;
+											font-size: 12px;
+											margin: 0px 3px;
+											line-height: 16px;
+											color: $black;
+											a{
+												color: $red;
+												text-decoration: underline;
+											}
+										}
+									}
+								}
+							}
+						}
+
+						.footer{
+							width: 100%;
+							margin-bottom: 20px;
+							.social-btns{
+								width: 100%;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: center;
+								margin-bottom: 15px;
+								div.oauth-login{
+									width: 40px;
+									height: 40px;
+									position: relative;
+									border-radius: 10em;
+									border:1px solid $border;
+									margin-left: 10px;
+									box-shadow:$btn_shadow;
+									svg{
+										position: absolute;
+										margin: auto;
+										left: 0;
+										top: 0;
+										bottom: 0;
+										right: 0;
+										width: 20px;
+										height: 20px;
+										fill:#fff;
+									}
+
+									&.facebook{
+										background: #3b5998;
+									}
+
+									&.google-plus{
+										background: #df4a32;
+									}
+
+									&.twitter{
+										background: #1ca1f4;
+									}
+								}
+							}
+
+							.join-us{
+								width: 100%;
+								overflow: hidden;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: center;
+								span{
+									font-size: 12px;
+									line-height: 16px;
+									color: $black;
+									margin: 0px 3px;
+									a{
+										color: $red;
+										text-decoration: none;
+
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.user-reset-alert-modal-inner{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				background: #fff;
+				border-radius: 5px;
+				box-shadow:$btn_shadow;
+
+				.main-part{
+					width: 400px;
+					position: relative;
+					padding: 40px 0px;
+
+					.auth-form-container{
+						width: 100%;
+						height: 100%;
+						padding: 0px 30px;
+						.header{
+							width: 100%;
+							overflow: hidden;
+							margin-bottom: 20px;
+							h2{
+								padding: 0;
+								margin: 0;
+								font-size: 25px;
+								line-height: 32px;
+								color: $black;
+								font-weight: 600;
+								text-align: center;
+								a{
+									font-size: inherit;
+									line-height: inherit;
+									color: inherit;
+									padding: 0;
+									margin: 0;
+									text-decoration: none;
+								}
+							}
+
+							div.icon{
+								width: 100%;
+								overflow: hidden;
+								text-align: center;
+								padding: 10px 0;
+								svg{
+									width: 100px;
+									height: 100px;
+									fill:#27c277;
+								}
+
+								&.error svg{
+									fill: $red;
+								}
+							}
+
+							div.sub-title{
+								width: 100%;
+								text-align: center;
+
+								p{
+									padding: 0;
+									margin: 0 0 10px 0;
+									font-size: 18px;
+									line-height: 20px;
+									color: $black;
+									font-weight: 600;
+								}
+
+								small{
+									display: block;
+									width: 100%;
+									font-size: 13px;
+									line-height: 20px;
+									color: $black;
+								}
+							}
+						}
+
+						.body{
+							width: 100%;
+							overflow: hidden;
+							article{
+								font-size: 14px;
+								line-height: 1.6;
+								color: #67919c;
+								margin-bottom: 20px;
+								text-align: center;
+							}
+
+							div.auth-form-body{
+								width: 100%;
+								overflow: hidden;
+								padding: 0;
+								margin: 0;
+
+								form{
+									width: 100%;
+									overflow: hidden;
+									input.form-control{
+										border-radius: 10em;
+										border:1px solid $border;
+										outline: 0;
+										padding-left:25px;
+										padding-right: 25px;
+
+										&::placeholder{
+											color: $pl_holder;
+											font-size: 14px;
+											line-height: 16px;
+										}
+
+										&:active,&:focus{
+											box-shadow:none;
+											border: 2px solid $red;
+											&::placeholder{
+												color: $red;
+											}
+										}
+									}
+
+									button.btn-submit-form{
+										width: 100%;
+										background: $red;
+										border: 1px solid $red;
+										color: #fff;
+										padding: 0px 0px;
+										line-height: 38px;
+										border-radius: 10em;
+										font-size: 16px;
+										box-shadow:$btn_shadow;
+										outline: 0;
+
+										&:hover,&:active{
+											background: $red2;
+											box-shadow:$btn_shadow;
+										}
+									}
+
+									.login{
+										width: 100%;
+										text-align: center;
+										padding: 5px 0px;
+										span{
+											cursor: pointer;
+											font-size: 12px;
+											margin: 0px 3px;
+											line-height: 16px;
+											color: $black;
+											a{
+												color: $red;
+												text-decoration: underline;
+											}
+										}
+									}
+								}
+							}
+						}
+
+						.footer{
+							width: 100%;
+							margin-bottom: 20px;
+							.social-btns{
+								width: 100%;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: center;
+								margin-bottom: 15px;
+								div.oauth-login{
+									width: 40px;
+									height: 40px;
+									position: relative;
+									border-radius: 10em;
+									border:1px solid $border;
+									margin-left: 10px;
+									box-shadow:$btn_shadow;
+									svg{
+										position: absolute;
+										margin: auto;
+										left: 0;
+										top: 0;
+										bottom: 0;
+										right: 0;
+										width: 20px;
+										height: 20px;
+										fill:#fff;
+									}
+
+									&.facebook{
+										background: #3b5998;
+									}
+
+									&.google-plus{
+										background: #df4a32;
+									}
+
+									&.twitter{
+										background: #1ca1f4;
+									}
+								}
+							}
+
+							.join-us{
+								width: 100%;
+								overflow: hidden;
+								display: flex;
+								flex-direction: row;
+								flex-wrap: wrap;
+								justify-content: center;
+								span{
+									font-size: 12px;
+									line-height: 16px;
+									color: $black;
+									margin: 0px 3px;
+									a{
+										color: $red;
+										text-decoration: none;
+
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	div.prods-items-container.auth-page{
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		width: 100vw;
+		height: 100vh;
+		overflow: hidden;
+		padding: 30px 50px 10px 50px;
+		background: #f1f1f1;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		flex-wrap: wrap;
+		padding: 0px -5px;
+
+		&:after{
+			position: fixed;
+			content: "";
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			width: 100vw;
+			height: 100vh;
+			background: rgba(25, 42, 50, 0.7);
+		}
+
+		div.galcolumn{
+			padding-right: 7px !important;
+			padding-left: 7px !important;
+			margin: 0px !important;
+			div.prod-item{
+				width: 100% !important;
+				overflow: hidden;
+				border-radius: 5px !important;	
+			}
+		}
+	}
+}

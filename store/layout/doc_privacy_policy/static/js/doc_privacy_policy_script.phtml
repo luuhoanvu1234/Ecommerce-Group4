@@ -1,0 +1,51 @@
+<script>
+	jQuery(document).ready(function($) {
+        "use strict";
+        
+		var DOC_PRIV_AND_POL   = $("div#documentation-privpol-page");
+		var DOC_PRIV_AND_POL_F = DOC_PRIV_AND_POL.find('form#form');
+
+
+        try{tinymce.remove();} catch(e) {/*pass*/}
+        tinymce.init({
+        	selector: 'textarea#documentation-privpol-content',
+        	plugins: "autoresize",
+        	force_br_newlines : false,
+	        force_p_newlines : false,
+	        forced_root_block : false
+        });
+        
+        DOC_PRIV_AND_POL_F.on('submit',function(event) {
+            DOC_PRIV_AND_POL_F.find('textarea').val(tinyMCE.activeEditor.getContent());
+        });
+
+        DOC_PRIV_AND_POL_F.ajaxForm({
+            url: '{{CONFIG url}}/req/admin/static_page',
+            type: 'POST',
+            dataType: 'json',
+            data: {page: 'doc_privacy_policy'},
+            beforeSend: function() {
+                DOC_PRIV_AND_POL_F.find('button[type="submit"]').attr('disabled', 'true');
+                DOC_PRIV_AND_POL_F.find('button[type="submit"]').find('span').text("{{TR Please wait}}!");
+            },
+            success: function(data) {
+                if (data.message) {
+                    $.notify({
+                        message: data.message,
+                    },{
+                        allow_dismiss: false,icon_type: "class",type: 'default',timer: 500,
+                        placement: {from: "bottom",align: "left"},
+                        offset: {x: 40,y: 30},
+                        animate: {enter: 'animated fadeInUp',exit: 'animated fadeOutDown'}
+                    });
+                }
+
+                if (data.status == 200) {
+                	delay(function(){
+                		hs_redirect('{{LINK privacy_policy}}');
+                	},2000);
+                }
+            }
+        });
+	});
+</script>

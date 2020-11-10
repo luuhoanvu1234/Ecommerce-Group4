@@ -1,0 +1,50 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)									 @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+div.home-page-content-wrapper{
+	width: 100%;
+	overflow: hidden;
+	min-height: calc(100vh - 210px);
+
+	nav.breadcrumbs-cust{
+		padding-left: 10px !important;
+		padding-right: 10px !important;
+	}
+
+	div.prods-grid-items-preloader{
+		width: 100%;
+		overflow: hidden;
+		line-height: 0px;
+		text-align: center;
+		padding-top: 20px;
+		padding-bottom: 20px;
+
+		&.hidden{
+			display: none;
+			visibility: hidden;
+			opacity: 0;
+		}
+
+		div.data-preloader{
+			line-height: 0px;
+		}
+	}
+}

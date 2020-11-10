@@ -1,0 +1,22 @@
+<div class="modal animated vh-center fadeIn confirm-request-payment confirm-action-modal" id="confirm-request-payment-modal" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="request-payment-form">
+                <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{TR Please confirm your actions!}}</h4>
+                </div>
+                <div class="modal-body">
+                    <?php echo hs_translate('Please note that after the confirmation of this action, this request will take the status as {%bt%}, so first make sure that you paid for this request, and after that, mark it as {%bt%}',array(
+                        'bt' => sprintf('<b>%s</b>',hs_translate('Paid'))
+                    )); ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn bg-main-red waves-effect">{{TR Yes, Mark it as paid!}}</button>
+                    <button type="button" class="btn bg-grey waves-effect" data-dismiss="modal">{{TR No, Cancel}}</button>
+                </div>
+                <input type="hidden" name="req_id" value="">
+            </form>
+        </div>
+    </div>
+</div>

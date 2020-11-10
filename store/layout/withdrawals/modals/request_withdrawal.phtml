@@ -1,0 +1,78 @@
+<div class="modal animated fadeIn request-withdrawal-modal" id="request-withdrawal-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form id="request-form" class="form" autocomplete="off">
+            <input type="hidden" class="hidden d-none" name="hash" value="<?php echo fetch_or_get($hs['csrf_token'],'none') ?>">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                    	{{TR Request withdrawal}}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="inline-alertbox-wrapper">
+                        <div class="inline-alertbox info">
+                            <div class="icon">
+                                <i class="material-icons">info</i>
+                            </div>
+                            <div class="alert-message">
+                                <h6>{{TR Please pay attention}}:</h6>
+                                <ol>
+                                    <li>
+                                        {{TR Money will be debited from your account when paying for the request.}}
+                                    </li>
+                                    <li>
+                                        {{TR If your account balance is less than the request amount, your request will be rejected}}
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-management-page">
+                        <div class="form-group form-field-box">
+                            <label class="form-label">
+                                {{TR Withdrawal amount}}
+                            </label>
+                            <div class="filed-box" data-form-field="amount">
+                                <input name="amount" type="number" step="any" class="form-control" placeholder="0.00" value="{{ME wallet_val}}">
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box">
+                            <label class="form-label">
+                                {{TR Paypal-me link}} <a class="help-link" href="https://www.paypal.me" target="_blank"><i class="material-icons">help</i></a>
+                            </label>
+                            <div class="filed-box" data-form-field="pp_link">
+                                <input name="pp_link" type="url5" class="form-control" placeholder="E.g. https://www.paypal.me/{{ME username}}">
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box">
+                            <label class="form-label">
+                                {{TR Payout Currency}}
+                            </label>
+                            <div class="filed-box" data-form-field="currency">
+                                <select data-size="4" class="form-control show-tick" name="currency" title="{{TR Please select payout currency}}">
+                                    <?php foreach ($hs['currencies'] as $curr_data): ?>
+                                        <option value="<?php echo($curr_data['curr_code']); ?>">
+                                            <?php echo ($curr_data['curr_name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-field-box no-mb">
+                            <label class="form-label">
+                                {{TR Your password}}
+                            </label>
+                            <div class="filed-box" data-form-field="password">
+                                <input name="password" type="password" class="form-control" placeholder="{{TR Enter your password}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-grey waves-effect tt-up" data-dismiss="modal">{{TR Cancel}}</button>
+                    <button type="submit" class="btn bg-light-blue waves-effect tt-up">{{TR Submit request}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

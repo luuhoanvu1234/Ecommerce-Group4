@@ -1,0 +1,907 @@
+// @*************************************************************************@
+// @ @author Mansur Altamirov (Mansur_TL)                                    @
+// @ @author_url 1: https://www.instagram.com/mansur_tl                      @
+// @ @author_url 2: http://codecanyon.net/user/mansur_tl                     @
+// @ @author_email: highexpresstore@gmail.com                                @
+// @*************************************************************************@
+// @ HighExpress - The Ultimate Modern Marketplace Platform                  @
+// @ Copyright (c) 05.07.19 HighExpress. All rights reserved.                @
+// @*************************************************************************@
+
+$black:#192a32;
+$black2: #2d2f43;
+$main:#1fb4ef;
+$link:#003569;
+$border:#e6e6e6;
+$pl_holder:#72777c;
+$red:#ff7676;
+$red2:#f6546a;
+$green:#35c85f;
+$btn_shadow: rgba(0, 0, 0, 0.05) 0px 1px 10px 0px;
+
+div.wishlist-page-container{
+	width: 100%;
+	overflow: hidden;
+	display: block;
+	padding: 0px;
+	min-height: calc(100vh - 120px);
+
+	nav.breadcrumbs-cust{
+		ol{
+			padding-bottom: 20px;
+			li{
+				color: #9697a1;
+			}
+		}
+	}
+
+	.left-part{
+		width: 100%;
+		display: block;
+		.wlist-navbar-wrapper{
+			width: 100%;
+			overflow: hidden;
+			background: #fff;
+		    box-shadow:none;
+		    margin-bottom: 20px;
+		    border: none;
+		    border-radius: 5px;
+
+		    .wlist-navbar{
+		    	width: 100%;
+		    	overflow: hidden;
+		    	display: block;
+		    	h5{
+		    		width: 100%;
+		    		overflow: hidden;
+		    		padding: 15px 20px;
+		    		margin: 0 0 0 0;
+		    		font-size: 16px;
+		    		line-height: 20px;
+		    		color: $black2;
+		    		border-bottom: 1px solid #eee;
+		    	}
+
+		    	ul{
+		    		width: 100%;
+		    		display: block;
+		    		padding: 5px 15px;
+		    		margin: 0;
+		    		list-style-type: none;
+		    		li{
+		    			a{
+		    				font-size: 13px;
+		    				line-height: 30px;
+		    				color: $black2;
+		    				text-decoration: none;
+		    				width: 100%;
+		    				transition: all 0.15s ease-in-out;
+
+		    				&:hover,&:active{
+		    					color: $red;
+		    				}
+		    			}
+		    		}
+		    	}
+
+		    	.add-new-list{
+		    		width: 100%;
+		    		overflow: hidden;
+		    		border-top: 1px solid #eee;
+		    		padding: 15px;
+		    		button{
+		    			width: 100%;
+		    			background: $red;
+		    			color: #fff;
+		    			font-size: 13px;
+		    			line-height: 16px;
+		    			border:1px solid $red;
+		    			border-color: $red;
+		    			padding: 8px 0px;
+		    		}
+		    	}
+		    }
+		}
+
+		.footer-sm{
+			width: 100%;
+			overflow: hidden;
+			padding: 15px;
+			background: #fff;
+		    border: none;
+		    border-radius: 5px;
+		    line-height: 0px;
+
+			.top-line{
+				width: 100%;
+				overflow: hidden;
+				padding-bottom: 5px;
+				border-bottom: 1px solid $border;
+
+				ul{
+					width: 100%;
+					overflow: hidden;
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					list-style-type: none;
+					padding: 0;
+					margin: 0;	
+					li{
+						line-height: 0px;
+						a{
+							line-height: 20px;
+							color: #9697a1;
+							text-decoration: none;
+							margin-right: 20px;
+							font-size: 12px;
+							transition: color 0.27s ease-in-out;
+
+							&:hover,&:active{
+								color: $red;
+							}
+						}
+					}
+
+				}
+			}
+
+			.bottom-line{
+				width: 100%;
+				overflow: hidden;
+				line-height: 0px;
+				margin-top: 10px;
+				ul{
+					width: 100%;
+					overflow: hidden;
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					list-style-type: none;
+					padding: 0;
+					margin: 0;	
+					line-height: 0px;
+					height: auto;
+					min-height: 0px;
+					li{
+						line-height: 0px;
+						padding: 0px;
+						height: auto;
+						min-height: 0px;
+						a{
+							line-height: 12px;
+							color: #9697a1;
+							text-decoration: none;
+							font-size: 12px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.empty-wish-list{
+		width: 100%;
+		overflow: hidden;
+		display: block;
+		padding: 20px;
+		.inner{
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: 300px;
+
+			div.icon{
+				svg{
+					width: 60px;
+					height: 60px;
+					fill:$red;
+				}
+			}
+
+			h5{
+				font-size: 22px;
+				line-height: 38px;
+				color: $black;
+				padding: 0;
+				margin: 0;
+				text-align: center;
+			}
+
+			p{
+				padding: 0;
+				margin: 0 0 20px 0;
+				font-size: 14px;
+				line-height: 16px;
+				color: $black2;
+				text-align: center;
+
+				svg{
+					width: 15px;
+					height: 15px;
+					fill:$red;
+				}
+			}
+			a{
+				text-decoration: none;
+				button{
+					border: 1px solid $red;
+					outline: 0;			
+					padding: 12px 40px;
+					box-shadow: none;
+					background: transparent;
+					color: $red;
+					font-size: 14px;
+					line-height: 16px;
+					text-decoration: none;
+					border-radius: 3px;
+					&:active,&:hover,&:focus{
+						background: transparent;
+						border-color:$red;
+						outline: 0;
+						box-shadow:none;
+					}
+
+					&.back{
+						background: $red;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+
+	.right-part{
+		.prods-items-container{
+			margin: 0px -10px;
+		}
+
+		.pords-sorting-panel-wrapper{
+			.pords-sorting-panel{
+				width: 100%;
+				background: #fff;
+			    margin-bottom: 20px;
+			    border-radius: 5px;
+			    border: none;
+				div.curr-list{
+					width: 100%;
+					padding: 15px 20px;
+					border-bottom: 1px solid #eee;
+					display: flex;
+					flex-direction: row;
+					flex-wrap: wrap;
+					justify-content: space-between;
+					div.curr-list-name{
+						line-height: 18px;
+						h5{
+							font-size: 16px;
+							line-height: 20px;
+							color: $black2;
+							margin: 0;
+							padding: 0px;
+						}
+					}
+
+					div.manage-list{
+						line-height: 18px;
+						a.dropdown-toggle{
+							&:before{
+								display: none;
+							}
+							svg{
+								width: 20px;
+								height: 20px;
+								fill:$pl_holder;
+							}
+							cursor: pointer;
+
+							&:hover,&:active{
+								svg{
+									fill:$red;
+								}
+							}
+						}
+
+						div.dropdown-menu{
+							right: 20px !important;
+							left: auto !important;
+							top: 20px !important;
+							border:none;
+						    box-shadow: 2px 1rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+
+						    a.dropdown-item{
+						    	font-size: 13px;
+						    	color: $black;
+						    	line-height: 30px;
+						    	&:active,&:hover{
+						    		background: #fff;
+						    		color: $red;
+						    	}
+						    }
+						}
+					}
+				}
+
+				div.filter-form-wrapper{
+			    	form{
+			    		padding: 15px 15px 0px 15px;
+			    		display: flex;
+			    		flex-direction: row;
+			    		flex-wrap: wrap;
+			    		align-items: center;
+			    		div.filt-option{
+			    			flex-basis: auto;
+			    			margin-right: 10px;
+			    			margin-bottom: 15px;
+			    			div.bootstrap-select{
+			    				width: auto !important;
+			    			}
+
+			    			&.price-range{
+			    				.dropdown-toggle{
+			    					border: 1px solid #eee;
+			    					font-size: 12px;
+			    					color: $black2;
+			    					padding: 0px 15px;
+			    					line-height:30px;
+			    					border-radius: 3px;
+			    					display: block;
+			    					cursor: pointer;
+			    					span{
+			    						line-height: inherit;
+			    					}
+			    				}
+
+			    				.dropdown-menu{
+			    					top: 40px !important;
+			    					border: none;
+									box-shadow: 0 -0.6rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+
+									table{
+										padding: 15px;
+										tr{
+											
+											td{
+												&.input{
+													padding: 5px 15px 5px 10px;
+													input{
+														border: 1px solid #eee;
+														border-radius: 5px;
+														width: 130px;
+														outline: 0;
+														transition: all 0.30s ease-in-out;
+														color: $pl_holder;
+														font-size: 12px;
+														padding: 5px 5px 5px 15px;
+
+														&:active,&:hover,&:focus{
+															border:1px solid $red;
+															&::placeholder{
+																color: $red;
+															}
+														}
+
+														&::placeholder{
+															transition: all 0.30s ease-in-out;
+															color: $pl_holder;
+															font-size: 12px;
+
+														}
+													}
+												}
+												&.label{
+													padding-left: 15px;
+													span{
+														font-size: 12px;
+														line-height: 12px;
+														color: $black;
+														font-weight: 700;
+													}
+												}
+
+												&.apply-filter{
+													padding: 10px 15px 5px 10px;
+													button{
+														border: 1px solid $red;
+														background: $red;
+														color: #fff;
+														font-size: 12px;
+														width: 100%;
+														padding: 5px 0px;
+														text-align: center;
+														border-radius:5px;
+													}
+												}
+											}
+
+
+										}
+									}
+			    				}
+			    			}
+
+			    			&.brand-name,&.key-word{
+
+			    				.dropdown-toggle{
+			    					border: 1px solid #eee;
+			    					font-size: 12px;
+			    					color: $black2;
+			    					padding: 0px 15px;
+			    					line-height:30px;
+			    					border-radius: 3px;
+			    					display: block;
+			    					cursor: pointer;
+			    					span{
+			    						line-height: inherit;
+			    					}
+			    				}
+
+			    				.dropdown-menu{
+			    					top: 40px !important;
+			    					border: none;
+									top: 40px !important;
+									box-shadow: 0 -0.6rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+
+									table{
+										padding: 15px;
+										tr{
+											
+											td{
+												&.input{
+													padding: 5px 15px 5px 10px;
+													input{
+														border: 1px solid #eee;
+														border-radius: 5px;
+														width: 200px;
+														outline: 0;
+														transition: all 0.30s ease-in-out;
+														color: $pl_holder;
+														font-size: 12px;
+														padding: 5px 5px 5px 15px;
+
+														&:active,&:hover,&:focus{
+															border:1px solid $red;
+															&::placeholder{
+																color: $red;
+															}
+														}
+
+														&::placeholder{
+															transition: all 0.30s ease-in-out;
+															color: $pl_holder;
+															font-size: 12px;
+
+														}
+													}
+												}
+												&.label{
+													padding-left: 15px;
+													span{
+														font-size: 12px;
+														line-height: 12px;
+														color: $black;
+														font-weight: 700;
+													}
+												}
+
+												&.apply-filter{
+													padding: 10px 15px 5px 10px;
+													button{
+														border: 1px solid $red;
+														background: $red;
+														color: #fff;
+														font-size: 12px;
+														width: 100%;
+														padding: 5px 0px;
+														text-align: center;
+														border-radius:5px;
+													}
+												}
+											}
+
+										}
+									}
+			    				}
+			    			}
+
+			    			&.bootstrap-select-picker{
+			    				button.dropdown-toggle{
+			    					background: #fff;
+			    					border: 1px solid #eee;
+			    					font-size: 12px;
+			    					color: $black;
+			    					outline: 0 !important;
+			    					box-shadow:none;
+			    				}
+
+			    				.dropdown-menu{
+			    					max-height: 250px;
+			    					top: 40px !important;
+			    					border: none;
+									box-shadow: 0 -0.6rem 1.33rem rgba(0, 0, 0, 0.1), 0 0.6rem 1.33rem rgba(0, 0, 0, 0.1);
+									
+									.bs-searchbox{
+										padding: 5px 15px;
+										input{
+											box-shadow: none;
+											border: 1px solid #eee;
+											border-radius: 5px;
+											padding: 0px 0px 0px 15px;
+											height: 30px;
+											color: $pl_holder;
+											font-size: 13px;
+
+											&:active,&:hover,&:focus{
+												border: 2px solid $red;
+											}
+										}
+									}
+									.dropdown-item{
+										font-size: 13px;
+										color: $black;
+										&:hover,&:active,&:focus{
+											background: #fff;
+										}
+
+										&.active{
+											background: #fff;
+										}
+									}
+			    				}
+			    			}
+
+			    			button.reset-filter{
+			    				border: 1px solid $red;
+			    				font-size: 12px;
+			    				line-height: 28px;
+			    				padding: 0 30px;
+			    				border-radius: 3px;
+			    				color: #fff;
+			    				background: $red;
+			    				outline: 0 !important;
+			    				box-shadow: $btn_shadow;
+			    			}
+
+			    			button:disabled{
+			    				opacity: 0.3;
+			    				cursor: not-allowed;
+			    			}
+			    		}
+			    	}
+			    }
+			}
+		}
+
+		.active-filter-options{
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			div.option{
+				line-height: 0px;
+				background: #fff;
+				border: 1px solid #eee;
+				border-radius: 15px;
+				box-shadow:$btn_shadow;
+				padding: 1px 15px;
+				margin-bottom: 20px;
+				margin-right: 5px;
+
+				span.val{
+					font-size: 12px;
+					line-height: 24px;
+					color: $black;
+				}
+
+				span.delete{
+					cursor: pointer;
+					svg{
+						width: 15px;
+						height: 15px;
+						fill:$black;
+					}
+				}
+
+				&:hover{
+					span{
+						svg{
+							fill:$red;
+						}
+					}
+				}
+			}
+		}
+
+		.prealoader-wrapper{
+			width: 100%;
+			overflow: hidden;
+			display: block;
+			padding: 15px 0;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			justify-content: center;
+			align-items: center;
+
+			&.hidden{
+				display: none;
+				visibility: hidden;
+			}
+
+			&:not(.hidden) {
+				& ~ .prods-items-container{
+					display: none;
+					visibility: hidden;
+				}
+				& ~ .prods-items-container-404{
+					display: none;
+					visibility: hidden;
+				}
+				& ~ .load-more-pruducts{
+					display: none;
+					visibility: hidden;
+				}
+			}
+
+			div.loader-icon{
+				width: 30px;
+				height: 30px;
+				svg{
+					width: 100%;
+					height: 100%;
+				}
+			}
+			h5{
+				padding: 0;
+				margin: 0;
+				font-size: 13px;
+				font-weight: 300;
+				color: $pl_holder;
+				margin-top: 10px;
+			}
+		}
+
+		.prods-items-container{
+			div.galcolumn{
+				padding: 0px 10px !important;
+				div.prod-item{
+					border-radius: 5px;
+					overflow: hidden;
+
+					& > a{
+						overflow: visible !important;
+						position: relative;
+					}
+					
+					div.prod-img{
+						position: relative;
+						height: auto;
+
+						.total-sales{
+							span.inline-label{
+								width: auto !important;
+							}
+						}
+					}
+
+					.remove-from-list{
+						transition: all 0.27s ease;
+						position: absolute;
+						right: 15px;
+						bottom: 75px;
+						display: none;
+
+						button.delete-wl-item{
+							border-radius: 10em;
+							width: 30px;
+							height: 30px;	
+							background: $red;
+							border: none;
+							outline: 0;
+							margin: 0;
+							box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 20px 6px;
+							padding: 0;
+							position: relative;
+							svg{
+								width: 25px;
+								height: 20px;
+								fill: rgba(0, 0, 0, 0.12);
+								position: absolute;
+								left: 0;
+								top: 0;
+								bottom: 0;
+								right: 0;
+								margin: auto;
+							}
+						}
+					}
+
+
+					&:hover{
+						box-shadow: $btn_shadow;
+						.remove-from-list{
+							display: block;
+						}
+					}
+				}
+			}
+		}
+
+		.filter-404{
+			width: 100%;
+			overflow: hidden;
+			display: block;
+			padding: 15px 0;
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+			justify-content: center;
+			align-items: center;	
+
+			div.icon{
+				width: 30px;
+				height: 30px;
+				svg{
+					width: 100%;
+					height: 100%;
+					fill: $pl_holder;
+				}
+			}
+			h5{
+				padding: 0;
+				margin: 0;
+				font-size: 20px;
+				font-weight: 700;
+				color: $black;
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+
+			p{
+				font-size: 13px;
+				line-height: 14px;
+				color: $black2;
+			}
+
+		}
+	}
+
+	div.wlist-navbar{
+		ul{
+			li{
+				&.active{
+					font-weight: 700;
+					a{
+						color: $red !important;
+					}
+				}
+			}
+		}
+	}
+
+	.load-more-pruducts{
+		width: 100%;
+		overflow: hidden;
+		text-align: center;
+		padding: 15px 0;
+		button{
+			padding: 5px 20px;
+			color: $red;
+			border-radius: 4px;
+			border:1px solid $red;
+			outline: 0;
+			font-size: 13px;
+			box-shadow: none;
+			background: transparent;
+			&:disabled{
+				cursor: not-allowed;
+				opacity: 0.5;
+			}
+		}
+	}
+}
+
+div.create--edit-wishlist-modal{
+	&.show{
+		display: flex !important;
+		flex-direction: column !important;
+		justify-content: center !important;
+		align-items: center !important;
+		width: 100%;
+		height: 100%;
+
+		div.modal-dialog{
+			margin: 0 !important;
+			padding: 0 !important;
+			height: auto;
+			min-width: 440px;
+			max-width: 440px;
+		}
+	}
+
+	div.modal-content{
+		border-radius: 5px;
+		border: none;
+		box-shadow: $btn_shadow;
+
+		div.modal-header{
+			padding: 15px 20px;
+			line-height: 0px;
+			border-bottom: 1px solid #eee;
+			h5{
+				font-size: 16px;
+				color: $black2;
+			}
+		}
+
+		div.modal-body{
+			padding: 15px 20px;
+			div.input-box{
+				line-height: 0px;
+				width: 100%;
+
+				label{
+					font-size: 13px;
+					line-height: 13px;
+					color: #9697a1;
+				}
+
+				input{
+					border: 1px solid #eee;
+					border-radius: 2px;
+					height: 34px;
+					box-shadow: $btn_shadow;
+
+					&::placeholder{
+						font-size: 13px;
+						color: $pl_holder;
+					}
+				}
+
+				small{
+					font-size: 11px;
+					color: $main;
+					line-height: 22px;
+
+					svg{
+						width: 13px;
+						height: 13px;
+						fill: $main;
+						margin-right: 5px;
+					}
+
+					&.error-message{
+						color: $red !important;
+					}
+				}
+			}
+		}
+
+		div.modal-footer{
+			padding: 15px 20px;
+			border-top: 1px solid #eee;
+
+			button{
+				padding: 5px 15px;
+			    line-height: 19px;
+			    font-size: 13px;
+			    border-radius: 2px;
+			    font-weight: 300;
+
+				&.create{
+					border: 1px solid $red;
+					color: #fff;
+					background: $red;
+				}
+
+				&.cancel{
+					border: 1px solid #9d9d9d;
+					color: #fff;
+					background: #9d9d9d;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,12 @@
+<tr class="empty-table">
+	<td colspan="8">
+		<div>
+			<h5>
+				{{TR Nothing found}}
+			</h5>
+			<p>
+				<?php echo hs_translate('Nothing found by your search term {%search_query%}. Please try again with some diffirent keywords',array('search_query' => sprintf('<b>%s</b>',fetch_or_get($hs['search_query'],'')))); ?>
+			</p>
+		</div>
+	</td>
+</tr>

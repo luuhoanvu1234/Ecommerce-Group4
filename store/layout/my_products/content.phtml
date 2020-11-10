@@ -1,0 +1,78 @@
+<div class="clearfix" id="products-management-page">
+    <div class="block-header">
+        <nav class="breadcrumbs-cust" aria-label="breadcrumb breadcrumb-cust">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel}}">{{TR Control panel}}</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{LINK merchant_panel/my_products}}">
+                        {{TR Trading items}}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{TR Products management}}
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card ajax-ctrl-table">
+                <div class="header un-filterable">
+                    <h2>{{TR List of my products}} (<?php echo($hs['my_prods_tot']); ?>)</h2>
+
+                    <div class="ml-auto">
+                        <span class="show-table-filter" data-toggle="modal" data-target="div#table-filter-modal">
+                            <i class="material-icons">tune</i>
+                        </span>
+                    </div>
+                </div>
+                <div class="body table-responsive">
+                    <table class="table table-hover no-mb" id="prods-list">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>{{TR Poster}}</th>
+                                <th>{{TR Product name}}</th>
+                                <th>{{TR Price}}</th>
+                                <th>SKU</th>
+                                <th>Qty</th>
+                                <th>{{TR Status}}</th>
+                                <th>{{TR Profit}}</th>
+                                <th>{{TR Action}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (not_empty($hs['my_prods'])): ?>
+                                <?php foreach ($hs['my_prods'] as $hs['prod_item']): ?>
+                                    <?php echo hs_loadpage('my_products/includes/prod_list_item'); ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <?php echo hs_loadpage('my_products/includes/empty_table'); ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                    <?php if (not_empty($hs['my_prods'])): ?>
+                        <div class="data-preloader-wrapper hidden" id="table-preloader">
+                            <?php echo hs_loadpage('components/data_preloader'); ?>
+                        </div>
+                        <a href="javascript:void(0);" class="pagination-ctrls prev">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                        <a href="javascript:void(0);" class="pagination-ctrls next">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    <?php endif; ?> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <button data-anchor="{{LINK merchant_panel/add_product}}" title="{{TR Add New Product}}" class="fixed-right-bottom btn bg-main-red btn-circle waves-effect waves-circle waves-float">
+        <i class="material-icons">add</i>
+    </button>
+</div>
+
+<?php echo hs_loadpage('my_products/modals/table_filter_modal'); ?>
+<?php echo hs_loadpage('my_products/modals/confirmations/prod_removal'); ?>
+<?php echo hs_loadpage('my_products/static/js/prods_management_script'); ?>
