@@ -506,8 +506,8 @@ else if ($action == 'prod_upsert' && hs_session('edit_product_data')) {
 			            $data['err_code'] = 3; break;
 			        } 
 
-			        else {
-			        	if (len($product_name) < $prod_name_min_len) {
+			        else {      # @ châu chỉnh@
+			        	if (len($product_name) < 8) {
 			        		$data['message']  = hs_translate("The product name you entered is too short. Please check your details");
 			            	$data['err_code'] = 3; break;
 			        	} 
