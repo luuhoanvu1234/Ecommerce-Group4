@@ -767,7 +767,7 @@ header{
 								position: relative;
 								width: 30px;
 								height: 30px;
-								background: #ff;
+								background: #fff;
 								color: $pl_holder;
 								
 								margin: 0px;
@@ -1766,6 +1766,7 @@ div.prods-items-container{
 		.prod-desc{
 			width: 100%;
 			background: #fff;
+		
 			overflow: hidden;
 			padding: 10px 15px;
 
@@ -1861,6 +1862,7 @@ div.prods-items-container{
 				width: 100%;
 				background: #fff;
 				overflow: hidden;
+				
 				padding: 10px 15px;
 				div.body{
 					line-height: 0px;

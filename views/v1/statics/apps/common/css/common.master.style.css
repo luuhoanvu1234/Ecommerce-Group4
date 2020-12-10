@@ -548,7 +548,7 @@ header {
               position: relative;
               width: 30px;
               height: 30px;
-              background: #ff;
+              background: #fff;
               color: #72777c;
               margin: 0px;
               display: inline-block;
@@ -1299,12 +1299,13 @@ div.prods-items-container div.prod-item {
         line-height: 0px;
         align-items: center; }
         div.prods-items-container div.prod-item .prod-desc div.body div.prices span.price {
-          font-size: 17px;
+          font-size: 13px;
           font-weight: 500;
-          color: #333;
+          color: rgb(0, 0, 0);
+          font-weight: bold;
           line-height: 21px; }
         div.prods-items-container div.prod-item .prod-desc div.body div.prices span.old-price {
-          font-size: 17px;
+          font-size: 13px;
           font-weight: normal;
           color: #ababab;
           line-height: 21px;

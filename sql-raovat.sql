@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th6 25, 2020 lúc 04:22 PM
--- Phiên bản máy phục vụ: 5.7.26
--- Phiên bản PHP: 5.6.40
+-- Máy chủ: 127.0.0.1
+-- Thời gian đã tạo: Th10 26, 2020 lúc 05:45 PM
+-- Phiên bản máy phục vụ: 10.4.14-MariaDB
+-- Phiên bản PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `banhang`
+-- Cơ sở dữ liệu: `sql-raovat`
 --
 
 -- --------------------------------------------------------
@@ -28,14 +27,12 @@ SET time_zone = "+00:00";
 -- Cấu trúc bảng cho bảng `hex_acc_del_requests`
 --
 
-DROP TABLE IF EXISTS `hex_acc_del_requests`;
-CREATE TABLE IF NOT EXISTS `hex_acc_del_requests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_acc_del_requests` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `reason` varchar(2) NOT NULL DEFAULT '5',
   `message` varchar(600) NOT NULL DEFAULT '',
-  `time` varchar(20) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  `time` varchar(20) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -44,13 +41,11 @@ CREATE TABLE IF NOT EXISTS `hex_acc_del_requests` (
 -- Cấu trúc bảng cho bảng `hex_admins`
 --
 
-DROP TABLE IF EXISTS `hex_admins`;
-CREATE TABLE IF NOT EXISTS `hex_admins` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE `hex_admins` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `time` varchar(25) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_admins`
@@ -65,13 +60,11 @@ INSERT INTO `hex_admins` (`id`, `user_id`, `time`) VALUES
 -- Cấu trúc bảng cho bảng `hex_admin_sessions`
 --
 
-DROP TABLE IF EXISTS `hex_admin_sessions`;
-CREATE TABLE IF NOT EXISTS `hex_admin_sessions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `login_sess_id` int(11) NOT NULL DEFAULT '0',
-  `admin_id` int(11) NOT NULL DEFAULT '0',
-  `time` varchar(20) DEFAULT '0',
-  PRIMARY KEY (`id`)
+CREATE TABLE `hex_admin_sessions` (
+  `id` int(11) NOT NULL,
+  `login_sess_id` int(11) NOT NULL DEFAULT 0,
+  `admin_id` int(11) NOT NULL DEFAULT 0,
+  `time` varchar(20) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -80,10 +73,9 @@ CREATE TABLE IF NOT EXISTS `hex_admin_sessions` (
 -- Cấu trúc bảng cho bảng `hex_announcements`
 --
 
-DROP TABLE IF EXISTS `hex_announcements`;
-CREATE TABLE IF NOT EXISTS `hex_announcements` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_announcements` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `message` varchar(600) NOT NULL DEFAULT '',
   `title` varchar(150) NOT NULL DEFAULT '',
   `url` varchar(500) NOT NULL DEFAULT '',
@@ -92,10 +84,8 @@ CREATE TABLE IF NOT EXISTS `hex_announcements` (
   `message_type` enum('system','custom') NOT NULL DEFAULT 'system',
   `slug` varchar(40) NOT NULL DEFAULT 'none',
   `json_data` varchar(3000) NOT NULL DEFAULT '{}',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `time` varchar(25) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -103,16 +93,14 @@ CREATE TABLE IF NOT EXISTS `hex_announcements` (
 -- Cấu trúc bảng cho bảng `hex_backups`
 --
 
-DROP TABLE IF EXISTS `hex_backups`;
-CREATE TABLE IF NOT EXISTS `hex_backups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_backups` (
+  `id` int(11) NOT NULL,
   `backup_dir` varchar(80) NOT NULL DEFAULT '',
   `files_backup` varchar(120) NOT NULL DEFAULT '',
   `sql_backup` varchar(120) NOT NULL DEFAULT '',
   `file_size` varchar(50) NOT NULL DEFAULT '0',
   `sql_size` varchar(50) NOT NULL DEFAULT '0',
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -121,18 +109,16 @@ CREATE TABLE IF NOT EXISTS `hex_backups` (
 -- Cấu trúc bảng cho bảng `hex_basket`
 --
 
-DROP TABLE IF EXISTS `hex_basket`;
-CREATE TABLE IF NOT EXISTS `hex_basket` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `prod_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_basket` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
   `var_id` int(11) DEFAULT NULL,
   `var_type` enum('single','color','size','color_size') NOT NULL DEFAULT 'single',
-  `quantity` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT 0,
   `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
-  `time` varchar(15) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `time` varchar(15) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -140,12 +126,10 @@ CREATE TABLE IF NOT EXISTS `hex_basket` (
 -- Cấu trúc bảng cho bảng `hex_blocked_users`
 --
 
-DROP TABLE IF EXISTS `hex_blocked_users`;
-CREATE TABLE IF NOT EXISTS `hex_blocked_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+CREATE TABLE `hex_blocked_users` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `time` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -154,16 +138,12 @@ CREATE TABLE IF NOT EXISTS `hex_blocked_users` (
 -- Cấu trúc bảng cho bảng `hex_chat_conversations`
 --
 
-DROP TABLE IF EXISTS `hex_chat_conversations`;
-CREATE TABLE IF NOT EXISTS `hex_chat_conversations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_one` int(11) NOT NULL DEFAULT '0',
-  `user_two` int(11) NOT NULL DEFAULT '0',
-  `time` int(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `user_one` (`user_one`),
-  KEY `user_two` (`user_two`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE `hex_chat_conversations` (
+  `id` int(11) NOT NULL,
+  `user_one` int(11) NOT NULL DEFAULT 0,
+  `user_two` int(11) NOT NULL DEFAULT 0,
+  `time` int(20) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -171,21 +151,19 @@ CREATE TABLE IF NOT EXISTS `hex_chat_conversations` (
 -- Cấu trúc bảng cho bảng `hex_chat_messages`
 --
 
-DROP TABLE IF EXISTS `hex_chat_messages`;
-CREATE TABLE IF NOT EXISTS `hex_chat_messages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sent_by` int(11) NOT NULL DEFAULT '0',
-  `sent_to` int(11) NOT NULL DEFAULT '0',
-  `owner` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_chat_messages` (
+  `id` int(11) NOT NULL,
+  `sent_by` int(11) NOT NULL DEFAULT 0,
+  `sent_to` int(11) NOT NULL DEFAULT 0,
+  `owner` int(11) NOT NULL DEFAULT 0,
   `message` varchar(3000) NOT NULL DEFAULT '',
   `media_file` varchar(1000) NOT NULL DEFAULT '',
   `media_type` varchar(25) NOT NULL DEFAULT 'none',
   `seen` varchar(25) NOT NULL DEFAULT '0',
   `deleted_fs1` enum('Y','N') NOT NULL DEFAULT 'N',
   `deleted_fs2` enum('Y','N') NOT NULL DEFAULT 'N',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `time` varchar(25) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -193,15 +171,14 @@ CREATE TABLE IF NOT EXISTS `hex_chat_messages` (
 -- Cấu trúc bảng cho bảng `hex_checkout_transactions`
 --
 
-DROP TABLE IF EXISTS `hex_checkout_transactions`;
-CREATE TABLE IF NOT EXISTS `hex_checkout_transactions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL DEFAULT '0',
-  `seller_id` int(11) NOT NULL DEFAULT '0',
-  `buyer_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_checkout_transactions` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL DEFAULT 0,
+  `seller_id` int(11) NOT NULL DEFAULT 0,
+  `buyer_id` int(11) NOT NULL DEFAULT 0,
   `amount` varchar(11) NOT NULL DEFAULT '0.00',
-  `prod_id` int(11) NOT NULL DEFAULT '0',
-  `var_id` int(11) NOT NULL DEFAULT '0',
+  `prod_id` int(11) NOT NULL DEFAULT 0,
+  `var_id` int(11) NOT NULL DEFAULT 0,
   `var_type` enum('single','color','size','color_size') NOT NULL DEFAULT 'single',
   `status` enum('success','failed') NOT NULL,
   `method` varchar(15) NOT NULL DEFAULT 'none',
@@ -209,10 +186,17 @@ CREATE TABLE IF NOT EXISTS `hex_checkout_transactions` (
   `paypal_pid` varchar(220) NOT NULL DEFAULT '',
   `wallet_pid` varchar(220) NOT NULL DEFAULT '',
   `cod_pid` varchar(220) NOT NULL DEFAULT '',
-  `market_rate` int(3) NOT NULL DEFAULT '0',
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `market_rate` int(3) NOT NULL DEFAULT 0,
+  `time` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_checkout_transactions`
+--
+
+INSERT INTO `hex_checkout_transactions` (`id`, `order_id`, `seller_id`, `buyer_id`, `amount`, `prod_id`, `var_id`, `var_type`, `status`, `method`, `stripe_pid`, `paypal_pid`, `wallet_pid`, `cod_pid`, `market_rate`, `time`) VALUES
+(1, 1, 3, 1, '28989997', 15, 0, 'single', 'success', 'wallet', 'none', 'none', 'fd14050fc07884f5106ddb6f3da2d10a4461d8941606392469dd6574a54c91ecd400fd68386fd947b0', 'none', 5, '1606392470'),
+(2, 2, 3, 1, '5290000', 18, 0, 'single', 'success', 'wallet', 'none', 'none', '030d08ef644794c4448f2d85ecc1277d58b6a1c0160640631903d22c5afdc5add1b1375f826215eb7a', 'none', 5, '1606406320');
 
 -- --------------------------------------------------------
 
@@ -220,25 +204,23 @@ CREATE TABLE IF NOT EXISTS `hex_checkout_transactions` (
 -- Cấu trúc bảng cho bảng `hex_config`
 --
 
-DROP TABLE IF EXISTS `hex_config`;
-CREATE TABLE IF NOT EXISTS `hex_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_config` (
+  `id` int(11) NOT NULL,
   `title` varchar(220) NOT NULL DEFAULT '',
   `name` varchar(100) NOT NULL DEFAULT '',
   `value` varchar(3000) NOT NULL DEFAULT '',
-  `regex` varchar(300) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+  `regex` varchar(300) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_config`
 --
 
 INSERT INTO `hex_config` (`id`, `title`, `name`, `value`, `regex`) VALUES
-(1, 'Market default language', 'language', 'vietnamese', ''),
+(1, 'Market default language', 'language', 'english', ''),
 (2, '', 'theme', 'v1', ''),
 (3, '', 'validation', 'off', ''),
-(4, 'Market name', 'name', 'Chợ rao vặt nhanh', ''),
+(4, 'Market name', 'name', 'E-Phones', ''),
 (5, 'Market e-mail address', 'email', 'admin@gmail.com', ''),
 (6, 'SMTP Server type', 'smtp_or_mail', 'mail', '/^(smtp|mail)$/'),
 (7, 'SMTP Host', 'smtp_host', '', ''),
@@ -257,18 +239,18 @@ INSERT INTO `hex_config` (`id`, `title`, `name`, `value`, `regex`) VALUES
 (22, 'Product max price', 'max_sale_price', '9999999999', '/^[0-9]{1,11}(\\.[0-9]{1,2}){0,1}$/'),
 (23, 'Product min price', 'min_sale_price', '50', '/^[0-9]{1,11}(\\.[0-9]{1,2}){0,1}$/'),
 (24, 'Payout Period', 'payout_period', '60', '/^[0-9]{1,2}$/'),
-(25, 'Market title', 'title', 'Chợ rao vặt nhanh', ''),
-(26, 'Market description', 'description', 'Chợ rao vặt nhanh', ''),
+(25, 'Market title', 'title', 'E-Phones', ''),
+(26, 'Market description', 'description', 'Nền tảng giao dịch smartphone uy tín gia rẻ', ''),
 (27, 'Market keywords', 'keywords', 'marketplace,ecommerce,shopping,ebusiness,ecom,store,online store,online business,ecommerce website,shopping cart,ecommunity,ecommerce platform', ''),
 (28, 'Google Maps API', 'google_maps_api', '', ''),
-(29, 'Company address', 'company_address', 'Chợ rao vặt nhanh', ''),
-(30, 'Company contacts info', 'contacts_info', 'Thành phố Hà Nội - Việt Nam <br>Số điện thoại: 113', '{32,3000}'),
+(29, 'Company address', 'company_address', 'E-Phones', ''),
+(30, 'Company contacts info', 'contacts_info', 'Khu phố 6, Phường Linh Trung, Quận Thủ Đức, TP. Hồ Chí Minh <br>Số điện thoại: 096402429', '{32,3000}'),
 (31, '', 'last_sitemap_update', '', ''),
 (32, '', 'last_backup', '', ''),
 (33, 'Google analytics', 'google_analytics', '', ''),
 (34, 'Order cancellation fee', 'order_cancellation_fee', '45', '/^[0-9]{1,11}(\\.[0-9]{1,2}){0,1}$/'),
 (35, '', 'script_version', '1.0.1', ''),
-(36, '', 'db_lc', '1593105183', ''),
+(36, '', 'db_lc', '1606426487', ''),
 (37, 'Facebook API ID', 'facebook_api_id', '', ''),
 (38, 'Facebook API Key', 'facebook_api_key', '', ''),
 (39, 'Twitter API ID', 'twitter_api_id', '', ''),
@@ -305,14 +287,12 @@ INSERT INTO `hex_config` (`id`, `title`, `name`, `value`, `regex`) VALUES
 -- Cấu trúc bảng cho bảng `hex_currencies`
 --
 
-DROP TABLE IF EXISTS `hex_currencies`;
-CREATE TABLE IF NOT EXISTS `hex_currencies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_currencies` (
+  `id` int(11) NOT NULL,
   `curr_name` varchar(55) NOT NULL DEFAULT '',
   `curr_code` varchar(6) NOT NULL DEFAULT 'usd',
-  `curr_symbol` varchar(5) CHARACTER SET utf8mb4 NOT NULL DEFAULT '$',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `curr_symbol` varchar(5) CHARACTER SET utf8mb4 NOT NULL DEFAULT '$'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_currencies`
@@ -329,21 +309,20 @@ INSERT INTO `hex_currencies` (`id`, `curr_name`, `curr_code`, `curr_symbol`) VAL
 -- Cấu trúc bảng cho bảng `hex_data_sessions`
 --
 
-DROP TABLE IF EXISTS `hex_data_sessions`;
-CREATE TABLE IF NOT EXISTS `hex_data_sessions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `json` text,
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE `hex_data_sessions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `json` text DEFAULT NULL,
+  `time` varchar(25) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_data_sessions`
 --
 
 INSERT INTO `hex_data_sessions` (`id`, `user_id`, `json`, `time`) VALUES
-(1, 1, '[]', '1593087193');
+(1, 1, '[]', '1593087193'),
+(3, 3, '[]', '1606390626');
 
 -- --------------------------------------------------------
 
@@ -351,22 +330,27 @@ INSERT INTO `hex_data_sessions` (`id`, `user_id`, `json`, `time`) VALUES
 -- Cấu trúc bảng cho bảng `hex_deliv_addresses`
 --
 
-DROP TABLE IF EXISTS `hex_deliv_addresses`;
-CREATE TABLE IF NOT EXISTS `hex_deliv_addresses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_deliv_addresses` (
+  `id` int(11) NOT NULL,
   `full_name` varchar(60) NOT NULL DEFAULT '',
   `phone` varchar(18) NOT NULL DEFAULT '',
   `street` varchar(100) NOT NULL DEFAULT '',
   `off_apt` varchar(60) NOT NULL DEFAULT '',
-  `country_id` int(3) NOT NULL DEFAULT '0',
+  `country_id` int(3) NOT NULL DEFAULT 0,
   `state` varchar(50) NOT NULL DEFAULT '',
   `city` varchar(60) NOT NULL DEFAULT '',
   `zip_postal` varchar(10) NOT NULL DEFAULT '',
   `email` varchar(50) NOT NULL DEFAULT '',
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `time` varchar(15) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `time` varchar(15) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_deliv_addresses`
+--
+
+INSERT INTO `hex_deliv_addresses` (`id`, `full_name`, `phone`, `street`, `off_apt`, `country_id`, `state`, `city`, `zip_postal`, `email`, `user_id`, `time`) VALUES
+(1, 'Nguyễn Thanh Hưng', '0964024229', '353 Nguyễn Trãi, Quận 1, Hồ Chí Minh', 'Nhà riêng', 233, '353 Nguyễn Trãi, Quận 1', 'Hồ Chí Minh', '700000', 'nguyenthanhhungb6@gmail.com', 1, '');
 
 -- --------------------------------------------------------
 
@@ -374,9 +358,8 @@ CREATE TABLE IF NOT EXISTS `hex_deliv_addresses` (
 -- Cấu trúc bảng cho bảng `hex_langs`
 --
 
-DROP TABLE IF EXISTS `hex_langs`;
-CREATE TABLE IF NOT EXISTS `hex_langs` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_langs` (
+  `id` int(11) NOT NULL,
   `lang_key` varchar(500) NOT NULL DEFAULT '',
   `english` varchar(500) NOT NULL DEFAULT '',
   `french` varchar(500) NOT NULL DEFAULT '',
@@ -388,9 +371,8 @@ CREATE TABLE IF NOT EXISTS `hex_langs` (
   `turkish` varchar(500) NOT NULL DEFAULT '',
   `dutch` varchar(500) NOT NULL DEFAULT '',
   `ukraine` varchar(500) NOT NULL DEFAULT '',
-  `vietnamese` varchar(500) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35656 DEFAULT CHARSET=utf8;
+  `vietnamese` varchar(500) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_langs`
@@ -811,7 +793,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (438, 'the_items_was_successfully_deleted_from_your_card', 'The items was successfully deleted from your card', 'Les éléments ont bien été supprimés de votre carte', 'Die Artikel wurden erfolgreich von Ihrer Karte gelöscht', 'Gli articoli sono stati eliminati correttamente dalla tua carta', 'Элементы были успешно удалены с вашей карты', 'Os itens foram excluídos com sucesso do seu cartão', 'Los elementos se eliminaron correctamente de su tarjeta', 'Öğeler kartınızdan başarıyla silindi', 'De items zijn succesvol van uw kaart verwijderd', 'Елементи успішно видалено з вашої картки', 'Các mục đã được xóa thành công khỏi thẻ của bạn'),
 (439, 'order_summary', 'Order Summary', 'Récapitulatif de la commande', 'Bestellübersicht', 'Riepilogo ordine', 'Итог заказа', 'Resumo do pedido', 'Resumen del pedido', 'Sipariş özeti', 'Overzicht van de bestelling', 'Підсумок Замовлення', 'Tóm tắt theo thứ tự'),
 (440, 'choose_a_payment_method', 'Choose a payment method', 'Choisissez une méthode de paiement', 'Wählen Sie eine Bezahlungsart', 'Scegli un metodo di pagamento', 'Выберите способ оплаты', 'Escolha um método de pagamento', 'Elija un método de pago', 'Bir ödeme yöntemi seçin', 'Kies een betaal methode', 'Оберіть спосіб оплати', 'Hãy chọn phương thức thanh toán'),
-(441, 'pay_order', 'Pay Order', 'Ordre de paiement', 'Bestellung bezahlen', 'Ordine di pagamento', 'Оплатить заказ', 'Ordem de pagamento', 'Orden de pago', 'Ödeme emri', 'Betaal bestelling', 'Оплатити замовлення', 'Lệnh thanh toán'),
+(441, 'pay_order', 'Pay Order', 'Ordre de paiement', 'Bestellung bezahlen', 'Ordine di pagamento', 'Оплатить заказ', 'Ordem de pagamento', 'Orden de pago', 'Ödeme emri', 'Betaal bestelling', 'Оплатити замовлення', 'Thanh toán'),
 (442, 'payment_methods', 'Payment Methods', 'Méthodes de payement', 'Zahlungsarten', 'Modalità di pagamento', 'Способы оплаты', 'Métodos de Pagamento', 'Métodos de pago', 'Ödeme metodları', 'Betalingsmethoden', 'Методи оплати', 'Phương thức thanh toán'),
 (443, 'we_will_refund_if_the_order_is_not_received_or_does_not_matc', 'We will refund if the order is not received or does not match the description.', 'Nous vous rembourserons si la commande n\'est pas reçue ou ne correspond pas à la description.', 'Wir erstatten, wenn die Bestellung nicht eingeht oder nicht der Beschreibung entspricht.', 'Ti rimborseremo se l\'ordine non viene ricevuto o non corrisponde alla descrizione.', 'Мы вернем деньги, если заказ не получен или не соответствует описанию.', 'Nós reembolsaremos se o pedido não for recebido ou não corresponder à descrição.', 'Le reembolsaremos si el pedido no se recibe o no coincide con la descripción', 'Sipariş alınmazsa veya açıklama ile eşleşmezse iade edeceğiz.', 'We zullen terugbetaling als de bestelling niet is ontvangen of niet overeenkomt met de beschrijving.', 'Ми повернемо кошти, якщо замовлення не буде отримано або не відповідає опису.', 'Chúng tôi sẽ hoàn lại tiền nếu đơn hàng không được nhận hoặc không khớp với mô tả.'),
 (444, 'customer_service', 'Customer service', 'Service Clients', 'Kundendienst', 'Assistenza clienti', 'Обслуживание клиентов', 'Serviço ao cliente', 'Servicio al cliente', 'Müşteri servisi', 'Klantenservice', 'Обслуговування клієнтів', 'Dịch vụ khách hàng'),
@@ -850,7 +832,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (481, 'poor', 'Poor', 'Pauvre', 'Arm', 'Povero', 'Бедных', 'Pobre', 'Pobre', 'Zavallı', 'Arm', 'Бідний', 'Nghèo'),
 (482, 'bad', 'Bad', 'Mauvais', 'Schlecht', 'Male', 'Плохо', 'Ruim', 'Malo', 'Kötü', 'Slecht', 'Погано', 'Xấu'),
 (483, 'all_reviews', 'All reviews', 'Tous les avis', 'Alle Bewertungen', 'Tutte le recensioni', 'Все отзывы', 'Todas as críticas', 'Todas las reseñas', 'Tüm yorumlar', 'Alle beoordelingen', 'Усі відгуки', 'Tất cả các đánh giá'),
-(484, 'customer_reviews', 'Customer Reviews', 'Avis des clients', 'Kundenbewertungen', 'Recensioni dei clienti', 'Отзывы клиентов', 'Avaliações de Clientes', 'Opiniones de los usuarios', 'Musteri degerlendirmeleri', 'Klanten-reviews', 'Відгуки покупців', 'Phản hồi khách hàng'),
+(484, 'customer_reviews', 'Customer Reviews', 'Avis des clients', 'Kundenbewertungen', 'Recensioni dei clienti', 'Отзывы клиентов', 'Avaliações de Clientes', 'Opiniones de los usuarios', 'Musteri degerlendirmeleri', 'Klanten-reviews', 'Відгуки покупців', 'Đánh giá của khách hàng'),
 (485, 'show_the_following_reviews', 'Show the following reviews', 'Afficher les avis suivants', 'Folgende Bewertungen anzeigen', 'Mostra le seguenti recensioni', 'Показать следующие отзывы', 'Mostrar os seguintes comentários', 'Mostrar las siguientes reseñas', 'Aşağıdaki değerlendirmeleri göster', 'Laat de volgende beoordelingen', 'Показати наступні відгуки', 'Hiển thị các đánh giá sau'),
 (486, 'verified_user', 'Verified User', 'Utilisateur vérifié', 'Verifizierter Benutzer', 'Utente verificato', 'Проверенный пользователь', 'Usuário verificado', 'Usuario verificado', 'Doğrulanmış Kullanıcı', 'Geverifieerde gebruiker', 'Підтверджений користувач', 'Người dùng đã được xác minh'),
 (487, 'share_this_item', 'Share this item', 'Partager cet article', 'Diesen Artikel teilen', 'Condividere questo elemento', 'Поделиться этим', 'Compartilhe este item', 'Comparte este objeto', 'Bu nesneyi paylaş', 'Deel dit artikel', 'Поділись цим елементом', 'Chia sẻ mục này'),
@@ -913,7 +895,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (554, 'the_list_name_can_not_be_more_than_20_characters_long.', 'The list name can not be more than 20 characters long.', 'Le nom de la liste ne peut pas comporter plus de 20 caractères.', 'Der Listenname darf nicht länger als 20 Zeichen sein.', 'Il nome dell\'elenco non può contenere più di 20 caratteri.', 'Имя списка не может быть длиннее 20 символов.', 'O nome da lista não pode ter mais de 20 caracteres.', 'El nombre de la lista no puede tener más de 20 caracteres', 'Liste adı 20 karakterden uzun olamaz.', 'De lijstnaam mag niet langer zijn dan 20 tekens.', 'Назва списку не може бути більше 20 символів.', 'Tên danh sách không thể dài hơn 20 ký tự.'),
 (555, 'product_successfully_added_to_your_new_wishlist.', 'Product successfully added to your new wishlist.', 'Produit ajouté avec succès à votre nouvelle liste de souhaits.', 'Produkt erfolgreich zu Ihrer neuen Wunschliste hinzugefügt.', 'Prodotto aggiunto con successo alla tua nuova lista dei desideri.', 'Продукт успешно добавлен в ваш новый список желаний.', 'Produto adicionado com sucesso à sua nova lista de desejos.', 'Producto agregado con éxito a su nueva lista de deseos', 'Ürün başarıyla yeni dilek listenize eklendi.', 'Product succesvol toegevoegd aan uw nieuwe verlanglijst.', 'Товар успішно додано до вашого нового списку бажань.', 'Sản phẩm được thêm thành công vào danh sách mong muốn mới của bạn.'),
 (556, 'product_successfully_added_to_your_wishlist.', 'Product successfully added to your wishlist.', 'Produit ajouté avec succès à votre liste de souhaits.', 'Produkt erfolgreich zu Ihrer Wunschliste hinzugefügt.', 'Prodotto aggiunto correttamente alla tua lista desideri.', 'Продукт успешно добавлен в ваш список желаний.', 'Produto adicionado com sucesso à sua lista de desejos.', 'Producto agregado con éxito a su lista de deseos', 'Ürün istek listenize başarıyla eklendi.', 'Product succesvol toegevoegd aan uw verlanglijstje.', 'Товар успішно додано до вашого списку бажань.', 'Sản phẩm được thêm thành công vào danh sách mong muốn của bạn.'),
-(557, 'not_approved', 'Not approved', 'Non approuvé', 'Nicht bestätigt', 'Non approvato', 'Не одобрено', 'Não aprovado', 'No aprovado', 'Onaylanmamış', 'Niet goedgekeurd', 'Не схвалений', 'Không được chấp thuận'),
+(557, 'not_approved', 'Not approved', 'Non approuvé', 'Nicht bestätigt', 'Non approvato', 'Не одобрено', 'Não aprovado', 'No aprovado', 'Onaylanmamış', 'Niet goedgekeurd', 'Не схвалений', 'Chưa được duyệt'),
 (558, 'this_product_has_not_yet_been_approved_by_the_market', 'This product has not yet been approved by the market', 'Ce produit n\'a pas encore été approuvé par le marché', 'Dieses Produkt wurde noch nicht vom Markt zugelassen', 'Questo prodotto non è stato ancora approvato dal mercato', 'Этот продукт еще не был одобрен рынком', 'Este produto ainda não foi aprovado pelo mercado', 'Este producto aún no ha sido aprobado por el mercado', 'Bu ürün henüz piyasa tarafından onaylanmadı', 'Dit product is nog niet goedgekeurd door de markt', 'Цей товар ще не затверджений ринком', 'Sản phẩm này chưa được thị trường chấp thuận'),
 (559, 'go_to_seller_profile', 'Go to seller profile', 'Accéder au profil du vendeur', 'Zum Verkäuferprofil', 'Vai al profilo del venditore', 'Перейти к профилю продавца', 'Ir para o perfil do vendedor', 'Ir al perfil del vendedor', 'Satıcı profiline git', 'Ga naar verkopersprofiel', 'Перейти до профілю продавця', 'Chuyển đến hồ sơ người bán'),
 (560, 'no_rating_selected._please_select_a_review_rating', 'No rating selected. Please select a review rating', 'Aucune évaluation sélectionnée. Veuillez sélectionner une évaluation', 'Keine Bewertung ausgewählt. Bitte eine Bewertung auswählen', 'Nessuna valutazione selezionata. Seleziona una valutazione', 'Оценка не выбрана. Пожалуйста, выберите оценку отзыва', 'Nenhuma classificação selecionada. Selecione uma classificação de revisão', 'Ninguna calificación seleccionada. Seleccione una calificación de revisión', 'Hiçbir derecelendirme seçilmedi. Lütfen bir değerlendirme seçin', 'Geen beoordeling geselecteerd. Selecteer een beoordelingsbeoordeling', 'Не вибрано рейтингу. Виберіть рейтинг відгуку', 'Không có đánh giá được lựa chọn. Vui lòng chọn một đánh giá đánh giá'),
@@ -956,20 +938,20 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (599, 'total_sales', 'Total sales', 'Ventes totales', 'Gesamtumsatz', 'Vendite totali', 'Тотальная распродажа', 'Vendas totais', 'Ventas totales', 'Toplam satış', 'Totale verkoop', 'Загальний обсяг продажів', 'Tổng doanh số'),
 (600, 'total_users', 'Total Users', 'Nombre total d\'utilisateurs', 'Benutzer insgesamt', 'Utenti totali', 'Всего пользователей', 'Total de usuários', 'Usuarios totales', 'Toplam Kullanıcı', 'Totaal aantal gebruikers', 'Всього користувачів', 'Tổng số người dùng'),
 (601, 'annual_sales_and_revenue_analytics', 'Annual sales and revenue analytics', 'Analyse des ventes et des revenus annuels', 'Jahresumsatz- und Umsatzanalyse', 'Analisi delle vendite e delle entrate annuali', 'Годовой анализ продаж и доходов', 'Análise anual de vendas e receita', 'Análisis de ventas e ingresos anuales', 'Yıllık satış ve gelir analizi', 'Jaarlijkse verkoop- en omzetanalyses', 'Щорічна аналітика продажів та доходів', 'Phân tích doanh thu và doanh thu hàng năm'),
-(602, 'january', 'January', 'Janvier', 'Januar', 'Gennaio', 'Январь', 'Janeiro', 'Enero', 'Ocak', 'Januari', 'Січень', 'Tháng Giêng'),
+(602, 'january', 'January', 'Janvier', 'Januar', 'Gennaio', 'Январь', 'Janeiro', 'Enero', 'Ocak', 'Januari', 'Січень', 'Tháng 1'),
 (603, 'february', 'February', 'Février', 'Februar', 'Febbraio', 'Февраль', 'Fevereiro', 'Febrero', 'Şubat', 'Februari', 'Лютий', 'Tháng 2'),
-(604, 'march', 'March', 'Mars', 'März', 'Marzo', 'Март', 'Março', 'Marzo', 'Mart', 'Maart', 'Березень', 'Tháng Ba'),
+(604, 'march', 'March', 'Mars', 'März', 'Marzo', 'Март', 'Março', 'Marzo', 'Mart', 'Maart', 'Березень', 'Tháng 3'),
 (605, 'april', 'April', 'Avril', 'April', 'Aprile', 'Апрель', 'Abril', 'Abril', 'Nisan', 'April', 'Квітень', 'Tháng 4'),
-(606, 'may', 'May', 'Mai', 'Kann', 'Potrebbe', 'Май', 'Posso', 'Mayo', 'Mayıs ayı', 'Mei', 'Може', 'có thể'),
+(606, 'may', 'May', 'Mai', 'Kann', 'Potrebbe', 'Май', 'Posso', 'Mayo', 'Mayıs ayı', 'Mei', 'Може', 'Tháng 5'),
 (607, 'june', 'June', 'Juin', 'Juni', 'Giugno', 'Июнь', 'Junho', 'Junio', 'Haziran', 'Juni', 'Червень', 'Tháng 6'),
 (608, 'july', 'July', 'Juillet', 'Juli', 'Luglio', 'Июль', 'Julho', 'Julio', 'Temmuz', 'Juli', 'Липень', 'Tháng 7'),
-(609, 'august', 'August', 'Août', 'August', 'Agosto', 'Август', 'Agosto', 'Agosto', 'Ağustos', 'Augustus', 'Серпень', 'Tháng Tám'),
-(610, 'september', 'September', 'Septembre', 'September', 'Settembre', 'Сентябрь', 'Setembro', 'Septiembre', 'Eylül', 'September', 'Вересень', 'Tháng Chín'),
-(611, 'october', 'October', 'Octobre', 'Oktober', 'Ottobre', 'Октябрь', 'Outubro', 'Octubre', 'Ekim', 'Oktober', 'Жовтень', 'Tháng Mười'),
+(609, 'august', 'August', 'Août', 'August', 'Agosto', 'Август', 'Agosto', 'Agosto', 'Ağustos', 'Augustus', 'Серпень', 'Tháng 8'),
+(610, 'september', 'September', 'Septembre', 'September', 'Settembre', 'Сентябрь', 'Setembro', 'Septiembre', 'Eylül', 'September', 'Вересень', 'Tháng 9'),
+(611, 'october', 'October', 'Octobre', 'Oktober', 'Ottobre', 'Октябрь', 'Outubro', 'Octubre', 'Ekim', 'Oktober', 'Жовтень', 'Tháng 10'),
 (612, 'november', 'November', 'Novembre', 'November', 'Novembre', 'Ноябрь', 'Novembro', 'Noviembre', 'Kasım', 'November', 'Листопад', 'Tháng 11'),
 (613, 'december', 'December', 'Décembre', 'Dezember', 'Dicembre', 'Декабрь', 'Dezembro', 'Diciembre', 'Aralık', 'December', 'Грудень', 'Tháng 12'),
 (614, 'commission_income', 'Commission income', 'Revenus de commissions', 'Provisionserträge', 'Entrate della Commissione', 'Комиссионный доход', 'Comissão de renda', 'Ingresos por comisiones', 'Komisyon geliri', 'Commissie inkomen', 'Комісійний дохід', 'Thu nhập từ hoa hồng'),
-(615, 'products', 'Products', 'Des produits', 'Produkte', 'Prodotti', 'Продукты', 'Produtos', 'Productos', 'Ürünler', 'Producten', 'Продукти', 'Các sản phẩm'),
+(615, 'products', 'Products', 'Des produits', 'Produkte', 'Prodotti', 'Продукты', 'Produtos', 'Productos', 'Ürünler', 'Producten', 'Продукти', 'Tất cả sản phẩm'),
 (616, 'balance', 'Balance', 'Équilibre', 'Balance', 'Equilibrio', 'Остаток средств', 'Equilibrar', 'Equilibrar', 'Denge', 'Balans', 'Баланс', 'Số dư'),
 (617, 'new_orders', 'New orders', 'Nouvelles commandes', 'Neue Bestellungen', 'Nuovi ordini', 'Новые заказы', 'Novas ordens', 'Nuevos pedidos', 'Yeni siparişler', 'Nieuwe bevelen', 'Нові замовлення', 'Đơn hàng mới'),
 (618, 'customers', 'Customers', 'Les clients', 'Kunden', 'Clienti', 'Клиенты', 'Clientes', 'Clientes', 'Müşteriler', 'Klanten', 'Клієнти', 'Khách hàng'),
@@ -983,16 +965,16 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (626, 'total_products', 'Total products', 'Produits totaux', 'Produkte insgesamt', 'Totale prodotti', 'Всего товаров', 'Total de produtos', 'Productos totales', 'Toplam ürün', 'Totaal producten', 'Всього продуктів', 'Tổng sản phẩm'),
 (627, 'total_reviews', 'Total reviews', 'Nombre total d\'avis', 'Bewertungen insgesamt', 'Recensioni totali', 'Всего отзывов', 'Total de comentários', 'Reseñas totales', 'Toplam inceleme', 'Totaal aantal beoordelingen', 'Всього відгуків', 'Tổng số đánh giá'),
 (628, 'top_selling_products', 'Top Selling Products', 'Produits les plus vendus', 'Meistverkaufte Produkte', 'Prodotti più venduti', 'Самые продаваемые товары', 'Produtos mais vendidos', 'Los productos más vendidos', 'En Çok Satan Ürünler', 'Best verkopende producten', 'Найпопулярніші товари', 'Sản phẩm bán chạy nhất'),
-(629, 'sunday', 'Sunday', 'Dimanche', 'Sonntag', 'Domenica', 'Воскресенье', 'Domingo', 'Domingo', 'Pazar', 'Zondag', 'Неділя', 'chủ nhật'),
+(629, 'sunday', 'Sunday', 'Dimanche', 'Sonntag', 'Domenica', 'Воскресенье', 'Domingo', 'Domingo', 'Pazar', 'Zondag', 'Неділя', 'Chủ nhật'),
 (630, 'monday', 'Monday', 'Lundi', 'Montag', 'Lunedi', 'Понедельник', 'Segunda-feira', 'Lunes', 'Pazartesi', 'Maandag', 'Понеділок', 'Thứ hai'),
 (631, 'tuesday', 'Tuesday', 'Mardi', 'Dienstag', 'Martedì', 'Вторник', 'Terça', 'Martes', 'Salı', 'Dinsdag', 'Вівторок', 'Thứ ba'),
-(632, 'wedesday', 'Wedesday', 'Mercredi', 'Mittwoch', 'Wedesday', 'Wedesday', 'Quarta-feira', 'Miércoles', 'Wedesday', 'Wedesday', 'Вівторок', 'Thứ năm'),
-(633, 'thusday', 'Thusday', 'Thusday', 'Thusday', 'Thusday', 'Thusday', 'Thusday', 'Hasta hoy', 'Thusday', 'Thusday', 'Таким днем', 'Ngày nay'),
+(632, 'wedesday', 'Wednesday', 'Mercredi', 'Mittwoch', 'Wedesday', 'Wedesday', 'Quarta-feira', 'Miércoles', 'Wedesday', 'Wedesday', 'Вівторок', 'Thứ tư'),
+(633, 'thusday', 'Thursday', 'Thusday', 'Thusday', 'Thusday', 'Thusday', 'Thusday', 'Hasta hoy', 'Thusday', 'Thusday', 'Таким днем', 'Thứ năm'),
 (634, 'friday', 'Friday', 'Vendredi', 'Freitag', 'Venerdì', 'Пятница', 'Sexta-feira', 'Viernes', 'Cuma', 'Vrijdag', 'П\'ятниця', 'Thứ sáu'),
-(635, 'saturday', 'Saturday', 'Samedi', 'Samstag', 'Sabato', 'Суббота', 'Sábado', 'Sábado', 'Cumartesi', 'Zaterdag', 'Субота', 'ngày thứ bảy'),
+(635, 'saturday', 'Saturday', 'Samedi', 'Samstag', 'Sabato', 'Суббота', 'Sábado', 'Sábado', 'Cumartesi', 'Zaterdag', 'Субота', 'Thứ bảy'),
 (636, 'orders', 'Orders', 'Ordres', 'Aufträge', 'Ordini', 'Заказы', 'Encomendas', 'Pedidos', 'Emirler', 'Orders', 'Замовлення', 'Đơn đặt hàng'),
 (638, 'dashboard', 'Dashboard', 'Tableau de bord', 'Instrumententafel', 'Cruscotto', 'Панель приборов', 'Painel de controle', 'Tablero', 'Pano', 'Dashboard', 'Панель приладів', 'Bảng điều khiển'),
-(639, 'customer_orders', 'Customer orders', 'Commandes clients', 'Kundenbestellungen', 'Ordini dei clienti', 'Заказы клиентов', 'Pedidos de clientes', 'Pedidos de los clientes', 'Müşteri siparişleri', 'Klanten bestellingen', 'Замовлення клієнтів', 'Yêu cầu của khách hàng'),
+(639, 'customer_orders', 'Customer orders', 'Commandes clients', 'Kundenbestellungen', 'Ordini dei clienti', 'Заказы клиентов', 'Pedidos de clientes', 'Pedidos de los clientes', 'Müşteri siparişleri', 'Klanten bestellingen', 'Замовлення клієнтів', 'Đơn hàng của khách hàng'),
 (640, 'draft', 'Draft', 'Brouillon', 'Entwurf', 'Bozza', 'Черновой вариант', 'Esboço, projeto', 'Borrador', 'Taslak', 'Droogte', 'Чернетка', 'Bản nháp'),
 (641, 'add_product', 'Add Product', 'Ajouter un produit', 'Produkt hinzufügen', 'Aggiungi prodotto', 'Добавить товар', 'Adicionar produto', 'Agregar producto', 'Ürün ekle', 'Product toevoegen', 'Додати товар', 'Thêm sản phẩm mới'),
 (642, 'wallet', 'Wallet', 'Portefeuille', 'Brieftasche', 'Portafoglio', 'Кошелек', 'Carteira', 'Billetera', 'Cüzdan', 'Portemonnee', 'Гаманець', 'Ví tiền'),
@@ -1010,7 +992,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (655, 'announcements', 'Announcements', 'Annonces', 'Ankündigungen', 'annunci', 'Объявления', 'Anúncios', 'Anuncios', 'Duyurular', 'Aankondigingen', 'Оголошення', 'Thông báo'),
 (656, 'sitemap', 'SiteMap', 'SiteMap', 'Seitenverzeichnis', 'Mappa del sito', 'SiteMap', 'SiteMap', 'Mapa del sitio', 'SiteMap', 'SiteMap', 'Карта сайту', 'Sơ đồ trang web'),
 (657, 'backup', 'Backup', 'Sauvegarde', 'Backup', 'Backup', 'Резервный', 'Cópia de segurança', 'Apoyo', 'Yedek', 'Backup', 'Резервне копіювання', 'Sao lưu'),
-(658, 'global_settings', 'Global settings', 'Paramètres globaux', 'Globale Einstellungen', 'Impostazioni globali', 'Глобальные настройки', 'Configurações globais', 'Configuración global', 'Genel Ayarlar', 'Algemene instellingen', 'Глобальні налаштування', 'Thiết lập toàn cầu'),
+(658, 'global_settings', 'Global settings', 'Paramètres globaux', 'Globale Einstellungen', 'Impostazioni globali', 'Глобальные настройки', 'Configurações globais', 'Configuración global', 'Genel Ayarlar', 'Algemene instellingen', 'Глобальні налаштування', 'Thiết lập chung'),
 (659, 'site_settings', 'Site settings', 'Paramètres du site', 'Seiteneinstellungen', 'Impostazioni del sito', 'Настройки сайта', 'Configurações do site', 'Configuración del sitio', 'Site ayarları', 'Site-instellingen', 'Налаштування сайту', 'Cài đặt Trang web'),
 (660, 'payment_settings', 'Payment settings', 'Paramètres de paiement', 'Zahlungseinstellungen', 'Impostazioni pagamento', 'Настройки оплаты', 'Configurações de pagamento', 'Configuración de pago', 'Ödeme ayarları', 'Betalingsinstellingen', 'Налаштування оплати', 'Cài đặt thanh toán'),
 (661, 'e-mail_settings', 'E-mail settings', 'Paramètres de messagerie', 'Email Einstellungen', 'Impostazioni dell \'email', 'Настройки электронной почты', 'Configurações de e-mail', 'Ajustes del correo electrónico', 'E mail ayarları', 'Email instellingen', 'Налаштування електронної пошти', 'Cài đặt e-mail'),
@@ -1056,11 +1038,11 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (704, 'products_management', 'Products management', 'Gestion des produits', 'Produktmanagement', 'Gestione dei prodotti', 'Управление продуктами', 'Gerenciamento de produtos', 'Gestión de productos', 'Ürün yönetimi', 'Productenbeheer', 'Управління продуктами', 'Quản lý sản phẩm'),
 (705, 'list_of_my_products', 'List of my products', 'Liste de mes produits', 'Liste meiner Produkte', 'Elenco dei miei prodotti', 'Список моих продуктов', 'Lista dos meus produtos', 'Lista de mis productos', 'Ürünlerimin listesi', 'Lijst van mijn producten', 'Список моїх продуктів', 'Danh sách các sản phẩm của tôi'),
 (706, 'search_for_products_by_name', 'Search for products by name', 'Rechercher des produits par nom', 'Produkte nach Namen suchen', 'Cerca prodotti per nome', 'Поиск товаров по названию', 'Pesquise produtos por nome', 'Buscar productos por nombre', 'Ürünleri isme göre ara', 'Zoeken naar producten op naam', 'Пошук продуктів за назвою', 'Tìm kiếm sản phẩm theo tên'),
-(707, 'poster', 'Poster', 'Affiche', 'Poster', 'Manifesto', 'Плакат', 'Poster', 'Póster', 'Afiş', 'Poster', 'Плакат', 'Áp phích'),
+(707, 'poster', 'Poster', 'Affiche', 'Poster', 'Manifesto', 'Плакат', 'Poster', 'Póster', 'Afiş', 'Poster', 'Плакат', 'Ảnh sản phẩm'),
 (708, 'product_name', 'Product name', 'Nom du produit', 'Produktname', 'Nome del prodotto', 'Наименование товара', 'Nome do Produto', 'Nombre del producto', 'Ürün adı', 'Productnaam', 'Назва продукту', 'Tên sản phẩm'),
 (709, 'sold', 'Sold', 'Vendu', 'Verkauft', 'Venduto', 'Продан', 'Vendido', 'Vendido', 'Satıldı', 'Verkocht', 'Продано', 'Đã bán'),
 (710, 'profit', 'Profit', 'Profit', 'Profitieren', 'Profitto', 'Прибыль', 'Lucro', 'Lucro', 'Kar', 'Winst', 'Прибуток', 'Lợi nhuận'),
-(711, 'action', 'Action', 'Action', 'Aktion', 'Azione', 'Действие', 'Açao', 'Acción', 'Aksiyon', 'Actie', 'Дія', 'Hoạt động'),
+(711, 'action', 'Action', 'Action', 'Aktion', 'Azione', 'Действие', 'Açao', 'Acción', 'Aksiyon', 'Actie', 'Дія', 'Tùy chọn hành động'),
 (712, 'add_new_product', 'Add New Product', 'Ajouter un nouveau produit', 'Neues Produkt hinzufügen', 'Aggiungi nuovo prodotto', 'Добавить новый продукт', 'Adicionar novo produto', 'Agregar nuevo producto', 'Yeni Ürün Ekle', 'Nieuw product toevoegen', 'Додати новий товар', 'Thêm sản phẩm mới'),
 (713, 'no_products_found.', 'No products found.', 'Aucun produit trouvé.', 'Keine Produkte gefunden.', 'Nessun prodotto trovato.', 'Продукты не найдены.', 'Nenhum produto encontrado.', 'No se encontraron productos', 'Ürün bulunamadı.', 'Geen producten gevonden.', 'Не знайдено жодної продукції.', 'Không tìm thấy sản phẩm.'),
 (714, 'to_add_a_new_product__open_the_page_using_the_link_in_the_me', 'To add a new product, open the page using the link in the menu \\&quot;Add a new product\\&quot;', 'Pour ajouter un nouveau produit, ouvrez la page en utilisant le lien dans le menu Ajouter un nouveau produit ', 'Um ein neues Produkt hinzuzufügen, öffnen Sie die Seite über den Link im Menü Neues Produkt hinzufügen ', 'Per aggiungere un nuovo prodotto, apri la pagina usando il link nel menu Aggiungi un nuovo prodotto', 'Чтобы добавить новый продукт, откройте страницу с помощью ссылки в меню Добавить новый продукт', 'Para adicionar um novo produto, abra a página usando o link no menu  Adicionar um novo produto', 'Para agregar un nuevo producto, abra la página usando el enlace en el menú Agregar un nuevo producto', 'Yeni bir ürün eklemek için, Yeni bir ürün ekle menüsündeki bağlantıyı kullanarak sayfayı açın', 'Om een ​​nieuw product toe te voegen, opent u de pagina met behulp van de link in het menu Een nieuw product toevoegen', 'Щоб додати новий продукт, відкрийте сторінку за допомогою посилання в меню Додати новий товар', 'Để thêm sản phẩm mới,  góc trái menu\\&quot;Mặt hàng đăng bán -&gt; Thêm sản phẩm mới\\&quot;'),
@@ -1079,13 +1061,13 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (727, 'your_changes_to_this_product_has_been_successfully_saved_', 'Your changes to this product has been successfully saved!', 'Vos modifications apportées à ce produit ont été enregistrées avec succès!', 'Ihre Änderungen an diesem Produkt wurden erfolgreich gespeichert!', 'Le tue modifiche a questo prodotto sono state salvate correttamente!', 'Ваши изменения в этом продукте были успешно сохранены!', 'Suas alterações neste produto foram salvas com sucesso!', '¡Sus cambios a este producto se han guardado correctamente!', 'Bu üründe yaptığınız değişiklikler başarıyla kaydedildi!', 'Uw wijzigingen aan dit product zijn succesvol opgeslagen!', 'Ваші зміни цього продукту успішно збережено!', 'Những thay đổi của bạn đối với sản phẩm này đã được lưu thành công!'),
 (728, 'add_a_new_product', 'Add a new product', 'Ajouter un nouveau produit', 'Neues Produkt hinzufügen', 'Aggiungi un nuovo prodotto', 'Добавить новый продукт', 'Adicionar um novo produto', 'Agregar un nuevo producto', 'Yeni bir ürün ekle', 'Voeg een nieuw product toe', 'Додати новий продукт', 'Thêm một sản phẩm mới'),
 (729, 'product_basic_information', 'Product Basic Information', 'Informations de base sur le produit', 'Grundlegende Produktinformationen', 'Informazioni di base sul prodotto', 'Основная информация о продукте', 'Informações básicas do produto', 'Información básica del producto', 'Ürün Temel Bilgisi', 'Product basisinformatie', 'Основна інформація про продукт', 'Thông tin cơ bản về sản phẩm'),
-(730, 'product_name._e.g._men_s_t-shirt_etc', 'Product name. E.g. Men\\&#039;s t-shirt etc', 'Nom du produit. Par exemple, t-shirt pour homme, etc.', 'Produktname. Zum Beispiel Herren T-Shirt etc', 'Nome del prodotto. Es. Maglietta da uomo ecc.', 'Название продукта. Например, мужская футболка и т. Д.', 'Nome do produto. Por exemplo, camiseta masculina etc', 'Nombre del producto. Por ejemplo, camiseta de hombre, etc.', 'Ürün adı. E.g. Erkek tişört vs.', 'Productnaam. Bijvoorbeeld heren-T-shirt enz.', 'Назва товару. Наприклад, футболка для чоловіків тощо', 'Tên sản phẩm. Ví dụ. Áo thun nam v.v.'),
+(730, 'product_name._e.g._men_s_t-shirt_etc', 'Product name. E.g. Men\\&#039;s Iphone11 etc', 'Nom du produit. Par exemple, t-shirt pour homme, etc.', 'Produktname. Zum Beispiel Herren T-Shirt etc', 'Nome del prodotto. Es. Maglietta da uomo ecc.', 'Название продукта. Например, мужская футболка и т. Д.', 'Nome do produto. Por exemplo, camiseta masculina etc', 'Nombre del producto. Por ejemplo, camiseta de hombre, etc.', 'Ürün adı. E.g. Erkek tişört vs.', 'Productnaam. Bijvoorbeeld heren-T-shirt enz.', 'Назва товару. Наприклад, футболка для чоловіків тощо', 'Tên sản phẩm. Ví dụ. Iphone 11 Pro Max v.v.'),
 (731, 'product_condition', 'Product condition', 'Etat du produit', 'Produktzustand', 'Condizioni del prodotto', 'Состояние товара', 'Condição do produto', 'Condición del producto', 'Ürün durumu', 'Productconditie', 'Стан продукту', 'Tình trạng sản phẩm'),
 (732, 'enter_product_description', 'Enter product description', 'Entrez la description du produit', 'Produktbeschreibung eingeben', 'Inserisci la descrizione del prodotto', 'Введите описание товара', 'Digite a descrição do produto', 'Ingrese la descripción del producto', 'Ürün tanımını girin', 'Voer productbeschrijving in', 'Введіть опис продукту', 'Nhập mô tả sản phẩm'),
 (733, 'product_pricing___shipping', 'Product Pricing &amp; Shipping', 'Prix et expédition des produits', 'Produktpreise & Versand', 'Prezzi e spedizione dei prodotti', 'Ценообразование и доставка товара', 'Preços e envio do produto', 'Precios y envío de productos', 'Ürün Fiyatlandırması ve Nakliye', 'Productprijzen en verzending', 'Ціни та доставка товарів', 'Giá sản phẩm & vận chuyển'),
-(734, 'regular_price', 'Regular price', 'Prix habituel', 'Regulärer Preis', 'Prezzo regolare', 'Обычная цена', 'Preço regular', 'Precio regular', 'Normal fiyat', 'Normale prijs', 'Звичайна ціна', 'Giá cả phải chăng'),
+(734, 'regular_price', 'Regular price', 'Prix habituel', 'Regulärer Preis', 'Prezzo regolare', 'Обычная цена', 'Preço regular', 'Precio regular', 'Normal fiyat', 'Normale prijs', 'Звичайна ціна', 'Giá thực thị trường'),
 (735, 'only_numeric_value_is_allowed._e.g._149.99', 'Only numeric value is allowed. E.g. 149.99', 'Seule la valeur numérique est autorisée. Par exemple 149,99', 'Es ist nur ein numerischer Wert zulässig. Zum Beispiel 149,99', 'È consentito solo un valore numerico. Ad esempio 149,99', 'Допускается только числовое значение. Например, 149,99', 'Somente o valor numérico é permitido. Por exemplo, 149,99', 'Solo se permite el valor numérico. Por ejemplo, 149,99', 'Yalnızca sayısal değere izin verilir. E.g. 149.99', 'Alleen numerieke waarde is toegestaan. Bijvoorbeeld 149,99', 'Дозволено лише числове значення. Наприклад, 149,99', 'Chỉ cho phép giá trị số. Ví dụ. 149,99'),
-(736, 'sale_price', 'Sale price', 'Prix de vente', 'Verkaufspreis', 'Prezzo di vendita', 'Цена продажи', 'Preço de venda', 'Precio de venta', 'Satış ücreti', 'Verkoopprijs', 'Ціна продажу', 'Giá bán'),
+(736, 'sale_price', 'Sale price', 'Prix de vente', 'Verkaufspreis', 'Prezzo di vendita', 'Цена продажи', 'Preço de venda', 'Precio de venta', 'Satış ücreti', 'Verkoopprijs', 'Ціна продажу', 'Giá bán lại'),
 (738, 'free_shipping', 'Free Shipping', 'Livraison gratuite', 'Kostenloser Versand', 'Spedizione gratuita', 'Бесплатная доставка', 'Frete grátis', 'Envío gratis', 'Ücretsiz kargo', 'Gratis verzending', 'Безкоштовна доставка', 'Miễn phí vận chuyển'),
 (739, 'buyer_pays', 'Buyer Pays', 'L\'acheteur paie', 'Käufer zahlt', 'Il compratore paga', 'Покупатель платит', 'O comprador paga', 'El comprador paga', 'Alıcı öder', 'Koper betaalt', 'Покупець платить', 'Bên mua thanh toán'),
 (740, 'shipping_fee', 'Shipping fee', 'Frais d\'expédition', 'Versandkosten', 'Tassa di spedizione', 'Стоимость доставки', 'Taxa de envio', 'Gastos de envío', 'Nakliye ücreti', 'Verzendkosten', 'Вартість доставки', 'Phí vận chuyển'),
@@ -1097,7 +1079,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (747, 'ready_to_ship_in_4-7_business_days', 'Ready to ship in 4-7 Business Days', 'Prêt à expédier en 4-7 jours ouvrables', 'Versandfertig in 4-7 Werktagen', 'Pronto per la spedizione in 4-7 giorni lavorativi', 'Готово к отправке в течение 4-7 рабочих дней', 'Pronto para enviar em 4-7 dias úteis', 'Listo para enviar en 4-7 días hábiles', '4-7 İş Günü İçinde Kargoya Hazır', 'Klaar om te verzenden binnen 4-7 werkdagen', 'Готовий до доставки через 4-7 робочих днів', 'Sẵn sàng giao hàng trong 4-7 ngày làm việc'),
 (748, 'ready_to_ship_in_8-15_business_days', 'Ready to ship in 8-15 Business Days', 'Prêt à expédier en 8-15 jours ouvrables', 'Versandfertig in 8-15 Werktagen', 'Pronto per la spedizione in 8-15 giorni lavorativi', 'Готово к отправке через 8-15 рабочих дней', 'Pronto para enviar em 8 a 15 dias úteis', 'Listo para enviar en 8-15 días hábiles', '8-15 İş Günü İçinde Kargoya Hazır', 'Klaar voor verzending over 8-15 werkdagen', 'Готовий до відправки за 8-15 робочих днів', 'Sẵn sàng giao hàng trong 8-15 ngày làm việc'),
 (749, 'prodcut_logistics_information', 'Prodcut Logistics Information', 'Informations logistiques Prodcut', 'Prodcut Logistics Information', 'Informazioni sulla logistica di Prodcut', 'Prodcut Logistics Information', 'Informações de logística de produtos', 'Información logística de productos', 'Prodcut Logistics Bilgi', 'Prodcut Logistics Information', 'Інформація про техніку логістики', 'Thông tin thêm'),
-(750, 'origin', 'Origin', 'Origine', 'Ursprung', 'Origine', 'Происхождение', 'Origem', 'Origen', 'Menşei', 'Oorsprong', 'Походження', 'Gốc'),
+(750, 'origin', 'Origin', 'Origine', 'Ursprung', 'Origine', 'Происхождение', 'Origem', 'Origen', 'Menşei', 'Oorsprong', 'Походження', 'Nguồn gốc'),
 (751, 'enter_product_origin_country_name', 'Enter product origin country name', 'Entrez le nom du pays d\'origine du produit', 'Geben Sie den Namen des Ursprungslandes des Produkts ein', 'Inserisci il nome del paese di origine del prodotto', 'Введите название страны происхождения товара', 'Digite o nome do país de origem do produto', 'Ingrese el nombre del país de origen del producto', 'Ürün menşei ülke adını girin', 'Voer de naam van het land van oorsprong van het product in', 'Введіть назву країни походження продукту', 'Nhập tên quốc gia xuất xứ sản phẩm'),
 (752, 'enter_product_brand_name', 'Enter product brand name', 'Entrez le nom de la marque du produit', 'Geben Sie den Markennamen des Produkts ein', 'Inserisci il nome del prodotto', 'Введите название бренда продукта', 'Digite o nome da marca do produto', 'Ingrese la marca del producto', 'Ürün markasını girin', 'Voer de merknaam van het product in', 'Введіть назву торгової марки', 'Nhập tên thương hiệu sản phẩm'),
 (753, 'model_number', 'Model number', 'Numéro de modèle', 'Modell-Nr', 'Numero di modello', 'Номер модели', 'Número do modelo', 'Número de modelo', 'Model numarası', 'Modelnummer', 'Номер моделі', 'Số mô hình'),
@@ -1105,7 +1087,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (755, 'weight', 'Weight', 'Poids', 'Gewicht', 'Peso', 'Вес', 'Peso', 'Peso', 'Ağırlık', 'Gewicht', 'Вага', 'Cân nặng'),
 (757, 'length', 'Length', 'Longueur', 'Länge', 'Lunghezza', 'Длина', 'Comprimento', 'Longitud', 'Uzunluk', 'Lengte', 'Довжина', 'Chiều dài'),
 (759, 'width', 'Width', 'Largeur', 'Breite', 'Larghezza', 'Ширина', 'Largura', 'Anchura', 'Genişlik', 'Breedte', 'Ширина', 'Chiều rộng'),
-(761, 'height', 'Height', 'La taille', 'Höhe', 'Altezza', 'Рост', 'Altura', 'Altura', 'Yükseklik', 'Hoogte', 'Висота', 'Chiều cao'),
+(761, 'height', 'Thick', 'La taille', 'Höhe', 'Altezza', 'Рост', 'Altura', 'Altura', 'Yükseklik', 'Hoogte', 'Висота', 'Độ dày'),
 (763, 'product_poster___photos', 'Product Poster &amp; Photos', 'Affiche et photos du produit', 'Produktplakat & Fotos', 'Poster e foto dei prodotti', 'Афиша продукта и фотографии', 'Cartaz e fotos do produto', 'Cartel y fotos del producto', 'Ürün Posteri ve Fotoğrafları', 'Productposter & foto\'s', 'Плакат продукту та фотографії', 'Poster sản phẩm & hình ảnh'),
 (764, 'click_to_upload', 'Click to upload', 'Cliquez pour télécharger', 'Klicken zum Hochladen', 'Fai clic per caricare', 'Нажмите, чтобы загрузить', 'Clique para fazer o upload', 'Haga clic para cargar', 'Yüklemek için tıklayın', 'Klik om te uploaden', 'Натисніть, щоб завантажити', 'Nhấn vào đây để tải lên'),
 (765, 'follow_basic_image_requirements', 'Follow basic image requirements', 'Suivez les exigences de base de l\'image', 'Grundlegende Bildanforderungen einhalten', 'Segui i requisiti di base dell\'immagine', 'Следуйте основным требованиям к изображению', 'Siga os requisitos básicos de imagem', 'Siga los requisitos básicos de imagen', 'Temel resim gereksinimlerine uyun', 'Volg de basisvereisten voor afbeeldingen', 'Дотримуйтесь основних вимог до зображення', 'Thực hiện theo các yêu cầu hình ảnh cơ bản'),
@@ -1457,8 +1439,8 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (1140, 'you_have_no_users_yet._a_list_of_all_market_users_will_be_di', 'You have no users yet. A list of all market users will be displayed on this page.', 'Vous n\'avez pas encore d\'utilisateurs. Une liste de tous les utilisateurs du marché sera affichée sur cette page.', 'Sie haben noch keine Benutzer. Auf dieser Seite wird eine Liste aller Marktbenutzer angezeigt.', 'Non hai ancora utenti. In questa pagina verrà visualizzato un elenco di tutti gli utenti del mercato.', 'У вас еще нет пользователей. На этой странице будет отображаться список всех пользователей рынка', 'Você ainda não tem usuários. Uma lista de todos os usuários do mercado será exibida nesta página.', 'Aún no tiene usuarios. En esta página se mostrará una lista de todos los usuarios del mercado', 'Henüz hiçbir kullanıcınız yok. Bu sayfada tüm pazar kullanıcılarının bir listesi görüntülenecek.', 'U heeft nog geen gebruikers. Een lijst met alle marktgebruikers wordt op deze pagina weergegeven.', 'У вас ще немає користувачів. На цій сторінці буде показаний список усіх користувачів ринку.', 'Bạn chưa có người dùng. Một danh sách tất cả người dùng thị trường sẽ được hiển thị trên trang này.'),
 (1141, 'manage_customer_s_reports', 'Manage customer\\&#039;s reports', 'Gérer les rapports clients', 'Kundenberichte verwalten', 'Gestisci i rapporti dei clienti', 'Управление отчетами клиентов', 'Gerenciar relatórios de clientes', 'Gestionar informes de clientes', 'Müşteri raporlarını yönet', 'Beheer klantrapporten', 'Керуйте звітами клієнтів', 'Quản lý báo cáo của khách hàng'),
 (1142, 'list_of_all_reports_from_users', 'List of all reports from users', 'Liste de tous les rapports des utilisateurs', 'Liste aller Berichte von Benutzern', 'Elenco di tutti i rapporti degli utenti', 'Список всех отчетов от пользователей', 'Lista de todos os relatórios dos usuários', 'Lista de todos los informes de los usuarios', 'Kullanıcılardan gelen tüm raporların listesi', 'Lijst met alle rapporten van gebruikers', 'Список усіх звітів від користувачів', 'Danh sách tất cả các báo cáo từ người dùng'),
-(1143, 'search_reporter_by_name', 'Search reporter by name', 'Rechercher un journaliste par son nom', 'Reporter nach Namen suchen', 'Cerca giornalista per nome', 'Поиск репортера по имени', 'Pesquisar repórter pelo nome', 'Buscar reportero por nombre', 'Gazeteci adına göre ara', 'Zoek reporter op naam', 'Пошук репортера за іменем', 'Tìm kiếm phóng viên theo tên'),
-(1144, 'reporter', 'Reporter', 'Journaliste', 'Reporter', 'Reporter', 'Репортер', 'Repórter', 'Reportero', 'Muhabir', 'Verslaggever', 'Репортер', 'Phóng viên'),
+(1143, 'search_reporter_by_name', 'Search reporter by name', 'Rechercher un journaliste par son nom', 'Reporter nach Namen suchen', 'Cerca giornalista per nome', 'Поиск репортера по имени', 'Pesquisar repórter pelo nome', 'Buscar reportero por nombre', 'Gazeteci adına göre ara', 'Zoek reporter op naam', 'Пошук репортера за іменем', 'Tìm kiếm người báo cáo theo tên'),
+(1144, 'reporter', 'Reporter', 'Journaliste', 'Reporter', 'Reporter', 'Репортер', 'Repórter', 'Reportero', 'Muhabir', 'Verslaggever', 'Репортер', 'Người báo cáo'),
 (1145, 'product', 'Product', 'Produit', 'Produkt', 'Prodotto', 'Продукт', 'Produtos', 'Producto', 'Ürün', 'Artikel', 'Продукт', 'Sản phẩm'),
 (1146, 'unviewed', 'Unviewed', 'Non visualisé', 'Nicht angesehen', 'Unviewed', 'Unviewed', 'Não visto', 'Sin ver', 'Unviewed', 'Niet-bekeken', 'Непереглянуто', 'Chưa xem'),
 (1147, 'product_page', 'Product page', 'Page produit', 'Produktseite', 'Pagina del prodotto', 'Страница продукта', 'Página do produto', 'Página del producto', 'Ürün sayfası', 'Productpagina', 'Сторінка продукту', 'Trang sản phẩm'),
@@ -1768,7 +1750,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (1462, 'order_details_-_', 'Order details - {%name%}', 'Détails de la commande - {%name%}', 'Bestelldetails - {%name%}', 'Dettagli ordine - {%name%}', 'Детали заказа - {%name%}', 'Detalhes do pedido - {%name%}', 'Detalles del pedido: {%name%}', 'Sipariş ayrıntıları - {%name%}', 'Bestelgegevens - {%name%}', 'Деталі замовлення - {%name%}', 'Chi tiết đặt hàng - {%name%}'),
 (1463, 'order_invoice_-_', 'Order invoice - {%name%}', 'Facture de commande - {%name%}', 'Rechnung bestellen - {%name%}', 'Fattura ordine - {%name%}', 'Счет-фактура заказа - {%name%}', 'Fatura do pedido - {%name%}', 'Factura de pedido - {%name%}', 'Sipariş faturası - {%name%}', 'Factuur bestellen - {%name%}', 'Замовлення рахунку-фактури - {%name%}', 'Hóa đơn đặt hàng - {%name%}'),
 (1464, 'payment_settings_-_', 'Payment settings - {%name%}', 'Paramètres de paiement - {%name%}', 'Zahlungseinstellungen - {%name%}', 'Impostazioni pagamento - {%name%}', 'Настройки оплаты - {%name%}', 'Configurações de pagamento - {%name%}', 'Configuración de pago: {%name%}', 'Ödeme ayarları - {%name%}', 'Betalingsinstellingen - {%name%}', 'Налаштування оплати - {%name%}', 'Cài đặt thanh toán - {%name%}'),
-(1465, 'draft_-_', 'Draft - {%name%}', 'Brouillon - {%name%}', 'Entwurf - {%name%}', 'Bozza - {%name%}', 'Черновик - {%name%}', 'Rascunho - {%name%}', 'Borrador - {%name%}', 'Taslak - {%name%}', 'Concept - {%name%}', 'Чернетка - {%name%}', 'Bản nháp - {%name%}'),
+(1465, 'draft_-_', 'Draft - {%name%}', 'Brouillon - {%name%}', 'Entwurf - {%name%}', 'Bozza - {%name%}', 'Черновик - {%name%}', 'Rascunho - {%name%}', 'Borrador - {%name%}', 'Taslak - {%name%}', 'Concept - {%name%}', 'Чернетка - {%name%}', 'Sản phẩm dự thảo  - {%name%}'),
 (1466, 'reports_-_', 'Reports - {%name%}', 'Rapports - {%name%}', 'Berichte - {%name%}', 'Rapporti - {%name%}', 'Отчеты - {%name%}', 'Relatórios - {%name%}', 'Informes - {%name%}', 'Raporlar - {%name%}', 'Rapporten - {%name%}', 'Звіти - {%name%}', 'Báo cáo - {%name%}'),
 (1467, 'xml_sitemap_-_', 'XML Sitemap - {%name%}', 'Plan du site XML - {%name%}', 'XML-Sitemap - {%name%}', 'Sitemap XML - {%name%}', 'XML Sitemap - {%name%}', 'Sitemap XML - {%name%}', 'Mapa del sitio XML - {%name%}', 'XML Site Haritası - {%name%}', 'XML Sitemap - {%name%}', 'Карта сайту XML - {%name%}', 'Sơ đồ trang web XML - {%name%}'),
 (1468, 'site_settings_-_', 'Site settings - {%name%}', 'Paramètres du site - {%name%}', 'Site-Einstellungen - {%name%}', 'Impostazioni sito - {%name%}', 'Настройки сайта - {%name%}', 'Configurações do site - {%name%}', 'Configuración del sitio: {%name%}', 'Site ayarları - {%name%}', 'Site-instellingen - {%name%}', 'Налаштування сайту - {%name%}', 'Cài đặt trang - {%name%}'),
@@ -1928,7 +1910,7 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (2161, 'invalid_state_name._please_check_your_details_', 'Invalid state name. Please check your details!', 'Nom d\'état invalide. Veuillez vérifier vos coordonnées!', 'Ungültiger Statusname. Bitte überprüfen Sie Ihre Angaben!', 'Nome stato non valido. Controlla i tuoi dati!', 'Неверное название штата. Пожалуйста, проверьте ваши данные!', 'Nome de estado inválido. Verifique seus detalhes!', 'Nombre de estado no válido. ¡Por favor verifique sus detalles!', 'Geçersiz eyalet adı. Lütfen bilgilerinizi kontrol edin!', 'Ongeldige statusnaam. Controleer uw gegevens!', 'Неправильне ім\'я стану. Будь ласка, перевірте свої дані!', 'Tên nhà nước không hợp lệ. Xin vui lòng kiểm tra thông tin, chi tiết của bạn!'),
 (2258, 'member_since', 'Member since', 'Membre depuis', 'Mitglied seit', 'Membro da', 'Член с тех пор', 'Membro desde', 'Miembro desde', 'Den beri üye', 'Lid sinds', 'Учасник з', 'Thành viên từ'),
 (2291, 'reviews', 'Reviews', 'Avis', 'Rezensionen', 'Recensioni', 'Отзывы', 'Rever', 'Comentarios', 'Yorum', 'Reviews', 'Відгуки', 'Nhận xét'),
-(28348, 'has_reviewed_your_product', 'has reviewed your product', 'a examiné votre produit', 'hat Ihr Produkt überprüft', 'ha recensito il tuo prodotto', 'проверил ваш продукт', 'analisou seu produto', 'ha revisado su producto', 'ürününüzü inceledi', 'heeft uw product beoordeeld', 'переглянув ваш товар', 'Đã xem xét sản phẩm của bạn'),
+(28348, 'has_reviewed_your_product', 'has reviewed your product', 'a examiné votre produit', 'hat Ihr Produkt überprüft', 'ha recensito il tuo prodotto', 'проверил ваш продукт', 'analisou seu produto', 'ha revisado su producto', 'ürününüzü inceledi', 'heeft uw product beoordeeld', 'переглянув ваш товар', 'Đã đánh giá sản phẩm của bạn'),
 (28361, 'customer_feedback', 'Customer feedback', 'Commentaires des clients', 'Kundenbewertung', 'Opinione del cliente', 'Обратная связь с клиентами', 'Feedback do cliente', 'Comentarios de los clientes', 'Müşteri geribildirimi', 'Klanten feedback', 'Відгуки клієнтів', 'Phản hồi của khách hàng'),
 (28378, 'withdrawal_declined', 'Withdrawal declined', 'Retrait refusé', 'Auszahlung abgelehnt', 'Ritiro rifiutato', 'Вывод отклонен', 'Retirada recusada', 'Retirada rechazada', 'Para çekme işlemi reddedildi', 'Intrekking geweigerd', 'Відкликання відхилено', 'Rút tiền bị từ chối'),
 (28444, 'new_order', 'New order', 'Nouvel ordre', 'Neue Bestellung', 'Nuovo ordine', 'Новый заказ', 'Nova ordem', 'Nuevo orden', 'Yeni sipariş', 'Nieuwe bestelling', 'Нове замовлення', 'Đơn hàng mới'),
@@ -2071,8 +2053,8 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (34973, 'could_not_find_a_user_with_this_name__please_check_your_deta', 'Could not find a user with this name, please check your details or try again later!', 'Impossible de trouver un utilisateur portant ce nom, veuillez vérifier vos coordonnées ou réessayer plus tard!', 'Es konnte kein Benutzer mit diesem Namen gefunden werden. Bitte überprüfen Sie Ihre Angaben oder versuchen Sie es später erneut.', 'Impossibile trovare un utente con questo nome, controlla i tuoi dati o riprova più tardi!', 'Не удалось найти пользователя с таким именем, проверьте свои данные или повторите попытку позже!', 'Não foi possível encontrar um usuário com esse nome, verifique seus detalhes ou tente novamente mais tarde!', 'No se pudo encontrar un usuario con este nombre, por favor verifique sus detalles o intente nuevamente más tarde', 'Bu adda bir kullanıcı bulunamadı, lütfen ayrıntılarınızı kontrol edin veya daha sonra tekrar deneyin!', 'Kon geen gebruiker met deze naam vinden, controleer uw gegevens of probeer het later opnieuw!', 'Не вдалося знайти користувача з цим ім\'ям. Перевірте свої дані або повторіть спробу пізніше!', 'Không thể tìm thấy người dùng có tên này, vui lòng kiểm tra thông tin của bạn hoặc thử lại sau!'),
 (34974, 'failed_to_log_in_as_admin_', 'Failed to log in as admin!', 'Impossible de se connecter en tant qu\'administrateur!', 'Anmeldung als Admin fehlgeschlagen!', 'Impossibile accedere come amministratore!', 'Не удалось войти как администратор!', 'Falha ao fazer login como administrador!', '¡Error al iniciar sesión como administrador!', 'Yönetici olarak oturum açılamadı!', 'Aanmelden als beheerder is mislukt!', 'Не вдалося увійти як адміністратор!', 'Không thể đăng nhập với tư cách quản trị viên!'),
 (34975, 'you_cannot_switch_to_administrator_mode__since_you_are_not_o', 'You cannot switch to administrator mode, since you are not on the list of our admins.', 'Vous ne pouvez pas passer en mode administrateur, car vous n\'êtes pas sur la liste de nos administrateurs.', 'Sie können nicht in den Administratormodus wechseln, da Sie nicht auf der Liste unserer Administratoren stehen.', 'Non puoi passare alla modalità amministratore, poiché non sei nell\'elenco dei nostri amministratori.', 'Вы не можете переключиться в режим администратора, так как вас нет в списке наших администраторов.', 'Você não pode alternar para o modo administrador, pois não está na lista de nossos administradores.', 'No puede cambiar al modo de administrador, ya que no está en la lista de nuestros administradores.', 'Yönetici listemizde olmadığınız için yönetici moduna geçemezsiniz.', 'U kunt niet overschakelen naar de beheerdersmodus, omdat u niet op de lijst van onze beheerders staat.', 'Ви не можете перейти в режим адміністратора, оскільки ви не в списку наших адміністраторів.', 'Bạn không thể chuyển sang chế độ quản trị viên, vì bạn không có trong danh sách quản trị viên của chúng tôi.'),
-(34976, 'session_switched_to_admin_mode_', 'Session switched to admin mode!', 'La session est passée en mode administrateur!', 'Sitzung in den Admin-Modus geschaltet!', 'La sessione è passata alla modalità amministratore!', 'Сессия перешла в режим администратора!', 'Sessão alterada para o modo de administrador!', 'Sesión cambiada al modo administrador!', 'Oturum yönetici moduna geçti!', 'Sessie omgeschakeld naar admin-modus!', 'Сесія перейшла в режим адміністратора!', 'Phiên chuyển sang chế độ quản trị viên!'),
-(34977, 'you_are_logged_in_with_administrative_privileges._now_you_ca', 'You are logged in with administrative privileges. Now you can manage the contents of your administrative sections in the market control panel!', 'Vous êtes connecté avec des privilèges administratifs. Vous pouvez maintenant gérer le contenu de vos sections administratives dans le panneau de contrôle du marché!', 'Sie sind mit Administratorrechten angemeldet. Jetzt können Sie den Inhalt Ihrer administrativen Bereiche im Market Control Panel verwalten!', 'Hai effettuato l\'accesso con privilegi di amministratore. Ora puoi gestire i contenuti delle tue sezioni amministrative nel pannello di controllo del mercato!', 'Вы вошли в систему с правами администратора. Теперь вы можете управлять содержимым ваших административных разделов в панели управления рынком!', 'Você está logado com privilégios administrativos. Agora você pode gerenciar o conteúdo de suas seções administrativas no painel de controle do mercado!', 'Ha iniciado sesión con privilegios administrativos. ¡Ahora puede administrar el contenido de sus secciones administrativas en el panel de control del mercado!', 'Yönetici ayrıcalıklarıyla giriş yaptınız. Artık idari bölümlerinizin içeriğini pazar kontrol panelinden yönetebilirsiniz!', 'U bent aangemeld met beheerdersrechten. Nu kunt u de inhoud van uw administratieve secties beheren in het marktcontrolepaneel!', 'Ви ввійшли з правами адміністратора. Тепер ви можете керувати вмістом ваших адміністративних розділів на панелі управління ринком!', 'Bạn đang đăng nhập với các đặc quyền hành chính. Bây giờ bạn có thể quản lý nội dung của các bộ phận hành chính của bạn trong bảng điều khiển thị trường!'),
+(34976, 'session_switched_to_admin_mode_', 'Session switched to admin mode!', 'La session est passée en mode administrateur!', 'Sitzung in den Admin-Modus geschaltet!', 'La sessione è passata alla modalità amministratore!', 'Сессия перешла в режим администратора!', 'Sessão alterada para o modo de administrador!', 'Sesión cambiada al modo administrador!', 'Oturum yönetici moduna geçti!', 'Sessie omgeschakeld naar admin-modus!', 'Сесія перейшла в режим адміністратора!', 'Bạn đã chuyển sang chế độ quản trị viên!'),
+(34977, 'you_are_logged_in_with_administrative_privileges._now_you_ca', 'You are logged in with administrative privileges. Now you can manage the contents of your administrative sections in the market control panel!', 'Vous êtes connecté avec des privilèges administratifs. Vous pouvez maintenant gérer le contenu de vos sections administratives dans le panneau de contrôle du marché!', 'Sie sind mit Administratorrechten angemeldet. Jetzt können Sie den Inhalt Ihrer administrativen Bereiche im Market Control Panel verwalten!', 'Hai effettuato l\'accesso con privilegi di amministratore. Ora puoi gestire i contenuti delle tue sezioni amministrative nel pannello di controllo del mercato!', 'Вы вошли в систему с правами администратора. Теперь вы можете управлять содержимым ваших административных разделов в панели управления рынком!', 'Você está logado com privilégios administrativos. Agora você pode gerenciar o conteúdo de suas seções administrativas no painel de controle do mercado!', 'Ha iniciado sesión con privilegios administrativos. ¡Ahora puede administrar el contenido de sus secciones administrativas en el panel de control del mercado!', 'Yönetici ayrıcalıklarıyla giriş yaptınız. Artık idari bölümlerinizin içeriğini pazar kontrol panelinden yönetebilirsiniz!', 'U bent aangemeld met beheerdersrechten. Nu kunt u de inhoud van uw administratieve secties beheren in het marktcontrolepaneel!', 'Ви ввійшли з правами адміністратора. Тепер ви можете керувати вмістом ваших адміністративних розділів на панелі управління ринком!', 'Bạn đang đăng nhập với các đặc quyền hành chính. Bây giờ bạn có thể quản lý nội dung của các bộ phận hành chính của bạn trong bảng giao diện người dùng này!'),
 (34978, 'never', 'Never', 'Jamais', 'Noch nie', 'Mai', 'Никогда', 'Nunca', 'Nunca', 'Asla', 'Nooit', 'Ніколи', 'Không bao giờ'),
 (35145, 'changelogs', 'Changelogs', 'Changelogs', 'Änderungsprotokolle', 'Changelog', 'Списком изменений', 'Changelogs', 'Registros de cambios', 'Changelogs', 'Сhangelogs', 'Журнали змін', 'Thay đổi'),
 (35146, 'phones_and_tablets', 'Phones and tablets', 'Téléphones et tablettes', 'Telefone und Tablets', 'Telefoni e tablet', 'Телефоны и планшеты', 'Telefones e tablets', 'Teléfonos y tabletas', 'Telefonlar ve tabletler', 'Telefoons en tablets', 'Телефони та планшети', 'Điện thoại và máy tính bảng'),
@@ -2153,8 +2135,10 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 (35229, 'weekly_earnings_statistics_of_your_account', 'Weekly earnings statistics of your account', 'Statistiques de gains hebdomadaires de votre compte', 'Wöchentliche Verdienststatistik Ihres Kontos', 'Statistiche settimanali sulle entrate del tuo account', 'Еженедельная статистика заработка вашего аккаунта', 'Estatísticas semanais de ganhos da sua conta', 'Estadísticas de ganancias semanales de su cuenta', 'Hesabınızın haftalık kazanç istatistikleri', 'Wekelijkse inkomstenstatistieken van uw account', 'Щотижнева статистика прибутку вашого рахунку', 'Thống kê thu nhập hàng tuần của tài khoản của bạn'),
 (35230, 'list_of_all_transactions', 'List of all transactions', 'Liste de toutes les transactions', 'Liste aller Transaktionen', 'Elenco di tutte le transazioni', 'Список всех транзакций', 'Lista de todas as transações', 'Lista de todas las transacciones', 'Tüm işlemlerin listesi', 'Lijst van alle transacties', 'Список усіх транзакцій', 'Danh sách tất cả các giao dịch'),
 (35231, 'google_maps_api', 'Google maps API', 'API Google maps', 'Google Maps API', 'API di Google maps', 'Google Maps API', 'API do Google Maps', 'API de Google Maps', 'Google Haritalar API\'sı', 'Google maps API', 'API Google Maps', 'API bản đồ Google'),
-(35233, 'test_as3_api_connection', 'Test AS3 API Connection', 'Tester la connexion API AS3', 'AS3-API-Verbindung testen', 'Verifica connessione API AS3', 'Проверить соединение AS3 API', 'Testar conexão da API do AS3', 'Probar conexión API AS3', 'Test AS3 API Bağlantısı', 'Test AS3 API-verbinding', 'Тест підключення API AS3', 'Kiểm tra kết nối API AS3');
+(35233, 'test_as3_api_connection', 'Test AS3 API Connection', 'Tester la connexion API AS3', 'AS3-API-Verbindung testen', 'Verifica connessione API AS3', 'Проверить соединение AS3 API', 'Testar conexão da API do AS3', 'Probar conexión API AS3', 'Test AS3 API Bağlantısı', 'Test AS3 API-verbinding', 'Тест підключення API AS3', 'Kiểm tra kết nối API AS3'),
+(35234, 'other', 'Other', 'Other', 'Other', 'Other', 'Other', 'Other', 'Other', 'Other', 'Other', 'Other', 'Khác');
 INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `italian`, `russian`, `portuguese`, `spanish`, `turkish`, `dutch`, `ukraine`, `vietnamese`) VALUES
+(35235, 'quantity', 'Quantity', 'Quantity', 'Quantity', 'Quantity', 'Quantity', 'Quantity', 'Quantity', 'Quantity', 'Quantity', 'Quantity', 'Số lượng'),
 (35237, 'amazon_s3_image_upload_settings', 'Amazon S3 image upload settings', 'Paramètres de téléchargement d\'images Amazon S3', 'Einstellungen für das Hochladen von Amazon S3-Bildern', 'Impostazioni caricamento immagini Amazon S3', 'Настройки загрузки изображений Amazon S3', 'Configurações de upload de imagem do Amazon S3', 'Configuración de carga de imágenes de Amazon S3', 'Amazon S3 resim yükleme ayarları', 'Amazon S3-instellingen voor het uploaden van afbeeldingen', 'Налаштування завантаження зображень Amazon S3', 'Cài đặt tải lên hình ảnh Amazon S3'),
 (35238, 'amazon_s3_storage', 'Amazon S3 Storage', 'Stockage Amazon S3', 'Amazon S3 Storage', 'Amazon S3 Storage', 'Amazon S3 Storage', 'Amazon S3 Storage', 'Almacenamiento de Amazon S3', 'Amazon S3 Depolama Alanı', 'Amazon S3 Storage', 'Зберігання Amazon S3', 'Lưu trữ Amazon S3'),
 (35239, 'enabled', 'Enabled', 'Activée', 'Aktiviert', 'Abilitato', 'Включено', 'Ativado', 'Habilitado', 'Etkin', 'Ingeschakeld', 'Увімкнено', 'Đã bật'),
@@ -2508,15 +2492,13 @@ INSERT INTO `hex_langs` (`id`, `lang_key`, `english`, `french`, `german`, `itali
 -- Cấu trúc bảng cho bảng `hex_languages`
 --
 
-DROP TABLE IF EXISTS `hex_languages`;
-CREATE TABLE IF NOT EXISTS `hex_languages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_languages` (
+  `id` int(11) NOT NULL,
   `lang_name` varchar(32) NOT NULL DEFAULT '',
   `a2_code` varchar(5) NOT NULL DEFAULT 'gb',
   `status` enum('active','inactive') NOT NULL,
-  `sort_order` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `sort_order` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_languages`
@@ -2524,7 +2506,7 @@ CREATE TABLE IF NOT EXISTS `hex_languages` (
 
 INSERT INTO `hex_languages` (`id`, `lang_name`, `a2_code`, `status`, `sort_order`) VALUES
 (1, 'english', 'gb', 'active', 2),
-(2, 'french', 'fr', 'inactive', 11),
+(2, 'french', 'fr', 'active', 11),
 (3, 'german', 'de', 'inactive', 3),
 (4, 'italian', 'it', 'inactive', 4),
 (5, 'russian', 'ru', 'inactive', 5),
@@ -2541,16 +2523,22 @@ INSERT INTO `hex_languages` (`id`, `lang_name`, `a2_code`, `status`, `sort_order
 -- Cấu trúc bảng cho bảng `hex_market_revenue`
 --
 
-DROP TABLE IF EXISTS `hex_market_revenue`;
-CREATE TABLE IF NOT EXISTS `hex_market_revenue` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL DEFAULT '0',
-  `trans_id` int(11) DEFAULT '0',
+CREATE TABLE `hex_market_revenue` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL DEFAULT 0,
+  `trans_id` int(11) DEFAULT 0,
   `amount` varchar(20) NOT NULL DEFAULT '0.00',
   `rate` varchar(11) NOT NULL DEFAULT '0',
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_market_revenue`
+--
+
+INSERT INTO `hex_market_revenue` (`id`, `order_id`, `trans_id`, `amount`, `rate`, `time`) VALUES
+(1, 1, 1, '1449499.85', '5', '1606392470'),
+(2, 2, 2, '264500.00', '5', '1606406320');
 
 -- --------------------------------------------------------
 
@@ -2558,20 +2546,25 @@ CREATE TABLE IF NOT EXISTS `hex_market_revenue` (
 -- Cấu trúc bảng cho bảng `hex_notifications`
 --
 
-DROP TABLE IF EXISTS `hex_notifications`;
-CREATE TABLE IF NOT EXISTS `hex_notifications` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `notifier_id` int(11) NOT NULL DEFAULT '0',
-  `recipient_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_notifications` (
+  `id` int(11) NOT NULL,
+  `notifier_id` int(11) NOT NULL DEFAULT 0,
+  `recipient_id` int(11) NOT NULL DEFAULT 0,
   `subject` varchar(25) NOT NULL DEFAULT '',
   `message` varchar(300) NOT NULL DEFAULT '',
   `status` enum('1','0') NOT NULL DEFAULT '0',
   `url` varchar(500) NOT NULL DEFAULT '',
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `notifier_id` (`notifier_id`),
-  KEY `recipient_id` (`recipient_id`)
+  `time` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_notifications`
+--
+
+INSERT INTO `hex_notifications` (`id`, `notifier_id`, `recipient_id`, `subject`, `message`, `status`, `url`, `time`) VALUES
+(2, 1, 3, 'product_review', 'has reviewed your product', '1', 'https://localhost/demotmdt/Web-raovat//product/15', '1606403081'),
+(3, 1, 3, 'order', 'has placed an order for your product', '0', 'https://localhost/demotmdt/Web-raovat//product/18', '1606406319'),
+(4, 1, 3, 'product_review', 'has reviewed your product', '0', 'https://localhost/demotmdt/Web-raovat//product/18', '1606406350');
 
 -- --------------------------------------------------------
 
@@ -2579,20 +2572,19 @@ CREATE TABLE IF NOT EXISTS `hex_notifications` (
 -- Cấu trúc bảng cho bảng `hex_orders`
 --
 
-DROP TABLE IF EXISTS `hex_orders`;
-CREATE TABLE IF NOT EXISTS `hex_orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `seller_id` int(11) NOT NULL DEFAULT '0',
-  `buyer_id` int(11) NOT NULL DEFAULT '0',
-  `prod_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_orders` (
+  `id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL DEFAULT 0,
+  `buyer_id` int(11) NOT NULL DEFAULT 0,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
   `prod_sp` varchar(11) NOT NULL DEFAULT '0.00',
   `prod_rp` varchar(11) NOT NULL DEFAULT '0.00',
   `prod_sf` varchar(11) NOT NULL DEFAULT '0.00',
   `prod_sc` enum('free','paid') NOT NULL DEFAULT 'free',
   `paid_amount` varchar(11) NOT NULL DEFAULT '0.00',
-  `var_id` int(11) NOT NULL DEFAULT '0',
+  `var_id` int(11) NOT NULL DEFAULT 0,
   `var_type` enum('single','color','size','color_size') NOT NULL DEFAULT 'single',
-  `quantity` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT 0,
   `cust_name` varchar(60) NOT NULL DEFAULT '',
   `cust_phone` varchar(20) NOT NULL DEFAULT '',
   `cust_street` varchar(60) NOT NULL DEFAULT '',
@@ -2605,9 +2597,16 @@ CREATE TABLE IF NOT EXISTS `hex_orders` (
   `status` varchar(50) NOT NULL DEFAULT 'pending',
   `timeline` varchar(300) NOT NULL DEFAULT '[]',
   `time` varchar(20) NOT NULL DEFAULT '0',
-  `cancellation_time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `cancellation_time` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_orders`
+--
+
+INSERT INTO `hex_orders` (`id`, `seller_id`, `buyer_id`, `prod_id`, `prod_sp`, `prod_rp`, `prod_sf`, `prod_sc`, `paid_amount`, `var_id`, `var_type`, `quantity`, `cust_name`, `cust_phone`, `cust_street`, `cust_off_apt`, `cust_country`, `cust_state`, `cust_city`, `cust_zip`, `cust_email`, `status`, `timeline`, `time`, `cancellation_time`) VALUES
+(1, 3, 1, 15, '28989997', '37990000', '0.00', 'free', '28989997', 0, 'single', 1, 'Nguyễn Thanh Hưng', '0964024229', '353 Nguyễn Trãi, Quận 1, Hồ Chí Minh', 'Nhà riêng', 'Việt Nam', '353 Nguyễn Trãi, Quận 1', 'Hồ Chí Minh', '700000', 'nguyenthanhhungb6@gmail.com', 'pending', '[]', '1606392469', '0'),
+(2, 3, 1, 18, '5290000', '6290000', '0.00', 'free', '5290000', 0, 'single', 1, 'Nguyễn Thanh Hưng', '0964024229', '353 Nguyễn Trãi, Quận 1, Hồ Chí Minh', 'Nhà riêng', 'Việt Nam', '353 Nguyễn Trãi, Quận 1', 'Hồ Chí Minh', '700000', 'nguyenthanhhungb6@gmail.com', 'pending', '[]', '1606406319', '0');
 
 -- --------------------------------------------------------
 
@@ -2615,17 +2614,15 @@ CREATE TABLE IF NOT EXISTS `hex_orders` (
 -- Cấu trúc bảng cho bảng `hex_order_cancellations`
 --
 
-DROP TABLE IF EXISTS `hex_order_cancellations`;
-CREATE TABLE IF NOT EXISTS `hex_order_cancellations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL DEFAULT '0',
-  `trans_id` int(11) NOT NULL DEFAULT '0',
-  `prod_id` int(11) NOT NULL DEFAULT '0',
-  `seller_id` int(11) NOT NULL DEFAULT '0',
-  `buyer_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_order_cancellations` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL DEFAULT 0,
+  `trans_id` int(11) NOT NULL DEFAULT 0,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
+  `seller_id` int(11) NOT NULL DEFAULT 0,
+  `buyer_id` int(11) NOT NULL DEFAULT 0,
   `status` varchar(50) NOT NULL DEFAULT 'none',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2634,17 +2631,15 @@ CREATE TABLE IF NOT EXISTS `hex_order_cancellations` (
 -- Cấu trúc bảng cho bảng `hex_ord_hist_timeline`
 --
 
-DROP TABLE IF EXISTS `hex_ord_hist_timeline`;
-CREATE TABLE IF NOT EXISTS `hex_ord_hist_timeline` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `seller_id` int(11) NOT NULL DEFAULT '0',
-  `buyer_id` int(11) NOT NULL DEFAULT '0',
-  `order_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_ord_hist_timeline` (
+  `id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL DEFAULT 0,
+  `buyer_id` int(11) NOT NULL DEFAULT 0,
+  `order_id` int(11) NOT NULL DEFAULT 0,
   `status` varchar(50) NOT NULL DEFAULT 'pending',
   `buyer_notified` enum('y','n') NOT NULL DEFAULT 'n',
   `comment` varchar(600) NOT NULL,
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2653,16 +2648,14 @@ CREATE TABLE IF NOT EXISTS `hex_ord_hist_timeline` (
 -- Cấu trúc bảng cho bảng `hex_payout_requests`
 --
 
-DROP TABLE IF EXISTS `hex_payout_requests`;
-CREATE TABLE IF NOT EXISTS `hex_payout_requests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_payout_requests` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `pp_link` varchar(300) NOT NULL DEFAULT '',
   `amount` varchar(15) NOT NULL DEFAULT '0.00',
   `currency` varchar(5) NOT NULL DEFAULT 'usd',
   `status` enum('pending','paid','declined') NOT NULL DEFAULT 'pending',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2671,18 +2664,17 @@ CREATE TABLE IF NOT EXISTS `hex_payout_requests` (
 -- Cấu trúc bảng cho bảng `hex_products`
 --
 
-DROP TABLE IF EXISTS `hex_products`;
-CREATE TABLE IF NOT EXISTS `hex_products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_products` (
+  `id` int(11) NOT NULL,
   `name` varchar(150) NOT NULL DEFAULT '',
-  `description` text,
+  `description` text DEFAULT NULL,
   `keywords` varchar(600) NOT NULL DEFAULT '',
   `category` varchar(25) NOT NULL DEFAULT 'none',
   `condition` enum('1','2','3') NOT NULL DEFAULT '1',
   `has_variations` enum('0','1') NOT NULL DEFAULT '0',
   `reg_price` varchar(11) NOT NULL DEFAULT '0.00',
   `sale_price` varchar(11) NOT NULL DEFAULT '0.00',
-  `quantity` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT 0,
   `sku` varchar(25) NOT NULL DEFAULT '',
   `shipping_cost` varchar(60) NOT NULL DEFAULT '',
   `shipping_fee` varchar(20) NOT NULL DEFAULT '0.00',
@@ -2700,25 +2692,33 @@ CREATE TABLE IF NOT EXISTS `hex_products` (
   `thumb` varchar(3000) NOT NULL DEFAULT '',
   `variation_type` enum('single','color','size','color_size') NOT NULL DEFAULT 'single',
   `sizing_type` varchar(30) NOT NULL DEFAULT 'none',
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `sold` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `sold` int(11) NOT NULL DEFAULT 0,
   `rating` varchar(5) NOT NULL DEFAULT '0.0',
-  `reviews` int(11) NOT NULL DEFAULT '0',
+  `reviews` int(11) NOT NULL DEFAULT 0,
   `profit` varchar(15) NOT NULL DEFAULT '0.00',
   `activity_status` enum('active','inactive','orphan') NOT NULL DEFAULT 'inactive',
   `approved` enum('Y','N') DEFAULT 'N',
   `editing_stage` enum('saved','unsaved') NOT NULL DEFAULT 'unsaved',
   `payment_method` enum('cod_payments','pre_payments','all_payments') NOT NULL DEFAULT 'pre_payments',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  `time` varchar(25) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_products`
 --
 
 INSERT INTO `hex_products` (`id`, `name`, `description`, `keywords`, `category`, `condition`, `has_variations`, `reg_price`, `sale_price`, `quantity`, `sku`, `shipping_cost`, `shipping_fee`, `shipping_time`, `status`, `last_status`, `origin`, `brand`, `model_number`, `weight`, `length`, `width`, `height`, `poster`, `thumb`, `variation_type`, `sizing_type`, `user_id`, `sold`, `rating`, `reviews`, `profit`, `activity_status`, `approved`, `editing_stage`, `payment_method`, `time`) VALUES
-(12, '', NULL, '', 'none', '1', '0', '0.00', '0.00', 0, '', '', '0.00', '', 'active', 'active', '', '', '', '0', '0', '0', '0', '', '', 'color', 'none', 1, 0, '0.0', 0, '0.00', 'orphan', 'N', 'unsaved', 'pre_payments', '1593100934');
+(14, 'Điện thoại iPhone 11 64GB (Full box chính hãng Việt Nam)', 'Sau bao nhiêu chờ đợi cũng như đồn đoán thì cuối cùng Apple đã chính thức giới thiệu bộ 3 siêu phẩm iPhone 11 mạnh mẽ nhất của mình vào tháng 9/2019. Có mức giá rẻ nhất nhưng vẫn được nâng cấp mạnh mẽ như chiếc iPhone Xr năm ngoái, đó chính là phiên bản iPhone 11 64GB.', '', 'iphone', '1', '0', '19990000', '18990000', 10, 'IP0001', 'free', '0.00', '1_bd', 'active', 'active', 'Chính hãng Việt Nam', 'IPhone', 'IP110001', '226g', '150.9mm', '75.7mm', '8.3mm', 'upload/photos/2020/11/m5eOLjjUrE1SPgCRQbLC_26_c4d01c8e58b93f4c1117bd741ff3c215_image.jpg', 'upload/photos/thumbs/2020/11/m5eOLjjUrE1SPgCRQbLC_26_c4d01c8e58b93f4c1117bd741ff3c215_image_120x120_thumbnail.jpg', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'active', 'Y', 'saved', 'all_payments', '1606391700'),
+(15, 'Điện thoại iPhone 11 Pro Max 512GB Like new 99,9%', 'Để tìm kiếm một chiếc smartphone có hiệu năng mạnh mẽ và có thể sử dụng mượt mà trong 2-3 năm tới thì không có chiếc máy nào xứng đang hơn chiếc iPhone 11 Pro Max 512GB mới ra mắt trong năm 2019 của Apple.', '', 'iphone', '2', '0', '37990000', '28989997', 6, 'IP0002', 'free', '0.00', '1_bd', 'active', 'active', 'Sách tay Mỹ', 'IPhone', 'IP11P002', '281g', '153mm', '79mm', '8.2mm', 'upload/photos/2020/11/sZFVCY4B7QHzIcOdRqtq_26_bb5912dbff2a753bf3d14893282aeba7_image.jpg', 'upload/photos/thumbs/2020/11/sZFVCY4B7QHzIcOdRqtq_26_bb5912dbff2a753bf3d14893282aeba7_image_120x120_thumbnail.jpg', 'single', 'none', 3, 1, '5.0', 0, '27540497.15', 'active', 'Y', 'saved', 'all_payments', '1606392299'),
+(16, 'Điện thoại iPhone 11 128GB (Đã qua sửa chữa, cam kết linh kiện zin)', 'Được xem là phiên bản iPhone &quot;giá rẻ&quot; trong bộ 3 iPhone mới ra mắt nhưng iPhone 11 128GB vẫn sở hữu cho mình rất nhiều ưu điểm mà hiếm có một chiếc smartphone nào khác sở hữu.', '', 'iphone', '3', '0', '21990000', '17990000', 15, 'IP0003', 'paid', '20000', '2_3_bd', 'active', 'active', 'Chính hãng Việt Nam', 'Iphone', 'IP110003', '300g', '149mm', '70.4mm', '7.8mm', 'upload/photos/2020/11/B8nYXyj8YVH2F2YRiCAe_26_553fdfd33d6959cc15b0ed47b52d5ffc_image.png', 'upload/photos/thumbs/2020/11/B8nYXyj8YVH2F2YRiCAe_26_553fdfd33d6959cc15b0ed47b52d5ffc_image_120x120_thumbnail.png', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'active', 'Y', 'saved', 'all_payments', '1606403358'),
+(17, 'Điện thoại iPhone 11 Pro 256GB Like new 98% ( Máy như mới)', 'iPhone 11 Pro 256GB có lẽ sẽ là chiếc iPhone được nhiều người dùng lựa chọn khi nó sở hữu mức giá tốt hơn chiếc iPhone 11 Pro Max nhưng vẫn sở hữu tất cả những ưu điểm trên người anh em của mình.', '', 'iphone', '2', '0', '30990000', '26990000', 5, 'IP0004', 'free', '0.00', '1_bd', 'active', 'active', 'Sách tay Mỹ', 'Iphone', 'IP110004', '300g', '149mm', '70.4mm', '7.8mm', 'upload/photos/2020/11/xLxsuG3Hyj6UelWTjixt_26_5ce6e628ce427783160bf57e511bf18a_image.png', 'upload/photos/thumbs/2020/11/xLxsuG3Hyj6UelWTjixt_26_5ce6e628ce427783160bf57e511bf18a_image_120x120_thumbnail.png', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'active', 'Y', 'saved', 'all_payments', '1606403819'),
+(18, 'Điện thoại Samsung Galaxy A30s Like new (Đẹp như mới)', 'Samsung Galaxy A30s, chiếc smartphone mới ra mắt sở hữu nhiều ưu điểm nổi bật trong phân khúc điện thoại tầm trung, nổi bật nhất phải kể đến là dung lượng pin lên tới 4000 mAh,bộ 3 camera cùng vi xử lý đủ mạnh, ổn định.', '', 'samsung', '2', '0', '6290000', '5290000', 4, 'SS001', 'free', '0.00', '1_bd', 'active', 'active', 'Chính hãng Việt Nam', 'SamSung', 'SSA30s', '300g', '149mm', '70.4mm', '7.8mm', 'upload/photos/2020/11/gfXKYb9lVFRDbNL78TE1_26_526925a3d3ab86acff9527dfe8620022_image.png', 'upload/photos/thumbs/2020/11/gfXKYb9lVFRDbNL78TE1_26_526925a3d3ab86acff9527dfe8620022_image_120x120_thumbnail.png', 'single', 'none', 3, 1, '5.0', 0, '5025500', 'active', 'Y', 'saved', 'all_payments', '1606404169'),
+(19, 'Điện thoại Samsung Galaxy A30s Like new 97% (Máy cấn xước nhẹ)', 'Samsung Galaxy A30s, chiếc smartphone mới ra mắt sở hữu nhiều ưu điểm nổi bật trong phân khúc điện thoại tầm trung, nổi bật nhất phải kể đến là dung lượng pin lên tới 4000 mAh,bộ 3 camera cùng vi xử lý đủ mạnh, ổn định.', '', 'samsung', '2', '0', '6290000', '4390000', 2, 'SS002', 'free', '0.00', '1_bd', 'active', 'active', 'Chính hãng Việt Nam', 'SamSung', 'SSA30s', '300g', '149mm', '70.4mm', '7.8mm', 'upload/photos/2020/11/b2UF8urCpAVR88v2R574_26_9b7b92fc74c0896304f7c0fae5dd9e74_image.png', 'upload/photos/thumbs/2020/11/b2UF8urCpAVR88v2R574_26_9b7b92fc74c0896304f7c0fae5dd9e74_image_120x120_thumbnail.png', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'active', 'Y', 'saved', 'all_payments', '1606404314'),
+(20, 'Điện thoại Samsung Galaxy A30s Like new 97% (Máy ngoại hình còn đẹp)', 'Samsung Galaxy A30s, chiếc smartphone mới ra mắt sở hữu nhiều ưu điểm nổi bật trong phân khúc điện thoại tầm trung, nổi bật nhất phải kể đến là dung lượng pin lên tới 4000 mAh,bộ 3 camera cùng vi xử lý đủ mạnh, ổn định.', '', 'samsung', '3', '0', '5290000', '4190000', 2, 'SS003', 'free', '0.00', '1_bd', 'active', 'active', 'Sách tay Campuchia', 'SamSung', 'SSA30s', '300g', '149mm', '70.4mm', '7.8mm', 'upload/photos/2020/11/OI3h4hijQlXqHeCEJMaw_26_aba98dfb4cdbd96b68b8b88e56019263_image.png', 'upload/photos/thumbs/2020/11/OI3h4hijQlXqHeCEJMaw_26_aba98dfb4cdbd96b68b8b88e56019263_image_120x120_thumbnail.png', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'active', 'Y', 'saved', 'all_payments', '1606404493'),
+(21, 'Điện thoại iPhone 11 Pro 256GB Like new 97% ( Máy như mới)', 'iPhone 11 Pro 256GB có lẽ sẽ là chiếc iPhone được nhiều người dùng lựa chọn khi nó sở hữu mức giá tốt hơn chiếc iPhone 11 Pro Max nhưng vẫn sở hữu tất cả những ưu điểm trên người anh em của mình.', '', 'iphone', '2', '0', '30990000', '19990000', 20, 'IP0005', 'free', '0.00', '1_bd', 'active', 'active', 'Sách tay Hàn Quốc', 'Iphone', 'IP0005', '300g', '149mm', '70.4mm', '7.8mm', 'upload/photos/2020/11/hqVuA68Cnrg6p94T4S1e_26_6086804950ce846321dffe9d2ef45a41_image.png', 'upload/photos/thumbs/2020/11/hqVuA68Cnrg6p94T4S1e_26_6086804950ce846321dffe9d2ef45a41_image_120x120_thumbnail.png', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'active', 'Y', 'saved', 'all_payments', '1606405234'),
+(22, 'Điện thoại iPhone 11 Pro 512GB ( Sách tay Mỹ)', 'iPhone 11 Pro 256GB có lẽ sẽ là chiếc iPhone được nhiều người dùng lựa chọn khi nó sở hữu mức giá tốt hơn chiếc iPhone 11 Pro Max nhưng vẫn sở hữu tất cả những ưu điểm trên người anh em của mình.', '', 'iphone', '2', '0', '37000000', '36900000', 10, 'IP0006', 'free', '0.00', '1_bd', 'active', 'active', 'Sách tay Hàn Quốc', 'Iphone', 'IP0006', '300g', '149mm', '70.4mm', '7.8mm', 'upload/photos/2020/11/FGTsjhqsbAVr9RR3PWsV_26_a2ac108776c0daecb532d6d94a32301b_image.png', 'upload/photos/thumbs/2020/11/FGTsjhqsbAVr9RR3PWsV_26_a2ac108776c0daecb532d6d94a32301b_image_120x120_thumbnail.png', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'active', 'Y', 'saved', 'all_payments', '1606405379'),
+(23, '', NULL, '', 'none', '1', '0', '0.00', '0.00', 0, '', '', '0.00', '', 'active', 'active', '', '', '', '0', '0', '0', '0', 'upload/photos/2020/11/l6PjHHDuwnBBrjhL8aif_26_d80e50f01d83776d870b8394df0bb4a2_image.png', 'upload/photos/thumbs/2020/11/l6PjHHDuwnBBrjhL8aif_26_d80e50f01d83776d870b8394df0bb4a2_image_120x120_thumbnail.png', 'single', 'none', 3, 0, '0.0', 0, '0.00', 'orphan', 'N', 'unsaved', 'pre_payments', '1606407301');
 
 -- --------------------------------------------------------
 
@@ -2726,14 +2726,81 @@ INSERT INTO `hex_products` (`id`, `name`, `description`, `keywords`, `category`,
 -- Cấu trúc bảng cho bảng `hex_product_media`
 --
 
-DROP TABLE IF EXISTS `hex_product_media`;
-CREATE TABLE IF NOT EXISTS `hex_product_media` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `prod_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_product_media` (
+  `id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
   `src` varchar(300) NOT NULL DEFAULT '',
-  `thumb` varchar(300) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `thumb` varchar(300) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_product_media`
+--
+
+INSERT INTO `hex_product_media` (`id`, `prod_id`, `src`, `thumb`) VALUES
+(4, 14, 'upload/photos/2020/11/1PyDQaTdCJILhgM2Dtkn_26_270b798df69d11e24cb933711c3af200_image.jpg', 'upload/photos/thumbs/2020/11/1PyDQaTdCJILhgM2Dtkn_26_270b798df69d11e24cb933711c3af200_image_120x120_thumbnail.jpg'),
+(5, 14, 'upload/photos/2020/11/c2CxAWgRcDD5qIyl73de_26_24e69e807e5d74824299439d2ebfbce1_image.jpg', 'upload/photos/thumbs/2020/11/c2CxAWgRcDD5qIyl73de_26_24e69e807e5d74824299439d2ebfbce1_image_120x120_thumbnail.jpg'),
+(6, 14, 'upload/photos/2020/11/JalODuQqoVvcAdSSp8LX_26_5e3ece1b9f664e89beb6cc5499b4eca4_image.jpg', 'upload/photos/thumbs/2020/11/JalODuQqoVvcAdSSp8LX_26_5e3ece1b9f664e89beb6cc5499b4eca4_image_120x120_thumbnail.jpg'),
+(7, 14, 'upload/photos/2020/11/Tv2kHd2tBgdTPWwa5y4y_26_3f68d70ad7c9e6a6d3710e2c1b8781c3_image.jpg', 'upload/photos/thumbs/2020/11/Tv2kHd2tBgdTPWwa5y4y_26_3f68d70ad7c9e6a6d3710e2c1b8781c3_image_120x120_thumbnail.jpg'),
+(8, 14, 'upload/photos/2020/11/wBZsKg9NyIv3p6Rd9tO1_26_19cf7dd66192b13c2d58b4e24607c41a_image.jpg', 'upload/photos/thumbs/2020/11/wBZsKg9NyIv3p6Rd9tO1_26_19cf7dd66192b13c2d58b4e24607c41a_image_120x120_thumbnail.jpg'),
+(9, 14, 'upload/photos/2020/11/64A7XyQcggUX4kc62X2H_26_93db112d02adf808915fab78ccd3c5dc_image.jpg', 'upload/photos/thumbs/2020/11/64A7XyQcggUX4kc62X2H_26_93db112d02adf808915fab78ccd3c5dc_image_120x120_thumbnail.jpg'),
+(10, 14, 'upload/photos/2020/11/7PAFlF6IcI7MbbWhQKGU_26_ccecd99fc6505b29ced23c341af22c29_image.jpg', 'upload/photos/thumbs/2020/11/7PAFlF6IcI7MbbWhQKGU_26_ccecd99fc6505b29ced23c341af22c29_image_120x120_thumbnail.jpg'),
+(11, 15, 'upload/photos/2020/11/QZQhBFrMGf28aOzHblUp_26_febea851264886433445cd2fca37a569_image.jpg', 'upload/photos/thumbs/2020/11/QZQhBFrMGf28aOzHblUp_26_febea851264886433445cd2fca37a569_image_120x120_thumbnail.jpg'),
+(12, 15, 'upload/photos/2020/11/EQRa7d5NQs9hSciFnGlb_26_c6380f432b9df03691997987472ef918_image.jpg', 'upload/photos/thumbs/2020/11/EQRa7d5NQs9hSciFnGlb_26_c6380f432b9df03691997987472ef918_image_120x120_thumbnail.jpg'),
+(13, 15, 'upload/photos/2020/11/5BUmf5li3I3SiSJClvI7_26_51cd7da2be0d7097b26976a41353477f_image.jpg', 'upload/photos/thumbs/2020/11/5BUmf5li3I3SiSJClvI7_26_51cd7da2be0d7097b26976a41353477f_image_120x120_thumbnail.jpg'),
+(14, 15, 'upload/photos/2020/11/mV9cmtW3XM5pgNlENcuW_26_82a2aee625748d6f7afc9fbcd1b762ef_image.jpg', 'upload/photos/thumbs/2020/11/mV9cmtW3XM5pgNlENcuW_26_82a2aee625748d6f7afc9fbcd1b762ef_image_120x120_thumbnail.jpg'),
+(15, 15, 'upload/photos/2020/11/eyoxgnnK1FHZyZJTPhTM_26_d15f7ca58811b1e5e25d26aaa9a70cc7_image.jpg', 'upload/photos/thumbs/2020/11/eyoxgnnK1FHZyZJTPhTM_26_d15f7ca58811b1e5e25d26aaa9a70cc7_image_120x120_thumbnail.jpg'),
+(16, 15, 'upload/photos/2020/11/iF2TzZWYF3TjadvqOMbg_26_9eeb8a9b6495afe26177fb408c857379_image.jpg', 'upload/photos/thumbs/2020/11/iF2TzZWYF3TjadvqOMbg_26_9eeb8a9b6495afe26177fb408c857379_image_120x120_thumbnail.jpg'),
+(17, 15, 'upload/photos/2020/11/5s55X4bnBBFKntgxPn56_26_3faf30db436e33989c26e66c4e04c906_image.jpg', 'upload/photos/thumbs/2020/11/5s55X4bnBBFKntgxPn56_26_3faf30db436e33989c26e66c4e04c906_image_120x120_thumbnail.jpg'),
+(18, 16, 'upload/photos/2020/11/ltYjENAUuLJxGpudEUcT_26_fd04316f60ac1b60050abfd62a0e7025_image.jpg', 'upload/photos/thumbs/2020/11/ltYjENAUuLJxGpudEUcT_26_fd04316f60ac1b60050abfd62a0e7025_image_120x120_thumbnail.jpg'),
+(19, 16, 'upload/photos/2020/11/3LcHyQJKyEkJJBSulprG_26_32b533cc10e5f51444ba2164dab63835_image.jpg', 'upload/photos/thumbs/2020/11/3LcHyQJKyEkJJBSulprG_26_32b533cc10e5f51444ba2164dab63835_image_120x120_thumbnail.jpg'),
+(20, 16, 'upload/photos/2020/11/T75WRtxgfoWEdLDQ1rDO_26_f8e37185a1c2240ec84a73f3bd2a6b01_image.jpg', 'upload/photos/thumbs/2020/11/T75WRtxgfoWEdLDQ1rDO_26_f8e37185a1c2240ec84a73f3bd2a6b01_image_120x120_thumbnail.jpg'),
+(21, 16, 'upload/photos/2020/11/GA4vdrv64Bxbwk1P12Mh_26_1afde09bdb467a592864c2c5ba335486_image.jpg', 'upload/photos/thumbs/2020/11/GA4vdrv64Bxbwk1P12Mh_26_1afde09bdb467a592864c2c5ba335486_image_120x120_thumbnail.jpg'),
+(22, 16, 'upload/photos/2020/11/MdbMInUiCe9iOFqeL7Fo_26_a689baeba7e5dcb49e36a460ec274b7d_image.jpg', 'upload/photos/thumbs/2020/11/MdbMInUiCe9iOFqeL7Fo_26_a689baeba7e5dcb49e36a460ec274b7d_image_120x120_thumbnail.jpg'),
+(23, 16, 'upload/photos/2020/11/vdmObi4dJ4tHYUhAoEAQ_26_7486679a1c36955e1146548e8b06d125_image.jpg', 'upload/photos/thumbs/2020/11/vdmObi4dJ4tHYUhAoEAQ_26_7486679a1c36955e1146548e8b06d125_image_120x120_thumbnail.jpg'),
+(24, 16, 'upload/photos/2020/11/oBbJDfP6GRT8dvgYh2FH_26_55c749fb7816fc58cbb0fa31990b593e_image.jpg', 'upload/photos/thumbs/2020/11/oBbJDfP6GRT8dvgYh2FH_26_55c749fb7816fc58cbb0fa31990b593e_image_120x120_thumbnail.jpg'),
+(25, 17, 'upload/photos/2020/11/OZJd4aBvsgkO3nQ2dZQ5_26_ea46ebd68736bae4e82855794397ac73_image.jpg', 'upload/photos/thumbs/2020/11/OZJd4aBvsgkO3nQ2dZQ5_26_ea46ebd68736bae4e82855794397ac73_image_120x120_thumbnail.jpg'),
+(26, 17, 'upload/photos/2020/11/efrdRVnVDUrqwx9GEzKa_26_55c1e9860c20199aa0d4cbdab2feaad2_image.png', 'upload/photos/thumbs/2020/11/efrdRVnVDUrqwx9GEzKa_26_55c1e9860c20199aa0d4cbdab2feaad2_image_120x120_thumbnail.png'),
+(27, 17, 'upload/photos/2020/11/DbElYzYeiYS2HFPmodkX_26_54e875558b8c8e65b6453a134d74e3d8_image.jpg', 'upload/photos/thumbs/2020/11/DbElYzYeiYS2HFPmodkX_26_54e875558b8c8e65b6453a134d74e3d8_image_120x120_thumbnail.jpg'),
+(28, 17, 'upload/photos/2020/11/N6J7mFCACAacAiaEmTew_26_5b7d7d5d350f9e7d5ccdd6022fbcf77d_image.jpg', 'upload/photos/thumbs/2020/11/N6J7mFCACAacAiaEmTew_26_5b7d7d5d350f9e7d5ccdd6022fbcf77d_image_120x120_thumbnail.jpg'),
+(29, 17, 'upload/photos/2020/11/rWiJNTx1rMwaO9nLcrxq_26_910c6aea3d86629b1c4c53189d578c14_image.jpg', 'upload/photos/thumbs/2020/11/rWiJNTx1rMwaO9nLcrxq_26_910c6aea3d86629b1c4c53189d578c14_image_120x120_thumbnail.jpg'),
+(30, 17, 'upload/photos/2020/11/lOTKJu5ZhzwS2EtS8Jv4_26_9e88e96bd7edd2f95bacef4fdf005d7c_image.jpg', 'upload/photos/thumbs/2020/11/lOTKJu5ZhzwS2EtS8Jv4_26_9e88e96bd7edd2f95bacef4fdf005d7c_image_120x120_thumbnail.jpg'),
+(31, 17, 'upload/photos/2020/11/36PDECVNzce22BoSEZyd_26_300b089fcc238390988ec48f9581ec8d_image.jpg', 'upload/photos/thumbs/2020/11/36PDECVNzce22BoSEZyd_26_300b089fcc238390988ec48f9581ec8d_image_120x120_thumbnail.jpg'),
+(32, 17, 'upload/photos/2020/11/2TaYTWDmchABsDYWaYwc_26_b37479a5842dee4e42311e90e5ee97e4_image.jpg', 'upload/photos/thumbs/2020/11/2TaYTWDmchABsDYWaYwc_26_b37479a5842dee4e42311e90e5ee97e4_image_120x120_thumbnail.jpg'),
+(34, 18, 'upload/photos/2020/11/T3Iz5N3UeRRuGMOjNLJZ_26_41bbe4cede1e7f4f02fc21876020f977_image.png', 'upload/photos/thumbs/2020/11/T3Iz5N3UeRRuGMOjNLJZ_26_41bbe4cede1e7f4f02fc21876020f977_image_120x120_thumbnail.png'),
+(35, 18, 'upload/photos/2020/11/IZR4SPgG58tFRxks2lag_26_7e29126c6f743c0c9fa36574e366e120_image.jpg', 'upload/photos/thumbs/2020/11/IZR4SPgG58tFRxks2lag_26_7e29126c6f743c0c9fa36574e366e120_image_120x120_thumbnail.jpg'),
+(36, 18, 'upload/photos/2020/11/yspfjdDMrHfa9qBt9avZ_26_4ba060b7729f8d5c810f242f37f3bff0_image.jpg', 'upload/photos/thumbs/2020/11/yspfjdDMrHfa9qBt9avZ_26_4ba060b7729f8d5c810f242f37f3bff0_image_120x120_thumbnail.jpg'),
+(37, 18, 'upload/photos/2020/11/J9pIclXpVtG3EwUem4Rt_26_50819fc9ed362f80a61e63dbf5f281e4_image.jpg', 'upload/photos/thumbs/2020/11/J9pIclXpVtG3EwUem4Rt_26_50819fc9ed362f80a61e63dbf5f281e4_image_120x120_thumbnail.jpg'),
+(38, 18, 'upload/photos/2020/11/sgt3W4XTjozdwMtT6uUV_26_49156ead506613600653c56879b09034_image.jpg', 'upload/photos/thumbs/2020/11/sgt3W4XTjozdwMtT6uUV_26_49156ead506613600653c56879b09034_image_120x120_thumbnail.jpg'),
+(39, 18, 'upload/photos/2020/11/Vn3J7TX5xAXRuQNY6V3b_26_7f4ce86b56169bbe346ca6a4b6798b0c_image.jpg', 'upload/photos/thumbs/2020/11/Vn3J7TX5xAXRuQNY6V3b_26_7f4ce86b56169bbe346ca6a4b6798b0c_image_120x120_thumbnail.jpg'),
+(40, 18, 'upload/photos/2020/11/GNOWgNLdMeKh5Iolxb5g_26_f2f6e692a2db538b67fb59e24a38ee78_image.jpg', 'upload/photos/thumbs/2020/11/GNOWgNLdMeKh5Iolxb5g_26_f2f6e692a2db538b67fb59e24a38ee78_image_120x120_thumbnail.jpg'),
+(41, 18, 'upload/photos/2020/11/T8QNd64VxZLOtbPV6cXM_26_a05a72d01232e8a336be64854874e989_image.png', 'upload/photos/thumbs/2020/11/T8QNd64VxZLOtbPV6cXM_26_a05a72d01232e8a336be64854874e989_image_120x120_thumbnail.png'),
+(42, 19, 'upload/photos/2020/11/fFzgdm8I3Ga6JilmmV2b_26_24b5dd83d05d3bc9f310a8b269bd39ff_image.png', 'upload/photos/thumbs/2020/11/fFzgdm8I3Ga6JilmmV2b_26_24b5dd83d05d3bc9f310a8b269bd39ff_image_120x120_thumbnail.png'),
+(43, 19, 'upload/photos/2020/11/nNsa4YCkIPYwuyGft7rE_26_ff76f2cd7dc0c44c838ceda336959404_image.jpg', 'upload/photos/thumbs/2020/11/nNsa4YCkIPYwuyGft7rE_26_ff76f2cd7dc0c44c838ceda336959404_image_120x120_thumbnail.jpg'),
+(44, 19, 'upload/photos/2020/11/V3QlX4GZ2hV3SxDfeuhD_26_52f8525315a6be009d73373b1a7c941f_image.jpg', 'upload/photos/thumbs/2020/11/V3QlX4GZ2hV3SxDfeuhD_26_52f8525315a6be009d73373b1a7c941f_image_120x120_thumbnail.jpg'),
+(45, 19, 'upload/photos/2020/11/pC5jH87vZnuyhek9xuly_26_158db969b8b1c9a3803132a88f4c58c4_image.jpg', 'upload/photos/thumbs/2020/11/pC5jH87vZnuyhek9xuly_26_158db969b8b1c9a3803132a88f4c58c4_image_120x120_thumbnail.jpg'),
+(46, 19, 'upload/photos/2020/11/RsosIoE2laYPWUYw5tz9_26_9e8fa9785e93245f3f6a42c1900a3ad9_image.jpg', 'upload/photos/thumbs/2020/11/RsosIoE2laYPWUYw5tz9_26_9e8fa9785e93245f3f6a42c1900a3ad9_image_120x120_thumbnail.jpg'),
+(47, 20, 'upload/photos/2020/11/ZNpbq7CsAVZKRDuM7WCS_26_9bcd7237d1df24e5efa4b9ecee823406_image.jpg', 'upload/photos/thumbs/2020/11/ZNpbq7CsAVZKRDuM7WCS_26_9bcd7237d1df24e5efa4b9ecee823406_image_120x120_thumbnail.jpg'),
+(48, 20, 'upload/photos/2020/11/UYswId2T5QxPgGfjbxWJ_26_0587a8eb56d9ceff5bb579322d57b981_image.jpg', 'upload/photos/thumbs/2020/11/UYswId2T5QxPgGfjbxWJ_26_0587a8eb56d9ceff5bb579322d57b981_image_120x120_thumbnail.jpg'),
+(49, 20, 'upload/photos/2020/11/fhCW7yjBZq5fGcVGAZ21_26_be3b80b180dc454817a450a990428cd2_image.jpg', 'upload/photos/thumbs/2020/11/fhCW7yjBZq5fGcVGAZ21_26_be3b80b180dc454817a450a990428cd2_image_120x120_thumbnail.jpg'),
+(50, 20, 'upload/photos/2020/11/U96J7WY485Kw17FYMoVi_26_e97fef5859cd10231353fabc7b0b940c_image.jpg', 'upload/photos/thumbs/2020/11/U96J7WY485Kw17FYMoVi_26_e97fef5859cd10231353fabc7b0b940c_image_120x120_thumbnail.jpg'),
+(52, 21, 'upload/photos/2020/11/trjVnG2xvRYNijMfRumw_26_d7f25a9a9bdbe1aa92c71db587dc747a_image.jpg', 'upload/photos/thumbs/2020/11/trjVnG2xvRYNijMfRumw_26_d7f25a9a9bdbe1aa92c71db587dc747a_image_120x120_thumbnail.jpg'),
+(53, 21, 'upload/photos/2020/11/qgGTmcFBdDS3ZeYgrjN8_26_edcbb36ba12c7d18a8c4632f053998bc_image.png', 'upload/photos/thumbs/2020/11/qgGTmcFBdDS3ZeYgrjN8_26_edcbb36ba12c7d18a8c4632f053998bc_image_120x120_thumbnail.png'),
+(54, 21, 'upload/photos/2020/11/QzA8XSkWgqdU7ogNKSTY_26_d9fbe803c79bc6e08fd150b432d8938a_image.jpg', 'upload/photos/thumbs/2020/11/QzA8XSkWgqdU7ogNKSTY_26_d9fbe803c79bc6e08fd150b432d8938a_image_120x120_thumbnail.jpg'),
+(55, 21, 'upload/photos/2020/11/JHO63S1RW7DoRubRmW7C_26_84f4e9f270320544aa5ec008e7e723f1_image.jpg', 'upload/photos/thumbs/2020/11/JHO63S1RW7DoRubRmW7C_26_84f4e9f270320544aa5ec008e7e723f1_image_120x120_thumbnail.jpg'),
+(56, 21, 'upload/photos/2020/11/pxM6PoOKRxcvkjuR55XY_26_e88fdb07592f166a2952cfbdbc46e78c_image.jpg', 'upload/photos/thumbs/2020/11/pxM6PoOKRxcvkjuR55XY_26_e88fdb07592f166a2952cfbdbc46e78c_image_120x120_thumbnail.jpg'),
+(57, 21, 'upload/photos/2020/11/j8aw5D622sWfoCdEgo2K_26_bb86800c4663b760713d76acb9e8245b_image.jpg', 'upload/photos/thumbs/2020/11/j8aw5D622sWfoCdEgo2K_26_bb86800c4663b760713d76acb9e8245b_image_120x120_thumbnail.jpg'),
+(58, 21, 'upload/photos/2020/11/EN58O8WglZ7Bn4jNxgil_26_cd3ca38b592722a1b384653fb8a1dd20_image.jpg', 'upload/photos/thumbs/2020/11/EN58O8WglZ7Bn4jNxgil_26_cd3ca38b592722a1b384653fb8a1dd20_image_120x120_thumbnail.jpg'),
+(59, 21, 'upload/photos/2020/11/q7cidB28yBlA6qReYTqr_26_6e107b6f91b3dfb30b42910f518c8d50_image.jpg', 'upload/photos/thumbs/2020/11/q7cidB28yBlA6qReYTqr_26_6e107b6f91b3dfb30b42910f518c8d50_image_120x120_thumbnail.jpg'),
+(60, 22, 'upload/photos/2020/11/o1lFWI3qJEpj9nDaWKyo_26_2f54f0890d45b0992fb57777cdb514e8_image.jpg', 'upload/photos/thumbs/2020/11/o1lFWI3qJEpj9nDaWKyo_26_2f54f0890d45b0992fb57777cdb514e8_image_120x120_thumbnail.jpg'),
+(61, 22, 'upload/photos/2020/11/IUpd1xoLnNtXLsdIF4Fc_26_3582393f3bee3bfed424cd896488736f_image.jpg', 'upload/photos/thumbs/2020/11/IUpd1xoLnNtXLsdIF4Fc_26_3582393f3bee3bfed424cd896488736f_image_120x120_thumbnail.jpg'),
+(62, 22, 'upload/photos/2020/11/KZgd9VUWrm4CBhc3rgLy_26_06b738ffb087aa212776227ca00b32a7_image.jpg', 'upload/photos/thumbs/2020/11/KZgd9VUWrm4CBhc3rgLy_26_06b738ffb087aa212776227ca00b32a7_image_120x120_thumbnail.jpg'),
+(63, 22, 'upload/photos/2020/11/ZpElLgTopHFtvkEtEc3K_26_eb9e01728dbb21da9176e2b2dce7dcf5_image.jpg', 'upload/photos/thumbs/2020/11/ZpElLgTopHFtvkEtEc3K_26_eb9e01728dbb21da9176e2b2dce7dcf5_image_120x120_thumbnail.jpg'),
+(64, 22, 'upload/photos/2020/11/wxzVL5CaKphJ5sRQCvVp_26_aad6c1ffa1296aca4c9b7a164bb2687b_image.jpg', 'upload/photos/thumbs/2020/11/wxzVL5CaKphJ5sRQCvVp_26_aad6c1ffa1296aca4c9b7a164bb2687b_image_120x120_thumbnail.jpg'),
+(65, 22, 'upload/photos/2020/11/6dQydWhqSG24zduwtjWW_26_79ab6458083d8f256f95235e85b45670_image.jpg', 'upload/photos/thumbs/2020/11/6dQydWhqSG24zduwtjWW_26_79ab6458083d8f256f95235e85b45670_image_120x120_thumbnail.jpg'),
+(66, 22, 'upload/photos/2020/11/sPSqtBqaooSKKoDy4mba_26_28b431e998230d1f719a21d681b99b14_image.jpg', 'upload/photos/thumbs/2020/11/sPSqtBqaooSKKoDy4mba_26_28b431e998230d1f719a21d681b99b14_image_120x120_thumbnail.jpg'),
+(67, 22, 'upload/photos/2020/11/5n8iyC5ScDJ3UqWVsytv_26_57d9581ecbd70da01298214bfed02806_image.jpg', 'upload/photos/thumbs/2020/11/5n8iyC5ScDJ3UqWVsytv_26_57d9581ecbd70da01298214bfed02806_image_120x120_thumbnail.jpg'),
+(68, 23, 'upload/photos/2020/11/i7DR73zEVvPZUkHa7jd3_26_9d4ad23108840853e8f37918507bf221_image.jpg', 'upload/photos/thumbs/2020/11/i7DR73zEVvPZUkHa7jd3_26_9d4ad23108840853e8f37918507bf221_image_120x120_thumbnail.jpg');
 
 -- --------------------------------------------------------
 
@@ -2741,44 +2808,30 @@ CREATE TABLE IF NOT EXISTS `hex_product_media` (
 -- Cấu trúc bảng cho bảng `hex_prod_categories`
 --
 
-DROP TABLE IF EXISTS `hex_prod_categories`;
-CREATE TABLE IF NOT EXISTS `hex_prod_categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_prod_categories` (
+  `id` int(11) NOT NULL,
   `catg_id` varchar(60) NOT NULL DEFAULT '',
   `catg_name` varchar(60) NOT NULL DEFAULT '',
   `status` enum('active','inactive') NOT NULL DEFAULT 'active',
-  `sort_order` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+  `sort_order` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_prod_categories`
 --
 
 INSERT INTO `hex_prod_categories` (`id`, `catg_id`, `catg_name`, `status`, `sort_order`) VALUES
-(1, 'womens_fation', 'Women\'s fashion', 'active', 2),
-(2, 'health_beauty', 'Health and beauty', 'active', 18),
-(3, 'phones_and_tablets', 'Phones and tablets', 'active', 9),
-(4, 'computers_accessories', 'Computers and Accessories', 'active', 3),
-(5, 'electronics', 'Electronics', 'active', 23),
-(6, 'footwear', 'Footwear', 'active', 4),
-(7, 'household', 'Household products', 'active', 5),
-(8, 'children_baby', 'Childen\'s goods', 'active', 6),
-(9, 'mens_fation', 'Men\'s fashion', 'active', 22),
-(10, 'pets', 'Goods for pets', 'active', 8),
-(11, 'graden', 'Garden', 'active', 7),
-(12, 'sports_fitenss', 'Sports & Fintness', 'active', 10),
-(13, 'auto', 'Auto products', 'active', 11),
-(14, 'motorcycle', 'Motorcycle products', 'active', 12),
-(15, 'repair', 'Repair Products', 'active', 13),
-(16, 'hobby', 'Hobby goods', 'active', 14),
-(17, 'office_goods', 'Office supplies', 'active', 15),
-(18, 'school_supplies', 'School supplies', 'active', 16),
-(19, 'hunting_accessories', 'Hunting accessories', 'active', 17),
-(20, 'fishing_supplies', 'Fishing Supplies & Equipment', 'active', 1),
-(21, 'holidays_events', 'Holidays & Events', 'active', 19),
-(22, 'tea_accessories', 'Tea & Accessories', 'active', 20),
-(23, 'games_and_toys', 'Games and toys', 'active', 21);
+(1, 'iphone', 'Iphone', 'active', 1),
+(2, 'samsung', 'SamSung', 'active', 2),
+(3, 'oppo', 'Oppo', 'active', 3),
+(4, 'xiaomi', 'Xiaomi', 'active', 4),
+(5, 'mobel', 'Moble', 'active', 5),
+(6, 'nokia', 'Nokia', 'active', 6),
+(7, 'huawei', 'Huawei', 'active', 7),
+(8, 'vsmarts', 'Vsmarts', 'active', 8),
+(9, 'vivo', 'Vivo', 'active', 9),
+(10, 'realme', 'Realme', 'active', 10),
+(11, 'other', 'Other', 'active', 11);
 
 -- --------------------------------------------------------
 
@@ -2786,18 +2839,23 @@ INSERT INTO `hex_prod_categories` (`id`, `catg_id`, `catg_name`, `status`, `sort
 -- Cấu trúc bảng cho bảng `hex_prod_ratings`
 --
 
-DROP TABLE IF EXISTS `hex_prod_ratings`;
-CREATE TABLE IF NOT EXISTS `hex_prod_ratings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `prod_id` int(11) NOT NULL DEFAULT '0',
-  `valuation` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_prod_ratings` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
+  `valuation` int(11) NOT NULL DEFAULT 0,
   `review` varchar(1200) NOT NULL DEFAULT '',
   `activity_status` enum('active','inactive','orphan') NOT NULL DEFAULT 'inactive',
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `activity_status` (`activity_status`)
+  `time` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_prod_ratings`
+--
+
+INSERT INTO `hex_prod_ratings` (`id`, `user_id`, `prod_id`, `valuation`, `review`, `activity_status`, `time`) VALUES
+(1, 1, 15, 5, 'Sản phẩm chất lượng tốt đúng mô tả. Nhân viên tư vấn nhiệt tình. Sau này có cơ hội nhất định sẽ ủng hộ shop.', 'active', '1606403081'),
+(2, 1, 18, 5, 'Sản phẩm rất tốt.', 'active', '1606406350');
 
 -- --------------------------------------------------------
 
@@ -2805,15 +2863,20 @@ CREATE TABLE IF NOT EXISTS `hex_prod_ratings` (
 -- Cấu trúc bảng cho bảng `hex_prod_rating_media`
 --
 
-DROP TABLE IF EXISTS `hex_prod_rating_media`;
-CREATE TABLE IF NOT EXISTS `hex_prod_rating_media` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `review_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_prod_rating_media` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `review_id` int(11) NOT NULL DEFAULT 0,
   `file_path` varchar(1500) NOT NULL DEFAULT '',
-  `time` varchar(15) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(15) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_prod_rating_media`
+--
+
+INSERT INTO `hex_prod_rating_media` (`id`, `user_id`, `review_id`, `file_path`, `time`) VALUES
+(1, 1, 1, 'upload/photos/2020/11/3Ah5NTl9eryFOKxwStBK_26_ce8fb46a20748f05cdee99ea49dcecd3_image.jpg', '1606403071');
 
 -- --------------------------------------------------------
 
@@ -2821,15 +2884,13 @@ CREATE TABLE IF NOT EXISTS `hex_prod_rating_media` (
 -- Cấu trúc bảng cho bảng `hex_prod_reports`
 --
 
-DROP TABLE IF EXISTS `hex_prod_reports`;
-CREATE TABLE IF NOT EXISTS `hex_prod_reports` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `prod_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_prod_reports` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
   `report` varchar(1220) NOT NULL DEFAULT '',
   `seen` enum('1','0') NOT NULL DEFAULT '0',
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(20) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2838,10 +2899,9 @@ CREATE TABLE IF NOT EXISTS `hex_prod_reports` (
 -- Cấu trúc bảng cho bảng `hex_prod_variations`
 --
 
-DROP TABLE IF EXISTS `hex_prod_variations`;
-CREATE TABLE IF NOT EXISTS `hex_prod_variations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `prod_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_prod_variations` (
+  `id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
   `col_img` varchar(300) NOT NULL DEFAULT '',
   `col_thumb` varchar(3000) NOT NULL DEFAULT '',
   `col_hex` varchar(15) NOT NULL DEFAULT '',
@@ -2849,22 +2909,14 @@ CREATE TABLE IF NOT EXISTS `hex_prod_variations` (
   `size` varchar(50) NOT NULL DEFAULT '',
   `reg_price` varchar(15) NOT NULL DEFAULT '0.00',
   `sale_price` varchar(15) NOT NULL DEFAULT '0.00',
-  `quantity` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT 0,
   `sku` varchar(25) NOT NULL DEFAULT '',
   `height` varchar(11) NOT NULL DEFAULT '',
   `var_type` enum('color','size','color_size','none') NOT NULL DEFAULT 'none',
   `status` enum('active','inactive','blank') NOT NULL DEFAULT 'active',
   `activity_status` enum('active','inactive','orphan') NOT NULL DEFAULT 'inactive',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `hex_prod_variations`
---
-
-INSERT INTO `hex_prod_variations` (`id`, `prod_id`, `col_img`, `col_thumb`, `col_hex`, `col_name`, `size`, `reg_price`, `sale_price`, `quantity`, `sku`, `height`, `var_type`, `status`, `activity_status`, `time`) VALUES
-(2, 12, '', '', '', '', '', '0.00', '0.00', 0, '', '', 'color', 'active', 'orphan', '1593100947');
+  `time` varchar(25) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2872,23 +2924,21 @@ INSERT INTO `hex_prod_variations` (`id`, `prod_id`, `col_img`, `col_thumb`, `col
 -- Cấu trúc bảng cho bảng `hex_sessions`
 --
 
-DROP TABLE IF EXISTS `hex_sessions`;
-CREATE TABLE IF NOT EXISTS `hex_sessions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_sessions` (
+  `id` int(11) NOT NULL,
   `session_id` varchar(100) NOT NULL DEFAULT '',
-  `user_id` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `platform` varchar(10) NOT NULL DEFAULT 'web',
-  `time` varchar(15) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `hex_sessions_ibfk_1` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `time` varchar(15) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_sessions`
 --
 
 INSERT INTO `hex_sessions` (`id`, `session_id`, `user_id`, `platform`, `time`) VALUES
-(1, '18eb85648bf29e317bbe171fb7495ff7709976d81593087191073afe034d94a6f4fcb4e5be66e4c756', 1, 'web', '1593087191');
+(3, '2761cfdc9961ab1223f698ef6a5990b79150b6f416063905139c21241a2ff5d0a84b5f33c172fdf445', 1, 'web', '1606390513'),
+(4, 'df323c68c32787d68022d5bb6278d7794dca2b9f1606390625a3c813be8f3189557f0e0ab6e16ef0cd', 3, 'web', '1606390625');
 
 -- --------------------------------------------------------
 
@@ -2896,14 +2946,11 @@ INSERT INTO `hex_sessions` (`id`, `session_id`, `user_id`, `platform`, `time`) V
 -- Cấu trúc bảng cho bảng `hex_settings`
 --
 
-DROP TABLE IF EXISTS `hex_settings`;
-CREATE TABLE IF NOT EXISTS `hex_settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_settings` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `key` varchar(60) NOT NULL DEFAULT '',
-  `value` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`)
+  `value` varchar(100) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2912,24 +2959,22 @@ CREATE TABLE IF NOT EXISTS `hex_settings` (
 -- Cấu trúc bảng cho bảng `hex_static_pages`
 --
 
-DROP TABLE IF EXISTS `hex_static_pages`;
-CREATE TABLE IF NOT EXISTS `hex_static_pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_static_pages` (
+  `id` int(11) NOT NULL,
   `page_name` varchar(300) NOT NULL DEFAULT '',
-  `page_content` longtext,
-  `last_updated` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `page_content` longtext DEFAULT NULL,
+  `last_updated` varchar(20) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_static_pages`
 --
 
 INSERT INTO `hex_static_pages` (`id`, `page_name`, `page_content`, `last_updated`) VALUES
-(1, 'doc_aboutus_page', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan viverra suscipit. Phasellus vitae interdum leo. Nullam fringilla a neque ut finibus. Pellentesque molestie dolor sit amet metus pretium maximus. Cras molestie id nibh quis volutpat. Integer vel rhoncus ex, non aliquam justo. Mauris accumsan nisl nec nisi pulvinar, nec malesuada sapien convallis. Donec sed accumsan nulla. Aliquam diam velit, malesuada eu turpis et, euismod accumsan nulla. Nulla ac ligula sit amet sem commodo posuere. Cras mauris purus, hendrerit eu lacus vitae, vulputate mollis justo. Nunc eu egestas arcu.\n\nIn finibus eu urna nec facilisis. Cras eu vulputate lorem. Suspendisse pharetra est congue nibh consequat, vel eleifend felis ultricies. Aliquam quis semper risus. Donec ipsum felis, consectetur ac metus ac, dapibus condimentum libero. Etiam velit nulla, congue id suscipit vel, sagittis et sem. Sed condimentum laoreet lorem, sodales porttitor enim egestas ut. Donec tristique nibh quis massa rhoncus laoreet. In hendrerit quam sit amet commodo interdum. Morbi consectetur semper mattis. Nulla tempus lorem suscipit lacus tincidunt, at venenatis sapien tristique. Ut ut mi varius, euismod ligula ut, ornare neque. Curabitur efficitur justo eu nisi maximus lacinia.\n\nSuspendisse a sapien nec nibh auctor scelerisque ut id eros. Nunc at quam ultricies, placerat sapien et, efficitur urna. Duis blandit elit tellus, eu ullamcorper metus aliquet a. Suspendisse feugiat malesuada nisl eu ornare. Cras at dignissim arcu. In ut nibh eget diam eleifend efficitur a sit amet mi. Curabitur accumsan a purus nec sagittis. Vestibulum efficitur orci sem, vitae facilisis nulla pharetra at. Maecenas sit amet elit justo. Maecenas cursus, sapien vitae congue tincidunt, arcu diam vestibulum magna, sed egestas urna velit eu tortor. Sed porta placerat sapien, quis faucibus ligula fringilla quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent mattis facilisis velit ac tristique. Quisque lacus sem, imperdiet a est id, lobortis mollis sem. Nulla venenatis eu lorem fringilla commodo. Nulla nec orci et nunc feugiat interdum.\n\nMorbi consequat efficitur diam. Etiam euismod sodales magna quis vehicula. Fusce consectetur sem tellus, at aliquet ante mattis quis. Quisque ullamcorper dui justo, quis congue lorem imperdiet vel. Aliquam ut libero nec leo interdum consequat. Nam tristique libero sed lorem elementum mattis. Fusce nec aliquet felis.\n\nNam tempus lorem nec erat egestas, at posuere felis iaculis. Duis tempor nunc pellentesque metus consequat, ac eleifend lacus accumsan. Nunc id ante nec ex blandit ultricies. Phasellus commodo consectetur quam, vel ullamcorper libero sollicitudin eu. Nunc nisl augue, volutpat eu convallis in, dictum aliquet arcu. Morbi a lacus felis. Fusce lobortis diam fermentum facilisis pretium. Integer nec luctus sem, et convallis tellus. Nunc lacinia leo ut tempor lobortis. Fusce tincidunt orci quis consectetur elementum. Nunc rhoncus dui quis augue molestie pulvinar. Mauris sed cursus massa, quis porta risus.', '0'),
-(2, 'doc_privacy_policy', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan viverra suscipit. Phasellus vitae interdum leo. Nullam fringilla a neque ut finibus. Pellentesque molestie dolor sit amet metus pretium maximus. Cras molestie id nibh quis volutpat. Integer vel rhoncus ex, non aliquam justo. Mauris accumsan nisl nec nisi pulvinar, nec malesuada sapien convallis. Donec sed accumsan nulla. Aliquam diam velit, malesuada eu turpis et, euismod accumsan nulla. Nulla ac ligula sit amet sem commodo posuere. Cras mauris purus, hendrerit eu lacus vitae, vulputate mollis justo. Nunc eu egestas arcu.\n\nIn finibus eu urna nec facilisis. Cras eu vulputate lorem. Suspendisse pharetra est congue nibh consequat, vel eleifend felis ultricies. Aliquam quis semper risus. Donec ipsum felis, consectetur ac metus ac, dapibus condimentum libero. Etiam velit nulla, congue id suscipit vel, sagittis et sem. Sed condimentum laoreet lorem, sodales porttitor enim egestas ut. Donec tristique nibh quis massa rhoncus laoreet. In hendrerit quam sit amet commodo interdum. Morbi consectetur semper mattis. Nulla tempus lorem suscipit lacus tincidunt, at venenatis sapien tristique. Ut ut mi varius, euismod ligula ut, ornare neque. Curabitur efficitur justo eu nisi maximus lacinia.\n\nSuspendisse a sapien nec nibh auctor scelerisque ut id eros. Nunc at quam ultricies, placerat sapien et, efficitur urna. Duis blandit elit tellus, eu ullamcorper metus aliquet a. Suspendisse feugiat malesuada nisl eu ornare. Cras at dignissim arcu. In ut nibh eget diam eleifend efficitur a sit amet mi. Curabitur accumsan a purus nec sagittis. Vestibulum efficitur orci sem, vitae facilisis nulla pharetra at. Maecenas sit amet elit justo. Maecenas cursus, sapien vitae congue tincidunt, arcu diam vestibulum magna, sed egestas urna velit eu tortor. Sed porta placerat sapien, quis faucibus ligula fringilla quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent mattis facilisis velit ac tristique. Quisque lacus sem, imperdiet a est id, lobortis mollis sem. Nulla venenatis eu lorem fringilla commodo. Nulla nec orci et nunc feugiat interdum.\n\nMorbi consequat efficitur diam. Etiam euismod sodales magna quis vehicula. Fusce consectetur sem tellus, at aliquet ante mattis quis. Quisque ullamcorper dui justo, quis congue lorem imperdiet vel. Aliquam ut libero nec leo interdum consequat. Nam tristique libero sed lorem elementum mattis. Fusce nec aliquet felis.\n\nNam tempus lorem nec erat egestas, at posuere felis iaculis. Duis tempor nunc pellentesque metus consequat, ac eleifend lacus accumsan. Nunc id ante nec ex blandit ultricies. Phasellus commodo consectetur quam, vel ullamcorper libero sollicitudin eu. Nunc nisl augue, volutpat eu convallis in, dictum aliquet arcu. Morbi a lacus felis. Fusce lobortis diam fermentum facilisis pretium. Integer nec luctus sem, et convallis tellus. Nunc lacinia leo ut tempor lobortis. Fusce tincidunt orci quis consectetur elementum. Nunc rhoncus dui quis augue molestie pulvinar. Mauris sed cursus massa, quis porta risus.', '0'),
-(3, 'doc_terms', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan viverra suscipit. Phasellus vitae interdum leo. Nullam fringilla a neque ut finibus. Pellentesque molestie dolor sit amet metus pretium maximus. Cras molestie id nibh quis volutpat. Integer vel rhoncus ex, non aliquam justo. Mauris accumsan nisl nec nisi pulvinar, nec malesuada sapien convallis. Donec sed accumsan nulla. Aliquam diam velit, malesuada eu turpis et, euismod accumsan nulla. Nulla ac ligula sit amet sem commodo posuere. Cras mauris purus, hendrerit eu lacus vitae, vulputate mollis justo. Nunc eu egestas arcu.\n\nIn finibus eu urna nec facilisis. Cras eu vulputate lorem. Suspendisse pharetra est congue nibh consequat, vel eleifend felis ultricies. Aliquam quis semper risus. Donec ipsum felis, consectetur ac metus ac, dapibus condimentum libero. Etiam velit nulla, congue id suscipit vel, sagittis et sem. Sed condimentum laoreet lorem, sodales porttitor enim egestas ut. Donec tristique nibh quis massa rhoncus laoreet. In hendrerit quam sit amet commodo interdum. Morbi consectetur semper mattis. Nulla tempus lorem suscipit lacus tincidunt, at venenatis sapien tristique. Ut ut mi varius, euismod ligula ut, ornare neque. Curabitur efficitur justo eu nisi maximus lacinia.\n\nSuspendisse a sapien nec nibh auctor scelerisque ut id eros. Nunc at quam ultricies, placerat sapien et, efficitur urna. Duis blandit elit tellus, eu ullamcorper metus aliquet a. Suspendisse feugiat malesuada nisl eu ornare. Cras at dignissim arcu. In ut nibh eget diam eleifend efficitur a sit amet mi. Curabitur accumsan a purus nec sagittis. Vestibulum efficitur orci sem, vitae facilisis nulla pharetra at. Maecenas sit amet elit justo. Maecenas cursus, sapien vitae congue tincidunt, arcu diam vestibulum magna, sed egestas urna velit eu tortor. Sed porta placerat sapien, quis faucibus ligula fringilla quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent mattis facilisis velit ac tristique. Quisque lacus sem, imperdiet a est id, lobortis mollis sem. Nulla venenatis eu lorem fringilla commodo. Nulla nec orci et nunc feugiat interdum.\n\nMorbi consequat efficitur diam. Etiam euismod sodales magna quis vehicula. Fusce consectetur sem tellus, at aliquet ante mattis quis. Quisque ullamcorper dui justo, quis congue lorem imperdiet vel. Aliquam ut libero nec leo interdum consequat. Nam tristique libero sed lorem elementum mattis. Fusce nec aliquet felis.\n\nNam tempus lorem nec erat egestas, at posuere felis iaculis. Duis tempor nunc pellentesque metus consequat, ac eleifend lacus accumsan. Nunc id ante nec ex blandit ultricies. Phasellus commodo consectetur quam, vel ullamcorper libero sollicitudin eu. Nunc nisl augue, volutpat eu convallis in, dictum aliquet arcu. Morbi a lacus felis. Fusce lobortis diam fermentum facilisis pretium. Integer nec luctus sem, et convallis tellus. Nunc lacinia leo ut tempor lobortis. Fusce tincidunt orci quis consectetur elementum. Nunc rhoncus dui quis augue molestie pulvinar. Mauris sed cursus massa, quis porta risus.', '0'),
-(4, 'doc_merchant_terms', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan viverra suscipit. Phasellus vitae interdum leo. Nullam fringilla a neque ut finibus. Pellentesque molestie dolor sit amet metus pretium maximus. Cras molestie id nibh quis volutpat. Integer vel rhoncus ex, non aliquam justo. Mauris accumsan nisl nec nisi pulvinar, nec malesuada sapien convallis. Donec sed accumsan nulla. Aliquam diam velit, malesuada eu turpis et, euismod accumsan nulla. Nulla ac ligula sit amet sem commodo posuere. Cras mauris purus, hendrerit eu lacus vitae, vulputate mollis justo. Nunc eu egestas arcu.\n\nIn finibus eu urna nec facilisis. Cras eu vulputate lorem. Suspendisse pharetra est congue nibh consequat, vel eleifend felis ultricies. Aliquam quis semper risus. Donec ipsum felis, consectetur ac metus ac, dapibus condimentum libero. Etiam velit nulla, congue id suscipit vel, sagittis et sem. Sed condimentum laoreet lorem, sodales porttitor enim egestas ut. Donec tristique nibh quis massa rhoncus laoreet. In hendrerit quam sit amet commodo interdum. Morbi consectetur semper mattis. Nulla tempus lorem suscipit lacus tincidunt, at venenatis sapien tristique. Ut ut mi varius, euismod ligula ut, ornare neque. Curabitur efficitur justo eu nisi maximus lacinia.\n\nSuspendisse a sapien nec nibh auctor scelerisque ut id eros. Nunc at quam ultricies, placerat sapien et, efficitur urna. Duis blandit elit tellus, eu ullamcorper metus aliquet a. Suspendisse feugiat malesuada nisl eu ornare. Cras at dignissim arcu. In ut nibh eget diam eleifend efficitur a sit amet mi. Curabitur accumsan a purus nec sagittis. Vestibulum efficitur orci sem, vitae facilisis nulla pharetra at. Maecenas sit amet elit justo. Maecenas cursus, sapien vitae congue tincidunt, arcu diam vestibulum magna, sed egestas urna velit eu tortor. Sed porta placerat sapien, quis faucibus ligula fringilla quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent mattis facilisis velit ac tristique. Quisque lacus sem, imperdiet a est id, lobortis mollis sem. Nulla venenatis eu lorem fringilla commodo. Nulla nec orci et nunc feugiat interdum.\n\nMorbi consequat efficitur diam. Etiam euismod sodales magna quis vehicula. Fusce consectetur sem tellus, at aliquet ante mattis quis. Quisque ullamcorper dui justo, quis congue lorem imperdiet vel. Aliquam ut libero nec leo interdum consequat. Nam tristique libero sed lorem elementum mattis. Fusce nec aliquet felis.\n\nNam tempus lorem nec erat egestas, at posuere felis iaculis. Duis tempor nunc pellentesque metus consequat, ac eleifend lacus accumsan. Nunc id ante nec ex blandit ultricies. Phasellus commodo consectetur quam, vel ullamcorper libero sollicitudin eu. Nunc nisl augue, volutpat eu convallis in, dictum aliquet arcu. Morbi a lacus felis. Fusce lobortis diam fermentum facilisis pretium. Integer nec luctus sem, et convallis tellus. Nunc lacinia leo ut tempor lobortis. Fusce tincidunt orci quis consectetur elementum. Nunc rhoncus dui quis augue molestie pulvinar. Mauris sed cursus massa, quis porta risus.', '0');
+(1, 'doc_aboutus_page', 'E-Phones l&amp;agrave; nền tảng giao dịch điện thoại di động uy t&amp;iacute;n gi&amp;aacute; rẻ.', '0'),
+(2, 'doc_privacy_policy', 'Chính sách.', '0'),
+(3, 'doc_terms', 'Điều khoản sử dụng.', '0'),
+(4, 'doc_merchant_terms', 'Điều khoản về gian hàng.', '0');
 
 -- --------------------------------------------------------
 
@@ -2937,14 +2982,19 @@ INSERT INTO `hex_static_pages` (`id`, `page_name`, `page_content`, `last_updated
 -- Cấu trúc bảng cho bảng `hex_store_customers`
 --
 
-DROP TABLE IF EXISTS `hex_store_customers`;
-CREATE TABLE IF NOT EXISTS `hex_store_customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `seller_id` int(11) NOT NULL DEFAULT '0',
-  `buyer_id` int(11) NOT NULL DEFAULT '0',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+CREATE TABLE `hex_store_customers` (
+  `id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL DEFAULT 0,
+  `buyer_id` int(11) NOT NULL DEFAULT 0,
+  `time` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hex_store_customers`
+--
+
+INSERT INTO `hex_store_customers` (`id`, `seller_id`, `buyer_id`, `time`) VALUES
+(1, 3, 1, '1606392470');
 
 -- --------------------------------------------------------
 
@@ -2952,16 +3002,12 @@ CREATE TABLE IF NOT EXISTS `hex_store_customers` (
 -- Cấu trúc bảng cho bảng `hex_temp_data`
 --
 
-DROP TABLE IF EXISTS `hex_temp_data`;
-CREATE TABLE IF NOT EXISTS `hex_temp_data` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_temp_data` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `name` varchar(300) NOT NULL DEFAULT '',
   `value` varchar(3000) NOT NULL DEFAULT '',
-  `type` enum('int','text','url','path','none') NOT NULL DEFAULT 'none',
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `key` (`name`)
+  `type` enum('int','text','url','path','none') NOT NULL DEFAULT 'none'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2970,12 +3016,10 @@ CREATE TABLE IF NOT EXISTS `hex_temp_data` (
 -- Cấu trúc bảng cho bảng `hex_temp_media`
 --
 
-DROP TABLE IF EXISTS `hex_temp_media`;
-CREATE TABLE IF NOT EXISTS `hex_temp_media` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_temp_media` (
+  `id` int(11) NOT NULL,
   `file_path` varchar(600) NOT NULL DEFAULT '',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2984,9 +3028,8 @@ CREATE TABLE IF NOT EXISTS `hex_temp_media` (
 -- Cấu trúc bảng cho bảng `hex_users`
 --
 
-DROP TABLE IF EXISTS `hex_users`;
-CREATE TABLE IF NOT EXISTS `hex_users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hex_users` (
+  `id` int(11) NOT NULL,
   `username` varchar(30) NOT NULL DEFAULT '',
   `fname` varchar(30) NOT NULL DEFAULT '',
   `lname` varchar(30) NOT NULL DEFAULT '',
@@ -2999,7 +3042,7 @@ CREATE TABLE IF NOT EXISTS `hex_users` (
   `ipv4_address` varchar(15) NOT NULL DEFAULT '0.0.0.0',
   `language` varchar(20) NOT NULL DEFAULT 'english',
   `avatar` varchar(300) NOT NULL DEFAULT 'upload/users/user-avatar.png',
-  `country_id` int(3) NOT NULL DEFAULT '0',
+  `country_id` int(3) NOT NULL DEFAULT 0,
   `youtube` varchar(100) NOT NULL DEFAULT '',
   `facebook` varchar(100) NOT NULL DEFAULT '',
   `twitter` varchar(100) NOT NULL DEFAULT '',
@@ -3010,7 +3053,7 @@ CREATE TABLE IF NOT EXISTS `hex_users` (
   `admin` enum('0','1') NOT NULL DEFAULT '0',
   `is_seller` enum('Y','N') NOT NULL DEFAULT 'N',
   `wallet` varchar(15) NOT NULL DEFAULT '0.00',
-  `sales` int(11) NOT NULL DEFAULT '0',
+  `sales` int(11) NOT NULL DEFAULT 0,
   `active` enum('0','1','2') NOT NULL DEFAULT '0',
   `phone` varchar(18) NOT NULL DEFAULT '',
   `whatsapp` varchar(18) NOT NULL DEFAULT '',
@@ -3019,16 +3062,16 @@ CREATE TABLE IF NOT EXISTS `hex_users` (
   `street` varchar(100) CHARACTER SET utf8 COLLATE utf8_estonian_ci NOT NULL DEFAULT '',
   `off_apt` varchar(60) NOT NULL DEFAULT '',
   `zip_postal` varchar(10) NOT NULL DEFAULT '',
-  `deliv_addr` varchar(11) NOT NULL DEFAULT 'default',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `deliv_addr` varchar(11) NOT NULL DEFAULT 'default'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_users`
 --
 
 INSERT INTO `hex_users` (`id`, `username`, `fname`, `lname`, `bio`, `email`, `em_code`, `password`, `joined`, `last_active`, `ipv4_address`, `language`, `avatar`, `country_id`, `youtube`, `facebook`, `twitter`, `instagram`, `website`, `google_plus`, `verified`, `admin`, `is_seller`, `wallet`, `sales`, `active`, `phone`, `whatsapp`, `state`, `city`, `street`, `off_apt`, `zip_postal`, `deliv_addr`) VALUES
-(1, 'administrator@1', 'Administrator', '', '', 'admin@gmail.com', '', '$2y$10$8ta5gnLZA9JXHb4.WVjqHOXuQGxnCDrnclgq6tQ9JzR9BxIug3052', '1593087179', '1593101251', '::1', 'vietnamese', 'upload/users/user-avatar.png', 1, '', '', '', '', '', '', '1', '1', 'Y', '1000000', 0, '1', '', '', '', '', '', '', '', 'default');
+(1, 'administrator@1', 'Administrator', '', '', 'admin@gmail.com', '', '$2y$10$8ta5gnLZA9JXHb4.WVjqHOXuQGxnCDrnclgq6tQ9JzR9BxIug3052', '1593087179', '1606407523', '::1', 'vietnamese', 'upload/users/user-avatar.png', 1, '', '', '', '', '', '', '1', '1', 'Y', '999965720003', 0, '1', '', '', '', '', '', '', '', '1'),
+(3, 'hung_nguyen@3', 'Hung', 'Nguyen', '', 'nguyenthanhhungb6@gmail.com', '1154cfbdcce5f2892f12f7b958bc51346563485a', '$2y$10$LpN7Wn7q7cADYMcqKH/IQOrTUeIBNHLcWUFGOfnXVmbumjp/3TX6W', '1606390625', '1606407562', '::1', 'vietnamese', 'upload/users/user-avatar.png', 0, '', '', '', '', '', '', '0', '0', 'Y', '1032565997.15', 2, '1', '', '', '', '', '', '', '', 'default');
 
 -- --------------------------------------------------------
 
@@ -3036,17 +3079,15 @@ INSERT INTO `hex_users` (`id`, `username`, `fname`, `lname`, `bio`, `email`, `em
 -- Cấu trúc bảng cho bảng `hex_verif_requests`
 --
 
-DROP TABLE IF EXISTS `hex_verif_requests`;
-CREATE TABLE IF NOT EXISTS `hex_verif_requests` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_verif_requests` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `full_name` varchar(32) NOT NULL DEFAULT '',
   `message` varchar(600) NOT NULL DEFAULT '',
   `id_photo` varchar(300) NOT NULL DEFAULT '',
   `pr_photo` varchar(300) NOT NULL DEFAULT '',
   `status` enum('pending','rejected') NOT NULL DEFAULT 'pending',
-  `time` varchar(25) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `time` varchar(25) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -3055,16 +3096,14 @@ CREATE TABLE IF NOT EXISTS `hex_verif_requests` (
 -- Cấu trúc bảng cho bảng `hex_wishlist`
 --
 
-DROP TABLE IF EXISTS `hex_wishlist`;
-CREATE TABLE IF NOT EXISTS `hex_wishlist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE `hex_wishlist` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT 0,
   `list_name` varchar(50) NOT NULL DEFAULT '',
   `hash_id` varchar(64) NOT NULL DEFAULT '',
   `type` enum('static','removable') NOT NULL DEFAULT 'removable',
-  `time` varchar(20) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `time` varchar(20) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `hex_wishlist`
@@ -3075,7 +3114,12 @@ INSERT INTO `hex_wishlist` (`id`, `user_id`, `list_name`, `hash_id`, `type`, `ti
 (2, 1, 'Sundry', '62778e4e6c576a5967b4594a2', 'static', '1593087179'),
 (3, 1, 'Buy later', 'c306ee6b02589deef09778e26', 'static', '1593087179'),
 (4, 1, 'Birthday', 'a6b9d69f57d94a826930e4536', 'static', '1593087179'),
-(5, 1, 'Gift Ideas', '6bdb99c24cd3d1d269dd7aa81', 'static', '1593087179');
+(5, 1, 'Gift Ideas', '6bdb99c24cd3d1d269dd7aa81', 'static', '1593087179'),
+(11, 3, 'Favorite', '6b90b6a112f2f408ec5c95c12', 'static', '1606390625'),
+(12, 3, 'Sundry', '62778e4e6c576a5967b4594a2', 'static', '1606390625'),
+(13, 3, 'Buy later', 'c306ee6b02589deef09778e26', 'static', '1606390625'),
+(14, 3, 'Birthday', 'a6b9d69f57d94a826930e4536', 'static', '1606390625'),
+(15, 3, 'Gift Ideas', '6bdb99c24cd3d1d269dd7aa81', 'static', '1606390625');
 
 -- --------------------------------------------------------
 
@@ -3083,15 +3127,499 @@ INSERT INTO `hex_wishlist` (`id`, `user_id`, `list_name`, `hash_id`, `type`, `ti
 -- Cấu trúc bảng cho bảng `hex_wishlist_items`
 --
 
-DROP TABLE IF EXISTS `hex_wishlist_items`;
-CREATE TABLE IF NOT EXISTS `hex_wishlist_items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `list_id` int(11) NOT NULL DEFAULT '0',
-  `prod_id` int(11) NOT NULL DEFAULT '0',
-  `user_id` int(11) NOT NULL DEFAULT '0',
-  `time` varchar(20) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE `hex_wishlist_items` (
+  `id` int(11) NOT NULL,
+  `list_id` int(11) NOT NULL DEFAULT 0,
+  `prod_id` int(11) NOT NULL DEFAULT 0,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `time` varchar(20) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `hex_acc_del_requests`
+--
+ALTER TABLE `hex_acc_del_requests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_admins`
+--
+ALTER TABLE `hex_admins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_admin_sessions`
+--
+ALTER TABLE `hex_admin_sessions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_announcements`
+--
+ALTER TABLE `hex_announcements`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `hex_backups`
+--
+ALTER TABLE `hex_backups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_basket`
+--
+ALTER TABLE `hex_basket`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_blocked_users`
+--
+ALTER TABLE `hex_blocked_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_chat_conversations`
+--
+ALTER TABLE `hex_chat_conversations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_one` (`user_one`),
+  ADD KEY `user_two` (`user_two`);
+
+--
+-- Chỉ mục cho bảng `hex_chat_messages`
+--
+ALTER TABLE `hex_chat_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_checkout_transactions`
+--
+ALTER TABLE `hex_checkout_transactions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_config`
+--
+ALTER TABLE `hex_config`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_currencies`
+--
+ALTER TABLE `hex_currencies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_data_sessions`
+--
+ALTER TABLE `hex_data_sessions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_deliv_addresses`
+--
+ALTER TABLE `hex_deliv_addresses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_langs`
+--
+ALTER TABLE `hex_langs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_languages`
+--
+ALTER TABLE `hex_languages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_market_revenue`
+--
+ALTER TABLE `hex_market_revenue`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_notifications`
+--
+ALTER TABLE `hex_notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifier_id` (`notifier_id`),
+  ADD KEY `recipient_id` (`recipient_id`);
+
+--
+-- Chỉ mục cho bảng `hex_orders`
+--
+ALTER TABLE `hex_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_order_cancellations`
+--
+ALTER TABLE `hex_order_cancellations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_ord_hist_timeline`
+--
+ALTER TABLE `hex_ord_hist_timeline`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_payout_requests`
+--
+ALTER TABLE `hex_payout_requests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_products`
+--
+ALTER TABLE `hex_products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_product_media`
+--
+ALTER TABLE `hex_product_media`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_prod_categories`
+--
+ALTER TABLE `hex_prod_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_prod_ratings`
+--
+ALTER TABLE `hex_prod_ratings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `activity_status` (`activity_status`);
+
+--
+-- Chỉ mục cho bảng `hex_prod_rating_media`
+--
+ALTER TABLE `hex_prod_rating_media`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_prod_reports`
+--
+ALTER TABLE `hex_prod_reports`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_prod_variations`
+--
+ALTER TABLE `hex_prod_variations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_sessions`
+--
+ALTER TABLE `hex_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `hex_sessions_ibfk_1` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `hex_settings`
+--
+ALTER TABLE `hex_settings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Chỉ mục cho bảng `hex_static_pages`
+--
+ALTER TABLE `hex_static_pages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_store_customers`
+--
+ALTER TABLE `hex_store_customers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_temp_data`
+--
+ALTER TABLE `hex_temp_data`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `key` (`name`);
+
+--
+-- Chỉ mục cho bảng `hex_temp_media`
+--
+ALTER TABLE `hex_temp_media`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_users`
+--
+ALTER TABLE `hex_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_verif_requests`
+--
+ALTER TABLE `hex_verif_requests`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_wishlist`
+--
+ALTER TABLE `hex_wishlist`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `hex_wishlist_items`
+--
+ALTER TABLE `hex_wishlist_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `hex_acc_del_requests`
+--
+ALTER TABLE `hex_acc_del_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_admins`
+--
+ALTER TABLE `hex_admins`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_admin_sessions`
+--
+ALTER TABLE `hex_admin_sessions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_announcements`
+--
+ALTER TABLE `hex_announcements`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_backups`
+--
+ALTER TABLE `hex_backups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_basket`
+--
+ALTER TABLE `hex_basket`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_blocked_users`
+--
+ALTER TABLE `hex_blocked_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_chat_conversations`
+--
+ALTER TABLE `hex_chat_conversations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_chat_messages`
+--
+ALTER TABLE `hex_chat_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_checkout_transactions`
+--
+ALTER TABLE `hex_checkout_transactions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_config`
+--
+ALTER TABLE `hex_config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_currencies`
+--
+ALTER TABLE `hex_currencies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_data_sessions`
+--
+ALTER TABLE `hex_data_sessions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_deliv_addresses`
+--
+ALTER TABLE `hex_deliv_addresses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_langs`
+--
+ALTER TABLE `hex_langs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35656;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_languages`
+--
+ALTER TABLE `hex_languages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_market_revenue`
+--
+ALTER TABLE `hex_market_revenue`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_notifications`
+--
+ALTER TABLE `hex_notifications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_orders`
+--
+ALTER TABLE `hex_orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_order_cancellations`
+--
+ALTER TABLE `hex_order_cancellations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_ord_hist_timeline`
+--
+ALTER TABLE `hex_ord_hist_timeline`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_payout_requests`
+--
+ALTER TABLE `hex_payout_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_products`
+--
+ALTER TABLE `hex_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_product_media`
+--
+ALTER TABLE `hex_product_media`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_prod_categories`
+--
+ALTER TABLE `hex_prod_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_prod_ratings`
+--
+ALTER TABLE `hex_prod_ratings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_prod_rating_media`
+--
+ALTER TABLE `hex_prod_rating_media`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_prod_reports`
+--
+ALTER TABLE `hex_prod_reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_prod_variations`
+--
+ALTER TABLE `hex_prod_variations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_sessions`
+--
+ALTER TABLE `hex_sessions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_settings`
+--
+ALTER TABLE `hex_settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_static_pages`
+--
+ALTER TABLE `hex_static_pages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_store_customers`
+--
+ALTER TABLE `hex_store_customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_temp_data`
+--
+ALTER TABLE `hex_temp_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_temp_media`
+--
+ALTER TABLE `hex_temp_media`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_users`
+--
+ALTER TABLE `hex_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_verif_requests`
+--
+ALTER TABLE `hex_verif_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_wishlist`
+--
+ALTER TABLE `hex_wishlist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT cho bảng `hex_wishlist_items`
+--
+ALTER TABLE `hex_wishlist_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
