@@ -1,42 +1,69 @@
+<!--C:\xampp\htdocs\Web-raovat\views\v1\html\footer-->
 <div class="content-container">
 	<div class="top-line">
-		<ul>
+		<ul style="justify-content: space-between; flex-direction: row;">
 			<li>
-				<a href="{{LINK privacy_policy}}">
-					{{TR Privacy Policy}}
-				</a>
+				<h5 style="margin-bottom: 12px;">Hỗ trợ khách hàng</h5>
+				<ul class="list__link" >
+					<li style="padding-top: 5px !important;" class="list__link--item">
+						<a href="{{LINK privacy_policy}}">{{TR Privacy Policy}}</a>
+					</li>
+					<li class="list__link--item">
+						<a href="{{LINK terms}}">{{TR Terms of Use}}</a>	
+					</li>
+					<li class="list__link--item">
+						<a href="{{LINK terms}}">{{TR Terms of Use}}</a>
+					</li>
+					<li class="list__link--item">
+						<a href="{{LINK merchant_terms}}">{{TR Merchant terms}}</a>
+					</li>
+					<li class="list__link--item">
+						<a href="{{LINK help}}">F.A.Q</a>
+					</li>
+					<li  class="list__link--item">
+						<a href="{{LINK contact_us}}">{{TR Contact us}}</a>
+					</li>
+				</ul>
+			</li>		
+			<li>
+				<h5 style="margin-bottom: 12px;">Về EPhone</h5>
+				<ul class="list__link" style="padding: 0; flex-direction: column;">
+					<li class="list__link--item">
+						<a href="{{LINK about}}"> {{TR About us}} </a>
+					</li>
+				</ul>
 			</li>
 			<li>
-				<a href="{{LINK terms}}">
-					{{TR Terms of Use}}
-				</a>
+				<h5 style="margin-bottom: 12px;">Liên kết</h5>
+				<ul class="list__link social" style="flex-direction: row;">
+					<li class="list__link--item">
+						<a href="#"> <img src="/Web-raovat/upload/images/facebook.svg"> </a>
+					</li>
+					<li class="list__link--item">
+						<a href="#"> <img src="/Web-raovat/upload/images/youtube.svg"> </a>
+					</li>
+				</ul>
 			</li>
-			<li>
-				<a href="{{LINK about}}">
-					{{TR About us}}
-				</a>
-			</li>
-			<li>
-				<a href="{{LINK contact_us}}">
-					{{TR Contact us}}
-				</a>
-			</li>
-			<li>
-				<a href="{{LINK merchant_terms}}">
-					{{TR Merchant terms}}
-				</a>
-			</li>
-			<li>
-				<a href="{{LINK help}}">
-					F.A.Q
-				</a>
-			</li>
-
-			<li class="ml-auto copyright">
-				<a href="#">
-					&copy; <?php echo date('Y'); ?> {{CONFIG name}} {{TR All rights reserved}}
-				</a>
-			</li>
+				
 		</ul>
+		<hr>
+		<div style="
+    				padding: 10px 0;
+    				text-align: center;
+    				color: #9697a1;
+    				
+			"> 				
+				
+					Sàn giao dịch EPhone -  Địa chỉ: Khu phố 6, Phường Linh Trung, Quận Thủ Đức, TP. Hồ Chí Minh
+				
+				<br>
+				
+					&copy; <?php echo date('Y'); ?> {{CONFIG name}} {{TR All rights reserved}}
+				
+				<br>
+				
+					Email: Ephone_support@gmail.com - Hotline : 0123456789
+				
+	</div>
 	</div>
 </div>
